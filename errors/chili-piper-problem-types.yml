@@ -1,0 +1,164 @@
+generated: '2026-08-09'
+method: derived
+source:
+- openapi/chili-piper-availability-inspector-openapi.yaml
+- openapi/chili-piper-chat-conversation-inspector-openapi.yaml
+- openapi/chili-piper-concierge-debugger-openapi.yaml
+- openapi/chili-piper-concierge-router-builder-openapi.yaml
+- openapi/chili-piper-concierge-router-configuration-openapi.yaml
+- openapi/chili-piper-distribution-analysis-openapi.yaml
+- openapi/chili-piper-distro-debugger-openapi.yaml
+- openapi/chili-piper-distro-router-configuration-openapi.yaml
+- openapi/chili-piper-handoff-router-configuration-openapi.yaml
+- openapi/chili-piper-meeting-inspector-openapi.yaml
+- openapi/chili-piper-meeting-type-management-openapi.yaml
+- openapi/chili-piper-no-show-analyzer-openapi.yaml
+- openapi/chili-piper-org-meeting-openapi.yaml
+- openapi/chili-piper-routing-audit-openapi.yaml
+- openapi/chili-piper-scheduling-link-management-openapi.yaml
+- openapi/chili-piper-user-copy-openapi.yaml
+- openapi/chili-piper-user-details-openapi.yaml
+- openapi/chili-piper-user-meetings-openapi.yaml
+- openapi/chili-piper-user-offboarding-openapi.yaml
+format: plain-text
+rfc9457: false
+description: 'Derived from the error responses declared across the 19 published Chili Piper OpenAPI documents. Chili Piper does NOT implement RFC 9457 problem+json: every declared 4xx and default response is text/plain, and no machine-readable error type, code or envelope schema is published. There is no separate error-code reference in the help center. Agents must treat the response body as an opaque human-readable string and branch on HTTP status only.'
+envelope:
+  media_type: text/plain
+  schema: string
+  error_code_field: null
+  request_id_field: null
+statuses_declared:
+- '400'
+- default
+gaps:
+- No 401/403 responses are declared in the specs even though the auth scheme documents a 401 for a missing Bearer prefix.
+- No 429 rate-limit response is declared anywhere in the published specs.
+- No 5xx responses are declared anywhere in the published specs.
+- No problem+json, no error code registry, no correlation/request id documented.
+problems:
+- status: default
+  title: (no description)
+  occurrences: 145
+  media_type: text/plain
+  source_operation: openapi/chili-piper-availability-inspector-openapi.yaml#userFind
+- status: '400'
+  title: 'Invalid value for: body'
+  occurrences: 47
+  media_type: text/plain
+  source_operation: openapi/chili-piper-availability-inspector-openapi.yaml#availabilitySlots
+- status: '400'
+  title: 'Invalid value for: query parameter page, Invalid value for: query parameter pageSize'
+  occurrences: 18
+  media_type: text/plain
+  source_operation: openapi/chili-piper-chat-conversation-inspector-openapi.yaml#workspaceList
+- status: '400'
+  title: 'Invalid value for: query parameter query, Invalid value for: query parameter page, Invalid value for: query parameter pageSize'
+  occurrences: 9
+  media_type: text/plain
+  source_operation: openapi/chili-piper-availability-inspector-openapi.yaml#userFind
+- status: '400'
+  title: 'Invalid value for: query parameter workspaceId'
+  occurrences: 8
+  media_type: text/plain
+  source_operation: openapi/chili-piper-concierge-router-builder-openapi.yaml#meetingTypeList
+- status: '400'
+  title: 'Invalid value for: path parameter routerId'
+  occurrences: 8
+  media_type: text/plain
+  source_operation: openapi/chili-piper-concierge-router-builder-openapi.yaml#conciergeRouterGet
+- status: '400'
+  title: 'Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: query parameter workspaceId'
+  occurrences: 6
+  media_type: text/plain
+  source_operation: openapi/chili-piper-concierge-debugger-openapi.yaml#ruleList
+- status: '400'
+  title: 'Invalid value for: path parameter userId'
+  occurrences: 5
+  media_type: text/plain
+  source_operation: openapi/chili-piper-availability-inspector-openapi.yaml#userRead
+- status: '400'
+  title: 'Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: body'
+  occurrences: 5
+  media_type: text/plain
+  source_operation: openapi/chili-piper-chat-conversation-inspector-openapi.yaml#userFindByIds
+- status: '400'
+  title: 'Invalid value for: query parameter workspaceId, Invalid value for: query parameter routerId, Invalid value for: query parameter start, Invalid value for: query parameter end'
+  occurrences: 4
+  media_type: text/plain
+  source_operation: openapi/chili-piper-concierge-debugger-openapi.yaml#conciergeLogs
+- status: '400'
+  title: 'Invalid value for: path parameter linkId, Invalid value for: body'
+  occurrences: 4
+  media_type: text/plain
+  source_operation: openapi/chili-piper-scheduling-link-management-openapi.yaml#schedulingLinkUpdateRoundRobin
+- status: '400'
+  title: 'Invalid value for: path parameter linkId'
+  occurrences: 4
+  media_type: text/plain
+  source_operation: openapi/chili-piper-scheduling-link-management-openapi.yaml#schedulingLinkDeleteRoundRobin
+- status: '400'
+  title: 'Invalid value for: path parameter routerId, Invalid value for: body'
+  occurrences: 3
+  media_type: text/plain
+  source_operation: openapi/chili-piper-concierge-router-configuration-openapi.yaml#conciergeRouterUpdate
+- status: '400'
+  title: 'Invalid value for: path parameter meetingId'
+  occurrences: 2
+  media_type: text/plain
+  source_operation: openapi/chili-piper-meeting-inspector-openapi.yaml#meetingGet
+- status: '400'
+  title: 'Invalid value for: path parameter meetingTypeId'
+  occurrences: 2
+  media_type: text/plain
+  source_operation: openapi/chili-piper-meeting-type-management-openapi.yaml#meetingTypeGet
+- status: '400'
+  title: 'Invalid value for: path parameter meetingTypeId, Invalid value for: path parameter reminderId'
+  occurrences: 2
+  media_type: text/plain
+  source_operation: openapi/chili-piper-meeting-type-management-openapi.yaml#meetingTypeAttachReminder
+- status: '400'
+  title: 'Invalid value for: query parameter workspaceId, Invalid value for: query parameter page, Invalid value for: query parameter pageSize'
+  occurrences: 2
+  media_type: text/plain
+  source_operation: openapi/chili-piper-user-copy-openapi.yaml#workspaceListUsers
+- status: '400'
+  title: 'Invalid value for: query parameter workspaceId, Invalid value for: query parameter start, Invalid value for: query parameter end, Invalid value for: query parameter guestEmail, Invalid value for: query parameter guestId, Invalid value for: query parameter ruleId, Invalid value for: query parameter page, Invalid value for: query parameter pageSize'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-chat-conversation-inspector-openapi.yaml#chatLogs
+- status: '400'
+  title: 'Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: query parameter workspaceId, Invalid value for: body'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-distro-debugger-openapi.yaml#distroLogs
+- status: '400'
+  title: 'Invalid value for: query parameter routerId'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-distro-debugger-openapi.yaml#distroLogGet
+- status: '400'
+  title: 'Invalid value for: path parameter routerId, Invalid value for: query parameter force'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-distro-router-configuration-openapi.yaml#distroRouterDeactivate
+- status: '400'
+  title: 'Invalid value for: path parameter meetingTypeId, Invalid value for: body'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-meeting-type-management-openapi.yaml#meetingTypeUpdate
+- status: '400'
+  title: 'Invalid value for: path parameter reminderId, Invalid value for: query parameter workspaceId, Invalid value for: body'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-meeting-type-management-openapi.yaml#meetingTypeReminderUpdate
+- status: '400'
+  title: 'Invalid value for: path parameter reminderId, Invalid value for: query parameter workspaceId'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-meeting-type-management-openapi.yaml#meetingTypeReminderDelete
+- status: '400'
+  title: 'Invalid value for: path parameter teamId'
+  occurrences: 1
+  media_type: text/plain
+  source_operation: openapi/chili-piper-user-offboarding-openapi.yaml#teamDelete

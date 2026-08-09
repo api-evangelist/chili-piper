@@ -1,0 +1,55 @@
+generated: '2026-08-09'
+method: searched
+source:
+  - https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - https://status.chilipiper.com/api/v2/summary.json
+  - openapi/ (19 published OpenAPI 3.1.0 documents)
+versioning:
+  scheme: uri-path
+  current: mixed
+  observed: [v1, v2, v3]
+  note: >-
+    Version is per-resource rather than global. Most Edge API operations sit at /v1/org/..., team
+    create/delete/list plus distribution list and meeting list sit at /v2/..., and meeting export
+    sits at /v3/org/meetings/meetings/export. Older and newer versions of the same capability are
+    served concurrently.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: null
+  note: >-
+    No deprecation policy, sunset schedule or RFC 8594 Sunset/Deprecation header support is
+    published. Deprecation is communicated inline in help-center prose only - the Edge API
+    References article lists "List personal scheduling link URLs (deprecated)" with no removal date
+    or migration window.
+  deprecated_surfaces:
+    - name: List personal scheduling link URLs
+      status: deprecated
+      source: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+      sunset_date: null
+deprecated_operations: []
+deprecated_operations_note: >-
+  No operation in any of the 19 published OpenAPI documents carries `deprecated: true`.
+sla:
+  url: null
+  uptime_target: null
+  note: 'No public SLA or uptime target is published; enterprise SLAs are contractual.'
+status_page:
+  url: https://status.chilipiper.com/
+  platform: Atlassian Statuspage
+  api: https://status.chilipiper.com/api/v2/summary.json
+  components_tracked:
+    - Demand Conversion Platform (Fire)
+    - Booking
+    - Booking Links
+    - Chat
+    - Distro
+    - Providers
+  incident_history: https://status.chilipiper.com/api/v2/incidents.json
+  recent_incidents:
+    - {date: '2026-06-22', name: 'Issues with booking/routing affecting HubSpot customers', status: resolved}
+    - {date: '2026-05-15', name: 'Degraded performance through Distro routing', status: resolved}
+    - {date: '2026-04-15', name: 'Routing Failures Due to Rule Processing Issues', status: resolved}
+release_notes:
+  - {name: 'What is New in The Demand Conversion Platform', url: 'https://help.chilipiper.com/hc/en-us/sections/36278148363283-What-is-New-in-The-Demand-Conversion-Platform'}
+  - {name: 'Product Updates', url: 'https://help.chilipiper.com/hc/en-us/sections/20661971965971-Product-Updates'}

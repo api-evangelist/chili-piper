@@ -1,0 +1,418 @@
+generated: '2026-08-09'
+method: derived
+source:
+- mcp/chili-piper-mcp.yml
+- openapi/chili-piper-availability-inspector-openapi.yaml
+- openapi/chili-piper-chat-conversation-inspector-openapi.yaml
+- openapi/chili-piper-concierge-debugger-openapi.yaml
+- openapi/chili-piper-concierge-router-builder-openapi.yaml
+- openapi/chili-piper-concierge-router-configuration-openapi.yaml
+- openapi/chili-piper-distribution-analysis-openapi.yaml
+- openapi/chili-piper-distro-debugger-openapi.yaml
+- openapi/chili-piper-distro-router-configuration-openapi.yaml
+- openapi/chili-piper-handoff-router-configuration-openapi.yaml
+- openapi/chili-piper-meeting-inspector-openapi.yaml
+- openapi/chili-piper-meeting-type-management-openapi.yaml
+- openapi/chili-piper-no-show-analyzer-openapi.yaml
+- openapi/chili-piper-org-meeting-openapi.yaml
+- openapi/chili-piper-routing-audit-openapi.yaml
+- openapi/chili-piper-scheduling-link-management-openapi.yaml
+- openapi/chili-piper-user-copy-openapi.yaml
+- openapi/chili-piper-user-details-openapi.yaml
+- openapi/chili-piper-user-meetings-openapi.yaml
+- openapi/chili-piper-user-offboarding-openapi.yaml
+description: Binds each documented Chili Piper MCP tool to the backing Edge API operation published in the Chili-Piper/mcp-assets GPT action specs. The live MCP tools/list is auth-gated (401 anonymous), so tools are mapped by name and documented semantics, not by comparing live inputSchemas; every REST target below was verified to exist verbatim as an operationId in this repo openapi/ set.
+surfaces:
+  openapi:
+    files: 19
+    operations: 73
+    servers: https://fire.chilipiper.com/api/fire-edge
+    gated: false
+    note: 19 first-party OpenAPI 3.1.0 documents published as ChatGPT GPT action schemas; each is a task-scoped subset of the Edge API, not the full surface.
+  graphql:
+    present: false
+  mcp:
+    url: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+    gated: true
+    evidence: POST tools/list anonymous -> 401 Unauthorized
+crosswalk:
+- tool: tenant-get
+  category: organization
+  rest:
+  - tenantGet
+  binding: rest
+  http: GET /v1/org/tenant/get
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: user-find
+  category: users
+  rest:
+  - userFind
+  binding: rest
+  http: GET /v1/org/user/find
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: user-find-by-ids
+  category: users
+  rest:
+  - userFindByIds
+  binding: rest
+  http: POST /v1/org/user/find-by-id
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: user-read
+  category: users
+  rest:
+  - userRead
+  binding: rest
+  http: GET /v1/org/user/read/{userId}
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: user-update-licenses
+  category: users
+  rest:
+  - userUpdateLicenses
+  binding: rest
+  http: POST /v1/org/user/licenses
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: workspace-list
+  category: workspaces
+  rest:
+  - workspaceList
+  binding: rest
+  http: GET /v1/org/workspace
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: workspace-list-users
+  category: workspaces
+  rest:
+  - workspaceListUsers
+  binding: rest
+  http: GET /v1/org/workspace/users
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: workspace-add-users
+  category: workspaces
+  rest:
+  - workspaceAddUsers
+  binding: rest
+  http: POST /v1/org/workspace/users/add
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: workspace-remove-users
+  category: workspaces
+  rest:
+  - workspaceRemoveUsers
+  binding: rest
+  http: POST /v1/org/workspace/users/remove
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: team-list-put
+  category: teams
+  rest:
+  - teamListPut
+  binding: rest
+  http: PUT /v2/org/team
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: team-add-users
+  category: teams
+  rest:
+  - teamAddUsers
+  binding: rest
+  http: POST /v1/org/team/users/add
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: team-remove-users
+  category: teams
+  rest:
+  - teamRemoveUsers
+  binding: rest
+  http: POST /v1/org/team/users/remove
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: distribution-list-put
+  category: distributions
+  rest:
+  - distributionListPut
+  binding: rest
+  http: PUT /v2/org/distribution/list
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: distribution-create
+  category: distributions
+  rest:
+  - distributionCreate
+  binding: rest
+  http: POST /v1/org/distribution
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: rule-list
+  category: rules
+  rest:
+  - ruleList
+  binding: rest
+  http: GET /v1/org/rule/list
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: rule-create
+  category: rules
+  rest:
+  - ruleCreate
+  binding: rest
+  http: POST /v1/org/rule
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: meeting-list-put
+  category: meetings
+  rest:
+  - meetingListPut
+  binding: rest
+  http: PUT /v2/org/meetings/meetings
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: meeting-get
+  category: meetings
+  rest:
+  - meetingGet
+  binding: rest
+  http: GET /v1/org/meetings/get/{meetingId}
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: meeting-export-v2-put
+  category: meetings
+  rest:
+  - meetingExportV2Put
+  binding: rest
+  http: PUT /v3/org/meetings/meetings/export
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: meeting-cancel
+  category: meetings
+  rest:
+  - meetingCancel
+  binding: rest
+  http: GET /v1/org/meetings/cancel/{meetingId}
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: scheduling-link-list-personal
+  category: scheduling
+  rest:
+  - schedulingLinkListPersonal
+  binding: rest
+  http: GET /v1/org/schedulingLinks/list-personal/{userId}
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: scheduling-link-list-round-robin
+  category: scheduling
+  rest:
+  - schedulingLinkListRoundRobin
+  binding: rest
+  http: POST /v1/org/schedulingLinks/list-round-robin
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: scheduling-link-list-admin-one-on-one
+  category: scheduling
+  rest:
+  - schedulingLinkListAdminOneOnOne
+  binding: rest
+  http: POST /v1/org/schedulingLinks/list-admin-one-on-one
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: scheduling-link-list-group
+  category: scheduling
+  rest:
+  - schedulingLinkListGroup
+  binding: rest
+  http: POST /v1/org/schedulingLinks/list-group
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: scheduling-link-list-ownership
+  category: scheduling
+  rest:
+  - schedulingLinkListOwnership
+  binding: rest
+  http: POST /v1/org/schedulingLinks/list-ownership
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: availability-slots
+  category: scheduling
+  rest:
+  - availabilitySlots
+  binding: rest
+  http: POST /v1/org/availability/slots
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: concierge-list-routers
+  category: concierge
+  rest:
+  - conciergeListRouters
+  binding: rest
+  http: POST /v1/org/concierge/routers/concierge/list
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: concierge-logs
+  category: concierge
+  rest:
+  - conciergeLogs
+  binding: rest
+  http: POST /v1/org/concierge/logs
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+- tool: distro-list-routers
+  category: distro
+  rest:
+  - distroListRouters
+  binding: rest
+  http: POST /v1/org/distro/routers/list
+  confidence: high
+  note: Name and semantics align 1:1 with the published operation; input contract is that operation parameters + requestBody.
+mcp_only:
+- tool: health-ping
+  category: organization
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: user-find-by-filter
+  category: users
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: user-invite
+  category: users
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: workspace-remove-users-all
+  category: workspaces
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: team-remove-users-all
+  category: teams
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: distribution-update-v3
+  category: distributions
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: distribution-adjust-v3
+  category: distributions
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: distribution-delete
+  category: distributions
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: rule-get
+  category: rules
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: rule-modify
+  category: rules
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: rule-delete
+  category: rules
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: meeting-patch
+  category: meetings
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: meeting-noshow
+  category: meetings
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: meeting-activity
+  category: meetings
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: scheduling-link-init
+  category: scheduling
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: scheduling-link-schedule
+  category: scheduling
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: handoff-init
+  category: handoff
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: handoff-schedule
+  category: handoff
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: concierge-route
+  category: concierge
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: concierge-route-by-slug
+  category: concierge
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: concierge-schedule
+  category: concierge
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: resource-scheduler-run
+  category: distro
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: crm-get
+  category: crm
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: crm-cancel
+  category: crm
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: crm-noshow
+  category: crm
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+- tool: crm-activity
+  category: crm
+  reason: No matching operationId in the published GPT-action OpenAPI subset. Chili Piper documents an equivalent Edge API endpoint in the Edge API References article, but it is not covered by the specs published in Chili-Piper/mcp-assets.
+rest_only:
+- capability: chat
+  operations:
+  - chatLogs
+- capability: concierge
+  operations:
+  - conciergeRouterCreate
+  - conciergeRouterDelete
+  - conciergeRouterGet
+  - conciergeRouterUpdate
+- capability: distribution
+  operations:
+  - distributionWorkspaceSettingsGet
+- capability: distro
+  operations:
+  - distroLogGet
+  - distroLogs
+  - distroRouterActivate
+  - distroRouterCreate
+  - distroRouterDeactivate
+  - distroRouterDelete
+  - distroRouterGet
+  - distroRouterUpdate
+- capability: handoff
+  operations:
+  - handoffRouterCreate
+  - handoffRouterDelete
+  - handoffRouterGet
+  - handoffRouterList
+  - handoffRouterUpdate
+- capability: meeting-type
+  operations:
+  - meetingTypeAttachReminder
+  - meetingTypeCreate
+  - meetingTypeDelete
+  - meetingTypeDetachReminder
+  - meetingTypeGet
+  - meetingTypeList
+  - meetingTypeUpdate
+- capability: meeting-type-reminder
+  operations:
+  - meetingTypeReminderCreate
+  - meetingTypeReminderDelete
+  - meetingTypeReminderList
+  - meetingTypeReminderUpdate
+- capability: schedulingLinks
+  operations:
+  - schedulingLinkCreateAdminOneOnOne
+  - schedulingLinkCreateGroup
+  - schedulingLinkCreateOwnership
+  - schedulingLinkCreateRoundRobin
+  - schedulingLinkDeleteAdminOneOnOne
+  - schedulingLinkDeleteGroup
+  - schedulingLinkDeleteOwnership
+  - schedulingLinkDeleteRoundRobin
+  - schedulingLinkUpdateAdminOneOnOne
+  - schedulingLinkUpdateGroup
+  - schedulingLinkUpdateOwnership
+  - schedulingLinkUpdateRoundRobin
+- capability: team
+  operations:
+  - teamCreate
+  - teamDelete
+coverage:
+  tools_documented: 55
+  tools_bound: 29
+  tools_unbound: 26
+  rest_operations_total: 73
+  rest_operations_with_tool: 29

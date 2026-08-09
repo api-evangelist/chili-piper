@@ -1,0 +1,33 @@
+generated: '2026-08-09'
+method: searched
+source: https://help.chilipiper.com/hc/en-us/articles/32588330506643-Concierge-Snippet-and-JS-API
+description: >-
+  Chili Piper ships client-side embeddable surfaces rather than server-side UI SDKs. The Concierge
+  JavaScript snippet is the primary embed - it intercepts a form submission, submits the lead to
+  routing, and renders the booking experience inline or as a modal.
+families:
+  - name: Concierge JS embed
+    loader: https://<tenant-subdomain>.chilipiper.com/concierge-js/cjs/concierge.js
+    loader_note: >-
+      The loader script is per-tenant - the subdomain is the customer's own Chili Piper account
+      subdomain. There is no single shared CDN URL (js.chilipiper.com/concierge.js returns 404).
+    js_api:
+      - {method: 'ChiliPiper.deploy(domain, router, options)', description: 'Installs the router against a form on the page (embedded snippet).'}
+      - {method: 'ChiliPiper.submit(domain, router, options)', description: 'Submits lead data from your own JavaScript and triggers routing (JS API).'}
+    packages:
+      - "@chilipiper/concierge"
+      - "@chilipiper/conciergejs-fire"
+    docs: https://help.chilipiper.com/hc/en-us/articles/32588330506643-Concierge-Snippet-and-JS-API
+    surfaces:
+      - name: Concierge booking modal / inline router
+        description: Renders the routing + scheduling experience after a form submission.
+    callbacks_docs: https://help.chilipiper.com/hc/en-us/articles/16883161528339-JS-Snippet-Callback-Methods
+  - name: Scheduling links
+    description: >-
+      Hosted booking pages backed by personal, round-robin, admin one-on-one, group and ownership
+      scheduling links, manageable through the Edge API schedulingLinks operations.
+    docs: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+form_platform_embeds:
+  - {platform: Marketo, docs: https://help.chilipiper.com/hc/en-us/articles/4402791775123-Using-the-Concierge-with-Marketo-Forms}
+  - {platform: Pardot, docs: https://help.chilipiper.com/hc/en-us/articles/4406630211859-Implementing-Concierge-with-Pardot-Form-Handlers}
+  - {platform: Webflow, docs: https://help.chilipiper.com/hc/en-us/articles/18220441701907-Setting-Up-Form-Concierge-with-Webflow}

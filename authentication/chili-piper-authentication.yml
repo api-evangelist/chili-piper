@@ -1,0 +1,42 @@
+generated: '2026-08-09'
+method: derived
+source: openapi/chili-piper-availability-inspector-openapi.yaml, openapi/chili-piper-chat-conversation-inspector-openapi.yaml,
+  openapi/chili-piper-concierge-debugger-openapi.yaml, openapi/chili-piper-concierge-router-builder-openapi.yaml,
+  openapi/chili-piper-concierge-router-configuration-openapi.yaml, openapi/chili-piper-distribution-analysis-openapi.yaml,
+  openapi/chili-piper-distro-debugger-openapi.yaml, openapi/chili-piper-distro-router-configuration-openapi.yaml,
+  openapi/chili-piper-handoff-router-configuration-openapi.yaml, openapi/chili-piper-meeting-inspector-openapi.yaml,
+  openapi/chili-piper-meeting-type-management-openapi.yaml, openapi/chili-piper-no-show-analyzer-openapi.yaml
+  ...
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>''
+    — the word ''Bearer'' followed by a space and the key is required. Sending the key without
+    the Bearer prefix returns 401.'
+  sources:
+  - openapi/chili-piper-availability-inspector-openapi.yaml
+  - openapi/chili-piper-chat-conversation-inspector-openapi.yaml
+  - openapi/chili-piper-concierge-debugger-openapi.yaml
+  - openapi/chili-piper-concierge-router-builder-openapi.yaml
+  - openapi/chili-piper-concierge-router-configuration-openapi.yaml
+  - openapi/chili-piper-distribution-analysis-openapi.yaml
+  - openapi/chili-piper-distro-debugger-openapi.yaml
+  - openapi/chili-piper-distro-router-configuration-openapi.yaml
+  - openapi/chili-piper-handoff-router-configuration-openapi.yaml
+  - openapi/chili-piper-meeting-inspector-openapi.yaml
+  - openapi/chili-piper-meeting-type-management-openapi.yaml
+  - openapi/chili-piper-no-show-analyzer-openapi.yaml
+  - openapi/chili-piper-org-meeting-openapi.yaml
+  - openapi/chili-piper-routing-audit-openapi.yaml
+  - openapi/chili-piper-scheduling-link-management-openapi.yaml
+  - openapi/chili-piper-user-copy-openapi.yaml
+  - openapi/chili-piper-user-details-openapi.yaml
+  - openapi/chili-piper-user-meetings-openapi.yaml
+  - openapi/chili-piper-user-offboarding-openapi.yaml

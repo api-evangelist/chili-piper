@@ -1,0 +1,46 @@
+generated: '2026-08-09'
+method: probed
+description: >-
+  /.well-known probes across every Chili Piper host in this profile. IMPORTANT - the hosts
+  fire.chilipiper.com, api.chilipiper.com, edge.chilipiper.com, developer.chilipiper.com,
+  docs.chilipiper.com, roadmap.chilipiper.com and feedback.chilipiper.com answer HTTP 200 with an
+  SPA/login HTML shell for ANY path, including paths that do not exist. Every 200 recorded below was
+  differentiated against a random control path on the same host; only responses that differ from the
+  control and parse as their declared type are recorded as present.
+soft_404_controls:
+  - {host: developer.chilipiper.com, control_path: /zzz-ae-control-notreal, status: 200, bytes: 1371, verdict: catch-all}
+  - {host: api.chilipiper.com, control_path: /zzz-ae-control-notreal, status: 200, bytes: 1371, verdict: catch-all}
+  - {host: edge.chilipiper.com, control_path: /zzz-ae-control-notreal, status: 200, bytes: 1371, verdict: catch-all}
+  - {host: fire.chilipiper.com, control_path: /zzz-ae-control-notreal, status: 200, bytes: 735079, verdict: 'catch-all (Keycloak login shell)'}
+  - {host: www.chilipiper.com, control_path: /zzz-ae-control-notreal, status: 404, verdict: 'honest 404 - probes on this host are trustworthy'}
+hosts:
+  - host: https://www.chilipiper.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /llms.txt, status: 200, content_type: 'text/plain; charset=utf-8', bytes: 10816, file: ../llms/chili-piper-llms.txt}
+  - host: https://fire.chilipiper.com
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: application/json
+        file: chili-piper-oauth-protected-resource.json
+        spec: RFC 9728 OAuth 2.0 Protected Resource Metadata
+        note: 'Real JSON, distinct from the host catch-all. Advertises the MCP endpoint as both resource and authorization server.'
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /auth/realms/chilipiper/.well-known/openid-configuration, status: 404, body: 'Not found'}
+summary:
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  oauth_protected_resource: true
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false
+  llms_txt: true

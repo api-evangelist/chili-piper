@@ -1,0 +1,124 @@
+generated: '2026-08-09'
+method: searched
+source: https://github.com/Chili-Piper/mcp-assets
+license: Dual license - MIT (code) - see https://github.com/Chili-Piper/mcp-assets/blob/main/LICENSE
+description: Official Chili Piper Agent Skills, published by Chili Piper in the Chili-Piper/mcp-assets repository and distributed as a Claude Code plugin marketplace (chili-piper-skills). Saved verbatim. Each skill drives the hosted Chili Piper MCP server; ChatGPT equivalents ship as GPT action OpenAPI specs, harvested into openapi/.
+install:
+  claude_code: /plugin marketplace add https://github.com/Chili-Piper/mcp-assets
+  plugin: /plugin install chili-piper-skills@chili-piper-skills
+harvested_commit: 130f298
+skills:
+- file: chili-piper-availability-inspector.md
+  name: availability-inspector
+  version: 0.1.2
+  description: Checks why a rep or team is showing no available slots — diagnoses calendar connectivity, working hours, meeting limits, and distribution membership to find the specific blocker
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/availability-inspector/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-chat-conversation-inspector.md
+  name: chat-conversation-inspector
+  version: 0.1.1
+  description: Inspects Chili Piper Chat AI conversation logs for a workspace — routing-outcome breakdowns (Routed/NotRouted/Abandoned), full bot/guest transcripts, and abandonment analysis. Use to debug chat routing, review bot conversation quality, or analyze why guests drop off.
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/chat-conversation-inspector/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-concierge-debugger.md
+  name: concierge-debugger
+  version: 0.2.4
+  description: Debugs why a specific lead did not book — traces the concierge routing session, identifies the rule that fired (or why none did), and recommends a targeted fix
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/concierge-debugger/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-concierge-router-builder.md
+  name: concierge-router-builder
+  version: 0.1.2
+  description: Guides an admin through building a complete Concierge web-form router from scratch — teams, meeting types, rules, distributions, and the live router — via a discovery interview and confirmation checkpoint. Data fields and form mapping stay UI-only (no API).
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/concierge-router-builder/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-concierge-router-configuration.md
+  name: concierge-router-configuration
+  version: 0.1.4
+  description: Creates, reads, updates, and deletes Chili Piper Concierge routers — the web-form routing configs that decide which rep a form submission books with. Always-live writes with dry-run diffs and representability checks; the write complement to concierge-debugger/routing-audit.
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/concierge-router-configuration/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-distribution-analysis.md
+  name: distribution-analysis
+  version: 0.2.0
+  description: Analyzes a Chili Piper round-robin distribution for a workspace and date range — meeting counts by rep, imbalance vs. configured weights, day-of-week and source skew, and cancellations — interpreted against the workspace's fairness settings (credit-back, vacation calibration, reset period). Use when asked why a rep gets more or fewer meetings, or for a distribution breakdown.
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/distribution-analysis/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-distro-debugger.md
+  name: distro-debugger
+  version: 0.3.1
+  description: Debugs why a CRM record was routed (or not routed) through a Chili Piper distribution — accepts a log ID, Salesforce record ID, or contact/lead name, explains each rule stage, and recommends a targeted fix
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/distro-debugger/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-distro-router-configuration.md
+  name: distro-router-configuration
+  version: 0.2.0
+  description: Creates, updates, activates/deactivates, and deletes Chili Piper Distro (lead-routing) routers — full lifecycle with dry-run diffs, async status polling, overlay-aware updates, and delete safety gates. Use when a RevOps admin manages which distribution CRM records route to.
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/distro-router-configuration/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-handoff-router-configuration.md
+  name: handoff-router-configuration
+  version: 0.1.3
+  description: Creates, reads, updates, and deletes Chili Piper Handoff routers — the rep-to-rep handoff routing configurations that decide who receives a handoff and which meeting type gets booked. Always-live writes with dry-run diffs, representability checks, and delete confirmation.
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/handoff-router-configuration/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-meeting-inspector.md
+  name: meeting-inspector
+  version: 0.3.3
+  description: Deep-dives into a single Chili Piper meeting — booking trigger, routing path, rep assignment, and outcome — to diagnose what happened and surface a next action.
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/meeting-inspector/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-meeting-type-management.md
+  name: meeting-type-management
+  version: 0.1.1
+  description: Manages Chili Piper team meeting types and their email/SMS reminders — list, inspect, create, update, delete — with dry-run planning, guest-visible-field safety (inviteTitle/inviteDescription vs internal description), and reminder attach/detach.
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/meeting-type-management/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-no-show-analyzer.md
+  name: no-show-analyzer
+  version: 0.3.5
+  description: Analyzes Chili Piper meeting no-show patterns by trigger type, routing path, rep, or workspace using meeting-list-put and concierge-logs to surface actionable optimization opportunities
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/no-show-analyzer/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-org-meeting.md
+  name: org-meeting
+  version: 0.1.4
+  description: Org-wide meeting volume and health snapshot — total booked, completed, no-show, and cancelled by workspace — for weekly or monthly executive reviews of booking capacity and pipeline coverage
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/org-meeting/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-routing-audit.md
+  name: routing-audit
+  version: 0.2.4
+  description: Audits all Chili Piper concierge routers for coverage gaps — unmapped lead sources, stale ownership rules, unbalanced distributions, and catch-all overflows — before they show up as lost pipeline
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/routing-audit/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-scheduling-link-management.md
+  name: scheduling-link-management
+  version: 0.1.0
+  description: Lists, creates, updates, and deletes Chili Piper scheduling links across all four admin link types (round-robin, admin one-on-one, group, ownership) plus personal-link auditing — with dry-run planning and delete safety (deletion instantly breaks the link's booking URL).
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/scheduling-link-management/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-user-copy.md
+  name: user-copy
+  version: 0.1.5
+  description: Copies a user's Chili Piper workspace and team memberships (and, optionally, product licenses) to a new or existing user — eliminating manual re-configuration when onboarding a rep onto an existing territory or replacing a departing rep
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/user-copy/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-user-details.md
+  name: user-details
+  version: 0.1.6
+  description: Pulls a full profile for any Chili Piper user — teams, workspaces, meeting types, scheduling links, and recent meeting activity — for onboarding audits, offboarding checks, and rep-level troubleshooting
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/user-details/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-user-meetings.md
+  name: user-meetings
+  version: 0.5.0
+  description: Shows all meetings assigned to a specific rep for a period — volume, statuses, and no-show rate — to surface rep-level pipeline health and flag reps who may need coaching or routing changes
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/user-meetings/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+- file: chili-piper-user-offboarding.md
+  name: user-offboarding
+  version: 0.1.8
+  description: Safely removes a departing Chili Piper rep — surfaces open meetings that need reassignment, removes them from workspaces and teams, and produces an audit trail — making rep offboarding repeatable and zero-leak
+  source: https://github.com/Chili-Piper/mcp-assets/blob/main/skills/user-offboarding/SKILL.md
+  mcp: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp

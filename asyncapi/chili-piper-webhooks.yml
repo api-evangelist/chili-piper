@@ -1,0 +1,75 @@
+generated: '2026-08-09'
+method: searched
+source: https://help.chilipiper.com/hc/en-us/articles/39402611091475-Custom-Webhook-Configuration
+spec_type: none
+asyncapi_published: false
+description: >-
+  Chili Piper publishes an outbound webhook surface for meeting lifecycle events, configured per
+  organization in Command Center under Integrations. It publishes no AsyncAPI document and no
+  JSON Schema for the payload - the body shape below is transcribed from the single documented
+  example in the help center. There is no documented signing, retry or replay mechanism.
+configuration:
+  ui_path: 'Command Center > Integrations > Custom Webhooks'
+  permissions: 'Admins or Workspace Managers'
+  multiplicity: >-
+    Unlimited webhooks. Multiple webhook types may share one URL, and one type may fan out to
+    multiple URLs. A webhook must be explicitly toggled Enabled after creation.
+transport: {protocol: https, method: POST, content_type: application/json}
+events:
+  - name: New Meeting
+    type_field_value: Created
+    description: Fires for every new meeting booked, regardless of source.
+  - name: Meeting Update
+    type_field_value: Updated
+    description: Fires whenever a meeting is updated - for example reassigned or rescheduled.
+    note: 'The `type` field value for updates is not stated explicitly in the documentation; only "Created" is shown in the published example.'
+  - name: Canceled Meeting
+    type_field_value: Canceled
+    description: Fires when a user or prospect cancels the meeting from any source.
+    note: 'Value inferred from the event name; not shown in the published example payload.'
+payload:
+  documented_example: https://help.chilipiper.com/hc/en-us/articles/39402611091475-Custom-Webhook-Configuration
+  schema_published: false
+  fields:
+    - {name: meetingIdChili, type: uuid}
+    - {name: meetingTitle, type: string}
+    - {name: meetingDescription, type: string}
+    - {name: meetingLocation, type: string}
+    - {name: meetingStartTime, type: date-time}
+    - {name: meetingEndTime, type: date-time}
+    - {name: primaryGuestTimeZone, type: string}
+    - {name: hostEmail, type: string}
+    - {name: hostFullName, type: string}
+    - {name: hostIdChili, type: uuid}
+    - {name: assigneeEmail, type: string}
+    - {name: assigneeFullName, type: string}
+    - {name: assigneeIdChili, type: uuid}
+    - {name: primaryGuestEmail, type: string}
+    - {name: primaryGuestDataFields, type: object}
+    - {name: additionalGuests, type: 'array<object{email,fullName}>'}
+    - {name: bookerEmail, type: string}
+    - {name: bookerName, type: string}
+    - {name: bookerIdChili, type: uuid}
+    - {name: workspaceName, type: string}
+    - {name: workspaceIdChili, type: uuid}
+    - {name: productFeatureType, type: string, example: ConciergeRouter}
+    - {name: productFeatureName, type: string}
+    - {name: productFeatureIdChili, type: uuid}
+    - {name: distributionName, type: string}
+    - {name: distributionIdChili, type: uuid}
+    - {name: meetingTypeName, type: string}
+    - {name: meetingTypeIdChili, type: uuid}
+    - {name: type, type: string, description: 'Event discriminator; "Created" in the published example.'}
+security:
+  signing: none documented
+  authentication: none documented
+  ip_allowlist: none documented
+delivery:
+  retries: not documented
+  ordering: not documented
+  replay: not documented
+gaps:
+  - No AsyncAPI document published.
+  - No JSON Schema for the webhook payload.
+  - No signature/HMAC verification documented, so receivers cannot verify authenticity.
+  - No retry, backoff or dead-letter semantics documented.

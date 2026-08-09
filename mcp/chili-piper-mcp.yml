@@ -1,0 +1,102 @@
+generated: '2026-08-09'
+method: searched
+status: published
+source: https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+server:
+  name: chili-piper
+  transport: http
+  url: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+  docs: https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+authentication:
+  methods:
+    - type: oauth2
+      description: Browser-based OAuth. Admin on a paid Chili Piper account only. Recommended for Claude Desktop, claude.ai and Claude Code.
+      client_registration: none required (client id/secret left blank)
+    - type: apiKey
+      description: 'Bearer API access token issued in Command Center > Integrations > Credentials > API Access Tokens. Scopable per section and permission.'
+      header: Authorization
+      format: 'Bearer <api-key>'
+  protected_resource_metadata: well-known/chili-piper-oauth-protected-resource.json
+x-evidence:
+  fetched: '2026-08-09'
+  tools_list_probe:
+    url: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+    method: 'POST jsonrpc tools/list (anonymous)'
+    http_status: 401
+    body: '{"jsonrpc":"2.0","id":1,"error":{"code":-32000,"message":"Unauthorized"}}'
+    note: >-
+      The live tool schemas are auth-gated. The server is confirmed present and responding as an MCP
+      endpoint. The tool list below is transcribed from Chili Piper's own published documentation
+      (names + descriptions only); inputSchema requires an authenticated tools/list call.
+  oauth_protected_resource:
+    url: https://fire.chilipiper.com/.well-known/oauth-protected-resource
+    http_status: 200
+    content_type: application/json
+clients_supported:
+  - {client: Claude Desktop, oauth: true, api_key: false}
+  - {client: claude.ai, oauth: true, api_key: false}
+  - {client: Claude Code, oauth: true, api_key: true}
+  - {client: Cursor, oauth: false, api_key: true}
+  - {client: OpenAI Codex, oauth: false, api_key: true}
+  - {client: Gemini CLI, oauth: false, api_key: true}
+tool_count: 55
+tools:
+  - {name: health-ping, category: organization, description: Verifies API key/OAuth token is valid and service is reachable.}
+  - {name: tenant-get, category: organization, description: Fetches top-level config and metadata for the authenticated org.}
+  - {name: user-find, category: users, description: Searches users by free-text query matched against email and name.}
+  - {name: user-find-by-filter, category: users, description: Searches users with structured multi-field filtering.}
+  - {name: user-find-by-ids, category: users, description: Batch-fetches profiles for multiple users by ID.}
+  - {name: user-read, category: users, description: Fetches full profile for a single user by userId.}
+  - {name: user-invite, category: users, description: Creates a new user account and sends invitation email.}
+  - {name: user-update-licenses, category: users, description: Bulk-updates product licenses for one or more users.}
+  - {name: workspace-list, category: workspaces, description: Returns all workspaces in the org.}
+  - {name: workspace-list-users, category: workspaces, description: Returns users in a workspace, or all org users.}
+  - {name: workspace-add-users, category: workspaces, description: Adds users to a workspace.}
+  - {name: workspace-remove-users, category: workspaces, description: Removes users from a workspace.}
+  - {name: workspace-remove-users-all, category: workspaces, description: Removes users from every workspace in the org.}
+  - {name: team-list-put, category: teams, description: Returns all teams in the org using request body filters.}
+  - {name: team-add-users, category: teams, description: Adds users to a team.}
+  - {name: team-remove-users, category: teams, description: Removes users from a team.}
+  - {name: team-remove-users-all, category: teams, description: Removes users from every team in specified workspaces or org-wide.}
+  - {name: distribution-list-put, category: distributions, description: Returns all published distributions including runtime state.}
+  - {name: distribution-create, category: distributions, description: Creates and immediately publishes a new distribution.}
+  - {name: distribution-update-v3, category: distributions, description: Replaces distribution config including weights and capping.}
+  - {name: distribution-adjust-v3, category: distributions, description: Merges adjustments into a distribution.}
+  - {name: distribution-delete, category: distributions, description: Permanently deletes a distribution; irreversible via API.}
+  - {name: rule-list, category: rules, description: Returns active routing rules filtered by workspace or name.}
+  - {name: rule-get, category: rules, description: Fetches a single routing rule by its ID.}
+  - {name: rule-create, category: rules, description: Creates a new routing rule with conditions; active immediately.}
+  - {name: rule-modify, category: rules, description: Replaces rule name/conditions using optimistic concurrency control.}
+  - {name: rule-delete, category: rules, description: Soft-deletes a routing rule.}
+  - {name: meeting-list-put, category: meetings, description: Returns paginated meetings in a time range; max 7-day span.}
+  - {name: meeting-get, category: meetings, description: Fetches full record for a single meeting by meetingId.}
+  - {name: meeting-export-v2-put, category: meetings, description: Exports meetings in a time range as CSV; max 7-day span.}
+  - {name: meeting-patch, category: meetings, description: Reschedule or reassign a meeting.}
+  - {name: meeting-cancel, category: meetings, description: Permanently cancels meeting by meetingId.}
+  - {name: meeting-noshow, category: meetings, description: Marks meeting as no-show.}
+  - {name: meeting-activity, category: meetings, description: Returns the admin UI deep-link URL for a meeting's activity page.}
+  - {name: scheduling-link-list-personal, category: scheduling, description: Returns all personal scheduling links for a user.}
+  - {name: scheduling-link-list-round-robin, category: scheduling, description: Returns round-robin scheduling links.}
+  - {name: scheduling-link-list-admin-one-on-one, category: scheduling, description: Returns admin (one-on-one) scheduling links.}
+  - {name: scheduling-link-list-group, category: scheduling, description: Returns group scheduling links.}
+  - {name: scheduling-link-list-ownership, category: scheduling, description: Returns ownership scheduling links.}
+  - {name: scheduling-link-init, category: scheduling, description: 'Phase 1 of 2: initializes a scheduling session from a scheduling link.'}
+  - {name: scheduling-link-schedule, category: scheduling, description: 'Phase 2 of 2: books a meeting using a previously initialized scheduling session.'}
+  - {name: availability-slots, category: scheduling, description: Unified availability endpoint - returns slots for any attendee mix.}
+  - {name: handoff-init, category: handoff, description: 'Phase 1 of 2: initializes a handoff flow and returns routing paths with slots.'}
+  - {name: handoff-schedule, category: handoff, description: 'Phase 2 of 2: completes a handoff by booking a meeting on the chosen path and slot.'}
+  - {name: concierge-list-routers, category: concierge, description: Returns all Concierge routers in the org.}
+  - {name: concierge-route, category: concierge, description: Executes routing logic without an explicit slug.}
+  - {name: concierge-route-by-slug, category: concierge, description: Executes routing logic for a router by slug; returns a booking link.}
+  - {name: concierge-schedule, category: concierge, description: Schedules a meeting for a lead at a slot returned by concierge routing.}
+  - {name: concierge-logs, category: concierge, description: Fetches aggregated Concierge routing decision logs; max 30-day span.}
+  - {name: distro-list-routers, category: distro, description: Returns all Distro routers in the org.}
+  - {name: resource-scheduler-run, category: distro, description: Runs a Scheduled Trigger router on demand.}
+  - {name: crm-get, category: crm, description: Resolves CP meeting linked to CRM event ID and returns its full record.}
+  - {name: crm-cancel, category: crm, description: Resolves CP meeting linked to CRM event ID and permanently cancels it.}
+  - {name: crm-noshow, category: crm, description: Marks a CP meeting linked to CRM event ID as no-show.}
+  - {name: crm-activity, category: crm, description: Resolves CP meeting linked to CRM event ID and returns admin UI deep-link URL.}
+notes:
+  - Chili Piper also publishes an official skills/plugin marketplace at https://github.com/Chili-Piper/mcp-assets
+  - Write tools (user creation, distribution changes, meeting cancellation, rule deletion) exist; clients prompt for approval.
+  - 55 tools are named in the published "Available tools" table across 10 categories; this artifact transcribes all 55. Chili Piper publishes no total count.

@@ -1,23 +1,255 @@
 aid: chili-piper
 name: Chili Piper
-description: 'Chili Piper is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: Chili Piper is a demand conversion platform for B2B go-to-market teams, founded in 2016 by Alina and Nicolas Vandenberghe and headquartered in New York. Its products - Concierge, Distro, Handoff, Chat AI, Web Experiences, Re-engagement and ChiliCal - turn inbound website visitors and form submissions into booked meetings by qualifying, enriching, routing and scheduling leads against Salesforce or HubSpot ownership, territory and round-robin distribution logic. For developers, Chili Piper publishes the Edge API (https://fire.chilipiper.com/api/fire-edge), a bearer-token REST surface covering users, workspaces, teams, routing rules, distributions, meetings, meeting types, scheduling links, handoff and Concierge routing; a hosted remote MCP server with 55 documented tools; official Agent Skills and ChatGPT GPT actions published under the Chili-Piper GitHub organization; a Concierge JavaScript embed distributed on npm; and custom webhooks for booked, updated and cancelled meetings.
+image: https://cdn.prod.website-files.com/61c9fe00acd90d7271f7014e/63d787acdbdc86179f01ed1a_Favicon%20(1).png
 url: https://raw.githubusercontent.com/api-evangelist/chili-piper/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-09'
 modified: '2026-08-09'
 tags:
-- Company
-apis: []
+- Scheduling
+- Lead Routing
+- Meetings
+- Sales
+- Marketing
+- CRM
+- Demand Conversion
+- Appointment Booking
+- Revenue Operations
+- Calendar
+- Agents
+- MCP
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: chili-piper:edge-api
+  name: Chili Piper Edge API
+  description: The Chili Piper Edge API is the bearer-token REST surface for a Chili Piper organization, served at https://fire.chilipiper.com/api/fire-edge. It covers tenant and health, users, workspaces, teams, routing rules, distributions, meetings and meeting types, scheduling links (personal, round-robin, admin one-on-one, group and ownership), handoff routing, Distro routers and Concierge routing and logs. API access tokens are generated per organization in Command Center with per-section permissions (Ping, Read, Modify, Remove).
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - Scheduling
+  - Lead Routing
+  - Meetings
+  - Users
+  - Routing Rules
+  - Distributions
+  properties:
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Availability Inspector
+    url: openapi/chili-piper-availability-inspector-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Chat Conversation Inspector
+    url: openapi/chili-piper-chat-conversation-inspector-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Concierge Debugger
+    url: openapi/chili-piper-concierge-debugger-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Concierge Router Builder
+    url: openapi/chili-piper-concierge-router-builder-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Concierge Router Configuration
+    url: openapi/chili-piper-concierge-router-configuration-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Distribution Analysis
+    url: openapi/chili-piper-distribution-analysis-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Distro Debugger
+    url: openapi/chili-piper-distro-debugger-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Distro Router Configuration
+    url: openapi/chili-piper-distro-router-configuration-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Handoff Router Configuration
+    url: openapi/chili-piper-handoff-router-configuration-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Meeting Inspector
+    url: openapi/chili-piper-meeting-inspector-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Meeting Type Management
+    url: openapi/chili-piper-meeting-type-management-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - No Show Analyzer
+    url: openapi/chili-piper-no-show-analyzer-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Org Meeting
+    url: openapi/chili-piper-org-meeting-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Routing Audit
+    url: openapi/chili-piper-routing-audit-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - Scheduling Link Management
+    url: openapi/chili-piper-scheduling-link-management-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - User Copy
+    url: openapi/chili-piper-user-copy-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - User Details
+    url: openapi/chili-piper-user-details-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - User Meetings
+    url: openapi/chili-piper-user-meetings-openapi.yaml
+  - type: OpenAPI
+    name: Chili Piper Edge API - User Offboarding
+    url: openapi/chili-piper-user-offboarding-openapi.yaml
+  - type: Overlay
+    name: Overlay - Availability Inspector
+    url: overlays/chili-piper-availability-inspector-overlay.yaml
+  - type: Overlay
+    name: Overlay - Chat Conversation Inspector
+    url: overlays/chili-piper-chat-conversation-inspector-overlay.yaml
+  - type: Overlay
+    name: Overlay - Concierge Debugger
+    url: overlays/chili-piper-concierge-debugger-overlay.yaml
+  - type: Overlay
+    name: Overlay - Concierge Router Builder
+    url: overlays/chili-piper-concierge-router-builder-overlay.yaml
+  - type: Overlay
+    name: Overlay - Concierge Router Configuration
+    url: overlays/chili-piper-concierge-router-configuration-overlay.yaml
+  - type: Overlay
+    name: Overlay - Distribution Analysis
+    url: overlays/chili-piper-distribution-analysis-overlay.yaml
+  - type: Overlay
+    name: Overlay - Distro Debugger
+    url: overlays/chili-piper-distro-debugger-overlay.yaml
+  - type: Overlay
+    name: Overlay - Distro Router Configuration
+    url: overlays/chili-piper-distro-router-configuration-overlay.yaml
+  - type: Overlay
+    name: Overlay - Handoff Router Configuration
+    url: overlays/chili-piper-handoff-router-configuration-overlay.yaml
+  - type: Overlay
+    name: Overlay - Meeting Inspector
+    url: overlays/chili-piper-meeting-inspector-overlay.yaml
+  - type: Overlay
+    name: Overlay - Meeting Type Management
+    url: overlays/chili-piper-meeting-type-management-overlay.yaml
+  - type: Overlay
+    name: Overlay - No Show Analyzer
+    url: overlays/chili-piper-no-show-analyzer-overlay.yaml
+  - type: Overlay
+    name: Overlay - Org Meeting
+    url: overlays/chili-piper-org-meeting-overlay.yaml
+  - type: Overlay
+    name: Overlay - Routing Audit
+    url: overlays/chili-piper-routing-audit-overlay.yaml
+  - type: Overlay
+    name: Overlay - Scheduling Link Management
+    url: overlays/chili-piper-scheduling-link-management-overlay.yaml
+  - type: Overlay
+    name: Overlay - User Copy
+    url: overlays/chili-piper-user-copy-overlay.yaml
+  - type: Overlay
+    name: Overlay - User Details
+    url: overlays/chili-piper-user-details-overlay.yaml
+  - type: Overlay
+    name: Overlay - User Meetings
+    url: overlays/chili-piper-user-meetings-overlay.yaml
+  - type: Overlay
+    name: Overlay - User Offboarding
+    url: overlays/chili-piper-user-offboarding-overlay.yaml
+- aid: chili-piper:mcp
+  name: Chili Piper MCP Server
+  description: Official hosted remote MCP server for Chili Piper, served over streamable HTTP at https://fire.chilipiper.com/api/fire-edge/v1/org/mcp. Supports OAuth (Admin, browser-based) and API-key bearer authentication, and exposes 55 documented tools across organization, users, workspaces, teams, distributions, rules, meetings, scheduling, handoff, Concierge, Distro and CRM. Tool calls are scoped to the authenticated tenant.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+  baseURL: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+  tags:
+  - MCP
+  - Agents
+  - Scheduling
+  - Lead Routing
+  properties:
+  - type: MCPServer
+    url: mcp/chili-piper-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/chili-piper-tool-crosswalk.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
 common:
 - type: Website
-  url: https://forgeglobal.com/chili-piper_stock/
+  url: https://www.chilipiper.com/
+- type: Documentation
+  url: https://help.chilipiper.com/hc/en-us
+- type: APIReference
+  url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+- type: GettingStarted
+  url: https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+- type: Support
+  url: https://help.chilipiper.com/hc/en-us
+- type: Blog
+  url: https://www.chilipiper.com/blog
+- type: GitHubOrganization
+  url: https://github.com/Chili-Piper
+- type: Pricing
+  url: https://www.chilipiper.com/pricing
+- type: SignUp
+  url: https://www.chilipiper.com/get-started
+- type: TermsOfService
+  url: https://www.chilipiper.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://www.chilipiper.com/privacy-policy
+- type: StatusPage
+  url: https://status.chilipiper.com/
+- type: Compliance
+  url: https://www.chilipiper.com/security
+- type: Security
+  url: https://github.com/Chili-Piper/mcp-assets/blob/main/SECURITY.md
+- type: LLMsTxt
+  url: llms/chili-piper-llms.txt
+- type: Packages
+  url: packages/chili-piper-packages.yml
+- type: SDKs
+  url: packages/chili-piper-packages.yml
+- type: Components
+  url: components/chili-piper-components.yml
+- type: WellKnown
+  url: well-known/chili-piper-well-known.yml
+- type: Authentication
+  url: authentication/chili-piper-authentication.yml
+- type: OAuthScopes
+  url: scopes/chili-piper-scopes.yml
+- type: Conventions
+  url: conventions/chili-piper-conventions.yml
+- type: ErrorCatalog
+  url: errors/chili-piper-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/chili-piper-lifecycle.yml
+- type: Conformance
+  url: conformance/chili-piper-conformance.yml
+- type: DomainSecurity
+  url: security/chili-piper-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/chili-piper-vulnerability-disclosure.yml
+- type: DataModel
+  url: data-model/chili-piper-data-model.yml
+- type: Webhooks
+  url: asyncapi/chili-piper-webhooks.yml
+- type: ChangeLog
+  url: changelog/chili-piper-changelog.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: TrustCenter
+  url: https://trust.chilipiper.com/
+- type: MCPServer
+  url: mcp/chili-piper-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/chili-piper-tool-crosswalk.yml
+x-enrichment:
+  date: '2026-08-09'
+  status: enriched
+  artifacts_added: 78
+  pass: local-v1

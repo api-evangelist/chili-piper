@@ -1,0 +1,253 @@
+generated: '2026-08-09'
+method: derived
+source:
+- openapi/chili-piper-availability-inspector-openapi.yaml
+- openapi/chili-piper-chat-conversation-inspector-openapi.yaml
+- openapi/chili-piper-concierge-debugger-openapi.yaml
+- openapi/chili-piper-concierge-router-builder-openapi.yaml
+- openapi/chili-piper-concierge-router-configuration-openapi.yaml
+- openapi/chili-piper-distribution-analysis-openapi.yaml
+- openapi/chili-piper-distro-debugger-openapi.yaml
+- openapi/chili-piper-distro-router-configuration-openapi.yaml
+- openapi/chili-piper-handoff-router-configuration-openapi.yaml
+- openapi/chili-piper-meeting-inspector-openapi.yaml
+- openapi/chili-piper-meeting-type-management-openapi.yaml
+- openapi/chili-piper-no-show-analyzer-openapi.yaml
+- openapi/chili-piper-org-meeting-openapi.yaml
+- openapi/chili-piper-routing-audit-openapi.yaml
+- openapi/chili-piper-scheduling-link-management-openapi.yaml
+- openapi/chili-piper-user-copy-openapi.yaml
+- openapi/chili-piper-user-details-openapi.yaml
+- openapi/chili-piper-user-meetings-openapi.yaml
+- openapi/chili-piper-user-offboarding-openapi.yaml
+- asyncapi/chili-piper-webhooks.yml
+description: Entity-relationship graph for the Chili Piper Edge API, derived from operation paths and path/query parameters across the 19 published OpenAPI documents, plus the id fields carried on the documented webhook payload. Chili Piper publishes no object reference, so identifiers are described as observed.
+identifiers:
+  format: uuid
+  evidence: Webhook example payload uses UUIDs for every *IdChili field; path params are opaque ids.
+  prefixes: null
+hierarchy: Tenant > Workspaces > Teams > Users
+entity_count: 15
+entities:
+- entity: AvailabilitySlot
+  operations:
+  - availabilitySlots
+  operation_count: 1
+  path_params: []
+- entity: ChatLog
+  operations:
+  - chatLogs
+  operation_count: 1
+  path_params: []
+- entity: ConciergeRouter
+  operations:
+  - conciergeListRouters
+  - conciergeLogs
+  - conciergeRouterCreate
+  - conciergeRouterDelete
+  - conciergeRouterGet
+  - conciergeRouterUpdate
+  operation_count: 6
+  path_params:
+  - routerId
+- entity: Distribution
+  operations:
+  - distributionCreate
+  - distributionListPut
+  - distributionWorkspaceSettingsGet
+  operation_count: 3
+  path_params: []
+- entity: DistroRouter
+  operations:
+  - distroListRouters
+  - distroLogGet
+  - distroLogs
+  - distroRouterActivate
+  - distroRouterCreate
+  - distroRouterDeactivate
+  - distroRouterDelete
+  - distroRouterGet
+  - distroRouterUpdate
+  operation_count: 9
+  path_params:
+  - logId
+  - routerId
+- entity: HandoffRouter
+  operations:
+  - handoffRouterCreate
+  - handoffRouterDelete
+  - handoffRouterGet
+  - handoffRouterList
+  - handoffRouterUpdate
+  operation_count: 5
+  path_params:
+  - routerId
+- entity: Meeting
+  operations:
+  - meetingCancel
+  - meetingExportV2Put
+  - meetingGet
+  - meetingListPut
+  operation_count: 4
+  path_params:
+  - meetingId
+- entity: MeetingType
+  operations:
+  - meetingTypeAttachReminder
+  - meetingTypeCreate
+  - meetingTypeDelete
+  - meetingTypeDetachReminder
+  - meetingTypeGet
+  - meetingTypeList
+  - meetingTypeUpdate
+  operation_count: 7
+  path_params:
+  - meetingTypeId
+  - reminderId
+- entity: MeetingTypeReminder
+  operations:
+  - meetingTypeReminderCreate
+  - meetingTypeReminderDelete
+  - meetingTypeReminderList
+  - meetingTypeReminderUpdate
+  operation_count: 4
+  path_params:
+  - reminderId
+- entity: Rule
+  operations:
+  - ruleCreate
+  - ruleList
+  operation_count: 2
+  path_params: []
+- entity: SchedulingLink
+  operations:
+  - schedulingLinkCreateAdminOneOnOne
+  - schedulingLinkCreateGroup
+  - schedulingLinkCreateOwnership
+  - schedulingLinkCreateRoundRobin
+  - schedulingLinkDeleteAdminOneOnOne
+  - schedulingLinkDeleteGroup
+  - schedulingLinkDeleteOwnership
+  - schedulingLinkDeleteRoundRobin
+  - schedulingLinkListAdminOneOnOne
+  - schedulingLinkListGroup
+  - schedulingLinkListOwnership
+  - schedulingLinkListPersonal
+  - schedulingLinkListRoundRobin
+  - schedulingLinkUpdateAdminOneOnOne
+  - schedulingLinkUpdateGroup
+  - schedulingLinkUpdateOwnership
+  - schedulingLinkUpdateRoundRobin
+  operation_count: 17
+  path_params:
+  - linkId
+  - userId
+- entity: Team
+  operations:
+  - teamAddUsers
+  - teamCreate
+  - teamDelete
+  - teamListPut
+  - teamRemoveUsers
+  operation_count: 5
+  path_params:
+  - teamId
+- entity: Tenant
+  operations:
+  - tenantGet
+  operation_count: 1
+  path_params: []
+- entity: User
+  operations:
+  - userFind
+  - userFindByIds
+  - userRead
+  - userUpdateLicenses
+  operation_count: 4
+  path_params:
+  - userId
+- entity: Workspace
+  operations:
+  - workspaceAddUsers
+  - workspaceList
+  - workspaceListUsers
+  - workspaceRemoveUsers
+  operation_count: 4
+  path_params: []
+relationships:
+- from: Tenant
+  to: Workspace
+  type: has_many
+  via: workspaceId
+  evidence: Documented hierarchy Tenant > Workspaces > Teams > Users; workspaceId is a query parameter on 24 operations.
+- from: Workspace
+  to: Team
+  type: has_many
+  via: workspaceId
+  evidence: teamListPut and team operations filter by workspace.
+- from: Workspace
+  to: User
+  type: has_many
+  via: workspaceId
+  evidence: workspaceListUsers, workspaceAddUsers, workspaceRemoveUsers.
+- from: Team
+  to: User
+  type: has_many
+  via: teamId
+  evidence: teamAddUsers, teamRemoveUsers.
+- from: Distribution
+  to: User
+  type: has_many
+  via: assignee
+  evidence: Round-robin distributions assign meetings across member users with weights.
+- from: ConciergeRouter
+  to: Rule
+  type: has_many
+  via: routerId
+  evidence: Concierge routers evaluate ordered routing rules.
+- from: ConciergeRouter
+  to: Distribution
+  type: belongs_to
+  via: distributionId
+  evidence: Routing rules resolve to a distribution that picks the assignee.
+- from: DistroRouter
+  to: Distribution
+  type: belongs_to
+  via: distributionId
+  evidence: Distro routers route CRM records to a distribution.
+- from: SchedulingLink
+  to: Distribution
+  type: belongs_to
+  via: distributionId
+  evidence: Round-robin scheduling links are backed by a distribution.
+- from: SchedulingLink
+  to: MeetingType
+  type: belongs_to
+  via: meetingTypeId
+  evidence: meetingTypeId is a parameter across scheduling link and meeting type operations.
+- from: MeetingType
+  to: MeetingTypeReminder
+  type: has_many
+  via: reminderId
+  evidence: meetingTypeAttachReminder / meetingTypeDetachReminder.
+- from: Meeting
+  to: User
+  type: belongs_to
+  via: hostId
+  evidence: Webhook payload carries hostIdChili, assigneeIdChili, bookerIdChili.
+- from: Meeting
+  to: MeetingType
+  type: belongs_to
+  via: meetingTypeId
+  evidence: Webhook payload carries meetingTypeIdChili.
+- from: Meeting
+  to: Workspace
+  type: belongs_to
+  via: workspaceId
+  evidence: Webhook payload carries workspaceIdChili.
+- from: Meeting
+  to: Distribution
+  type: belongs_to
+  via: distributionId
+  evidence: Webhook payload carries distributionIdChili.
+schema_note: The published specs define 684 component schemas in total across the 19 documents, with heavy duplication because each document is a task-scoped subset.

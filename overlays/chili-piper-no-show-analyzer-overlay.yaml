@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Chili Piper - no-show-analyzer
+  version: 1.0.0
+extends: openapi/chili-piper-no-show-analyzer-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: chili-piper
+    x-apievangelist-source: https://github.com/Chili-Piper/mcp-assets
+    x-apievangelist-harvested: '2026-08-09'
+    x-apievangelist-surface: Chili Piper Edge API
+    x-apievangelist-artifacts:
+      authentication: authentication/chili-piper-authentication.yml
+      scopes: scopes/chili-piper-scopes.yml
+      conventions: conventions/chili-piper-conventions.yml
+      errors: errors/chili-piper-problem-types.yml
+      lifecycle: lifecycle/chili-piper-lifecycle.yml
+      mcp: mcp/chili-piper-mcp.yml
+      tool_crosswalk: mcp/chili-piper-tool-crosswalk.yml
+      webhooks: asyncapi/chili-piper-webhooks.yml
+      data_model: data-model/chili-piper-data-model.yml
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - No 401/403/429/5xx responses declared; only 400 and default.
+    - Error responses are text/plain, not RFC 9457 problem+json.
+    - No idempotency key on any write operation.
+    - No rate-limit policy or headers documented.

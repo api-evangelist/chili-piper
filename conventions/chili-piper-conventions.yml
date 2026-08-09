@@ -1,0 +1,86 @@
+generated: '2026-08-09'
+method: derived
+source:
+  - openapi/ (19 published OpenAPI 3.1.0 documents)
+  - https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+description: >-
+  Cross-cutting request/response semantics for the Chili Piper Edge API, derived from the published
+  OpenAPI documents and the help-center API articles. Recorded as observed - including the gaps.
+base_url: https://fire.chilipiper.com/api/fire-edge
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: 'Bearer <api-key>'
+  note: >-
+    The word Bearer followed by a space is required; sending the key without the Bearer prefix
+    returns 401. Tokens are org-scoped and permission-scoped at issue time.
+  see: authentication/chili-piper-authentication.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  evidence: >-
+    No Idempotency-Key parameter, header or requestBody field appears in any of the 19 published
+    OpenAPI documents, and no idempotency or retry-safety guidance appears in the Edge API or
+    Concierge Edge API help articles. Retry safety rests entirely on HTTP method semantics.
+  risk_note: >-
+    Several write paths are explicitly non-idempotent and irreversible - distribution-delete is
+    documented as irreversible via API, and distribution weight adjustments are documented as
+    additive rather than absolute, so a retried adjust call compounds the change.
+pagination:
+  style: page-number
+  params:
+    - {name: page, in: query, note: 'Present on 42 operations.'}
+    - {name: pageSize, in: query, note: 'Present on 42 operations.'}
+  body_variant: >-
+    Several list operations are PUT/POST with the filter set in the request body specifically to
+    avoid query-string length limits (teamListPut, distributionListPut, meetingListPut,
+    conciergeListRouters, distroListRouters, schedulingLink list-* operations).
+  documented_caps:
+    - 'concierge-logs: max 500 records per page.'
+    - 'meeting list and meeting export: maximum 7-day time span per request.'
+    - 'concierge-logs: maximum 30-day time window.'
+  response_fields: 'Not consistently documented across the published specs.'
+versioning:
+  scheme: uri-path
+  observed_versions: [v1, v2, v3]
+  note: >-
+    Version is per-resource, not global: most operations are /v1/org/..., while team create/delete
+    and list, distribution list and meeting list are /v2/..., and meeting export is /v3/...
+    Multiple versions are live simultaneously and there is no published version-negotiation header.
+  see: lifecycle/chili-piper-lifecycle.yml
+error_envelope:
+  media_type: text/plain
+  rfc9457: false
+  note: 'Errors are plain-text strings. No error code registry, no problem+json, no structured envelope.'
+  see: errors/chili-piper-problem-types.yml
+rate_limiting:
+  documented: false
+  headers: null
+  evidence: >-
+    No rate-limit policy, quota or 429 response is documented in the help center or declared in any
+    published OpenAPI document. Chili Piper does document Salesforce/HubSpot API limit alerts, but
+    those are the CRM vendor limits, not Chili Piper Edge API limits.
+request_tracing:
+  request_id_header: null
+  documented: false
+concurrency:
+  optimistic_concurrency: true
+  scope: 'Routing rules - rule-modify is documented as replacing rule name/conditions using optimistic concurrency control.'
+async_operations:
+  present: true
+  note: 'Distro router lifecycle operations use async status polling (documented in the distro-router-configuration skill).'
+two_phase_flows:
+  description: >-
+    Booking is a deliberate two-call contract across three surfaces. Phase 1 initializes a session
+    and returns available slots; phase 2 books one of those slots against the session id.
+  flows:
+    - {name: scheduling link, phase_1: scheduling-link-init, phase_2: scheduling-link-schedule}
+    - {name: handoff, phase_1: handoff-init, phase_2: handoff-schedule}
+    - {name: concierge, phase_1: 'concierge-route / concierge-route-by-slug (with interval)', phase_2: concierge-schedule}
+  note: >-
+    Passing an interval to a Concierge route call switches it from returning a redirect routingLink
+    to returning bookable startTimes plus a routingId for the second call.
+webhooks:
+  see: asyncapi/chili-piper-webhooks.yml
