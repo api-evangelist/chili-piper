@@ -27,145 +27,15 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: chili-piper:edge-api
-  name: Chili Piper Edge API
-  description: The Chili Piper Edge API is the bearer-token REST surface for a Chili Piper organization, served at https://fire.chilipiper.com/api/fire-edge. It covers tenant and health, users, workspaces, teams, routing rules, distributions, meetings and meeting types, scheduling links (personal, round-robin, admin one-on-one, group and ownership), handoff routing, Distro routers and Concierge routing and logs. API access tokens are generated per organization in Command Center with per-section permissions (Ping, Read, Modify, Remove).
-  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  baseURL: https://fire.chilipiper.com/api/fire-edge
-  tags:
-  - Scheduling
-  - Lead Routing
-  - Meetings
-  - Users
-  - Routing Rules
-  - Distributions
-  properties:
-  - type: Documentation
-    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  - type: APIReference
-    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  - type: GettingStarted
-    url: https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
-  - type: Authentication
-    url: authentication/chili-piper-authentication.yml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Availability Inspector
-    url: openapi/chili-piper-availability-inspector-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Chat Conversation Inspector
-    url: openapi/chili-piper-chat-conversation-inspector-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Concierge Debugger
-    url: openapi/chili-piper-concierge-debugger-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Concierge Router Builder
-    url: openapi/chili-piper-concierge-router-builder-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Concierge Router Configuration
-    url: openapi/chili-piper-concierge-router-configuration-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Distribution Analysis
-    url: openapi/chili-piper-distribution-analysis-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Distro Debugger
-    url: openapi/chili-piper-distro-debugger-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Distro Router Configuration
-    url: openapi/chili-piper-distro-router-configuration-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Handoff Router Configuration
-    url: openapi/chili-piper-handoff-router-configuration-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Meeting Inspector
-    url: openapi/chili-piper-meeting-inspector-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Meeting Type Management
-    url: openapi/chili-piper-meeting-type-management-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - No Show Analyzer
-    url: openapi/chili-piper-no-show-analyzer-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Org Meeting
-    url: openapi/chili-piper-org-meeting-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Routing Audit
-    url: openapi/chili-piper-routing-audit-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - Scheduling Link Management
-    url: openapi/chili-piper-scheduling-link-management-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - User Copy
-    url: openapi/chili-piper-user-copy-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - User Details
-    url: openapi/chili-piper-user-details-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - User Meetings
-    url: openapi/chili-piper-user-meetings-openapi.yaml
-  - type: OpenAPI
-    name: Chili Piper Edge API - User Offboarding
-    url: openapi/chili-piper-user-offboarding-openapi.yaml
-  - type: Overlay
-    name: Overlay - Availability Inspector
-    url: overlays/chili-piper-availability-inspector-overlay.yaml
-  - type: Overlay
-    name: Overlay - Chat Conversation Inspector
-    url: overlays/chili-piper-chat-conversation-inspector-overlay.yaml
-  - type: Overlay
-    name: Overlay - Concierge Debugger
-    url: overlays/chili-piper-concierge-debugger-overlay.yaml
-  - type: Overlay
-    name: Overlay - Concierge Router Builder
-    url: overlays/chili-piper-concierge-router-builder-overlay.yaml
-  - type: Overlay
-    name: Overlay - Concierge Router Configuration
-    url: overlays/chili-piper-concierge-router-configuration-overlay.yaml
-  - type: Overlay
-    name: Overlay - Distribution Analysis
-    url: overlays/chili-piper-distribution-analysis-overlay.yaml
-  - type: Overlay
-    name: Overlay - Distro Debugger
-    url: overlays/chili-piper-distro-debugger-overlay.yaml
-  - type: Overlay
-    name: Overlay - Distro Router Configuration
-    url: overlays/chili-piper-distro-router-configuration-overlay.yaml
-  - type: Overlay
-    name: Overlay - Handoff Router Configuration
-    url: overlays/chili-piper-handoff-router-configuration-overlay.yaml
-  - type: Overlay
-    name: Overlay - Meeting Inspector
-    url: overlays/chili-piper-meeting-inspector-overlay.yaml
-  - type: Overlay
-    name: Overlay - Meeting Type Management
-    url: overlays/chili-piper-meeting-type-management-overlay.yaml
-  - type: Overlay
-    name: Overlay - No Show Analyzer
-    url: overlays/chili-piper-no-show-analyzer-overlay.yaml
-  - type: Overlay
-    name: Overlay - Org Meeting
-    url: overlays/chili-piper-org-meeting-overlay.yaml
-  - type: Overlay
-    name: Overlay - Routing Audit
-    url: overlays/chili-piper-routing-audit-overlay.yaml
-  - type: Overlay
-    name: Overlay - Scheduling Link Management
-    url: overlays/chili-piper-scheduling-link-management-overlay.yaml
-  - type: Overlay
-    name: Overlay - User Copy
-    url: overlays/chili-piper-user-copy-overlay.yaml
-  - type: Overlay
-    name: Overlay - User Details
-    url: overlays/chili-piper-user-details-overlay.yaml
-  - type: Overlay
-    name: Overlay - User Meetings
-    url: overlays/chili-piper-user-meetings-overlay.yaml
-  - type: Overlay
-    name: Overlay - User Offboarding
-    url: overlays/chili-piper-user-offboarding-overlay.yaml
 - aid: chili-piper:mcp
   name: Chili Piper MCP Server
-  description: Official hosted remote MCP server for Chili Piper, served over streamable HTTP at https://fire.chilipiper.com/api/fire-edge/v1/org/mcp. Supports OAuth (Admin, browser-based) and API-key bearer authentication, and exposes 55 documented tools across organization, users, workspaces, teams, distributions, rules, meetings, scheduling, handoff, Concierge, Distro and CRM. Tool calls are scoped to the authenticated tenant.
-  humanURL: https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+  description: >-
+    Official hosted remote MCP server for Chili Piper, served over streamable HTTP at https://fire.chilipiper.com/api/fire-edge/v1/org/mcp.
+    Supports OAuth (Admin, browser-based) and API-key bearer authentication, and exposes 55 documented
+    tools across organization, users, workspaces, teams, distributions, rules, meetings, scheduling, handoff,
+    Concierge, Distro and CRM. Tool calls are scoped to the authenticated tenant.
+  humanURL: >-
+    https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
   baseURL: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
   tags:
   - MCP
@@ -178,8 +48,297 @@ apis:
   - type: ToolCrosswalk
     url: mcp/chili-piper-tool-crosswalk.yml
   - type: Documentation
-    url: https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+- aid: chili-piper:chili-piper-availability-api
+  name: Chili Piper Availability API
+  description: The availability API from Chili Piper — 1 operation(s) for availability.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - availability
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-availability-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-chat-api
+  name: Chili Piper Chat API
+  description: The chat API from Chili Piper — 1 operation(s) for chat.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - chat
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-chat-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-concierge-api
+  name: Chili Piper Concierge API
+  description: The concierge API from Chili Piper — 4 operation(s) for concierge.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - concierge
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-concierge-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-distribution-api
+  name: Chili Piper Distribution API
+  description: The distribution API from Chili Piper — 3 operation(s) for distribution.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - distribution
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-distribution-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-distro-api
+  name: Chili Piper Distro API
+  description: The distro API from Chili Piper — 7 operation(s) for distro.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - distro
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-distro-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-handoff-api
+  name: Chili Piper Handoff API
+  description: The handoff API from Chili Piper — 3 operation(s) for handoff.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - handoff
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-handoff-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-meeting-type-api
+  name: Chili Piper Meeting Type API
+  description: The meeting-type API from Chili Piper — 4 operation(s) for meeting-type.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - meeting-type
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-meeting-type-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-meeting-type-reminder-api
+  name: Chili Piper Meeting Type Reminder API
+  description: >-
+    The meeting-type-reminder API from Chili Piper — 3 operation(s) for meeting-type-reminder.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - meeting-type-reminder
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-meeting-type-reminder-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-meetings-api
+  name: Chili Piper Meetings API
+  description: The meetings API from Chili Piper — 4 operation(s) for meetings.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - meetings
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-meetings-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-rule-api
+  name: Chili Piper Rule API
+  description: The rule API from Chili Piper — 2 operation(s) for rule.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - rule
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-rule-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-schedulinglinks-api
+  name: Chili Piper Scheduling Links API
+  description: The schedulingLinks API from Chili Piper — 13 operation(s) for schedulinglinks.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - schedulingLinks
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-schedulinglinks-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-team-api
+  name: Chili Piper Team API
+  description: The team API from Chili Piper — 5 operation(s) for team.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - team
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-team-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-tenant-api
+  name: Chili Piper Tenant API
+  description: The tenant API from Chili Piper — 1 operation(s) for tenant.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - tenant
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-tenant-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-user-api
+  name: Chili Piper User API
+  description: The user API from Chili Piper — 4 operation(s) for user.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-user-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-workspace-api
+  name: Chili Piper Workspace API
+  description: The workspace API from Chili Piper — 4 operation(s) for workspace.
+  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  baseURL: https://fire.chilipiper.com/api/fire-edge
+  tags:
+  - workspace
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-workspace-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
 common:
+- type: Overlay
+  url: overlays/chili-piper-availability-inspector-overlay.yaml
 - type: Website
   url: https://www.chilipiper.com/
 - type: Documentation
