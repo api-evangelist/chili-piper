@@ -7,7 +7,7 @@ x-type: company
 x-source: harvest:secondary-market
 specificationVersion: '0.20'
 created: '2026-08-09'
-modified: '2026-08-09'
+modified: '2026-08-13'
 tags:
 - Scheduling
 - Lead Routing
@@ -337,6 +337,8 @@ apis:
   - type: Authentication
     url: authentication/chili-piper-authentication.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/chili-piper-agentic-access.yml
 - type: Overlay
   url: overlays/chili-piper-availability-inspector-overlay.yaml
 - type: Website
@@ -407,8 +409,12 @@ common:
   url: mcp/chili-piper-mcp.yml
 - type: ToolCrosswalk
   url: mcp/chili-piper-tool-crosswalk.yml
+- type: Plans
+  url: plans/chili-piper-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/chili-piper-rate-limits.yml
 x-enrichment:
-  date: '2026-08-09'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 78
+  artifacts_added: 3
   pass: local-v1
