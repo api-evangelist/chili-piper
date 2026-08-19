@@ -5,7 +5,7 @@ image: https://cdn.prod.website-files.com/61c9fe00acd90d7271f7014e/63d787acdbdc8
 url: https://raw.githubusercontent.com/api-evangelist/chili-piper/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-09'
 modified: '2026-08-13'
 tags:
