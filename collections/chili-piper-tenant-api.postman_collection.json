@@ -1,0 +1,223 @@
+{
+  "item": [
+    {
+      "id": "0c1177dc-7abf-4993-a091-9f7753292cda",
+      "name": "tenant",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82ef3004-f68b-44a3-8862-72fc4c1aa107",
+          "name": "Get tenant info",
+          "request": {
+            "name": "Get tenant info",
+            "description": {
+              "content": "[operation: tenant-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches top-level config and metadata for the authenticated org — the tenant is inferred from the API key, so there are no inputs. Use it to learn the org's subdomain and cluster, which other calls fold into URLs and identifiers.\n\n→\n\n    {tenantData: {tenantId, cluster, subdomain}, tenantType: \"Personal\"|\"Organization\", email (Personal only), domains: [...] (Organization only)}\n\n  Note: tenantId is at tenantData.tenantId (not top-level); subdomain is at tenantData.subdomain\n\nsee: meeting-activity/crm-activity (use tenantData.subdomain for URL construction)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "tenant",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "16db553a-c7d6-44bb-93a5-3a1120e28f96",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "tenant",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tenantData\": {\n    \"tenantId\": \"1Ws\",\n    \"cluster\": \"string\",\n    \"subdomain\": \"string\"\n  },\n  \"type\": \"string\",\n  \"domains\": [\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05692b34-8bd0-4eb2-b0fb-242f6357ae99",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "tenant",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cb3e00db-5f0b-4627-8c2e-6e86f152a91d",
+    "name": "Chili Piper — Concierge Router Builder Actions Tenant API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "GPT Actions for the concierge-router-builder GPT — a subset of the Chili Piper Edge API. Authenticate with a Bearer API key (Admin Center → API Keys).",
+      "type": "text/plain"
+    }
+  }
+}

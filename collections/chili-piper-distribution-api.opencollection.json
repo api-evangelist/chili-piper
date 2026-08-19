@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Distribution API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "distribution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create distribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distribution",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distribution-create]\n\n\n\nMUTATING\n\n\n\nCreates and immediately publishes a distribution — a reusable assignment pool that routing rules and round-robin scheduling links reference. `name` is required: a nameless distribution is a legacy (v1) one that never appears in distribution-list and cannot be used until named. `assignmentTypeConfig` fixes what it distributes (records, meetings, or conversations). Tune weights/caps afterwards with distribution-update-v3 or distribution-adjust-v3.\n\n-"
+        },
+        {
+          "info": {
+            "name": "List all distributions (PUT)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v2/org/distribution/list",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distribution-list-put]\n\n\n\nREAD-ONLY\n\n\n\nBrowses published distributions in the org — the preferred, non-deprecated list. Filters go in the request body (avoiding query-string length limits): workspaceIds, name (substring match), and assignmentType (\"Record\" | \"Meeting\" | \"Conversation\"). Paginated (pageSize default 200).\n\n→\n\n    {results: [{distributionId, name, teamId, assignees, assignmentTypeConfig, capping}]}\n\nsee: distribution-list (GET equivalent)"
+        },
+        {
+          "info": {
+            "name": "Get workspace distribution settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distribution/workspace-settings",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the workspace"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distribution-workspace-settings-get]\n\n\n\nREAD-ONLY\n\n\n\nRead a workspace's round-robin distribution (fairness/leveling) settings.\n\n\n\nReturns the workspace-level round-robin settings that shape the fairness/leveling equation applied on top of each distribution's per-user weights and calibration. These knobs are shared by every distribution in the workspace, so an analysis skill should read them before reasoning about how assignments are balanced (otherwise it may misassume the leveling r"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

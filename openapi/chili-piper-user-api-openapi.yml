@@ -1,0 +1,688 @@
+openapi: 3.2.0
+info:
+  title: Chili Piper User API
+  version: '1.0'
+  description: 'Operations tagged user across 14 of this provider''s published API definitions: chili-piper-availability-inspector-openapi.yaml, chili-piper-chat-conversation-inspector-openapi.yaml, chili-piper-concierge-debugger-openapi.yaml, chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-distribution-analysis-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml, chili-piper-no-show-analyzer-openapi.yaml, chili-piper-org-meeting-openapi.yaml, chili-piper-scheduling-link-management-openapi.yaml, chili-piper-user-copy-openapi.yaml, chili-piper-user-details-openapi.yaml, chili-piper-user-meetings-openapi.yaml, chili-piper-user-offboarding-openapi.yaml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://fire.chilipiper.com/api/fire-edge
+  description: Production
+security:
+- apiKeyAuth: []
+tags:
+- name: user
+paths:
+  /v1/org/user/find:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    get:
+      tags:
+      - user
+      summary: Finds user
+      description: '[operation: user-find]
+
+
+
+
+        READ-ONLY
+
+
+
+
+        Searches users by free-text query matched against email and name (partial matches supported). Paginated.
+
+
+        - query (req): partial email or name
+
+
+        - page (opt), pageSize (opt, default 200)
+
+
+        → paginated list of users, each with: {id, name, email, isSuperAdmin, licenses, workspaces, salesforce (opt), hubspot (opt), slug (opt), managedWorkspaces, managedTeams}
+
+
+        see: user-read (full profile), user-find-by-ids (batch by ID), user-find-by-filter (advanced multi-field filtering)'
+      operationId: userFind
+      parameters:
+      - name: query
+        in: query
+        description: Search by email or name
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number. First page has index 0.
+        required: false
+        schema:
+          default: 0
+          type: integer
+          format: int64
+          minimum: 0
+        example: 0
+      - name: pageSize
+        in: query
+        description: Number of items per page. Maximum is 50
+        required: false
+        schema:
+          default: 10
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+        example: 10
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResult_User'
+        '400':
+          description: 'Invalid value for: query parameter query, Invalid value for: query parameter page, Invalid value for: query parameter pageSize'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - user.read
+  /v1/org/user/read/{userId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    get:
+      tags:
+      - user
+      summary: Reads user information
+      description: "[operation: user-read]\n\n\n\nREAD-ONLY\n\n\n\nFetches full profile for a single user by userId.\n\n- userId (req): UUID\n\n→\n\n    {id, name, email, isSuperAdmin, licenses, workspaces (set of workspaceIds), salesforce: {email, id} (opt), hubspot: {email, id} (opt), slug (opt), managedWorkspaces, managedTeams}\n\n  Note: top-level field is id (not userId); workspaces (not workspaceMemberships); salesforce is an object {email, id} (not a string salesforceId)\n\nsee: user-find (look up userId by email/name), user-find-by-ids (batch fetch), user-update-licenses/workspace-add-users/team-add-users (act on user)"
+      operationId: userRead
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 'Invalid value for: path parameter userId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - user.read
+  /v1/org/user/find-by-id:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - user
+      summary: Finds users by IDs
+      description: '[operation: user-find-by-ids]
+
+
+
+
+        READ-ONLY
+
+
+
+
+        Batch-fetches full profiles for a known set of userIds in one request — the id-list counterpart to user-read. The body is a bare JSON array of userId UUIDs (e.g. ["uuid1", "uuid2"]), not wrapped in an object.
+
+
+        → paginated list of users, each with: {id, name, email, isSuperAdmin, licenses, workspaces, salesforce: {email, id} (opt), hubspot: {email, id} (opt), slug (opt), managedWorkspaces, managedTeams}
+
+
+        see: user-find/find-by-filter (look up userIds), user-update-licenses/team-add-users/workspace-add-users (act on results)'
+      operationId: userFindByIds
+      parameters:
+      - name: page
+        in: query
+        description: Page number. First page has index 0.
+        required: false
+        schema:
+          default: 0
+          type: integer
+          format: int64
+          minimum: 0
+        example: 0
+      - name: pageSize
+        in: query
+        description: Number of items per page. Maximum is 50
+        required: false
+        schema:
+          default: 10
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+        example: 10
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                pattern: '[^\s\\/]+'
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResult_User_2'
+        '400':
+          description: 'Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - user.read
+  /v1/org/user/licenses:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - user
+      summary: Updates licenses for users
+      description: "[operation: user-update-licenses]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nBulk-updates CP product licenses for one or more users. Unlisted users are unaffected.\n\n- update (req): [{userId, licenseType}]; valid types: Distro, ChiliCalOrg, Concierge, ConciergeLive, Chat, Handoff; use user-find for userIds\n\n→\n\n    {}\n\n⚠ downgrade takes effect immediately (disables gated features); fails if org lacks sufficient seats\n\nsee: user-find/find-by-ids (resolve userIds and verify after)"
+      operationId: userUpdateLicenses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLicensesRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - licenses.modify
+components:
+  schemas:
+    NoTimezone:
+      title: NoTimezone
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: NoTimezone
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    Map_Refined_String_Refinement_V:
+      title: Map_Refined_String_Refinement_V
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvailabilityFailure'
+    User:
+      title: User
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - isSuperAdmin
+      - licenses
+      properties:
+        id:
+          $ref: '#/components/schemas/UserId'
+        name:
+          type: string
+          minLength: 1
+        email:
+          $ref: '#/components/schemas/Email'
+        isSuperAdmin:
+          type: boolean
+        managedWorkspaces:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        managedTeams:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        licenses:
+          $ref: '#/components/schemas/UserLicenses'
+        salesforce:
+          $ref: '#/components/schemas/SalesforceUser'
+        hubspot:
+          $ref: '#/components/schemas/HubspotUser'
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        workspaces:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        personalWorkspaceId:
+          type: string
+          pattern: '[^\s\\/]+'
+    UserLicenses:
+      title: UserLicenses
+      type: object
+      required:
+      - distro
+      - chiliCalOrg
+      - concierge
+      - conciergeLive
+      - chat
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+    PaginatedResult_User:
+      title: PaginatedResult_User
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    PaginatedResult_User_2:
+      title: PaginatedResult_User
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User1'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    User1:
+      title: User
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - isSuperAdmin
+      - licenses
+      properties:
+        id:
+          $ref: '#/components/schemas/UserId'
+        name:
+          type: string
+          minLength: 1
+        email:
+          $ref: '#/components/schemas/Email'
+        isSuperAdmin:
+          type: boolean
+        managedWorkspaces:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        managedTeams:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        licenses:
+          $ref: '#/components/schemas/UserLicenses_2'
+        salesforce:
+          $ref: '#/components/schemas/SalesforceUser'
+        hubspot:
+          $ref: '#/components/schemas/HubspotUser'
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        workspaces:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        personalWorkspaceId:
+          type: string
+          pattern: '[^\s\\/]+'
+    SalesforceUser:
+      title: SalesforceUser
+      type: object
+      required:
+      - email
+      - id
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: string
+          pattern: '[^\s\\/]+'
+    Tier:
+      title: Tier
+      type: string
+      enum:
+      - RoutingAndScheduling
+      - Experiences
+      - ChiliDataPlatform
+    UserLicenses_2:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
+    UpdateLicensesRequest:
+      title: UpdateLicensesRequest
+      type: object
+      required:
+      - update
+      properties:
+        update:
+          $ref: '#/components/schemas/Map_Refined_String_Refinement_V'
+    AvailabilityFailure:
+      title: AvailabilityFailure
+      oneOf:
+      - $ref: '#/components/schemas/ExternalCalendarIntegrationFailure'
+      - $ref: '#/components/schemas/NoTimezone'
+      - $ref: '#/components/schemas/Other'
+      discriminator:
+        propertyName: type
+        mapping:
+          ExternalCalendarIntegrationFailure: '#/components/schemas/ExternalCalendarIntegrationFailure'
+          NoTimezone: '#/components/schemas/NoTimezone'
+          Other: '#/components/schemas/Other'
+    Other:
+      title: Other
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Other
+    Email:
+      title: Email
+      examples:
+      - john.doe@acme.com
+      type: string
+      pattern: .+@.+
+    ExternalCalendarIntegrationFailure:
+      title: ExternalCalendarIntegrationFailure
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: ExternalCalendarIntegrationFailure
+    HubspotUser:
+      title: HubspotUser
+      type: object
+      required:
+      - email
+      - id
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: integer
+          format: int64
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>'' — the word ''Bearer'' followed by a space and the key is required. Sending the key without the Bearer prefix returns 401.'
+      name: Authorization
+      in: header
+x-refined-from:
+- chili-piper-availability-inspector-openapi.yaml
+- chili-piper-chat-conversation-inspector-openapi.yaml
+- chili-piper-concierge-debugger-openapi.yaml
+- chili-piper-concierge-router-builder-openapi.yaml
+- chili-piper-concierge-router-configuration-openapi.yaml
+- chili-piper-distribution-analysis-openapi.yaml
+- chili-piper-handoff-router-configuration-openapi.yaml
+- chili-piper-no-show-analyzer-openapi.yaml
+- chili-piper-org-meeting-openapi.yaml
+- chili-piper-scheduling-link-management-openapi.yaml
+- chili-piper-user-copy-openapi.yaml
+- chili-piper-user-details-openapi.yaml
+- chili-piper-user-meetings-openapi.yaml
+- chili-piper-user-offboarding-openapi.yaml

@@ -1,0 +1,1153 @@
+{
+  "item": [
+    {
+      "id": "9c7c74bc-8bba-4b95-b55d-d2ebba8e0f63",
+      "name": "user",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a4e3eb35-cb6c-4ae9-98a5-231e9a4b09fa",
+          "name": "Finds user",
+          "request": {
+            "name": "Finds user",
+            "description": {
+              "content": "[operation: user-find]\n\n\n\nREAD-ONLY\n\n\n\nSearches users by free-text query matched against email and name (partial matches supported). Paginated.\n\n- query (req): partial email or name\n\n- page (opt), pageSize (opt, default 200)\n\n→ paginated list of users, each with: {id, name, email, isSuperAdmin, licenses, workspaces, salesforce (opt), hubspot (opt), slug (opt), managedWorkspaces, managedTeams}\n\nsee: user-read (full profile), user-find-by-ids (batch by ID), user-find-by-filter (advanced multi-field filtering)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "user",
+                "find"
+              ],
+              "host": [
+                "{{v1-org-user-find-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search by email or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number. First page has index 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of items per page. Maximum is 50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "68eeea2e-c9f2-4095-98ee-69155a46cc20",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "find"
+                  ],
+                  "host": [
+                    "{{v1-org-user-find-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 6669,\n  \"page\": 9406,\n  \"pageSize\": 9731,\n  \"results\": [\n    {\n      \"id\": \"|d)OrE\",\n      \"name\": \"string\",\n      \"email\": \"P@/c[Pe>./\",\n      \"isSuperAdmin\": true,\n      \"licenses\": {\n        \"distro\": false,\n        \"chiliCalOrg\": true,\n        \"concierge\": true,\n        \"conciergeLive\": false,\n        \"chat\": true,\n        \"handoff\": true\n      },\n      \"managedWorkspaces\": [\n        \"+oaZswFO\",\n        \"<GEy^%\"\n      ],\n      \"managedTeams\": [\n        \"mQES}Xf\",\n        \"l+Lg\"\n      ],\n      \"salesforce\": {\n        \"email\": \"\\\\EH<*\\\\w@dqOP%euP\",\n        \"id\": \"lYjU#Ih'd$\"\n      },\n      \"hubspot\": {\n        \"email\": \"969e@1c H0u\",\n        \"id\": 680\n      },\n      \"slug\": \"gc-ked\",\n      \"workspaces\": [\n        \"Q\",\n        \"3ULwdh:O1zU\"\n      ],\n      \"personalWorkspaceId\": \"i8[BIFb\"\n    },\n    {\n      \"id\": \"4qJ?Q$U\",\n      \"name\": \"string\",\n      \"email\": \"Y@K\",\n      \"isSuperAdmin\": true,\n      \"licenses\": {\n        \"distro\": false,\n        \"chiliCalOrg\": false,\n        \"concierge\": false,\n        \"conciergeLive\": true,\n        \"chat\": true,\n        \"handoff\": false\n      },\n      \"managedWorkspaces\": [\n        \";872P_RyMA\",\n        \",q[ovOchFN\"\n      ],\n      \"managedTeams\": [\n        \">\",\n        \"Qf59\"\n      ],\n      \"salesforce\": {\n        \"email\": \"Fd_t-MUB_I@']c\",\n        \"id\": \"0t[by^oy39d\"\n      },\n      \"hubspot\": {\n        \"email\": \"`b{@dEW*$J@hO?uM@1\",\n        \"id\": 4347\n      },\n      \"slug\": \"wct8u5m\",\n      \"workspaces\": [\n        \"HA{?DKT?Z\\\"\",\n        \"nT\"\n      ],\n      \"personalWorkspaceId\": \"TFwKDZ1==\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2f5b372-81f3-4c3f-a13c-dfad68a4149b",
+              "name": "Invalid value for: query parameter query, Invalid value for: query parameter page, Invalid value for: query parameter pageSize",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "find"
+                  ],
+                  "host": [
+                    "{{v1-org-user-find-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed379103-996f-414c-a4b2-3e6742237895",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "find"
+                  ],
+                  "host": [
+                    "{{v1-org-user-find-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6db63eec-9924-44f1-a237-de45b408cdec",
+          "name": "Reads user information",
+          "request": {
+            "name": "Reads user information",
+            "description": {
+              "content": "[operation: user-read]\n\n\n\nREAD-ONLY\n\n\n\nFetches full profile for a single user by userId.\n\n- userId (req): UUID\n\n→\n\n    {id, name, email, isSuperAdmin, licenses, workspaces (set of workspaceIds), salesforce: {email, id} (opt), hubspot: {email, id} (opt), slug (opt), managedWorkspaces, managedTeams}\n\n  Note: top-level field is id (not userId); workspaces (not workspaceMemberships); salesforce is an object {email, id} (not a string salesforceId)\n\nsee: user-find (look up userId by email/name), user-find-by-ids (batch fetch), user-update-licenses/workspace-add-users/team-add-users (act on user)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "user",
+                "read",
+                ":userId"
+              ],
+              "host": [
+                "{{v1-org-user-read-userId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d7a47673-e996-40c8-886a-b005f2e8e380",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "read",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{v1-org-user-read-userId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"t:&\\\"xBb\",\n  \"name\": \"string\",\n  \"email\": \"df)zjz8Ur@G_\",\n  \"isSuperAdmin\": true,\n  \"licenses\": {\n    \"distro\": false,\n    \"chiliCalOrg\": false,\n    \"concierge\": false,\n    \"conciergeLive\": false,\n    \"chat\": false,\n    \"handoff\": true\n  },\n  \"managedWorkspaces\": [\n    \"Q\",\n    \"C\"\n  ],\n  \"managedTeams\": [\n    \"|dcUT$-`]EH\",\n    \"9H1KhCg\"\n  ],\n  \"salesforce\": {\n    \"email\": \"0*>Ym^<[ZZ@9XZ?wW~M}5\",\n    \"id\": \"}I?,+C\"\n  },\n  \"hubspot\": {\n    \"email\": \"Pr9|Gln?@kK-.+\",\n    \"id\": 6875\n  },\n  \"slug\": \"y4otr\",\n  \"workspaces\": [\n    \"E(~7>0?\",\n    \"h?,\"\n  ],\n  \"personalWorkspaceId\": \"A`2-OCF<$\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83c960eb-8d64-459f-873a-8c7405970ce5",
+              "name": "Invalid value for: path parameter userId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "read",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{v1-org-user-read-userId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aab2c7f5-eb4a-4648-bbb9-9a3ab6c44ab9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "read",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{v1-org-user-read-userId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ee7e435-69f7-4d37-ae7e-785a0f49b1e8",
+          "name": "Finds users by IDs",
+          "request": {
+            "name": "Finds users by IDs",
+            "description": {
+              "content": "[operation: user-find-by-ids]\n\n\n\nREAD-ONLY\n\n\n\nBatch-fetches full profiles for a known set of userIds in one request — the id-list counterpart to user-read. The body is a bare JSON array of userId UUIDs (e.g. [\"uuid1\", \"uuid2\"]), not wrapped in an object.\n\n→ paginated list of users, each with: {id, name, email, isSuperAdmin, licenses, workspaces, salesforce: {email, id} (opt), hubspot: {email, id} (opt), slug (opt), managedWorkspaces, managedTeams}\n\nsee: user-find/find-by-filter (look up userIds), user-update-licenses/team-add-users/workspace-add-users (act on results)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "user",
+                "find-by-id"
+              ],
+              "host": [
+                "{{v1-org-user-find-by-id-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number. First page has index 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of items per page. Maximum is 50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6033678c-4b86-432c-879a-a4ed3b8cc24d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "find-by-id"
+                  ],
+                  "host": [
+                    "{{v1-org-user-find-by-id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5064,\n  \"page\": 3404,\n  \"pageSize\": 7209,\n  \"results\": [\n    {\n      \"id\": \"FyU-*]|@|T\",\n      \"name\": \"string\",\n      \"email\": \"\\\"!yC[RiWs+@CC/f\",\n      \"isSuperAdmin\": true,\n      \"licenses\": {\n        \"chiliCalOrg\": true,\n        \"handoff\": true,\n        \"distro\": true,\n        \"concierge\": true,\n        \"conciergeLive\": true,\n        \"chat\": true,\n        \"tier\": \"Experiences\"\n      },\n      \"managedWorkspaces\": [\n        \"+=L\",\n        \"^}mp3HJlBX'\"\n      ],\n      \"managedTeams\": [\n        \"1j)c]E;\",\n        \"CpX7C'9\"\n      ],\n      \"salesforce\": {\n        \"email\": \"f@DVWo7.{\",\n        \"id\": \"NyRfI~{d\"\n      },\n      \"hubspot\": {\n        \"email\": \"UI7b0@DXhDiHY\",\n        \"id\": 8987\n      },\n      \"slug\": \"f2t_k\",\n      \"workspaces\": [\n        \"*ZVas'e[\",\n        \"r:@z\"\n      ],\n      \"personalWorkspaceId\": \"#%P\"\n    },\n    {\n      \"id\": \"F@Xri\",\n      \"name\": \"string\",\n      \"email\": \"G\\\"QH,$2@4gXVnr8H\",\n      \"isSuperAdmin\": false,\n      \"licenses\": {\n        \"chiliCalOrg\": true,\n        \"handoff\": false,\n        \"distro\": true,\n        \"concierge\": false,\n        \"conciergeLive\": true,\n        \"chat\": true,\n        \"tier\": \"Experiences\"\n      },\n      \"managedWorkspaces\": [\n        \"ZI0'^_`=w'\",\n        \"_J2v8wtd!s\"\n      ],\n      \"managedTeams\": [\n        \"tOyb\",\n        \"}V|\"\n      ],\n      \"salesforce\": {\n        \"email\": \"}5@KH;\",\n        \"id\": \"WA\"\n      },\n      \"hubspot\": {\n        \"email\": \"Q^fNJXkL@$\",\n        \"id\": 1368\n      },\n      \"slug\": \"-l-l5hy6\",\n      \"workspaces\": [\n        \"-\",\n        \"rf!\"\n      ],\n      \"personalWorkspaceId\": \"A+PJ(Yz(\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7992498a-f33c-490d-a0b2-b1a297ab5da0",
+              "name": "Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "find-by-id"
+                  ],
+                  "host": [
+                    "{{v1-org-user-find-by-id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b351a41b-7c0d-4923-8787-5f058d4c295f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "find-by-id"
+                  ],
+                  "host": [
+                    "{{v1-org-user-find-by-id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8e02e8b-9cb2-411c-aab3-6c09e55991dc",
+          "name": "Updates licenses for users",
+          "request": {
+            "name": "Updates licenses for users",
+            "description": {
+              "content": "[operation: user-update-licenses]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nBulk-updates CP product licenses for one or more users. Unlisted users are unaffected.\n\n- update (req): [{userId, licenseType}]; valid types: Distro, ChiliCalOrg, Concierge, ConciergeLive, Chat, Handoff; use user-find for userIds\n\n→\n\n    {}\n\n⚠ downgrade takes effect immediately (disables gated features); fails if org lacks sufficient seats\n\nsee: user-find/find-by-ids (resolve userIds and verify after)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "user",
+                "licenses"
+              ],
+              "host": [
+                "{{v1-org-user-licenses-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"update\": {\n    \"key_0\": {\n      \"type\": \"<string>\"\n    },\n    \"key_1\": {\n      \"type\": \"<string>\"\n    },\n    \"key_2\": {\n      \"type\": \"<string>\"\n    },\n    \"key_3\": {\n      \"type\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc656dfe-d0c8-4ae2-919d-3e4d4173708d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{v1-org-user-licenses-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update\": {\n    \"key_0\": {\n      \"type\": \"<string>\"\n    },\n    \"key_1\": {\n      \"type\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c81cae84-b399-4047-8456-b09c88c4b506",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{v1-org-user-licenses-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update\": {\n    \"key_0\": {\n      \"type\": \"<string>\"\n    },\n    \"key_1\": {\n      \"type\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99b4f72a-3de2-40e3-a4a9-182dc12162fc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "user",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{v1-org-user-licenses-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update\": {\n    \"key_0\": {\n      \"type\": \"<string>\"\n    },\n    \"key_1\": {\n      \"type\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-user-find-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-user-read-userId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-user-find-by-id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-user-licenses-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c2872415-d23b-4a17-8571-3b8aa64313d1",
+    "name": "Chili Piper User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged user across 14 of this provider's published API definitions: chili-piper-availability-inspector-openapi.yaml, chili-piper-chat-conversation-inspector-openapi.yaml, chili-piper-concierge-debugger-openapi.yaml, chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-distribution-analysis-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml, chili-piper-no-show-analyzer-openapi.yaml, chili-piper-org-meeting-openapi.yaml, chili-piper-scheduling-link-management-openapi.yaml, chili-piper-user-copy-openapi.yaml, chili-piper-user-details-openapi.yaml, chili-piper-user-meetings-openapi.yaml, chili-piper-user-offboarding-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

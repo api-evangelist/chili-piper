@@ -1,0 +1,816 @@
+{
+  "item": [
+    {
+      "id": "1f6ddd82-ed4e-4fea-95dd-d61dbfd9600f",
+      "name": "distribution",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05b340bb-8326-415c-9e24-d273a51be2fb",
+          "name": "Create distribution",
+          "request": {
+            "name": "Create distribution",
+            "description": {
+              "content": "[operation: distribution-create]\n\n\n\nMUTATING\n\n\n\nCreates and immediately publishes a distribution — a reusable assignment pool that routing rules and round-robin scheduling links reference. `name` is required: a nameless distribution is a legacy (v1) one that never appears in distribution-list and cannot be used until named. `assignmentTypeConfig` fixes what it distributes (records, meetings, or conversations). Tune weights/caps afterwards with distribution-update-v3 or distribution-adjust-v3.\n\n- assignmentTypeConfig (req): discriminated by `type`:\n\n    {type: \"Record\", handling: {type: \"WorkingHours\"}|{type: \"Strict\"}}\n    {type: \"Meeting\", handling: {type: \"Flexible\", reassignmentType: \"SameUser\"|\"AnyTeamMember\", allowPickingAssignee: bool}\n                              |{type: \"Strict\", hideAssignee: bool},\n                   limits: {type: \"MeetingLimitUnset\"}\n                           |{type: \"MeetingLimitSet\", userCaps: [{userId, limit}], resetPeriodicity: {type: \"HourlyRolling\"}|{type: \"Daily\", timeZone}|{type: \"Weekly\", timeZone, dayOfWeek(1-7)}|{type: \"Monthly\", timeZone}}}\n    {type: \"Conversation\"}\n\n- weights (opt): [{userId, weight}]; manualCalibration (opt): [{userId, count}]; capping (opt): per-user caps\n\n→\n\n    {distributionId}\n\nsee: team-list (find teamId), distribution-list (verify after)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distribution"
+              ],
+              "host": [
+                "{{v1-org-distribution-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teamId\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"assignmentTypeConfig\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"weights\": [\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    }\n  ],\n  \"manualCalibration\": [\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    }\n  ],\n  \"capping\": {\n    \"resetPeriodicity\": {\n      \"timeZone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"userCaps\": [\n      {\n        \"userId\": \"<string>\",\n        \"limit\": \"<integer>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"limit\": \"<integer>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "78d88b7b-10c1-4d35-a88f-3558cd0e3c88",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distribution"
+                  ],
+                  "host": [
+                    "{{v1-org-distribution-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teamId\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"assignmentTypeConfig\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"weights\": [\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    }\n  ],\n  \"manualCalibration\": [\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    }\n  ],\n  \"capping\": {\n    \"resetPeriodicity\": {\n      \"timeZone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"userCaps\": [\n      {\n        \"userId\": \"<string>\",\n        \"limit\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"distributionId\": \">.{\\\"ggfbRA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ee85808-90b7-4273-a096-fb90155ba176",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distribution"
+                  ],
+                  "host": [
+                    "{{v1-org-distribution-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teamId\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"assignmentTypeConfig\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"weights\": [\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    }\n  ],\n  \"manualCalibration\": [\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    }\n  ],\n  \"capping\": {\n    \"resetPeriodicity\": {\n      \"timeZone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"userCaps\": [\n      {\n        \"userId\": \"<string>\",\n        \"limit\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9a6f089-3baa-46dd-81bb-c57ee2d0d343",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distribution"
+                  ],
+                  "host": [
+                    "{{v1-org-distribution-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teamId\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"assignmentTypeConfig\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"weights\": [\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"weight\": \"<integer>\"\n    }\n  ],\n  \"manualCalibration\": [\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"calibration\": \"<integer>\"\n    }\n  ],\n  \"capping\": {\n    \"resetPeriodicity\": {\n      \"timeZone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"userCaps\": [\n      {\n        \"userId\": \"<string>\",\n        \"limit\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae24be27-e1c3-41ab-b6cb-e410af9ea2e2",
+          "name": "List all distributions (PUT)",
+          "request": {
+            "name": "List all distributions (PUT)",
+            "description": {
+              "content": "[operation: distribution-list-put]\n\n\n\nREAD-ONLY\n\n\n\nBrowses published distributions in the org — the preferred, non-deprecated list. Filters go in the request body (avoiding query-string length limits): workspaceIds, name (substring match), and assignmentType (\"Record\" | \"Meeting\" | \"Conversation\"). Paginated (pageSize default 200).\n\n→\n\n    {results: [{distributionId, name, teamId, assignees, assignmentTypeConfig, capping}]}\n\nsee: distribution-list (GET equivalent)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "org",
+                "distribution",
+                "list"
+              ],
+              "host": [
+                "{{v2-org-distribution-list-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"name\": \"<string>\",\n  \"assignmentType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d4c9986-5cc5-453b-9740-575772df9c39",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "org",
+                    "distribution",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v2-org-distribution-list-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"name\": \"<string>\",\n  \"assignmentType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 9198,\n  \"page\": 1594,\n  \"pageSize\": 3695,\n  \"results\": [\n    {\n      \"id\": \"qg$\",\n      \"published\": {\n        \"distributionId\": \"!VOkZZ^S4\",\n        \"workspaceId\": \"<string>\",\n        \"assignmentTypeConfig\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"teamRef\": {\n          \"id\": \"<string>\",\n          \"revision\": 9258\n        },\n        \"metadata\": {\n          \"createdAt\": \"1952-06-01T00:12:02.928Z\",\n          \"createdBy\": \"string\",\n          \"updatedAt\": \"2024-06-11T19:58:03.522Z\",\n          \"updatedBy\": \"string\",\n          \"revision\": 4258\n        },\n        \"weights\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"weight\": \"<integer>\"\n          }\n        ],\n        \"name\": \"string\",\n        \"manualCalibration\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"calibration\": \"<integer>\"\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"calibration\": \"<integer>\"\n          }\n        ],\n        \"capping\": {\n          \"resetPeriodicity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"userCaps\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      \"state\": {\n        \"userStates\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"lastReset\": \"1976-06-17T17:10:24.195Z\"\n      },\n      \"prioritization\": {\n        \"queue\": [\n          \"F~;@4\",\n          \"u1S?\"\n        ],\n        \"onVacation\": [\n          \"pX@B:|A8!\",\n          \"C^j\"\n        ],\n        \"reachedCap\": [\n          \"`:?\",\n          \"P\"\n        ]\n      }\n    },\n    {\n      \"id\": \"{]#shV-\\\"w}>\",\n      \"published\": {\n        \"distributionId\": \"qP\",\n        \"workspaceId\": \"<string>\",\n        \"assignmentTypeConfig\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"teamRef\": {\n          \"id\": \"<string>\",\n          \"revision\": 4855\n        },\n        \"metadata\": {\n          \"createdAt\": \"2014-11-16T00:41:11.398Z\",\n          \"createdBy\": \"string\",\n          \"updatedAt\": \"1996-08-01T04:45:46.630Z\",\n          \"updatedBy\": \"string\",\n          \"revision\": 6790\n        },\n        \"weights\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"weight\": \"<integer>\"\n          }\n        ],\n        \"name\": \"string\",\n        \"manualCalibration\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"calibration\": \"<integer>\"\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"calibration\": \"<integer>\"\n          }\n        ],\n        \"capping\": {\n          \"resetPeriodicity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"userCaps\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      \"state\": {\n        \"userStates\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"lastReset\": \"1976-04-29T23:00:50.160Z\"\n      },\n      \"prioritization\": {\n        \"queue\": [\n          \"5\",\n          \".|K*2.UjXk\"\n        ],\n        \"onVacation\": [\n          \"LHEKg)5Pm\",\n          \"#!J![\"\n        ],\n        \"reachedCap\": [\n          \"ih{ViY{b_Sx\",\n          \"@4~%tH\\\"MD\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13f2466e-89b0-48df-8e81-4fd0474b50bb",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "org",
+                    "distribution",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v2-org-distribution-list-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"name\": \"<string>\",\n  \"assignmentType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2df8986c-857e-4e02-9b14-ed73fa786369",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "org",
+                    "distribution",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v2-org-distribution-list-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"name\": \"<string>\",\n  \"assignmentType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "509051ef-3cfe-47cc-a619-5b5bf38b0d64",
+          "name": "Get workspace distribution settings",
+          "request": {
+            "name": "Get workspace distribution settings",
+            "description": {
+              "content": "[operation: distribution-workspace-settings-get]\n\n\n\nREAD-ONLY\n\n\n\nRead a workspace's round-robin distribution (fairness/leveling) settings.\n\n\n\nReturns the workspace-level round-robin settings that shape the fairness/leveling equation applied on top of each distribution's per-user weights and calibration. These knobs are shared by every distribution in the workspace, so an analysis skill should read them before reasoning about how assignments are balanced (otherwise it may misassume the leveling rules). Reflects the published (live) settings only. Pass the target `workspaceId` (from workspace-list).\n\n→\n\n    {calibrateVacation, creditBackCancelled, creditBackNoShow, orderIfEqualState (\"Random\"|\"AsConfigured\"), resetPeriodicity, vacationBuffer: {daysBeforeStart, daysBeforeEnd, recognitionEnabled, freshness (\"RealTime\"|\"Cached\")}}\n\n- resetPeriodicity: discriminated by `type`:\n\n    {type: \"Monthly\", timeZone}\n    {type: \"Quarterly\", firstMonth (1-3), timeZone}\n    {type: \"Yearly\", monthOfYear (1-12), timeZone}\n    {type: \"Never\"}\n\n  Note: creditBackCancelled / creditBackNoShow move a user back up the queue when a meeting is cancelled / no-showed; calibrateVacation excuses vacationing users from the fairness penalty.\n\nsee: distribution-workspace-settings-update (edit these settings), workspace-list (resolve workspaceId), distribution-list-put (per-distribution weights/calibration)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distribution",
+                "workspace-settings"
+              ],
+              "host": [
+                "{{v1-org-distribution-workspace-settings-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspaceId",
+                  "value": "<string>",
+                  "description": "(Required) Id of the workspace"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "89b53362-b706-49ec-86bb-3960b1db6429",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distribution",
+                    "workspace-settings"
+                  ],
+                  "host": [
+                    "{{v1-org-distribution-workspace-settings-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"calibrateVacation\": true,\n  \"creditBackCancelled\": false,\n  \"creditBackNoShow\": false,\n  \"orderIfEqualState\": \"AsConfigured\",\n  \"resetPeriodicity\": {\n    \"timeZone\": \"string\",\n    \"type\": \"string\"\n  },\n  \"vacationBuffer\": {\n    \"daysBeforeStart\": 9801,\n    \"daysBeforeEnd\": 5249,\n    \"recognitionEnabled\": true,\n    \"freshness\": \"RealTime\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78218744-492b-44b8-8303-9ff53ecf76af",
+              "name": "Invalid value for: query parameter workspaceId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distribution",
+                    "workspace-settings"
+                  ],
+                  "host": [
+                    "{{v1-org-distribution-workspace-settings-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "26c40005-0e9f-4f52-8289-093ce51fbad4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distribution",
+                    "workspace-settings"
+                  ],
+                  "host": [
+                    "{{v1-org-distribution-workspace-settings-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distribution-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v2-org-distribution-list-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distribution-workspace-settings-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "01cab335-90bd-40e8-a73b-1ad89b8c4ace",
+    "name": "Chili Piper Distribution API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged distribution across 9 of this provider's published API definitions: chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-distribution-analysis-openapi.yaml, chili-piper-distro-debugger-openapi.yaml, chili-piper-distro-router-configuration-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml, chili-piper-routing-audit-openapi.yaml, chili-piper-scheduling-link-management-openapi.yaml, chili-piper-user-offboarding-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

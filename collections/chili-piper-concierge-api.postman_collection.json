@@ -1,0 +1,1620 @@
+{
+  "item": [
+    {
+      "id": "e5aadef1-d6e2-4071-8bf0-f1c243bcb95b",
+      "name": "concierge",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "092cec2f-97a8-4f30-ba72-eb6800b1d953",
+          "name": "Lists all concierge routers",
+          "request": {
+            "name": "Lists all concierge routers",
+            "description": {
+              "content": "[operation: concierge-list-routers]\n\n\n\nREAD-ONLY\n\n\n\nReturns all Concierge routers in the org. A router evaluates inbound lead data and routes to teams/users via rules.\n\n- workspaceId (opt): restrict to one workspace\n\n→\n\n    {routers: [{router: {id (routerId), name, slug, formMapping, settings, routing, meta}, dataFields: [...], workspaceId}]}\n\n  Note: routerId is at routers[N].router.id; slug is at routers[N].router.slug\n\nsee: concierge-logs (audit decisions, needs routerId+workspaceId), concierge-route-by-slug (execute routing, needs slug)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "concierge",
+                "routers",
+                "concierge",
+                "list"
+              ],
+              "host": [
+                "{{v1-org-concierge-routers-concierge-list-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0fae940b-a20b-4bc0-a1ad-21f47038f0c7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-list-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"routers\": [\n    {\n      \"router\": {\n        \"id\": \"d6a28428-f39d-9d79-bad7-a08ed4d7f93e\",\n        \"name\": \"mH*eljQ=Jo^-E9dy.:Y==VvsPiEmQeZL,2Kjq]y'!LP?Sn%C0l7c1,%HvvQd++!$c8KNyXytw'p^comK-!sv4ic6u4i1FjBO>9!Q>_F#^Ex@C2c1*8(*j$H:c4<\\\"mm.7ZQC=.{p!'LA8,(h&UI0tut;zUJ2DAJ).X,|]sBU}c\\\"P\",\n        \"slug\": \"s0u8t8szt\",\n        \"formMapping\": {\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"emailField\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"phoneField\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"acceptsRouting\": true,\n        \"routing\": {\n          \"catchAll\": {\n            \"yes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sharedCrmUpsertRecord\": {\n            \"settings\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"rules\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"meta\": {\n          \"createdBy\": \"OgE#.Z1\",\n          \"updatedBy\": \"la\",\n          \"createdOn\": \"1977-05-04T12:00:18.111Z\",\n          \"updatedOn\": \"1995-12-27T15:09:57.872Z\"\n        },\n        \"settings\": {\n          \"headerImage\": \"string\",\n          \"headingText\": \"string\",\n          \"language\": \"strin\",\n          \"localizations\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"workspaceId\": \"F<pK0\",\n      \"dataFields\": [\n        {\n          \"reference\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"mappings\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"reference\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"mappings\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"router\": {\n        \"id\": \"f67a2935-c1f9-5557-0e6e-5cc00bac9109\",\n        \"name\": \"Eol*p~h0u}[r@q8#G[ m(w`_4,\\\\=[HmLai_O]&\\\\fMrC;Jr''1>E5U8^[^tMd| .>Pchi56\\\"D;Tg67*E$*jO)cQ_&Q7x0A\\\"4^?S_HWu}>!sfcL_v|Zqd_pFt#\\\\UGOGN98p%WN?{w%9JKii4o'qmpn&,X{R^!>t\",\n        \"slug\": \"p6e\",\n        \"formMapping\": {\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"emailField\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"phoneField\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"acceptsRouting\": true,\n        \"routing\": {\n          \"catchAll\": {\n            \"yes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sharedCrmUpsertRecord\": {\n            \"settings\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"rules\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"meta\": {\n          \"createdBy\": \"z{&kvOpY\",\n          \"updatedBy\": \"%\",\n          \"createdOn\": \"1996-01-14T11:24:02.436Z\",\n          \"updatedOn\": \"1986-01-11T23:40:36.200Z\"\n        },\n        \"settings\": {\n          \"headerImage\": \"string\",\n          \"headingText\": \"string\",\n          \"language\": \"string\",\n          \"localizations\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"workspaceId\": \"YVwK\",\n      \"dataFields\": [\n        {\n          \"reference\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"mappings\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"reference\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"mappings\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43cfe346-de6e-4fe5-bff8-5fd5c3493c6f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-list-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9bb8f03-3df4-46ab-b5ae-37107ee1a4a0",
+          "name": "Reads Concierge Logs",
+          "request": {
+            "name": "Reads Concierge Logs",
+            "description": {
+              "content": "[operation: concierge-logs]\n\n\n\nREAD-ONLY\n\n\n\nFetches aggregated Concierge routing decision logs for a router in a time window (parallelism=4). Max window: 30 days.\n\n- workspaceId (req): query param; use workspace-list or concierge-list-routers\n\n- routerId (req): query param; use concierge-list-routers (routers[N].router.id)\n\n- start, end (req): query params; ISO-8601; max 30-day span\n\n→ array of log entries, each with fields: id, status, trigger, assignments, triggeredAt, crmUrl, guestEmail, actionsStatus, sourceUrl, meetingId, routing, matchedPath (payload structure may change)\n\nsee: concierge-list-routers (find routerId+workspaceId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "concierge",
+                "logs"
+              ],
+              "host": [
+                "{{v1-org-concierge-logs-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspaceId",
+                  "value": "<string>",
+                  "description": "(Required) Id of the workspace"
+                },
+                {
+                  "disabled": false,
+                  "key": "routerId",
+                  "value": "<uuid>",
+                  "description": "(Required) Concierge Router Id"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) time of start such as 2025-01-08T13:46:18.681Z (ISO8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) time of end such as 2025-01-14T13:46:18.681Z (ISO8601 format)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1d200035-a05f-4fe9-a0b0-55fe21c30b78",
+              "name": "Concierge logs. Payload structure might change.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-logs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "routerId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bc55715-8202-422a-af2a-a2a7dea117dd",
+              "name": "Invalid value for: query parameter workspaceId, Invalid value for: query parameter routerId, Invalid value for: query parameter start, Invalid value for: query parameter end",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-logs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "routerId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f4d46677-549e-403d-84f9-d967a4a510e1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-logs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "routerId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c476577-e5d4-45a0-8ed8-23e92d718f60",
+          "name": "Create concierge router",
+          "request": {
+            "name": "Create concierge router",
+            "description": {
+              "content": "[operation: concierge-router-create]\n\n\n\nMUTATING\n\n\n\nCreates a Concierge router and publishes it live in one step — there is no unpublished-draft state via the API. workspaceId must be a team workspace of this tenant (400 otherwise). The URL slug is derived from name on publish (there is no separate slug field). Triggers are a PRODUCT of optional kinds — set any combination of form (the Chili webform), inAppButton, and routerLink; supplying NONE auto-generates a minimal email-only Chili webform. A routerLink is what gives the router a shareable Router Link URL. branding and localizations are optional.\n\n- routing (req): ordered rules evaluated top-down, plus a mandatory catch-all fallback. Each row's rule, when it matches, runs that row's `outcome`; the catch-all `outcome` runs when no row matches:\n\n    {routes: [{ruleId, outcome}], catchAll: outcome}\n\n  outcome (one of):\n\n    {type: \"Schedule\", assignment, meetingTypeId, timeout?, crmActions?}\n    {type: \"Redirect\", url}\n\n  Schedule assigns the lead and books a meeting type. assignment is {type: \"Distribution\", distributionId} (round-robin / ownership / whatever the distribution does) or {type: \"User\", userId} (a specific host). timeout (opt) {minutes, onTimeout} sets the no-show fallback; onTimeout is {type: \"Landing\"} or {type: \"Url\", url}; omit timeout for the default (10 min → Landing). crmActions (opt) is an ordered post-booking chain, each {type: \"ConvertLead\"} or {type: \"Notify\", slackChannel?} (omit slackChannel to notify the assigned host instead of a named channel). Redirect sends the lead to a URL instead of booking. ruleId is required on every row; an always-match route is the catchAll. routes may be empty (then only the catchAll applies).\n\n- form (opt): the Chili-hosted guest form fields the lead fills in; MUST include the email field (PersonEmail) or the create is rejected. Omit for a default email-only form:\n\n    [{dataField, label, description?, required?, hidden?}]\n\n  Note: dataField is a CRM data-field reference — a default field name (e.g. PersonEmail, PersonFirstName) or a custom-field UUID; a made-up name is rejected (400). label is the field's display name; required toggles whether the guest must fill it. hidden (opt) is a PREFILLED value (a string) stored on the field but NOT shown to the guest — it is a value, not a show/hide flag; omit it for a normal visible field.\n\n- inAppButton (opt): an in-app-button trigger — the data fields the button collects; MUST include the email field (PersonEmail):\n\n    [{dataField}]\n\n- routerLink (opt): a router-link trigger — gives the router a shareable Router Link URL; the fields its form collects; MUST include the email field (PersonEmail):\n\n    [{dataField, label, required?, hidden?}]\n\n  Note: dataField/label/required/hidden are as for form. A router-link field's enrichment waterfall is not settable via the API (preserved if already configured in the Concierge app).\n\n- branding (opt): the booking page's cover/heading/language — {coverImage?, headingText?, language?}\n\n- localizations (opt): per-language text overrides — {\"<lang-tag>\": {\"<key>\": \"<text>\"}}\n\n→\n\n    {id, workspaceId, name?, slug?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}, form?, inAppButton?, routerLink?, branding?, localizations?}\n\n  Note: the returned routing is the lossy per-row summary (same shape as concierge-router-get), not the matrix you sent; form/inAppButton/routerLink/branding/localizations echo the created config (same shape as concierge-router-get)\n\n⚠ if the final publish step fails the router is left behind as an UNPUBLISHED draft (typed 422); retrying the create mints ANOTHER draft — fix or delete the leftover in the Concierge app\n\nsee: concierge-list-routers (find a workspaceId), rule-list (find ruleIds), distribution-list (find distributionIds), user-find (find userIds), meeting-type-list (find meetingTypeIds), concierge-router-update (replace config afterwards)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "concierge",
+                "routers",
+                "concierge"
+              ],
+              "host": [
+                "{{v1-org-concierge-routers-concierge-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36dd9c0c-4d77-4e59-b4d7-185fe08b957c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    },\n    \"key_2\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_3\": {\n      \"key_0\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"671198e0-b834-a2d6-7f8b-13c86309aca0\",\n  \"workspaceId\": \"<string>\",\n  \"routing\": {\n    \"known\": false,\n    \"representable\": false,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"ckS\",\n        \"ruleType\": \"string\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"ajOK6fQ~\",\n        \"ruleType\": \"string\"\n      }\n    ],\n    \"catchAll\": {\n      \"outcome\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"name\": \"string\",\n  \"slug\": \"zj\",\n  \"form\": {\n    \"representable\": false,\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"hidden\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"hidden\": \"<string>\"\n      }\n    ],\n    \"readOnlyTriggers\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"inAppButton\": {\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\"\n      }\n    ]\n  },\n  \"routerLink\": {\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"hidden\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"hidden\": \"<string>\"\n      }\n    ]\n  },\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "006ebe4d-9699-4dee-92a9-7e725641288a",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    },\n    \"key_2\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_3\": {\n      \"key_0\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5fbb936d-0fd3-481b-b1bb-6fa80bb3d8f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    },\n    \"key_2\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_3\": {\n      \"key_0\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6884394-3ef2-4673-b806-3baae31f7fb9",
+          "name": "Get concierge router",
+          "request": {
+            "name": "Get concierge router",
+            "description": {
+              "content": "[operation: concierge-router-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches one Concierge router: its identity, a lossy per-row summary of its routing, and its full-config dimensions (guest form, branding/cover, localizations). Call this before concierge-router-update to check routing.representable and form.representable — they tell you whether an update would be accepted or rejected as unrepresentable.\n\n→\n\n    {id, workspaceId, name?, slug?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}, form?, inAppButton?, routerLink?, branding?, localizations?}\n    outcome (one of): {type: \"Schedule\", distributionId?, userId?, meetingTypeId?} | {type: \"Redirect\", url?} | {type: \"OwnerAssign\"} | {type: \"ContactOptions\"} | {type: \"CrmAction\"} | {type: \"Other\", kind}\n    form: {representable, fields: [{dataField, label, description?, required, hidden?}], readOnlyTriggers: [string]}\n    inAppButton: {fields: [{dataField}]}\n    routerLink: {fields: [{dataField, label, required, hidden?}]}\n    branding: {coverImage?, headingText?, language?}\n    localizations: {\"<lang-tag>\": {\"<key>\": \"<text>\"}}\n\n  Note: the routing summary is lossy by design — it NAMES each row's outcome (including ones Edge can't itself produce, e.g. Redirect/CrmAction) so you can see what the router does even when it was built in the app\n\n  Note: routing.representable is true only when the current routing — both the draft tree and the published tree — is exactly what Edge's create/update would have produced; when false, an update with a new routing may be rejected (edit it in the Concierge app instead). A router that has no routing tree yet also reports representable=false, but an update setting routing on it is still accepted (nothing is destroyed).\n\n  Note: form.representable is true only when the router's webform is a Chili form (or absent) — only then is a form update accepted. form.fields lists the editable Chili-form fields; form.readOnlyTriggers names trigger kinds Edge doesn't edit here (only ThirdPartyForm — a third-party webform). inAppButton/routerLink (when present) are the router's in-app-button / router-link triggers and ARE editable via concierge-router-update. branding/localizations are absent when unset.\n\nsee: concierge-list-routers (browse to find a routerId), concierge-router-update (replace routing/form/branding/localizations)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "concierge",
+                "routers",
+                "concierge",
+                ":routerId"
+              ],
+              "host": [
+                "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aef93c24-154c-4f4c-aaed-9e5dad2d97f4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"706ca6d3-8998-07db-66dd-61804901d9eb\",\n  \"workspaceId\": \"<string>\",\n  \"routing\": {\n    \"known\": false,\n    \"representable\": false,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"6Bge(z)Q)\",\n        \"ruleType\": \"string\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"{D}g:8N$sw\",\n        \"ruleType\": \"string\"\n      }\n    ],\n    \"catchAll\": {\n      \"outcome\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"name\": \"string\",\n  \"slug\": \"062tuqreva\",\n  \"form\": {\n    \"representable\": true,\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"hidden\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"hidden\": \"<string>\"\n      }\n    ],\n    \"readOnlyTriggers\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"inAppButton\": {\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\"\n      }\n    ]\n  },\n  \"routerLink\": {\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"hidden\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"hidden\": \"<string>\"\n      }\n    ]\n  },\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_2\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec1f68cd-c079-4b0b-a296-42a670d5d554",
+              "name": "Invalid value for: path parameter routerId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6265afb0-2c86-43c9-b3c0-7f7518aa1058",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13e87eb9-2efa-4db0-ad4c-417288b818f9",
+          "name": "Update concierge router",
+          "request": {
+            "name": "Update concierge router",
+            "description": {
+              "content": "[operation: concierge-router-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a Concierge router and republishes it live. Only the fields you supply change; omitted fields (and config dimensions Edge doesn't model, e.g. third-party webforms, router-link enrichment waterfalls, and CRM-upsert settings) are preserved. Supplying name re-derives the URL slug. Each dimension you send is a full replace, except branding which merges per sub-field (see below). Triggers are a product of optional kinds: form (Chili webform), inAppButton, and routerLink each replace only their own kind — writing one never destroys the others. Call concierge-router-get first to check routing.representable / form.representable.\n\n- routing (opt): when present, fully REPLACES the routing matrix (not a partial merge); when omitted, the current routing is kept. Each row's rule, when it matches, runs that row's `outcome`; the catch-all `outcome` runs when no row matches:\n\n    {routes: [{ruleId, outcome}], catchAll: outcome}\n\n  outcome (one of):\n\n    {type: \"Schedule\", assignment, meetingTypeId, timeout?, crmActions?}\n    {type: \"Redirect\", url}\n\n  Schedule assigns the lead and books a meeting type. assignment is {type: \"Distribution\", distributionId} or {type: \"User\", userId}. timeout (opt) {minutes, onTimeout} sets the no-show fallback; onTimeout is {type: \"Landing\"} or {type: \"Url\", url}; omit timeout for the default (10 min → Landing). crmActions (opt) is an ordered post-booking chain, each {type: \"ConvertLead\"} or {type: \"Notify\", slackChannel?} (omit slackChannel to notify the assigned host instead of a named channel). Redirect sends the lead to a URL instead of booking. ruleId is required on every row; an always-match route is the catchAll. routes may be empty (then only the catchAll applies).\n\n- form (opt): when present, fully REPLACES the guest form with a Chili form built from these fields (the in-app-button / router-link triggers, if any, are preserved); MUST include the email field (PersonEmail). Omit to keep the current form:\n\n    [{dataField, label, description?, required?, hidden?}]\n\n  Note: dataField is a CRM data-field reference — a default field name (e.g. PersonEmail, PersonFirstName) or a custom-field UUID; a made-up name is rejected (400). label is the field's display name; required toggles whether the guest must fill it. hidden (opt) is a PREFILLED value (a string) stored on the field but NOT shown to the guest — it is a value, not a show/hide flag; omit it for a normal visible field.\n\n- inAppButton (opt): when present, fully REPLACES the in-app-button trigger's fields (the form/router-link triggers, if any, are preserved); MUST include the email field (PersonEmail). Omit to keep the current button:\n\n    [{dataField}]\n\n- routerLink (opt): when present, fully REPLACES the router-link trigger's fields (the form/in-app-button triggers, if any, are preserved); MUST include the email field (PersonEmail). Omit to keep the current link:\n\n    [{dataField, label, required?, hidden?}]\n\n  Note: a router-link field's enrichment waterfall is not settable via the API; an existing one is preserved (matched by dataField) across the replace.\n\n- branding (opt): the cover/heading/language. Merged PER SUB-FIELD: a sub-field you supply is replaced; one you omit is PRESERVED (so a partial {headingText} does not wipe coverImage/language). localizations are preserved. To clear a sub-field entirely, edit the router in the Concierge app. — {coverImage?, headingText?, language?}\n\n- localizations (opt): when present, fully REPLACES the per-language overrides (preserving branding) — {\"<lang-tag>\": {\"<key>\": \"<text>\"}}\n\n→\n\n    {id, workspaceId, name?, slug?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}, form?, inAppButton?, routerLink?, branding?, localizations?}\n\n  Note: the returned routing is the lossy per-row summary (same shape as concierge-router-get), not the matrix you sent\n\n⚠ full-replace + publishes live immediately: supplying routing/form/inAppButton/routerLink/localizations replaces that ENTIRE dimension, not a partial merge (branding is the exception — it merges per sub-field, see above)\n\n⚠ routing REJECTED (409) when the router's existing routing — its DRAFT tree or its PUBLISHED tree — isn't representable in this simplified model (advanced routing built in the Concierge app — owner-assign, contact-options / multiple-choice, call-rep, multiple assignees per row, CRM actions beyond convert-lead / Slack-notify, enrichment or spam-check steps, etc.) — to avoid silently destroying it, edit those routers in the Concierge app instead. Check routing.representable via concierge-router-get first.\n\n⚠ form REJECTED (409) when the router's current webform is a third-party form (not a Chili form) — replacing it would destroy that mapping; check form.representable via concierge-router-get first. branding/localizations are always accepted. A name-only update always succeeds.\n\n⚠ every update publishes the router's current DRAFT — if the draft carries unpublished edits made in the Concierge app, those go live as a side effect, even on a name-only patch\n\n⚠ if the final publish step fails, the changes are saved on an UNPUBLISHED draft and a typed 422 error is returned — fix or delete the draft in the Concierge app\n\nsee: concierge-router-get (check routing.representable / form.representable before replacing), rule-list (find ruleIds), distribution-list (find distributionIds), user-find (find userIds), meeting-type-list (find meetingTypeIds)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "concierge",
+                "routers",
+                "concierge",
+                ":routerId"
+              ],
+              "host": [
+                "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee22414d-b498-496c-b5aa-b1c80f283d73",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"706ca6d3-8998-07db-66dd-61804901d9eb\",\n  \"workspaceId\": \"<string>\",\n  \"routing\": {\n    \"known\": false,\n    \"representable\": false,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"6Bge(z)Q)\",\n        \"ruleType\": \"string\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"{D}g:8N$sw\",\n        \"ruleType\": \"string\"\n      }\n    ],\n    \"catchAll\": {\n      \"outcome\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"name\": \"string\",\n  \"slug\": \"062tuqreva\",\n  \"form\": {\n    \"representable\": true,\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"hidden\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"hidden\": \"<string>\"\n      }\n    ],\n    \"readOnlyTriggers\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"inAppButton\": {\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\"\n      }\n    ]\n  },\n  \"routerLink\": {\n    \"fields\": [\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"hidden\": \"<string>\"\n      },\n      {\n        \"dataField\": \"<string>\",\n        \"label\": \"<string>\",\n        \"required\": \"<boolean>\",\n        \"hidden\": \"<string>\"\n      }\n    ]\n  },\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_2\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e6948a7-a526-4713-b73b-4dbc278558f2",
+              "name": "Invalid value for: path parameter routerId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5b1bef22-6c6e-4ac0-a5c7-76a56590b826",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"catchAll\": {\n      \"url\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"routes\": [\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      },\n      {\n        \"outcome\": {\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"<string>\"\n      }\n    ]\n  },\n  \"form\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"inAppButton\": [\n    {\n      \"dataField\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\"\n    }\n  ],\n  \"routerLink\": [\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    },\n    {\n      \"dataField\": \"<string>\",\n      \"label\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"hidden\": \"<string>\"\n    }\n  ],\n  \"branding\": {\n    \"coverImage\": \"<string>\",\n    \"headingText\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"localizations\": {\n    \"key_0\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"key_1\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6004ed9-efb3-4cc2-941f-4935ff3c1fa5",
+          "name": "Remove concierge router",
+          "request": {
+            "name": "Remove concierge router",
+            "description": {
+              "content": "[operation: concierge-router-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a Concierge router by id.\n\n- routerId (req): the router's id (path)\n\n⚠ irreversible via API; any embeds or links pointing at this router stop working\n\nsee: concierge-list-routers or concierge-router-get (confirm the id before deleting)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "concierge",
+                "routers",
+                "concierge",
+                ":routerId"
+              ],
+              "host": [
+                "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2fcf9936-6e2d-4a6f-b73e-85f5c0cb4b0b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "88e443ed-8443-48df-9a47-1790ee9d1cac",
+              "name": "Invalid value for: path parameter routerId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "042d5e6c-f42c-4dca-94a9-5c24d1bd76bc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "concierge",
+                    "routers",
+                    "concierge",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-concierge-routers-concierge-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-concierge-routers-concierge-list-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-concierge-logs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-concierge-routers-concierge-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-concierge-routers-concierge-routerId-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8f4b1b29-1f1a-4031-9d78-39ce12aa36a9",
+    "name": "Chili Piper Concierge API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged concierge across 6 of this provider's published API definitions: chili-piper-concierge-debugger-openapi.yaml, chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-meeting-inspector-openapi.yaml, chili-piper-no-show-analyzer-openapi.yaml, chili-piper-routing-audit-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

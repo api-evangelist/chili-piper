@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Meetings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "meetings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Meetings (PUT)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v2/org/meetings/meetings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-list-put]\n\n\n\nREAD-ONLY\n\n\n\nList meetings within a time range, paginated.\n\n\n\nReturns meetings within a time range (paginated). Prefer this over the GET form: filters travel in the request body, so long workspace or status lists don't hit URL-length limits. Narrow by workspace and by status (Active, Canceled, NoShow, Completed). The window may not exceed 7 days.\n\n→\n\n    {results: [{meetingId, status, scheduledAt, attendees, assignedUserId, workspaceId}], pagination}\n\nsee: meetin"
+        },
+        {
+          "info": {
+            "name": "Get Meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meetings/get/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Meeting Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches full record for a single meeting by meetingId.\n\n- meetingId (req): UUID\n\n→ meeting object (payload structure may change); key fields: meetingStatus (not \"status\"), activities (array including a ScheduledAt entry — no top-level scheduledAt), id (not \"meetingId\"); no top-level linkedCrmEventIds\n\nsee: meeting-list (find meetingId by time range), meeting-cancel/noshow (change status), meeting-activity (admin URL), crm-get (if CRM ID known)"
+        },
+        {
+          "info": {
+            "name": "Export Meetings streaming (PUT)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v3/org/meetings/meetings/export",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-export-v2-put]\n\n\n\nREAD-ONLY\n\n\n\nExports meetings in a time range as CSV via v2 streaming endpoint. Accepts filter params in request body. Max window: 7 days.\n\n- body.start, body.end (req): ISO-8601; max 7-day span\n\n- body.workspaceIds (opt): filter by workspace\n\n- body.assigneeIds (opt): filter by assignee user IDs (array of userId strings); use user-find to resolve email → userId\n\n- body.hostIds (opt): filter by host user IDs (array of userId strings); use user-find to resolv"
+        },
+        {
+          "info": {
+            "name": "Cancel a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meetings/cancel/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Meeting Id"
+              },
+              {
+                "name": "redirectOnSuccess",
+                "value": "",
+                "type": "query",
+                "description": "Redirect to this url on success"
+              },
+              {
+                "name": "redirectOnFailure",
+                "value": "",
+                "type": "query",
+                "description": "Redirect to this url on failure"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-cancel]\n\n\n\nMUTATING — DESTRUCTIVE, has external side effects\n\n\n\nPermanently cancels meeting by meetingId; sets CANCELLED, may update calendar/CRM and trigger automations.\n\n- meetingId (req)\n\n→\n\n    {}\n\n⚠ irreversible; may email attendees\n\nsee: meeting-get (verify status before/after), crm-cancel (if CRM ID known)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

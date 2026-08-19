@@ -1,0 +1,2308 @@
+openapi: 3.2.0
+info:
+  title: Chili Piper Scheduling Links API
+  version: '1.0'
+  description: 'Operations tagged schedulingLinks across 2 of this provider''s published API definitions: chili-piper-scheduling-link-management-openapi.yaml, chili-piper-user-details-openapi.yaml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://fire.chilipiper.com/api/fire-edge
+  description: Production
+security:
+- apiKeyAuth: []
+tags:
+- name: schedulingLinks
+paths:
+  /v1/org/schedulingLinks/list-personal/{userId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    get:
+      tags:
+      - schedulingLinks
+      summary: Scheduling Links - personal
+      description: "[operation: scheduling-link-list-personal]\n\n\n\nREAD-ONLY\n\n\n\nLists a user's own personal scheduling links (their individual booking URLs, not team/distribution-backed ones). Use scheduling-link-list-round-robin and the other list-* tools for team links.\n\n→\n\n    [{slug, meetingTypeId, meetingTypeName, bookingUrl}]\n\nsee: user-find (resolve userId), scheduling-link-list-round-robin (team/distribution-backed links)"
+      operationId: schedulingLinkListPersonal
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: List of personal scheduling links with full details.
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: path parameter userId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - user.read
+  /v1/org/schedulingLinks/list-round-robin:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Scheduling Links - round robin
+      description: "[operation: scheduling-link-list-round-robin]\n\n\n\nREAD-ONLY\n\n\n\nLists round-robin scheduling links — booking URLs backed by a distribution, so each booking is assigned round-robin across the distribution's members. All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, distributionId, linkId, name, slug, meetingTypeIds, members, assignments, bookingUrl}]}\n\nsee: distribution-list (find distributionIds), workspace-list (find workspaceIds), scheduling-link-list-personal (per-user links)"
+      operationId: schedulingLinkListRoundRobin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoundRobinSchedulingLinksRequest'
+        required: true
+      responses:
+        '200':
+          description: List of round robin scheduling links. Payload structure might change.
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundRobinSchedulingLinkDetails'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.read
+  /v1/org/schedulingLinks/list-admin-one-on-one:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Scheduling Links - admin (one-on-one)
+      description: "[operation: scheduling-link-list-admin-one-on-one]\n\n\n\nREAD-ONLY\n\n\n\nLists admin (one-on-one) scheduling links — admin-provisioned links that each book with a single fixed host (no round-robin). All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}]}\n\nsee: workspace-list (find workspaceIds), scheduling-link-init (book via linkId)"
+      operationId: schedulingLinkListAdminOneOnOne
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminSchedulingLinksRequest'
+        required: true
+      responses:
+        '200':
+          description: List of admin (one-on-one) scheduling links.
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminSchedulingLinkDetails'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.read
+  /v1/org/schedulingLinks/list-group:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Scheduling Links - group
+      description: "[operation: scheduling-link-list-group]\n\n\n\nREAD-ONLY\n\n\n\nLists group scheduling links — meetings with a fixed set of multiple attendees, each independently required or optional. The invite goes to everyone, but offered slots are the intersection of the required attendees' availability only. Attendees can be specific users or picked round-robin at book time. All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}]}\n\nsee: workspace-list (find workspaceIds), scheduling-link-init (book via linkId)"
+      operationId: schedulingLinkListGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupSchedulingLinksRequest'
+        required: true
+      responses:
+        '200':
+          description: List of group scheduling links.
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupSchedulingLinkDetails'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.read
+  /v1/org/schedulingLinks/list-ownership:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Scheduling Links - ownership
+      description: "[operation: scheduling-link-list-ownership]\n\n\n\nREAD-ONLY\n\n\n\nLists ownership scheduling links — links that route each booking to the guest's CRM account owner (lead or contact owner), resolved at book time, which is why scheduling-link-init requires guestEmail. A link may add fixed or round-robin assignees and reference distributions as assignees, as a fallback when no owner matches, or both. All filters are optional; omit them all for org-wide results.\n\n- filterDistributionIds (opt): matches links referencing any of these distributions (as assignee, fallback, or both); use distribution-list.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, ownership, distribution, pageConfig, sharedWith, bookingUrl}]}\n\nsee: distribution-list (find distributionIds), workspace-list (find workspaceIds), scheduling-link-init (book via linkId, guestEmail required)"
+      operationId: schedulingLinkListOwnership
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnershipSchedulingLinksRequest'
+        required: true
+      responses:
+        '200':
+          description: List of ownership scheduling links.
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnershipSchedulingLinkDetails'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.read
+  /v1/org/schedulingLinks/round-robin:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Create round-robin scheduling link
+      description: "[operation: scheduling-link-create-round-robin]\n\n\n\nMUTATING\n\n\n\nCreates a round-robin scheduling link — bookings are distributed across the backing distributions' members. Each distribution is a required assignee and the first one supplies the host.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- distributionIds: one or more distributions; use distribution-list.\n\n- sharedWith (opt): sharing scope, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, assignments, bookingUrl}\n\nsee: distribution-list (find distributionIds), scheduling-link-list-round-robin (browse existing)"
+      operationId: schedulingLinkCreateRoundRobin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoundRobinLinkCreate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundRobinSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.create
+  /v1/org/schedulingLinks/round-robin/{linkId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    put:
+      tags:
+      - schedulingLinks
+      summary: Update round-robin scheduling link
+      description: "[operation: scheduling-link-update-round-robin]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches a round-robin scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing distributionIds replaces the backing distributions (the first becomes the host).\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, assignments, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-round-robin (find a linkId)"
+      operationId: schedulingLinkUpdateRoundRobin
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoundRobinLinkUpdate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundRobinSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: path parameter linkId, Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.modify
+    delete:
+      tags:
+      - schedulingLinks
+      summary: Remove round-robin scheduling link
+      description: '[operation: scheduling-link-delete-round-robin]
+
+
+
+
+        MUTATING — DESTRUCTIVE
+
+
+
+
+        Deletes a round-robin scheduling link by id.
+
+
+        - linkId (req): the round-robin link''s id
+
+
+        ⚠ irreversible via API; the booking URL stops working immediately
+
+
+        see: scheduling-link-list-round-robin (confirm the id before deleting)'
+      operationId: schedulingLinkDeleteRoundRobin
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: path parameter linkId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.remove
+  /v1/org/schedulingLinks/admin-one-on-one:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Create admin (one-on-one) scheduling link
+      description: "[operation: scheduling-link-create-admin-one-on-one]\n\n\n\nMUTATING\n\n\n\nCreates an admin (one-on-one) scheduling link — each booking gets a single fixed host, drawn from the sharedWith scope.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- sharedWith (opt): who can host, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\nsee: scheduling-link-list-admin-one-on-one (browse existing)"
+      operationId: schedulingLinkCreateAdminOneOnOne
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminLinkCreate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.create
+  /v1/org/schedulingLinks/admin-one-on-one/{linkId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    put:
+      tags:
+      - schedulingLinks
+      summary: Update admin (one-on-one) scheduling link
+      description: "[operation: scheduling-link-update-admin-one-on-one]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches an admin (one-on-one) scheduling link. Send only the fields you want to change; omitted fields keep their current value.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-admin-one-on-one (find a linkId)"
+      operationId: schedulingLinkUpdateAdminOneOnOne
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminLinkUpdate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: path parameter linkId, Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.modify
+    delete:
+      tags:
+      - schedulingLinks
+      summary: Remove admin (one-on-one) scheduling link
+      description: '[operation: scheduling-link-delete-admin-one-on-one]
+
+
+
+
+        MUTATING — DESTRUCTIVE
+
+
+
+
+        Deletes an admin (one-on-one) scheduling link by id.
+
+
+        - linkId (req): the admin link''s id
+
+
+        ⚠ irreversible via API; the booking URL stops working immediately
+
+
+        see: scheduling-link-list-admin-one-on-one (confirm the id before deleting)'
+      operationId: schedulingLinkDeleteAdminOneOnOne
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: path parameter linkId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.remove
+  /v1/org/schedulingLinks/group:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Create group scheduling link
+      description: "[operation: scheduling-link-create-group]\n\n\n\nMUTATING\n\n\n\nCreates a group scheduling link — a meeting with a fixed host plus additional members. Offered slots are the intersection of the host and required members' availability; optional members are invited but do not gate availability.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- hostUserId: the host user; use user-find.\n\n- sharedWith (opt): sharing scope, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\nsee: user-find (resolve user ids), scheduling-link-list-group (browse existing)"
+      operationId: schedulingLinkCreateGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupLinkCreate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.create
+  /v1/org/schedulingLinks/group/{linkId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    put:
+      tags:
+      - schedulingLinks
+      summary: Update group scheduling link
+      description: "[operation: scheduling-link-update-group]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches a group scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing requiredMemberIds or optionalMemberIds replaces that member list wholesale.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: user-find (resolve user ids), scheduling-link-list-group (find a linkId)"
+      operationId: schedulingLinkUpdateGroup
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupLinkUpdate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: path parameter linkId, Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.modify
+    delete:
+      tags:
+      - schedulingLinks
+      summary: Remove group scheduling link
+      description: '[operation: scheduling-link-delete-group]
+
+
+
+
+        MUTATING — DESTRUCTIVE
+
+
+
+
+        Deletes a group scheduling link by id.
+
+
+        - linkId (req): the group link''s id
+
+
+        ⚠ irreversible via API; the booking URL stops working immediately
+
+
+        see: scheduling-link-list-group (confirm the id before deleting)'
+      operationId: schedulingLinkDeleteGroup
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: path parameter linkId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.remove
+  /v1/org/schedulingLinks/ownership:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - schedulingLinks
+      summary: Create ownership scheduling link
+      description: "[operation: scheduling-link-create-ownership]\n\n\n\nMUTATING\n\n\n\nCreates an ownership scheduling link — routes each booking to the guest's CRM account owner, with a distribution-backed round-robin fallback when no owner matches.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- ownership: owner-routing config, {ownershipSettings, host, bookerInvitation, alwaysInvitedUsers}.\n\n- distribution: round-robin fallback config, {assignments: [{distributionId, required}], host, bookerInvitation, alwaysInvitedUsers}.\n\n- pageConfig (opt): {title?}. sharedWith (opt): {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n  Note: the ownership/distribution shapes mirror the scheduling-link-list-ownership response, except assignments here are lean {distributionId, required} — do not send the read-side members field (members are resolved from the distribution by the backend).\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, ownership, distribution, pageConfig, sharedWith, bookingUrl}\n\nsee: scheduling-link-list-ownership (browse existing for the exact ownership/distribution shape), distribution-list (find distributionIds)"
+      operationId: schedulingLinkCreateOwnership
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnershipLinkCreate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnershipSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.create
+  /v1/org/schedulingLinks/ownership/{linkId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    put:
+      tags:
+      - schedulingLinks
+      summary: Update ownership scheduling link
+      description: "[operation: scheduling-link-update-ownership]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches an ownership scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing ownership or distribution replaces that whole config block. As on create, distribution assignments are lean {distributionId, required} — no members field.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, ownership, distribution, pageConfig, sharedWith, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-ownership (find a linkId and inspect current config)"
+      operationId: schedulingLinkUpdateOwnership
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnershipLinkUpdate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnershipSchedulingLinkDetail'
+        '400':
+          description: 'Invalid value for: path parameter linkId, Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.modify
+    delete:
+      tags:
+      - schedulingLinks
+      summary: Remove ownership scheduling link
+      description: '[operation: scheduling-link-delete-ownership]
+
+
+
+
+        MUTATING — DESTRUCTIVE
+
+
+
+
+        Deletes an ownership scheduling link by id.
+
+
+        - linkId (req): the ownership link''s id
+
+
+        ⚠ irreversible via API; the booking URL stops working immediately
+
+
+        see: scheduling-link-list-ownership (confirm the id before deleting)'
+      operationId: schedulingLinkDeleteOwnership
+      parameters:
+      - name: linkId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: path parameter linkId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - scheduling-links.remove
+components:
+  schemas:
+    OwnershipSchedulingLinkDetail:
+      title: OwnershipSchedulingLinkDetail
+      type: object
+      required:
+      - workspaceId
+      - linkId
+      - name
+      - slug
+      - ownership
+      - distribution
+      - pageConfig
+      - sharedWith
+      - bookingUrl
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        linkId:
+          $ref: '#/components/schemas/OwnershipSchedulingLinkId'
+        name:
+          type: string
+          minLength: 1
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        ownership:
+          $ref: '#/components/schemas/OwnershipInvitation'
+        distribution:
+          $ref: '#/components/schemas/DistributionInvitation'
+        pageConfig:
+          $ref: '#/components/schemas/LinkPageConfig'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+        bookingUrl:
+          examples:
+          - https://example.com
+          type: string
+    DistributionId:
+      title: DistributionId
+      examples:
+      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
+      type: string
+      pattern: '[^\s\\/]+'
+    BookerInvitation_Invite:
+      title: BookerInvitation_Invite
+      type: object
+      required:
+      - autoDeclineOnBookersBehalf
+      - required
+      - type
+      properties:
+        autoDeclineOnBookersBehalf:
+          type: boolean
+        required:
+          type: boolean
+        type:
+          type: string
+          const: Invite
+    AdminSchedulingLinkDetail:
+      title: AdminSchedulingLinkDetail
+      type: object
+      required:
+      - workspaceId
+      - linkId
+      - name
+      - slug
+      - bookingUrl
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        linkId:
+          $ref: '#/components/schemas/AdminSchedulingLinkId'
+        name:
+          type: string
+          minLength: 1
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        bookingUrl:
+          examples:
+          - https://example.com
+          type: string
+    ScheduleWithTeamMember:
+      title: ScheduleWithTeamMember
+      type: string
+      enum:
+      - OwnerOnly
+      - AllowWithAny
+    AdminSchedulingLinkId:
+      title: AdminSchedulingLinkId
+      examples:
+      - a5b6c7d8-e9f0-4a1b-9c2d-3e4f5a6b7c8d
+      type: string
+      pattern: '[^\s\\/]+'
+    RoutingStrategy_DistributionBasedRouting:
+      title: RoutingStrategy_DistributionBasedRouting
+      type: object
+      required:
+      - distributionId
+      - required
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        required:
+          type: boolean
+        type:
+          type: string
+          const: DistributionBasedRouting
+    OwnershipHost_BookerIfExists:
+      title: OwnershipHost_BookerIfExists
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: BookerIfExists
+    GroupLinkUpdate:
+      title: GroupLinkUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+        hostUserId:
+          type: string
+          pattern: '[^\s\\/]+'
+        requiredMemberIds:
+          type: array
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        optionalMemberIds:
+          type: array
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+    RoutingStrategy:
+      title: RoutingStrategy
+      oneOf:
+      - $ref: '#/components/schemas/RoutingStrategy_DistributionBasedRouting'
+      - $ref: '#/components/schemas/RoutingStrategy_RuleBasedRouting'
+      discriminator:
+        propertyName: type
+        mapping:
+          DistributionBasedRouting: '#/components/schemas/RoutingStrategy_DistributionBasedRouting'
+          RuleBasedRouting: '#/components/schemas/RoutingStrategy_RuleBasedRouting'
+    OwnershipHost:
+      title: OwnershipHost
+      oneOf:
+      - $ref: '#/components/schemas/OwnershipHost_AssigneeFromDistribution'
+      - $ref: '#/components/schemas/OwnershipHost_AssigneeFromOwnershipRule'
+      - $ref: '#/components/schemas/OwnershipHost_AssigneeFromSimpleRule'
+      - $ref: '#/components/schemas/OwnershipHost_BookerIfExists'
+      discriminator:
+        propertyName: type
+        mapping:
+          AssigneeFromDistribution: '#/components/schemas/OwnershipHost_AssigneeFromDistribution'
+          AssigneeFromOwnershipRule: '#/components/schemas/OwnershipHost_AssigneeFromOwnershipRule'
+          AssigneeFromSimpleRule: '#/components/schemas/OwnershipHost_AssigneeFromSimpleRule'
+          BookerIfExists: '#/components/schemas/OwnershipHost_BookerIfExists'
+    RoundRobinSchedulingLinkDetail:
+      title: RoundRobinSchedulingLinkDetail
+      type: object
+      required:
+      - workspaceId
+      - linkId
+      - name
+      - slug
+      - assignments
+      - bookingUrl
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        distributionId:
+          deprecated: true
+          type: string
+          pattern: '[^\s\\/]+'
+        linkId:
+          $ref: '#/components/schemas/RoundRobinSchedulingLinkId'
+        name:
+          type: string
+          minLength: 1
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        members:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SchedulingLinkMemberDetail'
+        assignments:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistributionAssignment'
+        bookingUrl:
+          examples:
+          - https://example.com
+          type: string
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    GroupLinkCreate:
+      title: GroupLinkCreate
+      type: object
+      required:
+      - workspaceId
+      - name
+      - slug
+      - meetingTypeIds
+      - hostUserId
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/MeetingTypeId'
+        hostUserId:
+          $ref: '#/components/schemas/UserId'
+        requiredMemberIds:
+          type: array
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        optionalMemberIds:
+          type: array
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+    DistributionHost:
+      title: DistributionHost
+      oneOf:
+      - $ref: '#/components/schemas/DistributionHost_AssigneeFromDistribution'
+      - $ref: '#/components/schemas/DistributionHost_BookerIfExists'
+      discriminator:
+        propertyName: type
+        mapping:
+          AssigneeFromDistribution: '#/components/schemas/DistributionHost_AssigneeFromDistribution'
+          BookerIfExists: '#/components/schemas/DistributionHost_BookerIfExists'
+    AlwaysInvitedUser:
+      title: AlwaysInvitedUser
+      type: object
+      required:
+      - userId
+      - optional
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        optional:
+          type: boolean
+    OwnershipSettings_WithSimpleRule:
+      title: OwnershipSettings_WithSimpleRule
+      type: object
+      required:
+      - rule
+      - scheduleWithTeamMember
+      - required
+      - type
+      properties:
+        rule:
+          $ref: '#/components/schemas/SimpleRule'
+        scheduleWithTeamMember:
+          $ref: '#/components/schemas/ScheduleWithTeamMember'
+        required:
+          type: boolean
+        type:
+          type: string
+          const: WithSimpleRule
+    GroupSchedulingLinkDetail:
+      title: GroupSchedulingLinkDetail
+      type: object
+      required:
+      - workspaceId
+      - linkId
+      - name
+      - slug
+      - bookingUrl
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        linkId:
+          $ref: '#/components/schemas/GroupSchedulingLinkId'
+        name:
+          type: string
+          minLength: 1
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        bookingUrl:
+          examples:
+          - https://example.com
+          type: string
+    RoundRobinSchedulingLinkId:
+      title: RoundRobinSchedulingLinkId
+      examples:
+      - b7c8d9e0-f1a2-4b3c-8d4e-5f6a7b8c9d0e
+      type: string
+      pattern: '[^\s\\/]+'
+    SimpleRule:
+      title: SimpleRule
+      oneOf:
+      - $ref: '#/components/schemas/SimpleRule_HubspotSimpleRule'
+      - $ref: '#/components/schemas/SimpleRule_SalesforceSimpleRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          HubspotSimpleRule: '#/components/schemas/SimpleRule_HubspotSimpleRule'
+          SalesforceSimpleRule: '#/components/schemas/SimpleRule_SalesforceSimpleRule'
+    DistributionHost_BookerIfExists:
+      title: DistributionHost_BookerIfExists
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: BookerIfExists
+    OwnershipHost_AssigneeFromSimpleRule:
+      title: OwnershipHost_AssigneeFromSimpleRule
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: AssigneeFromSimpleRule
+    MeetingTypeId:
+      title: MeetingTypeId
+      examples:
+      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
+      type: string
+      format: uuid
+    AdminLinkUpdate:
+      title: AdminLinkUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+    AdminSchedulingLinksRequest:
+      title: AdminSchedulingLinksRequest
+      type: object
+      properties:
+        filterWorkspaceIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        filterLinkSlugs:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[-0-9a-z_]+'
+        filterMeetingTypeId:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+    DistributionAssignmentInput:
+      title: DistributionAssignmentInput
+      type: object
+      required:
+      - distributionId
+      - required
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        required:
+          type: boolean
+    DistributionAssignment:
+      title: DistributionAssignment
+      type: object
+      required:
+      - distributionId
+      - required
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        required:
+          type: boolean
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchedulingLinkMemberDetail'
+    GroupSchedulingLinkId:
+      title: GroupSchedulingLinkId
+      examples:
+      - c9d0e1f2-a3b4-4c5d-9e6f-7a8b9c0d1e2f
+      type: string
+      pattern: '[^\s\\/]+'
+    RoundRobinSchedulingLinkDetails:
+      title: RoundRobinSchedulingLinkDetails
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundRobinSchedulingLinkDetail'
+    RuleId:
+      title: RuleId
+      examples:
+      - 3b4c5d6e-7f8a-4b9c-9d0e-1f2a3b4c5d6e
+      type: string
+      pattern: '[^\s\\/]+'
+    OwnershipInvitation:
+      title: OwnershipInvitation
+      type: object
+      required:
+      - ownershipSettings
+      - host
+      - bookerInvitation
+      properties:
+        ownershipSettings:
+          $ref: '#/components/schemas/OwnershipSettings'
+        host:
+          $ref: '#/components/schemas/OwnershipHost'
+        bookerInvitation:
+          $ref: '#/components/schemas/BookerInvitation'
+        alwaysInvitedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlwaysInvitedUser'
+    OwnershipHost_AssigneeFromDistribution:
+      title: OwnershipHost_AssigneeFromDistribution
+      type: object
+      required:
+      - distributionId
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        type:
+          type: string
+          const: AssigneeFromDistribution
+    SchedulingLinkMemberDetail:
+      title: SchedulingLinkMemberDetail
+      type: object
+      required:
+      - id
+      properties:
+        email:
+          type: string
+          pattern: .+@.+
+        id:
+          $ref: '#/components/schemas/UserId'
+        name:
+          type: string
+          minLength: 1
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+    DistributionInvitationInput:
+      title: DistributionInvitationInput
+      type: object
+      required:
+      - assignments
+      - host
+      - bookerInvitation
+      properties:
+        assignments:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistributionAssignmentInput'
+        host:
+          $ref: '#/components/schemas/DistributionHost'
+        bookerInvitation:
+          $ref: '#/components/schemas/BookerInvitation'
+        alwaysInvitedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlwaysInvitedUser'
+    AdminSchedulingLinkDetails:
+      title: AdminSchedulingLinkDetails
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminSchedulingLinkDetail'
+    SalesforceObjectOwner:
+      title: SalesforceObjectOwner
+      type: string
+      enum:
+      - Lead
+      - Contact
+      - Account
+    OwnershipSettings_WithMixedRouting:
+      title: OwnershipSettings_WithMixedRouting
+      type: object
+      required:
+      - strategies
+      - type
+      properties:
+        strategies:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/RoutingStrategy'
+        type:
+          type: string
+          const: WithMixedRouting
+    DistributionHost_AssigneeFromDistribution:
+      title: DistributionHost_AssigneeFromDistribution
+      type: object
+      required:
+      - distributionId
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        type:
+          type: string
+          const: AssigneeFromDistribution
+    OwnershipLinkUpdate:
+      title: OwnershipLinkUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+        ownership:
+          $ref: '#/components/schemas/OwnershipInvitation'
+        distribution:
+          $ref: '#/components/schemas/DistributionInvitationInput'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+        pageConfig:
+          $ref: '#/components/schemas/LinkPageConfig'
+    RoundRobinLinkCreate:
+      title: RoundRobinLinkCreate
+      type: object
+      required:
+      - workspaceId
+      - name
+      - slug
+      - meetingTypeIds
+      - distributionIds
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/MeetingTypeId'
+        distributionIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistributionId'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+    OwnershipSchedulingLinksRequest:
+      title: OwnershipSchedulingLinksRequest
+      type: object
+      properties:
+        filterWorkspaceIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        filterLinkSlugs:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[-0-9a-z_]+'
+        filterMeetingTypeId:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+        filterDistributionIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+    SimpleRule_SalesforceSimpleRule:
+      title: SimpleRule_SalesforceSimpleRule
+      type: object
+      required:
+      - ownershipObject
+      - teamId
+      - type
+      properties:
+        ownershipObject:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/SalesforceObjectOwner'
+        teamId:
+          $ref: '#/components/schemas/TeamId'
+        type:
+          type: string
+          const: SalesforceSimpleRule
+    PersonalSchedulingLinkDetail:
+      title: PersonalSchedulingLinkDetail
+      type: object
+      required:
+      - slug
+      - meetingTypeId
+      - meetingTypeName
+      - bookingUrl
+      properties:
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeId:
+          $ref: '#/components/schemas/MeetingTypeId'
+        meetingTypeName:
+          type: string
+        bookingUrl:
+          examples:
+          - https://example.com
+          type: string
+    HubspotObjectOwner:
+      title: HubspotObjectOwner
+      type: string
+      enum:
+      - Contact
+      - Company
+    OwnershipSchedulingLinkId:
+      title: OwnershipSchedulingLinkId
+      examples:
+      - d1e2f3a4-b5c6-4d7e-ae8f-9b0c1d2e3f4a
+      type: string
+      pattern: '[^\s\\/]+'
+    RoundRobinLinkUpdate:
+      title: RoundRobinLinkUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+        distributionIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+    GroupSchedulingLinksRequest:
+      title: GroupSchedulingLinksRequest
+      type: object
+      properties:
+        filterWorkspaceIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        filterLinkSlugs:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[-0-9a-z_]+'
+        filterMeetingTypeId:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+    RoutingStrategy_RuleBasedRouting:
+      title: RoutingStrategy_RuleBasedRouting
+      type: object
+      required:
+      - ruleId
+      - scheduleWithTeamMember
+      - required
+      - type
+      properties:
+        ruleId:
+          $ref: '#/components/schemas/RuleId'
+        scheduleWithTeamMember:
+          $ref: '#/components/schemas/ScheduleWithTeamMember'
+        required:
+          type: boolean
+        type:
+          type: string
+          const: RuleBasedRouting
+    LinkPageConfig:
+      title: LinkPageConfig
+      type: object
+      properties:
+        title:
+          type: string
+    SharedWith_Workspace:
+      title: SharedWith_Workspace
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Workspace
+    OwnershipLinkCreate:
+      title: OwnershipLinkCreate
+      type: object
+      required:
+      - workspaceId
+      - name
+      - slug
+      - meetingTypeIds
+      - ownership
+      - distribution
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/MeetingTypeId'
+        ownership:
+          $ref: '#/components/schemas/OwnershipInvitation'
+        distribution:
+          $ref: '#/components/schemas/DistributionInvitationInput'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+        pageConfig:
+          $ref: '#/components/schemas/LinkPageConfig'
+    SharedWith_Teams:
+      title: SharedWith_Teams
+      type: object
+      required:
+      - type
+      properties:
+        teamIds:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        type:
+          type: string
+          const: Teams
+    BookerInvitation:
+      title: BookerInvitation
+      oneOf:
+      - $ref: '#/components/schemas/BookerInvitation_DoNotInvite'
+      - $ref: '#/components/schemas/BookerInvitation_Invite'
+      discriminator:
+        propertyName: type
+        mapping:
+          DoNotInvite: '#/components/schemas/BookerInvitation_DoNotInvite'
+          Invite: '#/components/schemas/BookerInvitation_Invite'
+    OwnershipHost_AssigneeFromOwnershipRule:
+      title: OwnershipHost_AssigneeFromOwnershipRule
+      type: object
+      required:
+      - ruleId
+      - type
+      properties:
+        ruleId:
+          $ref: '#/components/schemas/RuleId'
+        type:
+          type: string
+          const: AssigneeFromOwnershipRule
+    DistributionInvitation:
+      title: DistributionInvitation
+      type: object
+      required:
+      - assignments
+      - host
+      - bookerInvitation
+      properties:
+        assignments:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistributionAssignment'
+        host:
+          $ref: '#/components/schemas/DistributionHost'
+        bookerInvitation:
+          $ref: '#/components/schemas/BookerInvitation'
+        alwaysInvitedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlwaysInvitedUser'
+    SharedWith:
+      title: SharedWith
+      oneOf:
+      - $ref: '#/components/schemas/SharedWith_Teams'
+      - $ref: '#/components/schemas/SharedWith_Workspace'
+      discriminator:
+        propertyName: type
+        mapping:
+          Teams: '#/components/schemas/SharedWith_Teams'
+          Workspace: '#/components/schemas/SharedWith_Workspace'
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    TeamId:
+      title: TeamId
+      examples:
+      - 2a9c3f1e-8b7d-4a5c-9e6f-1b2c3d4e5f6a
+      type: string
+      pattern: '[^\s\\/]+'
+    SimpleRule_HubspotSimpleRule:
+      title: SimpleRule_HubspotSimpleRule
+      type: object
+      required:
+      - ownershipObject
+      - teamId
+      - type
+      properties:
+        ownershipObject:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/HubspotObjectOwner'
+        teamId:
+          $ref: '#/components/schemas/TeamId'
+        type:
+          type: string
+          const: HubspotSimpleRule
+    AdminLinkCreate:
+      title: AdminLinkCreate
+      type: object
+      required:
+      - workspaceId
+      - name
+      - slug
+      - meetingTypeIds
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        slug:
+          type: string
+          pattern: '[-0-9a-z_]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/MeetingTypeId'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
+    OwnershipSettings:
+      title: OwnershipSettings
+      oneOf:
+      - $ref: '#/components/schemas/OwnershipSettings_WithMixedRouting'
+      - $ref: '#/components/schemas/OwnershipSettings_WithSimpleRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          WithMixedRouting: '#/components/schemas/OwnershipSettings_WithMixedRouting'
+          WithSimpleRule: '#/components/schemas/OwnershipSettings_WithSimpleRule'
+    OwnershipSchedulingLinkDetails:
+      title: OwnershipSchedulingLinkDetails
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/OwnershipSchedulingLinkDetail'
+    RoundRobinSchedulingLinksRequest:
+      title: RoundRobinSchedulingLinksRequest
+      type: object
+      properties:
+        filterWorkspaceIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        filterLinkSlugs:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[-0-9a-z_]+'
+        filterMeetingTypeId:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+        filterDistributionIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+    GroupSchedulingLinkDetails:
+      title: GroupSchedulingLinkDetails
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupSchedulingLinkDetail'
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
+    BookerInvitation_DoNotInvite:
+      title: BookerInvitation_DoNotInvite
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: DoNotInvite
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>'' — the word ''Bearer'' followed by a space and the key is required. Sending the key without the Bearer prefix returns 401.'
+      name: Authorization
+      in: header
+x-refined-from:
+- chili-piper-scheduling-link-management-openapi.yaml
+- chili-piper-user-details-openapi.yaml

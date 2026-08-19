@@ -1,0 +1,151 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.chilipiper.com/llms.txt
+docs: https://www.chilipiper.com/pricing
+description: >-
+  Chili Piper publishes list pricing publicly - unusually for a B2B GTM platform, the numbers are on
+  the pricing page and repeated verbatim in the company's own machine-readable llms.txt. Pricing is
+  platform-tier based (not API-metered): there is no developer plan, no free tier, no API call quota
+  and no separate charge for Edge API or MCP access. Every tier is seat-based with a floor of
+  included seats and a published per-seat overage rate; the Edge API and the hosted MCP server are
+  included with the platform subscription rather than sold separately.
+x-evidence:
+  - fetched: '2026-08-13'
+    url: https://www.chilipiper.com/pricing
+    http_status: 200
+    bytes: 267586
+    note: >-
+      Live pricing page probed on 2026-08-13. Every figure below was confirmed against the rendered
+      page text: "Starts at $1,250 /Month Up to 15 seats included, $45/seat/mo after that",
+      "Starts at $3,500 /Month Up to 30 seats included, $50/seat/mo after that",
+      "ChiliCal standalone $12 / user / month Minimum 200 seats", and the compare-plans table
+      "Routing & Scheduling from $15k/y | Experiences from $42k/y | Chili Data Platform Coming soon".
+  - fetched: '2026-08-09'
+    url: https://www.chilipiper.com/llms.txt
+    http_status: 200
+    content_type: 'text/plain; charset=utf-8'
+    local_copy: llms/chili-piper-llms.txt
+    note: >-
+      Chili Piper restates the same pricing verbatim in its own machine-readable llms.txt, which is
+      stored in this repo. The two sources agree on every published number.
+currency: USD
+billing_periods: [monthly, annual]
+plan_count: 4
+free_tier: false
+developer_tier: false
+api_metered: false
+api_access_note: >-
+  Neither the Edge API nor the hosted MCP server appears as a priced line item on any tier. API
+  access tokens are issued from Command Center by an Admin on a paid account; MCP OAuth is
+  documented as requiring "Admin on a paid Chili Piper account". API access therefore follows the
+  platform subscription and has no separate plan, quota or overage of its own.
+plans:
+  - name: Routing & Scheduling
+    tier: entry
+    price_annual: 15000
+    price_monthly: 1250
+    currency: USD
+    price_display: '$15,000/year or $1,250/month'
+    seats_included: 15
+    seat_overage:
+      price: 45
+      unit: per seat per month
+    contact_sales: false
+    includes:
+      - Form-to-meeting conversion
+      - Lead distribution
+      - Round-robin assignment
+      - Salesforce routing
+      - Smart scheduling links
+      - Spam Checker, Meeting Prep, and access to current agents
+      - ChiliCal (bundled at no extra cost)
+    quotas:
+      ai_credits: 45000
+      ai_credits_period: per year
+      ai_credits_display: '45,000 credits included per year'
+      api_calls: null
+      note: >-
+        The plan card on the live pricing page publishes "AI CREDITS 45,000 credits included per
+        year" for this tier. The compare-plans table lower on the same page still reads "AI credits
+        (annual) Details coming soon" for every tier, and the llms.txt also says details are coming
+        soon - so Chili Piper contradicts itself on its own pricing page. The 45,000 figure is the
+        only concrete number published; recorded as such with the conflict noted.
+  - name: Experiences
+    tier: platform
+    price_annual: 42000
+    price_monthly: 3500
+    currency: USD
+    price_display: '$42,000/year or $3,500/month'
+    seats_included: 30
+    seat_overage:
+      price: 50
+      unit: per seat per month
+    contact_sales: false
+    includes:
+      - Everything in Routing & Scheduling
+      - AI-powered visitor qualification 24/7
+      - Live calling from forms
+      - Account identification
+      - ABM targeting
+      - Re-engagement flows
+      - User provisioning
+      - Access to new agents as they ship
+      - ChiliCal (bundled at no extra cost)
+    quotas:
+      ai_credits: 'Included; details "coming soon", no published credit count.'
+      api_calls: null
+  - name: ChiliCal Standalone
+    tier: standalone
+    price_per_user_month: 12
+    currency: USD
+    price_display: '$12/user/month'
+    seats_minimum: 200
+    annual_minimum: 28800
+    contact_sales: false
+    includes:
+      - Smart scheduling
+      - CRM and calendar integrations
+      - Easy upgrade path to the full platform
+    excludes:
+      - AI credits
+      - Routing
+    note: >-
+      Priced per user but gated by a 200-seat minimum and a $28,800/year floor, so it is an
+      enterprise-volume SKU rather than a small-team entry point. ChiliCal is bundled into every
+      other tier at no extra cost.
+  - name: Chili Data Platform
+    tier: announced
+    status: coming-soon
+    price_annual: null
+    price_monthly: null
+    contact_sales: true
+    includes:
+      - Campaign tracking and attribution
+      - Account scoring
+      - Full funnel analytics
+      - CDP capabilities
+    note: 'Not yet generally available. Chili Piper publishes no price and directs buyers to contact sales for early access and pricing.'
+contract_terms:
+  source: https://www.chilipiper.com/pricing
+  note: >-
+    The pricing page carries a live estimate calculator with a "Contract Length" selector that
+    publishes explicit multi-year prepay discounts.
+  terms:
+    - {length: 1 Year, discount_pct: 0}
+    - {length: 2 Years, discount_pct: 15}
+    - {length: 3 Years, discount_pct: 25}
+    - {length: 4 Years, discount_pct: 40}
+discount_policy:
+  offers_discounts: true
+  no_discount_post: https://www.chilipiper.com/post/why-we-dont-offer-discounts
+  note: >-
+    Recorded as observed, including the contradiction. Chili Piper publishes a standing
+    "why we don't offer discounts" blog post and links it from its pricing narrative, while the same
+    pricing page's calculator publishes tiered multi-year prepay discounts of 15/25/40 percent. The
+    stated policy is about negotiated per-deal discounting; the published term discounts are
+    structural and available to everyone. Both are captured rather than resolved.
+gaps:
+  - No free tier, trial tier or developer tier is published.
+  - No API-call quota, rate allowance or usage-based API pricing is published on any tier.
+  - AI credit allowances are stated as included but the actual credit counts are unpublished ("details coming soon").
+  - No machine-readable pricing/catalog endpoint is served; llms.txt is the closest published machine-readable restatement.

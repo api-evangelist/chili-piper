@@ -1,0 +1,546 @@
+openapi: 3.2.0
+info:
+  title: Chili Piper Meetings API
+  version: '1.0'
+  description: 'Operations tagged meetings across 7 of this provider''s published API definitions: chili-piper-distribution-analysis-openapi.yaml, chili-piper-meeting-inspector-openapi.yaml, chili-piper-no-show-analyzer-openapi.yaml, chili-piper-org-meeting-openapi.yaml, chili-piper-user-details-openapi.yaml, chili-piper-user-meetings-openapi.yaml, chili-piper-user-offboarding-openapi.yaml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://fire.chilipiper.com/api/fire-edge
+  description: Production
+security:
+- apiKeyAuth: []
+tags:
+- name: meetings
+paths:
+  /v2/org/meetings/meetings:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    put:
+      tags:
+      - meetings
+      summary: Meetings (PUT)
+      description: "[operation: meeting-list-put]\n\n\n\nREAD-ONLY\n\n\n\nList meetings within a time range, paginated.\n\n\n\nReturns meetings within a time range (paginated). Prefer this over the GET form: filters travel in the request body, so long workspace or status lists don't hit URL-length limits. Narrow by workspace and by status (Active, Canceled, NoShow, Completed). The window may not exceed 7 days.\n\n→\n\n    {results: [{meetingId, status, scheduledAt, attendees, assignedUserId, workspaceId}], pagination}\n\nsee: meeting-export-v2-put (CSV export with richer host/assignee/booker filters), meeting-get (full record)"
+      operationId: meetingListPut
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryMeetingsRequest'
+        required: true
+      responses:
+        '200':
+          description: List of meetings. Payload structure might change.
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpQueryResponse_A'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting.read
+  /v1/org/meetings/get/{meetingId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    get:
+      tags:
+      - meetings
+      summary: Get Meeting
+      description: '[operation: meeting-get]
+
+
+
+
+        READ-ONLY
+
+
+
+
+        Fetches full record for a single meeting by meetingId.
+
+
+        - meetingId (req): UUID
+
+
+        → meeting object (payload structure may change); key fields: meetingStatus (not "status"), activities (array including a ScheduledAt entry — no top-level scheduledAt), id (not "meetingId"); no top-level linkedCrmEventIds
+
+
+        see: meeting-list (find meetingId by time range), meeting-cancel/noshow (change status), meeting-activity (admin URL), crm-get (if CRM ID known)'
+      operationId: meetingGet
+      parameters:
+      - name: meetingId
+        in: path
+        description: Meeting Id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Meeting. Payload structure might change.
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpQueryResponse_A_2'
+        '400':
+          description: 'Invalid value for: path parameter meetingId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting.read
+  /v3/org/meetings/meetings/export:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    put:
+      tags:
+      - meetings
+      summary: Export Meetings streaming (PUT)
+      description: "[operation: meeting-export-v2-put]\n\n\n\nREAD-ONLY\n\n\n\nExports meetings in a time range as CSV via v2 streaming endpoint. Accepts filter params in request body. Max window: 7 days.\n\n- body.start, body.end (req): ISO-8601; max 7-day span\n\n- body.workspaceIds (opt): filter by workspace\n\n- body.assigneeIds (opt): filter by assignee user IDs (array of userId strings); use user-find to resolve email → userId\n\n- body.hostIds (opt): filter by host user IDs (array of userId strings); use user-find to resolve email → userId\n\n- body.bookerIds (opt): filter by booker user IDs (array of userId strings); use user-find to resolve email → userId\n\n- body.meetingTypeIds (opt): filter by meeting type IDs (array of meetingTypeId strings)\n\n- body.status (opt): filter by meeting status; array of \"Active\"|\"Canceled\"|\"NoShow\"|\"Completed\"\n\n→\n\n    {filename: \"meetings-export-....csv\", data: \"<CSV content>\"}\n\nsee: meeting-export-v2 (GET equivalent), meeting-list (JSON output), user-find (resolve email → userId)"
+      operationId: meetingExportV2Put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportMeetingsRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+            Content-Type:
+              required: true
+              schema:
+                type: string
+            Content-Disposition:
+              required: true
+              schema:
+                type: string
+          content:
+            text/csv; charset=utf-8:
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting.read
+  /v1/org/meetings/cancel/{meetingId}:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    get:
+      tags:
+      - meetings
+      summary: Cancel a meeting
+      description: "[operation: meeting-cancel]\n\n\n\nMUTATING — DESTRUCTIVE, has external side effects\n\n\n\nPermanently cancels meeting by meetingId; sets CANCELLED, may update calendar/CRM and trigger automations.\n\n- meetingId (req)\n\n→\n\n    {}\n\n⚠ irreversible; may email attendees\n\nsee: meeting-get (verify status before/after), crm-cancel (if CRM ID known)"
+      operationId: meetingCancel
+      parameters:
+      - name: meetingId
+        in: path
+        description: Meeting Id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: redirectOnSuccess
+        in: query
+        description: Redirect to this url on success
+        required: false
+        schema:
+          examples:
+          - https://example.com
+          type: string
+      - name: redirectOnFailure
+        in: query
+        description: Redirect to this url on failure
+        required: false
+        schema:
+          examples:
+          - https://example.com
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingsEndpointsResponse'
+        '400':
+          description: 'Invalid value for: path parameter meetingId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting.modify
+components:
+  schemas:
+    MeetingStatus:
+      title: MeetingStatus
+      type: string
+      enum:
+      - Active
+      - Canceled
+      - NoShow
+      - Completed
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    MeetingsEndpointsResponse:
+      title: MeetingsEndpointsResponse
+      oneOf:
+      - $ref: '#/components/schemas/Failure1'
+      - $ref: '#/components/schemas/Success1'
+      discriminator:
+        propertyName: type
+        mapping:
+          Failure: '#/components/schemas/Failure1'
+          Success: '#/components/schemas/Success1'
+    ExportMeetingsRequest:
+      title: ExportMeetingsRequest
+      type: object
+      required:
+      - start
+      - end
+      properties:
+        workspaceIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        assigneeIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        hostIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        bookerIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        meetingTypeIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+        status:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/MeetingStatus'
+    HttpQueryResponse_A:
+      title: HttpQueryResponse_A
+      type: object
+      required:
+      - data
+      - hasMore
+      - hasMoreItems
+      properties:
+        data: {}
+        hasMore:
+          $ref: '#/components/schemas/HasMore'
+        hasMoreItems:
+          description: Whether more results exist beyond this page; drives pagination.
+          type: boolean
+    HttpQueryResponse_A_2:
+      title: HttpQueryResponse_A
+      type: object
+      required:
+      - data
+      - hasMore
+      properties:
+        data: {}
+        hasMore:
+          $ref: '#/components/schemas/HasMore'
+    HasMore:
+      title: HasMore
+      type: string
+      enum:
+      - 'Yes'
+      - 'No'
+    QueryMeetingsRequest:
+      title: QueryMeetingsRequest
+      type: object
+      required:
+      - start
+      - end
+      properties:
+        workspaceIds:
+          description: Restrict results to meetings in these workspaces. Omit to search every workspace the API key can access.
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        start:
+          description: Start of the query window, inclusive. ISO-8601 instant, e.g. 2025-01-08T13:46:18.681Z. The window (start..end) must be at most 7 days wide.
+          type: string
+          format: date-time
+        end:
+          description: End of the query window, exclusive. ISO-8601 instant. Must be after start and no more than 7 days after it.
+          type: string
+          format: date-time
+        page:
+          description: Zero-based page index. Defaults to 0.
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          description: Number of meetings per page. Defaults to 10.
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+        status:
+          description: Filter by meeting status. One or more of Active, Canceled, NoShow, Completed. Omit to include all statuses.
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/MeetingStatus'
+        assigneeIds:
+          description: Filter to meetings assigned to any of these user ids (the rep who owns the meeting).
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        hostIds:
+          description: Filter to meetings hosted by any of these user ids.
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        guestEmail:
+          description: Filter to meetings whose guest (booker) has this email address.
+          type: string
+          pattern: .+@.+
+        meetingTypeIds:
+          description: Filter to meetings created from any of these meeting types.
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+    Failure1:
+      title: Failure
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Failure
+    Success1:
+      title: Success
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Success
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>'' — the word ''Bearer'' followed by a space and the key is required. Sending the key without the Bearer prefix returns 401.'
+      name: Authorization
+      in: header
+x-refined-from:
+- chili-piper-distribution-analysis-openapi.yaml
+- chili-piper-meeting-inspector-openapi.yaml
+- chili-piper-no-show-analyzer-openapi.yaml
+- chili-piper-org-meeting-openapi.yaml
+- chili-piper-user-details-openapi.yaml
+- chili-piper-user-meetings-openapi.yaml
+- chili-piper-user-offboarding-openapi.yaml

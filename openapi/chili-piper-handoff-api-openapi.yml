@@ -1,0 +1,760 @@
+openapi: 3.2.0
+info:
+  title: Chili Piper — Router Configuration Actions Handoff API
+  version: 1.287.2
+  description: GPT Actions for the handoff-router-configuration GPT — a subset of the Chili Piper Edge API. Authenticate with a Bearer API key (Admin Center → API Keys).
+servers:
+- url: https://fire.chilipiper.com/api/fire-edge
+  description: Production
+security:
+- apiKeyAuth: []
+tags:
+- name: handoff
+paths:
+  /v1/org/handoff/routers/handoff/list:
+    get:
+      tags:
+      - handoff
+      summary: Lists all handoff routers
+      description: "[operation: handoff-router-list]\n\n\n\nREAD-ONLY\n\n\n\nBrowses Handoff routers to discover routerIds and see what each one routes. A Handoff router routes SDR-to-AE handoffs to teams/users via rules. Each entry carries the router's identity plus a lossy per-row summary of its routing. Pass workspaceId to restrict to one workspace (must belong to this tenant); omit it to fan out across all workspaces.\n\n→\n\n    [{id, workspaceId, name?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}}]\n\n  Note: the routing summary is fully populated and has the same lossy-by-design shape as handoff-router-get\n\nsee: workspace-list (find a workspaceId), handoff-router-get (fetch one), handoff-router-update (replace config)"
+      operationId: handoffRouterList
+      parameters:
+      - name: workspaceId
+        in: query
+        description: Filter handoff routers by workspace ID. Omit to list across all of the tenant's workspaces.
+        required: false
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HandoffRouter'
+        '400':
+          description: 'Invalid value for: query parameter workspaceId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - handoff.read
+  /v1/org/handoff/routers/handoff/{routerId}:
+    get:
+      tags:
+      - handoff
+      summary: Get handoff router
+      description: "[operation: handoff-router-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches one Handoff router: its identity plus a lossy per-row summary of what its routing does. Call this before handoff-router-update to check whether the router's routing is representable (safe to replace via the API).\n\n→\n\n    {id, workspaceId, name?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}}\n    outcome (one of): {type: \"Schedule\", distributionId?, userId?, meetingTypeId?} | {type: \"Redirect\", url?} | {type: \"OwnerAssign\"} | {type: \"ContactOptions\"} | {type: \"CrmAction\"} | {type: \"Other\", kind}\n\n  Note: the summary is lossy by design — it NAMES each row's outcome (including ones Edge can't itself produce) so you can see what the router does even when it was built in the app\n\n  Note: routing.representable is true only when the current routing — both the draft tree and the published tree — is exactly what Edge's create/update would have produced; when false, an update with a new routing may be rejected (edit it in the Handoff app instead). A router that has no routing tree yet also reports representable=false, but an update setting routing on it is still accepted (nothing is destroyed).\n\nsee: handoff-router-list (browse to find a routerId), handoff-router-update (replace routing if representable)"
+      operationId: handoffRouterGet
+      parameters:
+      - name: routerId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandoffRouter'
+        '400':
+          description: 'Invalid value for: path parameter routerId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - handoff.read
+    put:
+      tags:
+      - handoff
+      summary: Update handoff router
+      description: "[operation: handoff-router-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a Handoff router and republishes it live. Only the fields you supply change; omitted fields are preserved. Use handoff-router-get first to confirm the routing is representable before replacing it.\n\n- routing (opt): when present, fully REPLACES the routing matrix (not a partial merge); when omitted, the current routing is kept. Each row's rule, when it matches, runs that row's `outcome`; the catch-all `outcome` runs when no row matches:\n\n    {routes: [{ruleId, outcome}], catchAll: outcome}\n\n  outcome:\n\n    {type: \"Schedule\", assignment, meetingTypeId, crmActions?}\n\n  Schedule assigns the lead and books a meeting type. assignment is {type: \"Distribution\", distributionId} or {type: \"User\", userId}. crmActions (opt) is an ordered post-booking chain, each {type: \"ConvertLead\"}. ruleId is required on every row; an always-match route is the catchAll. routes may be empty (then only the catchAll applies).\n\n  Note: handoff routers support only Schedule outcomes — no Redirect, no no-show timeout, and ConvertLead is the only CRM action (concierge routers support the full set). Supplying any of those is rejected (400).\n\n→\n\n    {id, workspaceId, name?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}}\n\n  Note: the returned routing is the lossy per-row summary (same shape as handoff-router-get), not the matrix you sent\n\n⚠ full-replace + publishes live immediately: supplying routing replaces the ENTIRE matrix, not a partial merge\n\n⚠ REJECTED (409) when the router's existing routing — its DRAFT tree or its PUBLISHED tree — isn't representable in this simplified model (advanced routing built in the Handoff app) — to avoid silently destroying it, edit those routers in the Handoff app instead. Check routing.representable via handoff-router-get first. A name-only update (no routing) always succeeds.\n\n⚠ every update publishes the router's current DRAFT — if the draft carries unpublished edits made in the Handoff app, those go live as a side effect, even on a name-only patch\n\n⚠ if the final publish step fails, the changes are saved on an UNPUBLISHED draft and a typed 422 error is returned — fix or delete the draft in the Handoff app\n\nsee: handoff-router-get (check routing.representable before replacing), rule-list (find ruleIds), distribution-list (find distributionIds), user-find (find userIds), meeting-type-list (find meetingTypeIds)"
+      operationId: handoffRouterUpdate
+      parameters:
+      - name: routerId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandoffRouterUpdate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandoffRouter'
+        '400':
+          description: 'Invalid value for: path parameter routerId, Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - handoff.modify
+    delete:
+      tags:
+      - handoff
+      summary: Remove handoff router
+      description: '[operation: handoff-router-delete]
+
+
+
+
+        MUTATING — DESTRUCTIVE
+
+
+
+
+        Permanently deletes a Handoff router.
+
+
+        ⚠ irreversible via API; any links or integrations pointing at this router stop working
+
+
+        see: handoff-router-list or handoff-router-get (confirm the id before deleting)'
+      operationId: handoffRouterDelete
+      parameters:
+      - name: routerId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: path parameter routerId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - handoff.remove
+  /v1/org/handoff/routers/handoff:
+    post:
+      tags:
+      - handoff
+      summary: Create handoff router
+      description: "[operation: handoff-router-create]\n\n\n\nMUTATING\n\n\n\nCreates a Handoff router and publishes it live in one step — there is no unpublished-draft state via the API. workspaceId must be a team workspace of this tenant (400 otherwise). The routing matrix is a list of ordered rules evaluated top-down plus a mandatory catch-all fallback:\n\n- routing (req): ordered rules evaluated top-down, plus a mandatory catch-all fallback. Each row's rule, when it matches, runs that row's `outcome`; the catch-all `outcome` runs when no row matches:\n\n    {routes: [{ruleId, outcome}], catchAll: outcome}\n\n  outcome:\n\n    {type: \"Schedule\", assignment, meetingTypeId, crmActions?}\n\n  Schedule assigns the lead and books a meeting type. assignment is {type: \"Distribution\", distributionId} (round-robin / ownership / whatever the distribution does) or {type: \"User\", userId} (a specific host). crmActions (opt) is an ordered post-booking chain, each {type: \"ConvertLead\"}. ruleId is required on every row; an always-match route is the catchAll. routes may be empty (then only the catchAll applies).\n\n  Note: handoff routers support only Schedule outcomes — no Redirect, no no-show timeout, and ConvertLead is the only CRM action (concierge routers support the full set). Supplying any of those is rejected (400).\n\n→\n\n    {id, workspaceId, name?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}}\n\n  Note: the returned routing is the lossy per-row summary (same shape as handoff-router-get), not the matrix you sent\n\n⚠ if the final publish step fails the router is left behind as an UNPUBLISHED draft (typed 422); retrying the create mints ANOTHER draft — fix or delete the leftover in the Handoff app\n\nsee: handoff-router-list (find a workspaceId), rule-list (find ruleIds), distribution-list (find distributionIds), user-find (find userIds), meeting-type-list (find meetingTypeIds), handoff-router-update (replace config afterwards)"
+      operationId: handoffRouterCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandoffRouterCreate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandoffRouter'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - handoff.create
+components:
+  schemas:
+    RoutingCatchAllSummary:
+      title: RoutingCatchAllSummary
+      type: object
+      required:
+      - outcome
+      properties:
+        outcome:
+          $ref: '#/components/schemas/RoutingOutcome'
+    RouteAssignment:
+      title: RouteAssignment
+      oneOf:
+      - $ref: '#/components/schemas/RouteAssignment_Distribution'
+      - $ref: '#/components/schemas/RouteAssignment_User'
+      discriminator:
+        propertyName: type
+        mapping:
+          Distribution: '#/components/schemas/RouteAssignment_Distribution'
+          User: '#/components/schemas/RouteAssignment_User'
+    DistributionId:
+      title: DistributionId
+      examples:
+      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
+      type: string
+      pattern: '[^\s\\/]+'
+    CrmAction_Notify:
+      title: CrmAction_Notify
+      type: object
+      required:
+      - type
+      properties:
+        slackChannel:
+          type: string
+        type:
+          type: string
+          const: Notify
+    RouteOutcome:
+      title: RouteOutcome
+      oneOf:
+      - $ref: '#/components/schemas/RouteOutcome_Redirect'
+      - $ref: '#/components/schemas/RouteOutcome_Schedule'
+      discriminator:
+        propertyName: type
+        mapping:
+          Redirect: '#/components/schemas/RouteOutcome_Redirect'
+          Schedule: '#/components/schemas/RouteOutcome_Schedule'
+    HandoffRouter:
+      title: HandoffRouter
+      type: object
+      required:
+      - id
+      - workspaceId
+      - routing
+      properties:
+        id:
+          $ref: '#/components/schemas/HandoffRouterId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        routing:
+          $ref: '#/components/schemas/RouterRoutingSummary'
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    RoutingOutcome_Redirect:
+      title: RoutingOutcome_Redirect
+      type: object
+      required:
+      - type
+      properties:
+        url:
+          examples:
+          - https://example.com
+          type: string
+        type:
+          type: string
+          const: Redirect
+    RouterRouting:
+      title: RouterRouting
+      type: object
+      required:
+      - catchAll
+      properties:
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RouteRow'
+        catchAll:
+          $ref: '#/components/schemas/RouteOutcome'
+    MeetingTypeId:
+      title: MeetingTypeId
+      examples:
+      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
+      type: string
+      format: uuid
+    RoutingOutcome_Other:
+      title: RoutingOutcome_Other
+      type: object
+      required:
+      - kind
+      - type
+      properties:
+        kind:
+          type: string
+        type:
+          type: string
+          const: Other
+    CrmAction:
+      title: CrmAction
+      oneOf:
+      - $ref: '#/components/schemas/CrmAction_ConvertLead'
+      - $ref: '#/components/schemas/CrmAction_Notify'
+      discriminator:
+        propertyName: type
+        mapping:
+          ConvertLead: '#/components/schemas/CrmAction_ConvertLead'
+          Notify: '#/components/schemas/CrmAction_Notify'
+    RouteOutcome_Schedule:
+      title: RouteOutcome_Schedule
+      type: object
+      required:
+      - assignment
+      - meetingTypeId
+      - type
+      properties:
+        assignment:
+          $ref: '#/components/schemas/RouteAssignment'
+        meetingTypeId:
+          $ref: '#/components/schemas/MeetingTypeId'
+        timeout:
+          $ref: '#/components/schemas/RouteTimeout'
+        crmActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CrmAction'
+        type:
+          type: string
+          const: Schedule
+    RoutingRowSummary:
+      title: RoutingRowSummary
+      type: object
+      required:
+      - outcome
+      properties:
+        ruleId:
+          type: string
+          pattern: '[^\s\\/]+'
+        ruleType:
+          type: string
+        outcome:
+          $ref: '#/components/schemas/RoutingOutcome'
+    RouterRoutingSummary:
+      title: RouterRoutingSummary
+      type: object
+      required:
+      - known
+      - representable
+      properties:
+        known:
+          type: boolean
+        representable:
+          type: boolean
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutingRowSummary'
+        catchAll:
+          $ref: '#/components/schemas/RoutingCatchAllSummary'
+    HandoffRouterUpdate:
+      title: HandoffRouterUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        routing:
+          $ref: '#/components/schemas/RouterRouting'
+    RouteRow:
+      title: RouteRow
+      type: object
+      required:
+      - outcome
+      properties:
+        ruleId:
+          type: string
+          pattern: '[^\s\\/]+'
+        outcome:
+          $ref: '#/components/schemas/RouteOutcome'
+    RouteAssignment_User:
+      title: RouteAssignment_User
+      type: object
+      required:
+      - userId
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        type:
+          type: string
+          const: User
+    TimeoutRedirect_Url:
+      title: TimeoutRedirect_Url
+      type: object
+      required:
+      - url
+      - type
+      properties:
+        url:
+          examples:
+          - https://example.com
+          type: string
+        type:
+          type: string
+          const: Url
+    TimeoutRedirect_Landing:
+      title: TimeoutRedirect_Landing
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Landing
+    RoutingOutcome_Schedule:
+      title: RoutingOutcome_Schedule
+      type: object
+      required:
+      - type
+      properties:
+        distributionId:
+          type: string
+          pattern: '[^\s\\/]+'
+        userId:
+          type: string
+          pattern: '[^\s\\/]+'
+        meetingTypeId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          const: Schedule
+    RoutingOutcome_OwnerAssign:
+      title: RoutingOutcome_OwnerAssign
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: OwnerAssign
+    RouteTimeout:
+      title: RouteTimeout
+      type: object
+      required:
+      - minutes
+      - onTimeout
+      properties:
+        minutes:
+          type: integer
+          format: int32
+        onTimeout:
+          $ref: '#/components/schemas/TimeoutRedirect'
+    HandoffRouterCreate:
+      title: HandoffRouterCreate
+      type: object
+      required:
+      - workspaceId
+      - name
+      - routing
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        routing:
+          $ref: '#/components/schemas/RouterRouting'
+    RoutingOutcome_ContactOptions:
+      title: RoutingOutcome_ContactOptions
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: ContactOptions
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    RouteOutcome_Redirect:
+      title: RouteOutcome_Redirect
+      type: object
+      required:
+      - url
+      - type
+      properties:
+        url:
+          examples:
+          - https://example.com
+          type: string
+        type:
+          type: string
+          const: Redirect
+    TimeoutRedirect:
+      title: TimeoutRedirect
+      oneOf:
+      - $ref: '#/components/schemas/TimeoutRedirect_Landing'
+      - $ref: '#/components/schemas/TimeoutRedirect_Url'
+      discriminator:
+        propertyName: type
+        mapping:
+          Landing: '#/components/schemas/TimeoutRedirect_Landing'
+          Url: '#/components/schemas/TimeoutRedirect_Url'
+    CrmAction_ConvertLead:
+      title: CrmAction_ConvertLead
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: ConvertLead
+    HandoffRouterId:
+      title: HandoffRouterId
+      examples:
+      - e1f2a3b4-c5d6-4e7f-b8a9-0b1c2d3e4f5a
+      type: string
+      pattern: '[^\s\\/]+'
+    RouteAssignment_Distribution:
+      title: RouteAssignment_Distribution
+      type: object
+      required:
+      - distributionId
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        type:
+          type: string
+          const: Distribution
+    RoutingOutcome_CrmAction:
+      title: RoutingOutcome_CrmAction
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: CrmAction
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
+    RoutingOutcome:
+      title: RoutingOutcome
+      oneOf:
+      - $ref: '#/components/schemas/RoutingOutcome_ContactOptions'
+      - $ref: '#/components/schemas/RoutingOutcome_CrmAction'
+      - $ref: '#/components/schemas/RoutingOutcome_Other'
+      - $ref: '#/components/schemas/RoutingOutcome_OwnerAssign'
+      - $ref: '#/components/schemas/RoutingOutcome_Redirect'
+      - $ref: '#/components/schemas/RoutingOutcome_Schedule'
+      discriminator:
+        propertyName: type
+        mapping:
+          ContactOptions: '#/components/schemas/RoutingOutcome_ContactOptions'
+          CrmAction: '#/components/schemas/RoutingOutcome_CrmAction'
+          Other: '#/components/schemas/RoutingOutcome_Other'
+          OwnerAssign: '#/components/schemas/RoutingOutcome_OwnerAssign'
+          Redirect: '#/components/schemas/RoutingOutcome_Redirect'
+          Schedule: '#/components/schemas/RoutingOutcome_Schedule'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>'' — the word ''Bearer'' followed by a space and the key is required. Sending the key without the Bearer prefix returns 401.'
+      name: Authorization
+      in: header

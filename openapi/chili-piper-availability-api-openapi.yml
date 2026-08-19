@@ -1,0 +1,461 @@
+openapi: 3.2.0
+info:
+  title: Chili Piper — Inspector Actions Availability API
+  version: 1.230.0
+  description: GPT Actions for the availability-inspector GPT — a subset of the Chili Piper Edge API. Authenticate with a Bearer API key (Admin Center → API Keys).
+servers:
+- url: https://fire.chilipiper.com/api/fire-edge
+  description: Production
+security:
+- apiKeyAuth: []
+tags:
+- name: availability
+paths:
+  /v1/org/availability/slots:
+    post:
+      tags:
+      - availability
+      summary: Get available meeting time slots for any attendee configuration
+      description: "[operation: availability-slots]\n\n\n\nREAD-ONLY\n\n\n\nUnified availability endpoint — returns slots for any attendee mix (round-robin, manual, team-assigned, additional).\n\n- expectedHost (req): {type: \"User\", userId} or {type: \"AssigneeFromDistribution\", distributionId}\n\n- attendees (req): non-empty list; each item requires a `type` discriminator and a `required` field (boolean: true = slot hidden if attendee unavailable):\n\n    {type: \"ManuallyAssigned\", userId, required: true|false}\n    {type: \"DistributionAssignee\", distributionId, required: true|false, userIds (opt): ranked list}\n    {type: \"AssignedViaTeam\", userId, teamId, required: true|false}\n    {type: \"AdditionalAttendee\", userId, required: true|false}\n\n  Note: `required` must always be present — omitting it returns 400\n\n- meetingTypeRef (req): {id, timestamp} — identifies meeting type and version\n\n- meetingTypeOverride (opt): inline duration/buffer overrides; omit or pass null to use meeting-type defaults;\n\n    fields (all optional): {meetingDurationOverride, beforeBufferDurationOverride, afterBufferDurationOverride, availabilityIncrementOverride}\n\n- interval (req): {startsAt: ISO-8601, duration: \"7 days\"/\"P7D\"/etc.}\n\n→\n\n    {meetingTypeRef, startTimes: [{startTime, attendees}], failures: {userId: failure}}\n\nsee: distribution-list, user-find"
+      operationId: availabilitySlots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeetingStartTimesRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingStartTimes'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - availability.read
+components:
+  schemas:
+    DistributionId:
+      title: DistributionId
+      examples:
+      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
+      type: string
+      pattern: '[^\s\\/]+'
+    RequestAttendee:
+      title: RequestAttendee
+      oneOf:
+      - $ref: '#/components/schemas/RequestAttendee_AdditionalAttendee'
+      - $ref: '#/components/schemas/RequestAttendee_AssignedViaTeam'
+      - $ref: '#/components/schemas/RequestAttendee_DistributionAssignee'
+      - $ref: '#/components/schemas/RequestAttendee_ManuallyAssigned'
+      discriminator:
+        propertyName: type
+        mapping:
+          AdditionalAttendee: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.AdditionalAttendee
+          AssignedViaTeam: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.AssignedViaTeam
+          DistributionAssignee: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.DistributionAssignee
+          ManuallyAssigned: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.ManuallyAssigned
+    RequestedAttendee_FlexibleRoundRobinAssignee:
+      title: RequestedAttendee_FlexibleRoundRobinAssignee
+      type: object
+      required:
+      - distributionId
+      - userIds
+      - required
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        userIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    RequestedAttendee:
+      title: RequestedAttendee
+      oneOf:
+      - $ref: '#/components/schemas/RequestedAttendee_AdditionalAttendee'
+      - $ref: '#/components/schemas/RequestedAttendee_AssignedViaTeam'
+      - $ref: '#/components/schemas/RequestedAttendee_FlexibleRoundRobinAssignee'
+      - $ref: '#/components/schemas/RequestedAttendee_ManuallyAssigned'
+      - $ref: '#/components/schemas/RequestedAttendee_StrictRoundRobinAssignee'
+      discriminator:
+        propertyName: type
+        mapping:
+          AdditionalAttendee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.AdditionalAttendee
+          AssignedViaTeam: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.AssignedViaTeam
+          FlexibleRoundRobinAssignee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.FlexibleRoundRobinAssignee
+          ManuallyAssigned: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.ManuallyAssigned
+          StrictRoundRobinAssignee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.StrictRoundRobinAssignee
+    AvailabilityExpectedHost:
+      title: AvailabilityExpectedHost
+      oneOf:
+      - $ref: '#/components/schemas/AvailabilityExpectedHost_AssigneeFromDistribution'
+      - $ref: '#/components/schemas/AvailabilityExpectedHost_User'
+      discriminator:
+        propertyName: type
+        mapping:
+          AssigneeFromDistribution: com.chilipiper.edge.api.endpoint.model.EdgeAvailabilityExpectedHost.AssigneeFromDistribution
+          User: com.chilipiper.edge.api.endpoint.model.EdgeAvailabilityExpectedHost.User
+    Map_Refined_String_Refinement_V:
+      title: Map_Refined_String_Refinement_V
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvailabilityFailure'
+    MeetingTypeId:
+      title: MeetingTypeId
+      examples:
+      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
+      type: string
+      format: uuid
+    TimeInterval:
+      title: TimeInterval
+      type: object
+      required:
+      - startsAt
+      - duration
+      properties:
+        startsAt:
+          type: string
+          format: date-time
+        duration:
+          description: Duration of the time interval. Accepts Scala FiniteDuration format (e.g. '7 days', '1 hour', '30 minutes') or ISO 8601 duration format (e.g. 'P7D', 'PT168H', 'PT1H30M').
+          type: string
+    RequestAttendee_AssignedViaTeam:
+      title: RequestAttendee_AssignedViaTeam
+      type: object
+      required:
+      - userId
+      - teamId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        teamId:
+          $ref: '#/components/schemas/TeamId'
+        required:
+          type: boolean
+        type:
+          type: string
+    RequestAttendee_AdditionalAttendee:
+      title: RequestAttendee_AdditionalAttendee
+      type: object
+      required:
+      - userId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    MeetingStartTime:
+      title: MeetingStartTime
+      type: object
+      required:
+      - startTime
+      - attendees
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        attendees:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/RequestedAttendee'
+    MeetingStartTimes:
+      title: MeetingStartTimes
+      type: object
+      required:
+      - meetingTypeRef
+      - failures
+      properties:
+        meetingTypeRef:
+          $ref: '#/components/schemas/MeetingTypeRef'
+        startTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeetingStartTime'
+        failures:
+          $ref: '#/components/schemas/Map_Refined_String_Refinement_V'
+    RequestAttendee_DistributionAssignee:
+      title: RequestAttendee_DistributionAssignee
+      type: object
+      required:
+      - distributionId
+      - required
+      - type
+      properties:
+        userIds:
+          description: Ranked list of eligible user IDs. If omitted, all distribution members are included.
+          type: array
+          minItems: 1
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        required:
+          type: boolean
+        type:
+          type: string
+    RequestAttendee_ManuallyAssigned:
+      title: RequestAttendee_ManuallyAssigned
+      type: object
+      required:
+      - userId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    RequestedAttendee_StrictRoundRobinAssignee:
+      title: RequestedAttendee_StrictRoundRobinAssignee
+      type: object
+      required:
+      - distributionId
+      - userId
+      - required
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    AvailabilityFailure:
+      title: AvailabilityFailure
+      oneOf:
+      - $ref: '#/components/schemas/ExternalCalendarIntegrationFailure'
+      - $ref: '#/components/schemas/NoTimezone'
+      - $ref: '#/components/schemas/Other'
+      discriminator:
+        propertyName: type
+        mapping:
+          ExternalCalendarIntegrationFailure: '#/components/schemas/ExternalCalendarIntegrationFailure'
+          NoTimezone: '#/components/schemas/NoTimezone'
+          Other: '#/components/schemas/Other'
+    MeetingTypeOverrides:
+      title: MeetingTypeOverrides
+      type: object
+      properties:
+        meetingDurationOverride:
+          type: string
+        beforeBufferDurationOverride:
+          type: string
+        afterBufferDurationOverride:
+          type: string
+        availabilityIncrementOverride:
+          type: string
+    RequestedAttendee_AssignedViaTeam:
+      title: RequestedAttendee_AssignedViaTeam
+      type: object
+      required:
+      - userId
+      - teamId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        teamId:
+          $ref: '#/components/schemas/TeamId'
+        required:
+          type: boolean
+        type:
+          type: string
+    MeetingTypeRef:
+      title: MeetingTypeRef
+      type: object
+      required:
+      - id
+      - timestamp
+      properties:
+        id:
+          $ref: '#/components/schemas/MeetingTypeId'
+        timestamp:
+          type: string
+          format: date-time
+    MeetingStartTimesRequest:
+      title: MeetingStartTimesRequest
+      type: object
+      required:
+      - expectedHost
+      - attendees
+      - meetingTypeRef
+      - interval
+      properties:
+        expectedHost:
+          $ref: '#/components/schemas/AvailabilityExpectedHost'
+        attendees:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/RequestAttendee'
+        meetingTypeRef:
+          $ref: '#/components/schemas/MeetingTypeRef'
+        meetingTypeOverride:
+          $ref: '#/components/schemas/MeetingTypeOverrides'
+        interval:
+          $ref: '#/components/schemas/TimeInterval'
+    AvailabilityExpectedHost_AssigneeFromDistribution:
+      title: AvailabilityExpectedHost_AssigneeFromDistribution
+      type: object
+      required:
+      - distributionId
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        type:
+          type: string
+    AvailabilityExpectedHost_User:
+      title: AvailabilityExpectedHost_User
+      type: object
+      required:
+      - userId
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        type:
+          type: string
+    RequestedAttendee_AdditionalAttendee:
+      title: RequestedAttendee_AdditionalAttendee
+      type: object
+      required:
+      - userId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    RequestedAttendee_ManuallyAssigned:
+      title: RequestedAttendee_ManuallyAssigned
+      type: object
+      required:
+      - userId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    NoTimezone:
+      title: NoTimezone
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: NoTimezone
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    Other:
+      title: Other
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Other
+    ExternalCalendarIntegrationFailure:
+      title: ExternalCalendarIntegrationFailure
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: ExternalCalendarIntegrationFailure
+    TeamId:
+      title: TeamId
+      examples:
+      - 2a9c3f1e-8b7d-4a5c-9e6f-1b2c3d4e5f6a
+      type: string
+      pattern: '[^\s\\/]+'
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>'' — the word ''Bearer'' followed by a space and the key is required. Sending the key without the Bearer prefix returns 401.'
+      name: Authorization
+      in: header

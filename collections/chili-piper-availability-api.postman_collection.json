@@ -1,0 +1,306 @@
+{
+  "item": [
+    {
+      "id": "fc30b752-76a1-41f9-a611-afd9a8b4b403",
+      "name": "availability",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "332763f0-3153-43ff-8f6d-2c6e433022ef",
+          "name": "Get available meeting time slots for any attendee configuration",
+          "request": {
+            "name": "Get available meeting time slots for any attendee configuration",
+            "description": {
+              "content": "[operation: availability-slots]\n\n\n\nREAD-ONLY\n\n\n\nUnified availability endpoint — returns slots for any attendee mix (round-robin, manual, team-assigned, additional).\n\n- expectedHost (req): {type: \"User\", userId} or {type: \"AssigneeFromDistribution\", distributionId}\n\n- attendees (req): non-empty list; each item requires a `type` discriminator and a `required` field (boolean: true = slot hidden if attendee unavailable):\n\n    {type: \"ManuallyAssigned\", userId, required: true|false}\n    {type: \"DistributionAssignee\", distributionId, required: true|false, userIds (opt): ranked list}\n    {type: \"AssignedViaTeam\", userId, teamId, required: true|false}\n    {type: \"AdditionalAttendee\", userId, required: true|false}\n\n  Note: `required` must always be present — omitting it returns 400\n\n- meetingTypeRef (req): {id, timestamp} — identifies meeting type and version\n\n- meetingTypeOverride (opt): inline duration/buffer overrides; omit or pass null to use meeting-type defaults;\n\n    fields (all optional): {meetingDurationOverride, beforeBufferDurationOverride, afterBufferDurationOverride, availabilityIncrementOverride}\n\n- interval (req): {startsAt: ISO-8601, duration: \"7 days\"/\"P7D\"/etc.}\n\n→\n\n    {meetingTypeRef, startTimes: [{startTime, attendees}], failures: {userId: failure}}\n\nsee: distribution-list, user-find",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "availability",
+                "slots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expectedHost\": {\n    \"distributionId\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"attendees\": [\n    {\n      \"userId\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"meetingTypeRef\": {\n    \"id\": \"<uuid>\",\n    \"timestamp\": \"<dateTime>\"\n  },\n  \"interval\": {\n    \"startsAt\": \"<dateTime>\",\n    \"duration\": \"<string>\"\n  },\n  \"meetingTypeOverride\": {\n    \"meetingDurationOverride\": \"<string>\",\n    \"beforeBufferDurationOverride\": \"<string>\",\n    \"afterBufferDurationOverride\": \"<string>\",\n    \"availabilityIncrementOverride\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "24e3d2b1-3406-4085-9501-4d0f82e0430b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "availability",
+                    "slots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expectedHost\": {\n    \"distributionId\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"attendees\": [\n    {\n      \"userId\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"meetingTypeRef\": {\n    \"id\": \"<uuid>\",\n    \"timestamp\": \"<dateTime>\"\n  },\n  \"interval\": {\n    \"startsAt\": \"<dateTime>\",\n    \"duration\": \"<string>\"\n  },\n  \"meetingTypeOverride\": {\n    \"meetingDurationOverride\": \"<string>\",\n    \"beforeBufferDurationOverride\": \"<string>\",\n    \"afterBufferDurationOverride\": \"<string>\",\n    \"availabilityIncrementOverride\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meetingTypeRef\": {\n    \"id\": \"<uuid>\",\n    \"timestamp\": \"<dateTime>\"\n  },\n  \"failures\": {\n    \"key_0\": {\n      \"type\": \"string\"\n    }\n  },\n  \"startTimes\": [\n    {\n      \"startTime\": \"1979-07-14T08:45:43.607Z\",\n      \"attendees\": [\n        {\n          \"userId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"required\": false,\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"startTime\": \"1978-10-18T23:10:12.247Z\",\n      \"attendees\": [\n        {\n          \"userId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"required\": true,\n          \"type\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb7feffc-813d-4db0-b4ea-30ed707b76dd",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "availability",
+                    "slots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expectedHost\": {\n    \"distributionId\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"attendees\": [\n    {\n      \"userId\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"meetingTypeRef\": {\n    \"id\": \"<uuid>\",\n    \"timestamp\": \"<dateTime>\"\n  },\n  \"interval\": {\n    \"startsAt\": \"<dateTime>\",\n    \"duration\": \"<string>\"\n  },\n  \"meetingTypeOverride\": {\n    \"meetingDurationOverride\": \"<string>\",\n    \"beforeBufferDurationOverride\": \"<string>\",\n    \"afterBufferDurationOverride\": \"<string>\",\n    \"availabilityIncrementOverride\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d823107b-38ff-457a-96f9-f145f5d30a53",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "availability",
+                    "slots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expectedHost\": {\n    \"distributionId\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"attendees\": [\n    {\n      \"userId\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"meetingTypeRef\": {\n    \"id\": \"<uuid>\",\n    \"timestamp\": \"<dateTime>\"\n  },\n  \"interval\": {\n    \"startsAt\": \"<dateTime>\",\n    \"duration\": \"<string>\"\n  },\n  \"meetingTypeOverride\": {\n    \"meetingDurationOverride\": \"<string>\",\n    \"beforeBufferDurationOverride\": \"<string>\",\n    \"afterBufferDurationOverride\": \"<string>\",\n    \"availabilityIncrementOverride\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "eb3b5c01-af97-4b76-9a6e-7f1963172b5d",
+    "name": "Chili Piper — Inspector Actions Availability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "GPT Actions for the availability-inspector GPT — a subset of the Chili Piper Edge API. Authenticate with a Bearer API key (Admin Center → API Keys).",
+      "type": "text/plain"
+    }
+  }
+}

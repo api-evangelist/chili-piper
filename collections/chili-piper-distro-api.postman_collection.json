@@ -1,0 +1,2454 @@
+{
+  "item": [
+    {
+      "id": "87da568e-ae1f-456d-beca-2329f474b4b5",
+      "name": "distro",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3464d3ac-9f79-4081-be44-2852d0181edd",
+          "name": "List distro logs",
+          "request": {
+            "name": "List distro logs",
+            "description": {
+              "content": "[operation: distro-logs]\n\n\n\nREAD-ONLY\n\n\n\nReturns paginated distro logs (record-level audit trail of router flow runs) for a workspace, with optional filtering.\n\n- workspaceId (req): workspace to query logs for; use distro-list-routers to find workspaceId\n\n- page (opt, default 0), pageSize (opt, default 10): pagination\n\n- body (req; send `{}` for no filtering): filter with optional fields:\n\n  - userIds (opt): filter by assignee user IDs\n\n  - status (opt): flow lifecycle outcome; one of: \"NotTriggered\" | \"NotMatchedEntryRule\" | \"DelayInProgress\" | \"WorkingHours\" | \"SlaInProgress\" | \"NotRouted\" | \"Finished\" | \"SlaFinished\" | \"Error\"\n\n  - distributionMethod (opt): how the user was picked (a distribution-level decision, not a distro-level state); one of: \"FromOwnershipArs\" | \"RoundRobinEvaluationSuccess\" | \"EvaluatedFromRoundRobinArs\" | \"FallbackTeam\" | \"FallbackUser\" | \"DuplicateMatchOwner\" | \"NoDistribution\" | \"NoUserAvailable\" | \"ClientError\"\n\n  - search (opt): text search\n\n  - from (opt): start time (ISO8601 with zone, e.g. \"2024-01-01T00:00:00Z\")\n\n  - to (opt): end time (ISO8601 with zone)\n\n→\n\n    {results: [{log: {id, workspaceId, routerId, status, assignments: [{userId, distributionId?, method}], trigger?: {entityId, entityType, eventType}, createdAt, updatedAt}, router: {id, name, workspaceId}}], total, page, pageSize}\n\nsee: distro-list-routers (find routers and their workspaceId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "logs"
+              ],
+              "host": [
+                "{{v1-org-distro-logs-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number. First page has index 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of items per page. Maximum is 50"
+                },
+                {
+                  "disabled": false,
+                  "key": "workspaceId",
+                  "value": "<string>",
+                  "description": "(Required) Id of the workspace"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"distributionMethod\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"to\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "188876e6-6d29-40aa-91d4-224f5e8c4570",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-logs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"distributionMethod\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"to\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 7581,\n  \"page\": 893,\n  \"pageSize\": 2387,\n  \"results\": [\n    {\n      \"log\": {\n        \"id\": \"string\",\n        \"workspaceId\": \"81=9O#H\",\n        \"routerId\": \"0+F-%-&KD\",\n        \"status\": \"<string>\",\n        \"createdAt\": \"1956-05-25T00:31:18.173Z\",\n        \"updatedAt\": \"2008-01-15T20:27:58.250Z\",\n        \"assignments\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distributionId\": \"xV:g50[oW\\\"X\"\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distributionId\": \"m\\\"U\\\"\"\n          }\n        ],\n        \"trigger\": {\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"eventType\": \"Updated\"\n        }\n      },\n      \"router\": {\n        \"id\": \"B}e(T'Q6F\",\n        \"name\": \"string\",\n        \"workspaceId\": \"l&j\"\n      }\n    },\n    {\n      \"log\": {\n        \"id\": \"string\",\n        \"workspaceId\": \"`zN3:\",\n        \"routerId\": \"Lu}u~0-!n\",\n        \"status\": \"<string>\",\n        \"createdAt\": \"2007-10-07T00:54:36.702Z\",\n        \"updatedAt\": \"1953-06-03T09:58:22.254Z\",\n        \"assignments\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distributionId\": \"wq$5bP~{~f\"\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distributionId\": \"k\"\n          }\n        ],\n        \"trigger\": {\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"eventType\": \"Created\"\n        }\n      },\n      \"router\": {\n        \"id\": \"bs-\",\n        \"name\": \"string\",\n        \"workspaceId\": \"v\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15ca055b-09a4-4f7d-a0b0-062f4e1960bf",
+              "name": "Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: query parameter workspaceId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-logs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"distributionMethod\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"to\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd3df531-2a22-4cbe-9faa-fee01fbcf0f5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-logs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"distributionMethod\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"to\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c180783-82b2-402f-826b-a4bc075992b4",
+          "name": "Get distro log evaluation trace",
+          "request": {
+            "name": "Get distro log evaluation trace",
+            "description": {
+              "content": "[operation: distro-log-get]\n\n\n\nREAD-ONLY\n\n\n\nReturns the per-record evaluation trace for a single distro log — the in-app log drill-down that answers \"why did this record route here / why didn't it route\".\n\n- logId (req): log id, as returned by distro-logs (log.id)\n\n- routerId (req): router the log belongs to, as returned by distro-logs (log.routerId)\n\n→\n\n    {log: {id, workspaceId, routerId, status, assignments, trigger?, createdAt, updatedAt}, events: [{stage, status, trigger?, triggerValidation?, changeEvaluation?, entryRule?, route?, slaRules, enrichments, assignments, error?, createdAt, updatedAt}]}\n\n  Note: stage is the internal processing-stage name of the event (e.g. \"ActionsSuccessful\", \"RuleEvalFailedV2\"); entryRule, route.rules and slaRules entries are rule evaluations: {ruleId?, ruleName?, matched, logic?, conditions: [{index, conditionId?, kind, field?, recordId?, resolvedValue?, operator?, expectedValue?, expectedField?, matched, owners, error?}]}.\n\n  Note: each condition shows the data-source field as source.object.field with the rule-builder source code (e.g. \"SF.Lead.Email\" for Salesforce), the resolved record id and value, the expected value(s) and whether it matched; logic combines condition indexes, e.g. \"(1 and 2) or 3\". Enrichment steps list per-field existing vs enriched values; route.matchers and route.duplicateMatches cover path matching and duplicate-match ownership.\n\nsee: distro-logs (list logs to obtain logId and routerId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "logs",
+                ":logId"
+              ],
+              "host": [
+                "{{v1-org-distro-logs-logId-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "routerId",
+                  "value": "<string>",
+                  "description": "(Required) Router the log belongs to, as returned by the distro logs list endpoint."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "logId",
+                  "description": "(Required) Log id, as returned by the distro logs list endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ca82b725-45cc-4b72-bcb4-3eec248bb5d3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "logs",
+                    ":logId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-logs-logId-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "routerId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logId",
+                      "description": "(Required) Log id, as returned by the distro logs list endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"log\": {\n    \"id\": \"string\",\n    \"workspaceId\": \"Ls\",\n    \"routerId\": \"A0\",\n    \"status\": \"<string>\",\n    \"createdAt\": \"1998-11-23T00:11:31.193Z\",\n    \"updatedAt\": \"1972-12-29T04:38:35.988Z\",\n    \"assignments\": [\n      {\n        \"userId\": \"zWcq~Li\",\n        \"method\": \"<string>\",\n        \"distributionId\": \"$\"\n      },\n      {\n        \"userId\": \"Z\",\n        \"method\": \"<string>\",\n        \"distributionId\": \"%F\"\n      }\n    ],\n    \"trigger\": {\n      \"entityId\": \"string\",\n      \"entityType\": \"string\",\n      \"eventType\": \"Signaled\"\n    }\n  },\n  \"events\": [\n    {\n      \"stage\": \"string\",\n      \"status\": \"<string>\",\n      \"createdAt\": \"2002-12-22T03:17:42.721Z\",\n      \"updatedAt\": \"1957-07-20T22:46:04.931Z\",\n      \"trigger\": {\n        \"entityId\": \"string\",\n        \"entityType\": \"string\",\n        \"eventType\": \"Created\"\n      },\n      \"triggerValidation\": \"string\",\n      \"changeEvaluation\": \"string\",\n      \"entryRule\": {\n        \"matched\": true,\n        \"ruleId\": \"&k-x~ii)\",\n        \"ruleName\": \"string\",\n        \"logic\": \"string\",\n        \"conditions\": [\n          {\n            \"index\": 4382,\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": false,\n            \"conditionId\": \"string\",\n            \"field\": \"string\",\n            \"recordId\": \"string\",\n            \"resolvedValue\": \"\",\n            \"operator\": \"string\",\n            \"expectedValue\": \"\",\n            \"expectedField\": \"string\",\n            \"owners\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"error\": \"string\"\n          },\n          {\n            \"index\": 1660,\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": true,\n            \"conditionId\": \"string\",\n            \"field\": \"string\",\n            \"recordId\": \"string\",\n            \"resolvedValue\": \"\",\n            \"operator\": \"string\",\n            \"expectedValue\": \"\",\n            \"expectedField\": \"string\",\n            \"owners\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"error\": \"string\"\n          }\n        ]\n      },\n      \"route\": {\n        \"routeId\": \"string\",\n        \"ruleName\": \"string\",\n        \"matchers\": [\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": false,\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"exists\": false,\n            \"matchToAccountOwner\": false,\n            \"recordId\": \"string\"\n          },\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": false,\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"exists\": false,\n            \"matchToAccountOwner\": false,\n            \"recordId\": \"string\"\n          }\n        ],\n        \"rules\": [\n          {\n            \"matched\": false,\n            \"ruleId\": \"y=n\",\n            \"ruleName\": \"string\",\n            \"logic\": \"string\",\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"matched\": true,\n            \"ruleId\": \":M&6p$0S\",\n            \"ruleName\": \"string\",\n            \"logic\": \"string\",\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"duplicateMatches\": [\n          {\n            \"ownerId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"objectId\": \"string\",\n            \"ownerEmail\": \"9Ygt@AY.$\"\n          },\n          {\n            \"ownerId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"objectId\": \"string\",\n            \"ownerEmail\": \":q\\\"@~-D&IxycZ3\"\n          }\n        ]\n      },\n      \"slaRules\": [\n        {\n          \"matched\": true,\n          \"ruleId\": \"|\",\n          \"ruleName\": \"string\",\n          \"logic\": \"string\",\n          \"conditions\": [\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"matched\": false,\n          \"ruleId\": \"xiob4`[\",\n          \"ruleName\": \"string\",\n          \"logic\": \"string\",\n          \"conditions\": [\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"enrichments\": [\n        {\n          \"stepId\": \"string\",\n          \"fields\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            }\n          ],\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"stepId\": \"string\",\n          \"fields\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            }\n          ],\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"assignments\": [\n        {\n          \"userId\": \"]_,\",\n          \"method\": \"<string>\",\n          \"distributionId\": \"|(W+Dd}\"\n        },\n        {\n          \"userId\": \"JxR}#QVnX\",\n          \"method\": \"<string>\",\n          \"distributionId\": \"L\"\n        }\n      ],\n      \"error\": {\n        \"errorType\": \"string\",\n        \"message\": \"string\",\n        \"errorCode\": \"string\"\n      }\n    },\n    {\n      \"stage\": \"string\",\n      \"status\": \"<string>\",\n      \"createdAt\": \"1977-12-11T03:31:38.294Z\",\n      \"updatedAt\": \"2014-03-23T21:50:28.354Z\",\n      \"trigger\": {\n        \"entityId\": \"string\",\n        \"entityType\": \"string\",\n        \"eventType\": \"Signaled\"\n      },\n      \"triggerValidation\": \"string\",\n      \"changeEvaluation\": \"string\",\n      \"entryRule\": {\n        \"matched\": false,\n        \"ruleId\": \"&UN}+=f\",\n        \"ruleName\": \"string\",\n        \"logic\": \"string\",\n        \"conditions\": [\n          {\n            \"index\": 6340,\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": true,\n            \"conditionId\": \"string\",\n            \"field\": \"string\",\n            \"recordId\": \"string\",\n            \"resolvedValue\": \"\",\n            \"operator\": \"string\",\n            \"expectedValue\": \"\",\n            \"expectedField\": \"string\",\n            \"owners\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"error\": \"string\"\n          },\n          {\n            \"index\": 4729,\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": false,\n            \"conditionId\": \"string\",\n            \"field\": \"string\",\n            \"recordId\": \"string\",\n            \"resolvedValue\": \"\",\n            \"operator\": \"string\",\n            \"expectedValue\": \"\",\n            \"expectedField\": \"string\",\n            \"owners\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"error\": \"string\"\n          }\n        ]\n      },\n      \"route\": {\n        \"routeId\": \"string\",\n        \"ruleName\": \"string\",\n        \"matchers\": [\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": false,\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"exists\": false,\n            \"matchToAccountOwner\": true,\n            \"recordId\": \"string\"\n          },\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"matched\": true,\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"exists\": true,\n            \"matchToAccountOwner\": true,\n            \"recordId\": \"string\"\n          }\n        ],\n        \"rules\": [\n          {\n            \"matched\": false,\n            \"ruleId\": \"FC_<'\",\n            \"ruleName\": \"string\",\n            \"logic\": \"string\",\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"matched\": false,\n            \"ruleId\": \"urbj\",\n            \"ruleName\": \"string\",\n            \"logic\": \"string\",\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"duplicateMatches\": [\n          {\n            \"ownerId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"objectId\": \"string\",\n            \"ownerEmail\": \"CPSxt_0pV@S\"\n          },\n          {\n            \"ownerId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routeId\": \"string\",\n            \"objectType\": \"string\",\n            \"objectId\": \"string\",\n            \"ownerEmail\": \"=p7PqS@{X%lWLb&+Kn\"\n          }\n        ]\n      },\n      \"slaRules\": [\n        {\n          \"matched\": false,\n          \"ruleId\": \"`v\",\n          \"ruleName\": \"string\",\n          \"logic\": \"string\",\n          \"conditions\": [\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"matched\": false,\n          \"ruleId\": \"2v`9@fm=\",\n          \"ruleName\": \"string\",\n          \"logic\": \"string\",\n          \"conditions\": [\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"index\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"conditionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"recordId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resolvedValue\": \"\",\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"expectedValue\": \"\",\n              \"expectedField\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"owners\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"enrichments\": [\n        {\n          \"stepId\": \"string\",\n          \"fields\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            }\n          ],\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"stepId\": \"string\",\n          \"fields\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteEnabled\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"overwriteExisting\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"provider\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"existingValue\": \"\",\n              \"enrichedValue\": \"\"\n            }\n          ],\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"assignments\": [\n        {\n          \"userId\": \"6#kLvDD[2[\",\n          \"method\": \"<string>\",\n          \"distributionId\": \"IAbs(jBB&a[\"\n        },\n        {\n          \"userId\": \"+Nhg5\",\n          \"method\": \"<string>\",\n          \"distributionId\": \"SbaFX:Du,_c\"\n        }\n      ],\n      \"error\": {\n        \"errorType\": \"string\",\n        \"message\": \"string\",\n        \"errorCode\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df3768bb-fb85-4749-88a8-79c96a1f728b",
+              "name": "Invalid value for: query parameter routerId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "logs",
+                    ":logId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-logs-logId-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "routerId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logId",
+                      "description": "(Required) Log id, as returned by the distro logs list endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4298b62b-a5be-49d7-ad5c-c5c2062f1d9c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "logs",
+                    ":logId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-logs-logId-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "routerId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logId",
+                      "description": "(Required) Log id, as returned by the distro logs list endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f47bc69c-2f2a-4eaa-a531-582159f59da0",
+          "name": "Lists all distro routers",
+          "request": {
+            "name": "Lists all distro routers",
+            "description": {
+              "content": "[operation: distro-list-routers]\n\n\n\nREAD-ONLY\n\n\n\nBrowse every Distro router to find routerIds, status and triggers.\n\n\n\nBrowses every Distro router in the org to discover routerIds, activation status, and triggers. A Distro router routes CRM records (leads) to users via distributions, driven by a trigger.\n\n→\n\n    {routers: [{id, name, status, trigger: {objectType, eventTypes: [{type, ...}], evaluation, delay}}]}\n\n  Note: status is the router's activation state — one of {type:\"Active\"} | {type:\"Inactive\"} | {type:\"Activating\"} | {type:\"Deactivating\"} | {type:\"Error\", message}. A router created via the API is Inactive until distro-router-activate is called.\n\n  Note: when an entry of trigger.eventTypes has type=Scheduled it carries schedulerId — that is the resourceSchedulerId expected by resource-scheduler-run.\n\nsee: resource-scheduler-run (run a scheduled router on demand using schedulerId from a Scheduled trigger), distro-router-activate / distro-router-deactivate (toggle a router's status)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "routers",
+                "list"
+              ],
+              "host": [
+                "{{v1-org-distro-routers-list-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c568aa5f-753d-4054-9020-aa0f80fed68e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-list-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"routers\": [\n    {\n      \"id\": \"\\\"fz7jLf1zu\",\n      \"name\": \"string\",\n      \"status\": {\n        \"type\": \"string\"\n      },\n      \"trigger\": {\n        \"objectType\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"eventTypes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"evaluation\": \"ZB*wC\",\n        \"delay\": {\n          \"duration\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"u=\",\n      \"name\": \"string\",\n      \"status\": {\n        \"type\": \"string\"\n      },\n      \"trigger\": {\n        \"objectType\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"eventTypes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"evaluation\": \"6s{nW\",\n        \"delay\": {\n          \"duration\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcb3b549-cdb7-4d35-ae0f-c0417f7dbecf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-list-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9055453f-d771-4e65-b0c7-dcff792f44c5",
+          "name": "Get distro router",
+          "request": {
+            "name": "Get distro router",
+            "description": {
+              "content": "[operation: distro-router-get]\n\n\n\nREAD-ONLY\n\n\n\nFetch one Distro router's identity, activation status and routing summary.\n\n\n\nFetches one Distro router: its identity, activation status, and a lossy per-row summary of its lead-routing. Call this before distro-router-update to read back the current routing (update overlays your changes onto it — matching rows by ruleId — and preserves advanced config it can't show you) and to check status. (Implemented by filtering the router list — there is no internal get-by-id endpoint.)\n\n→\n\n    {id, workspaceId, name?, description?, status, routing: {known, representable, rows: [{ruleId?, outcome}], catchAll?: outcome, routingSteps: [routingStep]}}\n    status (one of): {type: \"Active\"} | {type: \"Inactive\"} | {type: \"Activating\"} | {type: \"Deactivating\"} | {type: \"Error\", message}\n    outcome (one of): {type: \"Route\", distributionId?, actions: [action]} | {type: \"Unrepresentable\", kind}\n    action (one of): {type: \"ReassignRecord\"} | {type: \"UpdateOwnership\", respectWorkingHours?, sendSlackNotification?, sendEmailNotification?, matchBy?} | {type: \"UpdateField\", field, value?, objectType?} | {type: \"UpdateFieldDynamic\", field, value: dynamicValue, objectType?} | {type: \"SendSlackToAssignee\"} | {type: \"SendEmailReminderToAssignee\"}\n    dynamicValue (one of): {type: \"RelativeDate\", unit: \"Day\"|\"Week\"|\"Month\"|\"Quarter\"|\"Year\", offset?, timeZone?} | {type: \"TemplateText\", text} | {type: \"VariableField\", variableId, field, relation?}\n    routingStep (one of): {type: \"Enrichment\", id?, fieldMappings: [{variableId, field, waterfallId, overwriteExisting?, relation?}]} | {type: \"SpamCheck\", id?, salesforceWrite: {type: \"Off\"} | {type: \"Enabled\", scoreField?, otherFields: [{objectType, field, value?}]}} | {type: \"Unrepresentable\", kind}\n\n  Note: a Route outcome carries the distribution (who) and the CRM actions performed on the chosen assignee (what); it round-trips into distro-router-update. Unrepresentable rows use app-only features (SLAs, matchers, non-round-robin distributions, app-only actions) and carry a short kind, not the detail — but an update still edits them safely: the overlay changes only the distribution + actions you send for a matched ruleId and leaves that advanced config untouched\n\n  Note: routingSteps are the pre-distribution steps (enrichment, spam-check) the router runs before the rows; they round-trip into distro-router-update. A routing step Edge cannot model reads back as {type:\"Unrepresentable\", kind}\n\n  Note: routing.representable indicates only whether this lossy summary round-trips EXACTLY (every row, the catch-all AND every routing step representable); it is advisory — an update is accepted either way, because the overlay preserves advanced config rather than replacing it\n\n  Note: status is the router's activation state; a router created via the API is Inactive until distro-router-activate is called, and must be Inactive to be deleted\n\nsee: distro-list-routers (browse to find a routerId), distro-router-update (overlay routing), distro-router-activate / distro-router-deactivate (toggle status)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "routers",
+                ":routerId"
+              ],
+              "host": [
+                "{{v1-org-distro-routers-routerId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0522d3b1-1806-4455-ae44-fb30ec331c04",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"Pw+4HZxjRY\",\n  \"workspaceId\": \"<9U\",\n  \"status\": {\n    \"type\": \"string\"\n  },\n  \"routing\": {\n    \"known\": true,\n    \"representable\": true,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"fM@zx\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"CpCsv>l\"\n      }\n    ],\n    \"catchAll\": {\n      \"type\": \"string\",\n      \"distributionId\": \"4UUg\",\n      \"actions\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"routingSteps\": [\n      {\n        \"type\": \"string\",\n        \"id\": \"string\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"string\",\n        \"id\": \"string\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"name\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b9d083a-342b-4c05-99d7-65be70ce6569",
+              "name": "Invalid value for: path parameter routerId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f698d6f2-d169-4905-a1f2-0946c1537c30",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61b55e63-06d8-43fd-922f-b7abe247896f",
+          "name": "Update distro router",
+          "request": {
+            "name": "Update distro router",
+            "description": {
+              "content": "[operation: distro-router-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdit a Distro router and republish it, preserving activation.\n\n\n\nEdits a Distro router and republishes it, preserving its activation — an active router stays active with the new config live immediately, an inactive one stays inactive (use distro-router-activate / distro-router-deactivate to change activation deliberately). routing is REQUIRED; it is OVERLAID onto the router's current routing (routes matched by ruleId), NOT a blind full-replace — advanced config Edge can't model (SLAs, matchers, duplicate-matching, non-round-robin distributions, app-only actions) is preserved, so ANY router can be edited (there is no longer a not-representable rejection). To change only name/description, resend the current routing (from distro-router-get) alongside them.\n\n- name (opt): new display name\n\n- description (opt): new description\n\n- routing (req): the lead-routing matrix, applied as an OVERLAY. The trigger and routing steps are replaced from what you send; each route/catch-all is matched to the router's existing routing by ruleId (catch-all to catch-all) and only its distribution (who) + CRM actions (what) are swapped in — matchers, SLAs, campaign addition, lead-to-contact conversion, send-to-routers, duplicate-matching and any app-only actions on that route are PRESERVED. A row whose ruleId matches nothing is appended as a new route. Distro still requires at least one action per route AND on the catch-all to publish (a matched route keeps its existing actions, so supply actions only where you change them or on new rows):\n\n    {trigger: {objectType, eventTypes: [{type, ...}], evaluation?, delay?}, routes: [{ruleId, distributionId, actions: [action]}], catchAll: {distributionId, actions: [action]}, routingSteps?: [routingStep]}\n    action (one of): {type: \"ReassignRecord\"} | {type: \"UpdateOwnership\", respectWorkingHours?, sendSlackNotification?, sendEmailNotification?, matchBy?} | {type: \"UpdateField\", field, value?, objectType?} | {type: \"UpdateFieldDynamic\", field, value: dynamicValue, objectType?} | {type: \"SendSlackToAssignee\"} | {type: \"SendEmailReminderToAssignee\"}\n    dynamicValue (one of): {type: \"RelativeDate\", unit: \"Day\"|\"Week\"|\"Month\"|\"Quarter\"|\"Year\", offset?, timeZone?} | {type: \"TemplateText\", text} | {type: \"VariableField\", variableId, field, relation?}\n    routingStep (one of): {type: \"Enrichment\", id?, fieldMappings: [{variableId, field, waterfallId, overwriteExisting?, relation?}]} | {type: \"SpamCheck\", id?, salesforceWrite: {type: \"Off\"} | {type: \"Enabled\", scoreField?, otherFields: [{objectType, field, value?}]}}\n\n  trigger.objectType is the CRM object (Lead, Contact, Account, Opportunity, …); trigger.eventTypes is a non-empty list of trigger events ({type:\"NewRecord\"}, {type:\"UpdateField\", expression}, {type:\"Signal\"}, {type:\"Scheduled\", schedulerId}). Each route row: if its rule matches, route via that distribution and run its actions. ruleId is required on every row; an always-match route is the catchAll. routes may be empty (then only the catchAll applies). No meeting type — Distro routes leads. trigger.evaluation (opt) is a ruleId used as the router's entry rule (records that fail it are not routed); trigger.delay (opt) delays evaluation — {type:\"AfterRecordEval\"|\"BeforeRecordEval\", duration}.\n\n  The distribution picks WHO; actions decide WHAT (assign owner, set a field, notify the assignee). At least one action per route AND on the catch-all is required — an actionless route fails to publish. See distro-router-create for the action and routing-step catalogue.\n\n  routingSteps (opt) within routing REPLACE the router's pre-distribution steps (enrichment, spam-check); an empty/absent list within routing CLEARS them, so to keep existing steps read them from distro-router-get first and send them back. Carry each step's id to keep it (and any variables that reference it) stable.\n\n→\n\n    {id, workspaceId, name?, description?, status, routing: {known, representable, rows: [{ruleId?, outcome}], catchAll?: outcome, routingSteps: [routingStep]}}\n\n  Note: status reflects the PRESERVED activation (an update never silently flips it); the returned routing is the per-row summary (same shape as distro-router-get) — representable rows echo back the distribution + actions and the routing steps, not necessarily the exact matrix object you sent\n\n⚠ routing is REQUIRED (it is how you address rows to overlay, matched by ruleId) — an update without routing is REJECTED (400). The trigger and routing steps ARE replaced from what you send (an empty/absent routingSteps list CLEARS them), while per-route distribution + actions overlay onto existing rows; to change only name/description, resend the current routing (from distro-router-get) alongside them.\n\n⚠ every update overlays onto and republishes the router's current editable DRAFT (Distro resolves the draft, or materializes one from the published router) — unpublished edits made in the Distro app are the base of the overlay (preserved), and the overlaid result goes live on publish\n\n⚠ unlike create, a failed update is NOT rolled back (the router already existed): if the publish step fails the changes are saved on an UNPUBLISHED draft and the prior config stays live; if the router was active and the re-activation fails the new config is published but the router is left INACTIVE — a typed 422 error is returned in both cases; fix or activate the router in the Distro app\n\nsee: distro-router-get (read current routing and status before overlaying), distro-router-activate / distro-router-deactivate (change activation), rule-list (find ruleIds), distribution-list (find distributionIds)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "routers",
+                ":routerId"
+              ],
+              "host": [
+                "{{v1-org-distro-routers-routerId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8103f316-6286-4917-9414-fb1e409186ac",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"_stb_IiQ?t|\",\n  \"workspaceId\": \"@Pz(wDt\",\n  \"status\": {\n    \"type\": \"string\"\n  },\n  \"routing\": {\n    \"known\": true,\n    \"representable\": false,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"+>\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"~Xxy_a&]\"\n      }\n    ],\n    \"catchAll\": {\n      \"type\": \"string\",\n      \"distributionId\": \"+#Le!\",\n      \"actions\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"name\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa823c9a-f2c4-48bc-9719-a953d0c7713e",
+              "name": "Invalid value for: path parameter routerId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5a70d24d-cf2e-44f0-93d4-976a66f624f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0caad9e-09de-4669-9873-e2e2299f8924",
+          "name": "Remove distro router",
+          "request": {
+            "name": "Remove distro router",
+            "description": {
+              "content": "[operation: distro-router-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nPermanently delete a Distro router.\n\n\n\nPermanently deletes a Distro router. The router must be INACTIVE first — deactivate it via distro-router-deactivate and wait until distro-router-get shows Inactive before deleting.\n\n⚠ REJECTED (409) when the router is still active (or mid-transition) — deactivate it first via distro-router-deactivate, then delete once distro-router-get shows status inactive\n\n⚠ irreversible via API; any triggers or links pointing at this router stop working\n\nsee: distro-router-deactivate (deactivate before deleting), distro-list-routers or distro-router-get (confirm the id and status before deleting)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "routers",
+                ":routerId"
+              ],
+              "host": [
+                "{{v1-org-distro-routers-routerId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7f776af0-cad3-47a0-b56d-73fc8ee2a4e8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c18112b-4370-4de6-9ea8-fc451075e089",
+              "name": "Invalid value for: path parameter routerId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e7d72d58-0c66-4602-8cd4-884fbf41f087",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31926bac-4a3e-4a3a-ba42-f1dabc20da71",
+          "name": "Create distro router",
+          "request": {
+            "name": "Create distro router",
+            "description": {
+              "content": "[operation: distro-router-create]\n\n\n\nMUTATING\n\n\n\nCreate and publish a Distro router, left inactive until activated.\n\n\n\nCreates a Distro router and publishes it, but leaves it INACTIVE — it routes nothing until you call distro-router-activate. Publish is implicit; activation is a deliberate separate step. Distro routes CRM records (leads), so a router needs a trigger and its routes carry NO meeting type. workspaceId must be a team workspace of this tenant (400 otherwise).\n\n- routing (req): the lead-routing matrix — a trigger, ordered rules evaluated top-down, a mandatory catch-all, plus optional pre-distribution routing steps. Each route/catch-all carries a distribution (who) AND CRM actions (what — at least one is required to publish):\n\n    {trigger: {objectType, eventTypes: [{type, ...}], evaluation?, delay?}, routes: [{ruleId, distributionId, actions: [action]}], catchAll: {distributionId, actions: [action]}, routingSteps?: [routingStep]}\n    action (one of): {type: \"ReassignRecord\"} | {type: \"UpdateOwnership\", respectWorkingHours?, sendSlackNotification?, sendEmailNotification?, matchBy?} | {type: \"UpdateField\", field, value?, objectType?} | {type: \"UpdateFieldDynamic\", field, value: dynamicValue, objectType?} | {type: \"SendSlackToAssignee\"} | {type: \"SendEmailReminderToAssignee\"}\n    dynamicValue (one of): {type: \"RelativeDate\", unit: \"Day\"|\"Week\"|\"Month\"|\"Quarter\"|\"Year\", offset?, timeZone?} | {type: \"TemplateText\", text} | {type: \"VariableField\", variableId, field, relation?}\n    routingStep (one of): {type: \"Enrichment\", id?, fieldMappings: [{variableId, field, waterfallId, overwriteExisting?, relation?}]} | {type: \"SpamCheck\", id?, salesforceWrite: {type: \"Off\"} | {type: \"Enabled\", scoreField?, otherFields: [{objectType, field, value?}]}}\n\n  trigger.objectType is the CRM object (Lead, Contact, Account, Opportunity, …); trigger.eventTypes is a non-empty list of trigger events (e.g. {type:\"NewRecord\"}, {type:\"UpdateField\", expression}, {type:\"Signal\"}, {type:\"Scheduled\", schedulerId}). Each route row: if its rule matches, route the record via that distribution and run its actions. ruleId is required on every row; an always-match route is the catchAll (used when no row matches). routes may be empty (then only the catchAll applies). No meeting type anywhere — Distro routes leads, it does not book meetings. trigger.evaluation (opt) is a ruleId used as the router's entry rule (records that fail it are not routed); trigger.delay (opt) delays evaluation — {type:\"AfterRecordEval\"|\"BeforeRecordEval\", duration}.\n\n  The distribution picks WHO gets the record; actions decide WHAT happens to the chosen assignee. Distro requires at least one action per route AND on the catch-all — an actionless route fails to publish. ReassignRecord (and UpdateOwnership, with optional working-hours / notification / Id-vs-Email match controls) assign the record's owner to the distributed user; UpdateField sets a CRM field to a static value (objectType defaults to the trigger object, omit value to clear it); UpdateFieldDynamic sets a field to a value resolved at routing time — a relative date ({type:\"RelativeDate\", unit, offset}), {!variable.Field} template text, or a variable-field reference; SendSlackToAssignee / SendEmailReminderToAssignee notify the chosen assignee.\n\n  routingSteps (opt, default empty) run before the rows: Enrichment writes data-waterfall output to CRM fields (its variableId / waterfallId reference the router's variables & configured waterfalls — passed through, not validated here); SpamCheck scores the record and, when Enabled, writes the score to scoreField plus any otherFields. Supply a step id to keep it stable; omit it to mint a fresh one.\n\n→\n\n    {id, workspaceId, name?, description?, status, routing: {known, representable, rows: [{ruleId?, outcome}], catchAll?: outcome, routingSteps: [routingStep]}}\n\n  Note: the created router's status is Inactive — it does NOT route records until you call distro-router-activate. The returned routing is the per-row summary (same shape as distro-router-get) — representable rows echo back the distribution + actions, and routingSteps echo back, not necessarily the exact matrix object you sent\n\n⚠ create is all-or-nothing: if any step (configure or publish — e.g. an invalid routing matrix) fails, the partially-created router is rolled back (force-deleted) and a typed 422 error is returned — nothing is left behind, so resolve the cause and retry\n\nsee: distro-router-activate (make the new router live), workspace-list (find a workspaceId), rule-list (find ruleIds), distribution-list (find distributionIds), distro-router-update (replace config afterwards)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "routers"
+              ],
+              "host": [
+                "{{v1-org-distro-routers-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a28701bf-8a26-40ee-97ca-dad7b39d44db",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"K{2mG+w\",\n  \"workspaceId\": \"<string>\",\n  \"status\": {\n    \"type\": \"string\"\n  },\n  \"routing\": {\n    \"known\": false,\n    \"representable\": false,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"D)\\\"N=oqPeS\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"]\"\n      }\n    ],\n    \"catchAll\": {\n      \"type\": \"string\",\n      \"distributionId\": \"e7>dgu?B\",\n      \"actions\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"name\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad39801e-303a-4d84-bb32-ba07e983610b",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1cf3b891-6eaf-46ef-8966-b9420354cdc0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"routing\": {\n    \"trigger\": {\n      \"objectType\": {\n        \"type\": \"<string>\"\n      },\n      \"eventTypes\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"evaluation\": \"<string>\",\n      \"delay\": {\n        \"duration\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    \"catchAll\": {\n      \"distributionId\": \"<string>\",\n      \"actions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"routes\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"distributionId\": \"<string>\",\n        \"ruleId\": \"<string>\",\n        \"actions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d49852c-5413-4bcc-a00c-a075dc5f6799",
+          "name": "Activate distro router",
+          "request": {
+            "name": "Activate distro router",
+            "description": {
+              "content": "[operation: distro-router-activate]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nTurn a Distro router on so it starts routing records.\n\n\n\nTurns a Distro router on (inactive → active) so it starts routing records. This is the step that makes a distro-router-create'd router (published but INACTIVE) live. Idempotent — activating an already-active router is a no-op.\n\n→\n\n    {id, workspaceId, name?, description?, status, routing: {known, representable, rows, catchAll?, routingSteps}}\n\n  Note: status is one of {type:\"Active\"} | {type:\"Inactive\"} | {type:\"Activating\"} | {type:\"Deactivating\"} | {type:\"Error\", message}; activation completes asynchronously, so status may read Activating until the backend settles it to Active\n\n⚠ activation is REJECTED (422) if the backend validation fails (e.g. the trigger object type is not enabled for the workspace) — the router stays inactive; fix the cause and retry\n\nsee: distro-router-create (creates a router inactive), distro-router-deactivate (turn it off), distro-router-get (check status)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "routers",
+                ":routerId",
+                "activate"
+              ],
+              "host": [
+                "{{v1-org-distro-routers-routerId-activate-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "60377dde-07ab-4661-b947-b42861472787",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-activate-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"K{2mG+w\",\n  \"workspaceId\": \"<string>\",\n  \"status\": {\n    \"type\": \"string\"\n  },\n  \"routing\": {\n    \"known\": false,\n    \"representable\": false,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"D)\\\"N=oqPeS\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"]\"\n      }\n    ],\n    \"catchAll\": {\n      \"type\": \"string\",\n      \"distributionId\": \"e7>dgu?B\",\n      \"actions\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"name\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfd9128b-b287-424e-8af6-1f29ba837b7a",
+              "name": "Invalid value for: path parameter routerId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-activate-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5d794463-d63f-435d-bee5-edd32d74d9b5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-activate-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7bda8f26-d1a8-4821-bcd9-b76c20d941f5",
+          "name": "Deactivate distro router",
+          "request": {
+            "name": "Deactivate distro router",
+            "description": {
+              "content": "[operation: distro-router-deactivate]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nTurn a Distro router off so it stops routing records.\n\n\n\nTurns a Distro router off (active → inactive) so it stops routing records. Also the prerequisite for deletion: an active router cannot be deleted, so deactivate and wait for Inactive before distro-router-delete. Idempotent — deactivating an already-inactive router is a no-op. Set force=true to deactivate even when the router's revision is stale.\n\n→\n\n    {id, workspaceId, name?, description?, status, routing: {known, representable, rows, catchAll?, routingSteps}}\n\n  Note: deactivation completes asynchronously, so status typically reads {type:\"Deactivating\"} on return and settles to {type:\"Inactive\"} shortly after — poll distro-router-get until Inactive before calling distro-router-delete\n\nsee: distro-router-activate (turn it back on), distro-router-delete (delete once inactive), distro-router-get (check status)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "distro",
+                "routers",
+                ":routerId",
+                "deactivate"
+              ],
+              "host": [
+                "{{v1-org-distro-routers-routerId-deactivate-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "<boolean>",
+                  "description": "Force deactivation even if the router's revision is stale (default: false)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "routerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0bbed4c6-813a-40c6-8a04-63d51a0258d4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-deactivate-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"K{2mG+w\",\n  \"workspaceId\": \"<string>\",\n  \"status\": {\n    \"type\": \"string\"\n  },\n  \"routing\": {\n    \"known\": false,\n    \"representable\": false,\n    \"rows\": [\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"D)\\\"N=oqPeS\"\n      },\n      {\n        \"outcome\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"ruleId\": \"]\"\n      }\n    ],\n    \"catchAll\": {\n      \"type\": \"string\",\n      \"distributionId\": \"e7>dgu?B\",\n      \"actions\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"routingSteps\": [\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"id\": \"<string>\",\n        \"fieldMappings\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"name\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2624836-d472-45c2-8e43-3b2158910738",
+              "name": "Invalid value for: path parameter routerId, Invalid value for: query parameter force",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-deactivate-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7738ccce-608b-4614-b682-de1396a16e0e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "distro",
+                    "routers",
+                    ":routerId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{v1-org-distro-routers-routerId-deactivate-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "routerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distro-logs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distro-logs-logId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distro-routers-list-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distro-routers-routerId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distro-routers-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distro-routers-routerId-activate-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-distro-routers-routerId-deactivate-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d1ba301e-bae0-427b-9e75-c7ceda8c55ab",
+    "name": "Chili Piper Distro API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged distro across 2 of this provider's published API definitions: chili-piper-distro-debugger-openapi.yaml, chili-piper-distro-router-configuration-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

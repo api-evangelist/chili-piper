@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper — Conversation Inspector Actions Chat API",
+    "version": "1.287.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Reads Chat Conversation Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/chat/logs",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the workspace"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "time of start such as 2025-01-08T13:46:18.681Z (ISO8601 format)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "time of end such as 2025-01-14T13:46:18.681Z (ISO8601 format)"
+              },
+              {
+                "name": "playbookId",
+                "value": "",
+                "type": "query",
+                "description": "Optional chat playbook id(s) to restrict the logs to; repeatable. When omitted, all playbooks in the workspace are considered."
+              },
+              {
+                "name": "guestEmail",
+                "value": "",
+                "type": "query",
+                "description": "Optional guest email to filter logs by (case-insensitive exact match). When omitted, all guests are considered."
+              },
+              {
+                "name": "guestId",
+                "value": "",
+                "type": "query",
+                "description": "Optional guest id to filter logs by (exact match). When omitted, all guests are considered."
+              },
+              {
+                "name": "ruleId",
+                "value": "",
+                "type": "query",
+                "description": "Optional routing-rule id to filter logs by (exact match on any rule executed in the session). Stable across rule renames. When omitted, all rules are considered."
+              },
+              {
+                "name": "ruleName",
+                "value": "",
+                "type": "query",
+                "description": "Optional routing-rule name to filter logs by (exact match on any rule executed in the session). When omitted, all rules are considered."
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "Page number. First page has index 0."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Number of items per page. Maximum is 50"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: chat-logs]\n\n\n\nREAD-ONLY\n\n\n\nReads a workspace's Chat AI conversation logs over a time window — the read-only audit trail of who chatted, how they were routed, and what got booked. Each entry carries the full bot/guest transcript, the routing outcome, and any meetings booked. Use it to inspect or debug live chat routing after the fact. The start/end window (ISO-8601) spans at most 30 days. Pass playbookId (repeatable) to restrict to specific chat playbooks. Narrow to a specific guest o"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper — Concierge Router Builder Actions Tenant API",
+    "version": "1.289.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tenant",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tenant info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/tenant/get",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: tenant-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches top-level config and metadata for the authenticated org — the tenant is inferred from the API key, so there are no inputs. Use it to learn the org's subdomain and cluster, which other calls fold into URLs and identifiers.\n\n→\n\n    {tenantData: {tenantId, cluster, subdomain}, tenantType: \"Personal\"|\"Organization\", email (Personal only), domains: [...] (Organization only)}\n\n  Note: tenantId is at tenantData.tenantId (not top-level); subdomain is at te"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

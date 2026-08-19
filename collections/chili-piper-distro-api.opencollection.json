@@ -1,0 +1,266 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Distro API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "distro",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List distro logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/logs",
+            "params": [
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "Page number. First page has index 0."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Number of items per page. Maximum is 50"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the workspace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-logs]\n\n\n\nREAD-ONLY\n\n\n\nReturns paginated distro logs (record-level audit trail of router flow runs) for a workspace, with optional filtering.\n\n- workspaceId (req): workspace to query logs for; use distro-list-routers to find workspaceId\n\n- page (opt, default 0), pageSize (opt, default 10): pagination\n\n- body (req; send `{}` for no filtering): filter with optional fields:\n\n  - userIds (opt): filter by assignee user IDs\n\n  - status (opt): flow lifecycle outcome; one of: \"NotTrigg"
+        },
+        {
+          "info": {
+            "name": "Get distro log evaluation trace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/logs/:logId",
+            "params": [
+              {
+                "name": "logId",
+                "value": "",
+                "type": "path",
+                "description": "Log id, as returned by the distro logs list endpoint."
+              },
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "query",
+                "description": "Router the log belongs to, as returned by the distro logs list endpoint."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-log-get]\n\n\n\nREAD-ONLY\n\n\n\nReturns the per-record evaluation trace for a single distro log — the in-app log drill-down that answers \"why did this record route here / why didn't it route\".\n\n- logId (req): log id, as returned by distro-logs (log.id)\n\n- routerId (req): router the log belongs to, as returned by distro-logs (log.routerId)\n\n→\n\n    {log: {id, workspaceId, routerId, status, assignments, trigger?, createdAt, updatedAt}, events: [{stage, status, trigger?, triggerValidatio"
+        },
+        {
+          "info": {
+            "name": "Lists all distro routers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/routers/list",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-list-routers]\n\n\n\nREAD-ONLY\n\n\n\nBrowse every Distro router to find routerIds, status and triggers.\n\n\n\nBrowses every Distro router in the org to discover routerIds, activation status, and triggers. A Distro router routes CRM records (leads) to users via distributions, driven by a trigger.\n\n→\n\n    {routers: [{id, name, status, trigger: {objectType, eventTypes: [{type, ...}], evaluation, delay}}]}\n\n  Note: status is the router's activation state — one of {type:\"Active\"} | {type:\"In"
+        },
+        {
+          "info": {
+            "name": "Get distro router",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/routers/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-router-get]\n\n\n\nREAD-ONLY\n\n\n\nFetch one Distro router's identity, activation status and routing summary.\n\n\n\nFetches one Distro router: its identity, activation status, and a lossy per-row summary of its lead-routing. Call this before distro-router-update to read back the current routing (update overlays your changes onto it — matching rows by ruleId — and preserves advanced config it can't show you) and to check status. (Implemented by filtering the router list — there is no int"
+        },
+        {
+          "info": {
+            "name": "Update distro router",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/routers/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-router-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdit a Distro router and republish it, preserving activation.\n\n\n\nEdits a Distro router and republishes it, preserving its activation — an active router stays active with the new config live immediately, an inactive one stays inactive (use distro-router-activate / distro-router-deactivate to change activation deliberately). routing is REQUIRED; it is OVERLAID onto the router's current routing (routes matched by ruleId), NOT a blind ful"
+        },
+        {
+          "info": {
+            "name": "Remove distro router",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/routers/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-router-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nPermanently delete a Distro router.\n\n\n\nPermanently deletes a Distro router. The router must be INACTIVE first — deactivate it via distro-router-deactivate and wait until distro-router-get shows Inactive before deleting.\n\n⚠ REJECTED (409) when the router is still active (or mid-transition) — deactivate it first via distro-router-deactivate, then delete once distro-router-get shows status inactive\n\n⚠ irreversible via API; any triggers "
+        },
+        {
+          "info": {
+            "name": "Create distro router",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/routers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-router-create]\n\n\n\nMUTATING\n\n\n\nCreate and publish a Distro router, left inactive until activated.\n\n\n\nCreates a Distro router and publishes it, but leaves it INACTIVE — it routes nothing until you call distro-router-activate. Publish is implicit; activation is a deliberate separate step. Distro routes CRM records (leads), so a router needs a trigger and its routes carry NO meeting type. workspaceId must be a team workspace of this tenant (400 otherwise).\n\n- routing (req): the le"
+        },
+        {
+          "info": {
+            "name": "Activate distro router",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/routers/:routerId/activate",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-router-activate]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nTurn a Distro router on so it starts routing records.\n\n\n\nTurns a Distro router on (inactive → active) so it starts routing records. This is the step that makes a distro-router-create'd router (published but INACTIVE) live. Idempotent — activating an already-active router is a no-op.\n\n→\n\n    {id, workspaceId, name?, description?, status, routing: {known, representable, rows, catchAll?, routingSteps}}\n\n  Note: status is one of {type:\""
+        },
+        {
+          "info": {
+            "name": "Deactivate distro router",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/distro/routers/:routerId/deactivate",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Force deactivation even if the router's revision is stale (default: false)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: distro-router-deactivate]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nTurn a Distro router off so it stops routing records.\n\n\n\nTurns a Distro router off (active → inactive) so it stops routing records. Also the prerequisite for deletion: an active router cannot be deleted, so deactivate and wait for Inactive before distro-router-delete. Idempotent — deactivating an already-inactive router is a no-op. Set force=true to deactivate even when the router's revision is stale.\n\n→\n\n    {id, workspaceId, nam"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

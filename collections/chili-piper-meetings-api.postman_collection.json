@@ -1,0 +1,1153 @@
+{
+  "item": [
+    {
+      "id": "70e04c50-d247-4d2c-bb06-8631bca14a20",
+      "name": "meetings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "178bb02e-81e0-4632-803e-2a402246c2d9",
+          "name": "Meetings (PUT)",
+          "request": {
+            "name": "Meetings (PUT)",
+            "description": {
+              "content": "[operation: meeting-list-put]\n\n\n\nREAD-ONLY\n\n\n\nList meetings within a time range, paginated.\n\n\n\nReturns meetings within a time range (paginated). Prefer this over the GET form: filters travel in the request body, so long workspace or status lists don't hit URL-length limits. Narrow by workspace and by status (Active, Canceled, NoShow, Completed). The window may not exceed 7 days.\n\n→\n\n    {results: [{meetingId, status, scheduledAt, attendees, assignedUserId, workspaceId}], pagination}\n\nsee: meeting-export-v2-put (CSV export with richer host/assignee/booker filters), meeting-get (full record)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "org",
+                "meetings",
+                "meetings"
+              ],
+              "host": [
+                "{{v2-org-meetings-meetings-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"status\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"guestEmail\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6781471f-d467-4165-a03a-83eb2399c9b2",
+              "name": "List of meetings. Payload structure might change.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "org",
+                    "meetings",
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{v2-org-meetings-meetings-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"status\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"guestEmail\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"\",\n  \"hasMore\": \"Yes\",\n  \"hasMoreItems\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbd55b7e-8470-4d86-8802-884de1e02f82",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "org",
+                    "meetings",
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{v2-org-meetings-meetings-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"status\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"guestEmail\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba00221c-f792-4aaa-ab18-a12d6d98e621",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "org",
+                    "meetings",
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{v2-org-meetings-meetings-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"page\": \"<long>\",\n  \"pageSize\": \"<long>\",\n  \"status\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"guestEmail\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7ce48e6-38e6-49f6-aca6-e663d250e5ab",
+          "name": "Get Meeting",
+          "request": {
+            "name": "Get Meeting",
+            "description": {
+              "content": "[operation: meeting-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches full record for a single meeting by meetingId.\n\n- meetingId (req): UUID\n\n→ meeting object (payload structure may change); key fields: meetingStatus (not \"status\"), activities (array including a ScheduledAt entry — no top-level scheduledAt), id (not \"meetingId\"); no top-level linkedCrmEventIds\n\nsee: meeting-list (find meetingId by time range), meeting-cancel/noshow (change status), meeting-activity (admin URL), crm-get (if CRM ID known)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meetings",
+                "get",
+                ":meetingId"
+              ],
+              "host": [
+                "{{v1-org-meetings-get-meetingId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Meeting Id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a6b58dac-fc10-4154-a7bb-28dd4d1024c0",
+              "name": "Meeting. Payload structure might change.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meetings",
+                    "get",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{v1-org-meetings-get-meetingId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Meeting Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"\",\n  \"hasMore\": \"Yes\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d4d9159-607e-4d6b-a9ae-83282cbc1105",
+              "name": "Invalid value for: path parameter meetingId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meetings",
+                    "get",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{v1-org-meetings-get-meetingId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Meeting Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cb7f630d-aa63-4887-9981-1a438973aa54",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meetings",
+                    "get",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{v1-org-meetings-get-meetingId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Meeting Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "567ce5bf-4148-4d4a-917e-b71145baff1c",
+          "name": "Export Meetings streaming (PUT)",
+          "request": {
+            "name": "Export Meetings streaming (PUT)",
+            "description": {
+              "content": "[operation: meeting-export-v2-put]\n\n\n\nREAD-ONLY\n\n\n\nExports meetings in a time range as CSV via v2 streaming endpoint. Accepts filter params in request body. Max window: 7 days.\n\n- body.start, body.end (req): ISO-8601; max 7-day span\n\n- body.workspaceIds (opt): filter by workspace\n\n- body.assigneeIds (opt): filter by assignee user IDs (array of userId strings); use user-find to resolve email → userId\n\n- body.hostIds (opt): filter by host user IDs (array of userId strings); use user-find to resolve email → userId\n\n- body.bookerIds (opt): filter by booker user IDs (array of userId strings); use user-find to resolve email → userId\n\n- body.meetingTypeIds (opt): filter by meeting type IDs (array of meetingTypeId strings)\n\n- body.status (opt): filter by meeting status; array of \"Active\"|\"Canceled\"|\"NoShow\"|\"Completed\"\n\n→\n\n    {filename: \"meetings-export-....csv\", data: \"<CSV content>\"}\n\nsee: meeting-export-v2 (GET equivalent), meeting-list (JSON output), user-find (resolve email → userId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "org",
+                "meetings",
+                "meetings",
+                "export"
+              ],
+              "host": [
+                "{{v3-org-meetings-meetings-export-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/csv; charset=utf-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"bookerIds\": [\n    \"<string>\"\n  ],\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"status\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53b512a3-ce13-4ba8-ace9-b76394c452dc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "org",
+                    "meetings",
+                    "meetings",
+                    "export"
+                  ],
+                  "host": [
+                    "{{v3-org-meetings-meetings-export-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/csv; charset=utf-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"bookerIds\": [\n    \"<string>\"\n  ],\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"status\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Content-Disposition",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv; charset=utf-8"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c208f8e0-edef-464a-8b20-f50c5d98f9c4",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "org",
+                    "meetings",
+                    "meetings",
+                    "export"
+                  ],
+                  "host": [
+                    "{{v3-org-meetings-meetings-export-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"bookerIds\": [\n    \"<string>\"\n  ],\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"status\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61f1d40d-b8a2-457f-88cc-cb6c92381466",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "org",
+                    "meetings",
+                    "meetings",
+                    "export"
+                  ],
+                  "host": [
+                    "{{v3-org-meetings-meetings-export-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"workspaceIds\": [\n    \"<string>\"\n  ],\n  \"assigneeIds\": [\n    \"<string>\"\n  ],\n  \"hostIds\": [\n    \"<string>\"\n  ],\n  \"bookerIds\": [\n    \"<string>\"\n  ],\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"status\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c204fd4-8c22-4aab-820b-d17001ee018f",
+          "name": "Cancel a meeting",
+          "request": {
+            "name": "Cancel a meeting",
+            "description": {
+              "content": "[operation: meeting-cancel]\n\n\n\nMUTATING — DESTRUCTIVE, has external side effects\n\n\n\nPermanently cancels meeting by meetingId; sets CANCELLED, may update calendar/CRM and trigger automations.\n\n- meetingId (req)\n\n→\n\n    {}\n\n⚠ irreversible; may email attendees\n\nsee: meeting-get (verify status before/after), crm-cancel (if CRM ID known)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meetings",
+                "cancel",
+                ":meetingId"
+              ],
+              "host": [
+                "{{v1-org-meetings-cancel-meetingId-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "redirectOnSuccess",
+                  "value": "<string>",
+                  "description": "Redirect to this url on success"
+                },
+                {
+                  "disabled": false,
+                  "key": "redirectOnFailure",
+                  "value": "<string>",
+                  "description": "Redirect to this url on failure"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Meeting Id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a639f498-e37e-4a91-8062-881f2e7461e2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meetings",
+                    "cancel",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{v1-org-meetings-cancel-meetingId-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "redirectOnSuccess",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirectOnFailure",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Meeting Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2a8db33-a2f1-4f2e-b9c2-c6921da0ecb9",
+              "name": "Invalid value for: path parameter meetingId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meetings",
+                    "cancel",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{v1-org-meetings-cancel-meetingId-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "redirectOnSuccess",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirectOnFailure",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Meeting Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "90b1a6f0-4106-45b8-ba34-d3ac05acb834",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meetings",
+                    "cancel",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{v1-org-meetings-cancel-meetingId-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "redirectOnSuccess",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirectOnFailure",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Meeting Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v2-org-meetings-meetings-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-meetings-get-meetingId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v3-org-meetings-meetings-export-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-meetings-cancel-meetingId-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fdeddac7-adab-4c3f-a8b5-d6a96dbb24ff",
+    "name": "Chili Piper Meetings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged meetings across 7 of this provider's published API definitions: chili-piper-distribution-analysis-openapi.yaml, chili-piper-meeting-inspector-openapi.yaml, chili-piper-no-show-analyzer-openapi.yaml, chili-piper-org-meeting-openapi.yaml, chili-piper-user-details-openapi.yaml, chili-piper-user-meetings-openapi.yaml, chili-piper-user-offboarding-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,409 @@
+openapi: 3.2.0
+info:
+  title: Chili Piper — Meeting Type Management Actions Meeting Type Reminder API
+  version: 1.287.2
+  description: GPT Actions for the meeting-type-management GPT — a subset of the Chili Piper Edge API. Authenticate with a Bearer API key (Admin Center → API Keys).
+servers:
+- url: https://fire.chilipiper.com/api/fire-edge
+  description: Production
+security:
+- apiKeyAuth: []
+tags:
+- name: meeting-type-reminder
+paths:
+  /v1/org/meeting-type-reminders/list:
+    get:
+      tags:
+      - meeting-type-reminder
+      summary: List meeting type reminders
+      description: "[operation: meeting-type-reminder-list]\n\n\n\nREAD-ONLY\n\n\n\nBrowses the tenant's reminders — workspace-scoped Email/Sms notifications that meeting types attach to fire before, after, or on booking. Omit workspaceId to fan out across every workspace; pass it to scope to one.\n\n→\n\n    [{id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind: \"BeforeMeeting\"|\"BeforeMeetingNoResponse\"|\"MeetingBooked\"|\"AfterMeeting\", offset?}, name, title?, body}]\n\n  Note: reminders are lean here — advanced send-restrictions and email/sms behaviours are managed by the backend and not exposed.\n\nsee: meeting-type-reminder-create (add one), meeting-type-reminder-update (edit one), meeting-type-reminder-delete (remove one)"
+      operationId: meetingTypeReminderList
+      parameters:
+      - name: workspaceId
+        in: query
+        description: Filter reminders by workspace ID. Omit to list across all of the tenant's workspaces.
+        required: false
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reminder'
+        '400':
+          description: 'Invalid value for: query parameter workspaceId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting-type.read
+  /v1/org/meeting-type-reminders:
+    post:
+      tags:
+      - meeting-type-reminder
+      summary: Create meeting type reminder
+      description: "[operation: meeting-type-reminder-create]\n\n\n\nMUTATING\n\n\n\nCreates a reminder in a workspace; attach it to a meeting type afterwards with meeting-type-attach-reminder. The backend fills in defaults for advanced send behaviours. `trigger` is {kind, offset?}: offset (e.g. \"1 hour\") is required for the timed kinds \"BeforeMeeting\"/\"BeforeMeetingNoResponse\"/\"AfterMeeting\" and must be omitted for \"MeetingBooked\". `title` is the email subject (Email only; ignored for Sms).\n\n→\n\n    {id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind, offset?}, name, title?, body}\n\n  Note: reminders are lean — advanced send-restrictions and email/sms behaviours are backend-defaulted and not settable here.\n\nsee: meeting-type-reminder-list (find a workspaceId), meeting-type-reminder-update (edit afterwards)"
+      operationId: meetingTypeReminderCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReminderCreate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting-type.create
+  /v1/org/meeting-type-reminders/{reminderId}:
+    put:
+      tags:
+      - meeting-type-reminder
+      summary: Update meeting type reminder
+      description: "[operation: meeting-type-reminder-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a reminder in place — attached meeting types pick up the change automatically. Send only the fields you want to change; the channel is fixed and cannot switch between Email and Sms. `trigger` is {kind, offset?} (offset required for the timed kinds, omitted for \"MeetingBooked\").\n\n→\n\n    {id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind, offset?}, name, title?, body}\n\n  Note: advanced send-restrictions and email/sms behaviours are preserved unchanged.\n\n⚠ takes effect immediately\n\nsee: meeting-type-reminder-list (find the reminderId and workspaceId before editing)"
+      operationId: meetingTypeReminderUpdate
+      parameters:
+      - name: reminderId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      - name: workspaceId
+        in: query
+        description: The workspace the reminder belongs to.
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReminderUpdate'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+        '400':
+          description: 'Invalid value for: path parameter reminderId, Invalid value for: query parameter workspaceId, Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting-type.modify
+    delete:
+      tags:
+      - meeting-type-reminder
+      summary: Remove meeting type reminder
+      description: "[operation: meeting-type-reminder-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a reminder entirely. To stop one meeting type sending it while keeping the reminder, use meeting-type-detach-reminder instead.\n\n→\n\n    {}\n\n  Note: an unknown reminder id (or one in another workspace) returns a typed 404, not a silent success — the id is verified in the workspace before deletion.\n\n⚠ irreversible via API; any meeting types referencing this reminder stop sending it\n\nsee: meeting-type-reminder-list (confirm the reminderId and workspaceId before deleting)"
+      operationId: meetingTypeReminderDelete
+      parameters:
+      - name: reminderId
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      - name: workspaceId
+        in: query
+        description: The workspace the reminder belongs to.
+        required: true
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+        '400':
+          description: 'Invalid value for: path parameter reminderId, Invalid value for: query parameter workspaceId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - meeting-type.remove
+components:
+  schemas:
+    ReminderChannel:
+      title: ReminderChannel
+      type: string
+      enum:
+      - Email
+      - Sms
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    ReminderTrigger:
+      title: ReminderTrigger
+      type: object
+      required:
+      - kind
+      properties:
+        kind:
+          $ref: '#/components/schemas/ReminderTriggerKind'
+        offset:
+          type: string
+    ReminderUpdate:
+      title: ReminderUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/ReminderTrigger'
+        title:
+          type: string
+        body:
+          type: string
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    ReminderTriggerKind:
+      title: ReminderTriggerKind
+      type: string
+      enum:
+      - BeforeMeeting
+      - BeforeMeetingNoResponse
+      - MeetingBooked
+      - AfterMeeting
+    ReminderCreate:
+      title: ReminderCreate
+      type: object
+      required:
+      - workspaceId
+      - channel
+      - trigger
+      - name
+      - body
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        channel:
+          $ref: '#/components/schemas/ReminderChannel'
+        trigger:
+          $ref: '#/components/schemas/ReminderTrigger'
+        name:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+    Reminder:
+      title: Reminder
+      type: object
+      required:
+      - id
+      - workspaceId
+      - channel
+      - trigger
+      - name
+      - body
+      properties:
+        id:
+          type: string
+          pattern: '[^\s\\/]+'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        channel:
+          $ref: '#/components/schemas/ReminderChannel'
+        trigger:
+          $ref: '#/components/schemas/ReminderTrigger'
+        name:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>'' — the word ''Bearer'' followed by a space and the key is required. Sending the key without the Bearer prefix returns 401.'
+      name: Authorization
+      in: header

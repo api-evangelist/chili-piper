@@ -1,0 +1,60 @@
+generated: '2026-08-13'
+method: derived
+source:
+  - conventions/chili-piper-conventions.yml
+  - errors/chili-piper-problem-types.yml
+  - openapi/ (19 published OpenAPI 3.1.0 documents)
+  - https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+description: >-
+  Chili Piper publishes NO rate limit for the Edge API. This is an honest zero, not an unchecked
+  gap: the 19 published OpenAPI 3.1.0 documents declare only 400 and default responses and contain
+  no 429 anywhere, the help-center Edge API reference states no quota or throttle policy, and no
+  RateLimit-* / X-RateLimit-* / Retry-After response header is documented or declared. An agent
+  calling this API has no published runtime signal telling it when it is close to a limit, and no
+  documented status code to branch on when it exceeds one.
+limit_count: 0
+documented: false
+limits: []
+headers:
+  documented: false
+  ratelimit_standard: null
+  x_ratelimit: null
+  retry_after: null
+  note: >-
+    No rate-limit response headers are documented in the help center or declared in any published
+    OpenAPI document. This is the agent-facing consequence: the runtime signal an agent needs is
+    absent, so back-off must be inferred from transport failures rather than read from the response.
+exhaustion:
+  status_code: null
+  documented: false
+  evidence: >-
+    No 429 response is declared on any of the operations across the 19 published specs; the only
+    declared error statuses are 400 and `default`, both text/plain.
+documented_operational_caps:
+  note: >-
+    Chili Piper does publish per-request SIZE and WINDOW caps in the help center. These are request
+    shape constraints, not rate limits - they bound how much one call may return, not how many calls
+    may be made - but they are the only published throttling-adjacent numbers and an agent must
+    respect them to page correctly.
+  caps:
+    - {surface: concierge-logs, cap: 500 records per page, kind: page-size}
+    - {surface: concierge-logs, cap: 30-day maximum time window, kind: time-span}
+    - {surface: meeting list, cap: 7-day maximum time span per request, kind: time-span}
+    - {surface: meeting export, cap: 7-day maximum time span per request, kind: time-span}
+crm_limits_note: >-
+  Chili Piper documents Salesforce and HubSpot API limit alerts in its help center. Those are the
+  CRM vendors' limits on Chili Piper's own downstream integration traffic, NOT limits on the Chili
+  Piper Edge API, and must not be recorded as Chili Piper rate limits.
+mcp_note: >-
+  No rate limit is published for the hosted MCP server at
+  https://fire.chilipiper.com/api/fire-edge/v1/org/mcp either. An anonymous tools/list probe returns
+  401 Unauthorized, so no limit headers are observable without authentication.
+gaps:
+  - No published rate limit, quota or burst allowance for the Edge API.
+  - No 429 response declared in any published OpenAPI document.
+  - No RateLimit-*, X-RateLimit-* or Retry-After header documented.
+  - No documented back-off or retry guidance, compounded by the absence of idempotency keys (see conventions/chili-piper-conventions.yml).
+see:
+  conventions: conventions/chili-piper-conventions.yml
+  errors: errors/chili-piper-problem-types.yml
+  plans: plans/chili-piper-plans-pricing.yml

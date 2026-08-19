@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Workspace API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "workspace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read all workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/workspace",
+            "params": [
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "Page number. First page has index 0."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Number of items per page. Maximum is 50"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: workspace-list]\n\n\n\nREAD-ONLY\n\n\n\nLists the workspaces that partition the org and yields the workspaceId most other calls need to scope their work. Hierarchy: Tenant → Workspaces → Teams → Users. Paginated (default pageSize 200).\n\n→\n\n    [{workspaceId, name, settings}]\n\nsee: workspace-list-users (members), workspace-add/remove-users (manage membership), meeting-list/export (filter by workspaceId), concierge-logs (filter by workspaceId)"
+        },
+        {
+          "info": {
+            "name": "Read all users (or in a workspace)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/workspace/users",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "Page number. First page has index 0."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Number of items per page. Maximum is 50"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: workspace-list-users]\n\n\n\nREAD-ONLY\n\n\n\nReturns users in a workspace, or all org users if no workspaceId given.\n\n- workspaceId (opt): use workspace-list; omit for org-wide listing\n\n- page (opt), pageSize (opt, default 200)\n\n→\n\n    {results: [{userId, email, name, roles, licenses, workspaceMemberships}]}\n\nsee: workspace-add/remove-users (manage membership), user-find-by-filter (advanced multi-field filtering)"
+        },
+        {
+          "info": {
+            "name": "Add users to a workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/workspace/users/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: workspace-add-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nAdds users to a workspace. Already-members are silently skipped.\n\n- workspaceId (req): use workspace-list\n\n- userIds (req): non-empty list; use user-find\n\n→\n\n    {}\n\nsee: workspace-list (find workspaceId), user-find (resolve userIds), workspace-list-users (verify after)"
+        },
+        {
+          "info": {
+            "name": "Remove users from a workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/workspace/users/remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: workspace-remove-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nRemoves users from a workspace. Other workspace memberships unaffected. Team memberships NOT affected.\n\n- workspaceId (req): use workspace-list\n\n- userIds (req): non-empty list\n\n→\n\n    {}\n\n⚠ may affect active distributions and routing rules within the workspace\n\nsee: workspace-list (find workspaceId), workspace-list-users (verify after), workspace-remove-users-all (all workspaces at once), team-remove-users (for team offboarding)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

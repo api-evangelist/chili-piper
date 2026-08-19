@@ -1,0 +1,1375 @@
+openapi: 3.2.0
+info:
+  title: Chili Piper Rule API
+  version: '1.0'
+  description: 'Operations tagged rule across 6 of this provider''s published API definitions: chili-piper-concierge-debugger-openapi.yaml, chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-distro-router-configuration-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml, chili-piper-routing-audit-openapi.yaml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://fire.chilipiper.com/api/fire-edge
+  description: Production
+security:
+- apiKeyAuth: []
+tags:
+- name: rule
+paths:
+  /v1/org/rule/list:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    get:
+      tags:
+      - rule
+      summary: List rules
+      description: "[operation: rule-list]\n\n\n\nREAD-ONLY\n\n\n\nReturns active routing rules (ExplicitV1 builder only; legacy excluded).\n\n- page (opt): 0-indexed page number, default 0\n\n- pageSize (opt): rules per page, default 200\n\n- workspaceId (opt): filter to rules in a specific workspace\n\n- name (opt): filter rules by name\n\n→\n\n    {results: [{type, id, workspaceId, name, conditions, ruleBuilderVersion, product?, metadata: {revision, ...}, teamId?}], total, page, pageSize}\n\n⚠ always call immediately before rule-modify/rule-delete to get a fresh revision — stale revision causes conflict error\n\nsee: rule-get (fetch single rule by id), rule-modify (update rule), rule-delete (remove rule)"
+      operationId: ruleList
+      parameters:
+      - name: page
+        in: query
+        description: Page number. First page has index 0.
+        required: false
+        schema:
+          default: 0
+          type: integer
+          format: int64
+          minimum: 0
+      - name: pageSize
+        in: query
+        description: Number of items per page.
+        required: false
+        schema:
+          default: 200
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+      - name: workspaceId
+        in: query
+        description: Filter rules by workspace ID.
+        required: false
+        schema:
+          type: string
+          pattern: '[^\s\\/]+'
+      - name: name
+        in: query
+        description: Filter rules by name.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResult_RuleView'
+        '400':
+          description: 'Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: query parameter workspaceId'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - rule.read
+  /v1/org/rule:
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
+    post:
+      tags:
+      - rule
+      summary: Create rule
+      description: "[operation: rule-create]\n\n\n\nMUTATING\n\n\n\nCreates a reusable routing rule so routers can reference it. It is live immediately (revision=1). Choose the dto variant matching the rule kind — ownership rules (which resolve a record owner) use CreateOwnershipRuleRequest and may carry a teamId; all others use CreateRuleRequest. Omit ruleId to auto-assign a UUID, or supply one to force it. The fastest safe path is to copy conditions (and workspaceId) from a rule-list result, since those already carry the required discriminators.\n\n- dto (req): rule definition — choose ONE variant:\n\n    Non-ownership: {type: \"CreateRuleRequest\", workspaceId, name, conditions}\n    Ownership:     {type: \"CreateOwnershipRuleRequest\", workspaceId, name, conditions, teamId?}\n\n- conditions: EVERY conditions object requires a \"type\" discriminator field. Example structure:\n\n    {type: \"ConditionGroup\", id: \"<any-string>\", operator: \"and\"|\"or\", conditions: [\n        {type: \"StaticValueCondition\", conditionId: \"<any-string>\",\n         dataReference: {source: \"SF\"|\"DF\"|\"CP\"|\"HS\"|\"MK\", object: \"<CrmObject>\", field: \"<FieldName>\"},\n         operator: \">\"|\"<\"|\">=\"|\"<=\"|\"equal\"|\"notEqual\"|\"isAnyOf\"|\"isNotAnyOf\"|\"contains\"|\"doesNotContain\"|\n                   \"containsAnyOf\"|\"containsNoneOf\"|\"startsWith\"|\"endsWith\"|\"startsWithAnyOf\"|\"endsWithAnyOf\",\n         value: <any JSON value>}\n        {type: \"SingleParameterCondition\", conditionId: \"<any-string>\",\n         dataReference: {source, object, field}, operator: \"notEmpty\"|\"empty\"}\n    ]}\n\n→\n\n    {type, id, workspaceId, name, conditions, ruleBuilderVersion, metadata: {revision: 1, ...}}\n\n⚠ live immediately with no dry-run — a misconfigured rule may misroute leads in every router that references it\n\nsee: rule-list (get workspaceId and copy conditions from an existing rule)"
+      operationId: ruleCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+            X-Robots-Tag:
+              required: true
+              schema:
+                type: string
+            Pragma:
+              required: true
+              schema:
+                type: string
+            Expires:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleView_2'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          headers:
+            Location:
+              required: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - errorCode
+                - errorMessage
+                properties:
+                  errorCode:
+                    type: string
+                  errorMessage:
+                    type: string
+                  arguments:
+                    $ref: '#/components/schemas/Map_String'
+      security:
+      - apiKeyAuth: []
+      X-Chili-Required-Permissions:
+      - rule.create
+components:
+  schemas:
+    NonOwnershipConditionsRequest_2:
+      title: NonOwnershipConditionsRequest
+      oneOf:
+      - $ref: '#/components/schemas/NonOwnershipConditionsRequest_ConditionGroup'
+      - $ref: '#/components/schemas/NonOwnershipConditionsRequest_EvaluableCondition'
+      - $ref: '#/components/schemas/NonOwnershipConditionsRequest_ObjectExistsCondition'
+      - $ref: '#/components/schemas/NonOwnershipConditionsRequest_SingleParameterCondition'
+      - $ref: '#/components/schemas/NonOwnershipConditionsRequest_StaticValueCondition'
+      - $ref: '#/components/schemas/NonOwnershipConditionsRequest_ValueCondition'
+      discriminator:
+        propertyName: type
+        mapping:
+          ConditionGroup: '#/components/schemas/NonOwnershipConditionsRequest_ConditionGroup'
+          EvaluableCondition: '#/components/schemas/NonOwnershipConditionsRequest_EvaluableCondition'
+          ObjectExistsCondition: '#/components/schemas/NonOwnershipConditionsRequest_ObjectExistsCondition'
+          SingleParameterCondition: '#/components/schemas/NonOwnershipConditionsRequest_SingleParameterCondition'
+          StaticValueCondition: '#/components/schemas/NonOwnershipConditionsRequest_StaticValueCondition'
+          ValueCondition: '#/components/schemas/NonOwnershipConditionsRequest_ValueCondition'
+    StaticValue:
+      title: StaticValue
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    DataField:
+      title: DataField
+      type: string
+      pattern: '[^\s\\/]+'
+    ConditionGroup:
+      title: ConditionGroup
+      type: object
+      required:
+      - id
+      - operator
+      - conditions
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/ConditionGroupId'
+        name:
+          $ref: '#/components/schemas/Option_String'
+        operator:
+          $ref: '#/components/schemas/LogicalOperator'
+        conditions:
+          $ref: '#/components/schemas/NonEmptyList_OwnershipConditionsRequest'
+        type:
+          type: string
+          const: ConditionGroup
+    NonEmptyList_NonOwnershipConditionsRequest:
+      title: NonEmptyList_NonOwnershipConditionsRequest
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/NonOwnershipConditionsRequest'
+    Option_RuleId:
+      $ref: '#/components/schemas/RuleId'
+    RuleId:
+      title: RuleId
+      examples:
+      - 3b4c5d6e-7f8a-4b9c-9d0e-1f2a3b4c5d6e
+      type: string
+      pattern: '[^\s\\/]+'
+    RelativeYear:
+      title: RelativeYear
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeYear
+    DataReference:
+      title: DataReference
+      type: object
+      required:
+      - source
+      - object
+      - field
+      properties:
+        source:
+          $ref: '#/components/schemas/DataSource'
+        object:
+          $ref: '#/components/schemas/DataObject'
+        field:
+          $ref: '#/components/schemas/DataField'
+    Option_ChiliProduct:
+      $ref: '#/components/schemas/ChiliProduct'
+    OwnershipConditionsRequest_OwnershipCondition:
+      title: OwnershipConditionsRequest_OwnershipCondition
+      type: object
+      required:
+      - conditionId
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        ownership:
+          $ref: '#/components/schemas/Option_OwnershipReference'
+        teamId:
+          $ref: '#/components/schemas/Option_TeamId'
+        searchOwnershipBy:
+          $ref: '#/components/schemas/SearchOwnershipByDTO'
+        type:
+          type: string
+          const: OwnershipCondition
+    RuleView_NonOwnershipRule:
+      title: RuleView_NonOwnershipRule
+      type: object
+      required:
+      - id
+      - workspaceId
+      - name
+      - conditions
+      - ruleBuilderVersion
+      - metadata
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/RuleId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        conditions:
+          $ref: '#/components/schemas/NonOwnershipConditionsRequest_2'
+        ruleBuilderVersion:
+          $ref: '#/components/schemas/RuleBuilderVersion'
+        product:
+          $ref: '#/components/schemas/Option_ChiliProduct'
+        metadata:
+          $ref: '#/components/schemas/SimpleMetadata'
+        type:
+          type: string
+          const: NonOwnershipRule
+    OwnershipCondition:
+      title: OwnershipCondition
+      type: object
+      required:
+      - conditionId
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        ownership:
+          $ref: '#/components/schemas/Option_OwnershipReference'
+        teamId:
+          $ref: '#/components/schemas/Option_TeamId'
+        searchOwnershipBy:
+          $ref: '#/components/schemas/SearchOwnershipByDTO'
+        type:
+          type: string
+          const: OwnershipCondition
+    NonOwnershipConditionsRequest_ValueCondition:
+      title: NonOwnershipConditionsRequest_ValueCondition
+      type: object
+      required:
+      - conditionId
+      - lhsReference
+      - operator
+      - rhsReference
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        lhsReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        rhsReference:
+          $ref: '#/components/schemas/DataReference'
+        type:
+          type: string
+          const: ValueCondition
+    SearchOwnershipByDTO:
+      title: SearchOwnershipByDTO
+      default: CrmIdOrEmail
+      type: string
+      enum:
+      - CrmIdOrEmail
+      - SalesforceIdOrEmail
+      - TeamMemberFullNames
+    RelativeMonth:
+      title: RelativeMonth
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeMonth
+    RuleCreateRequest:
+      title: RuleCreateRequest
+      type: object
+      required:
+      - dto
+      properties:
+        dto:
+          $ref: '#/components/schemas/CreateRuleDto'
+    RuleView_2:
+      title: RuleView
+      oneOf:
+      - $ref: '#/components/schemas/RuleView_NonOwnershipRule'
+      - $ref: '#/components/schemas/RuleView_OwnershipRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          NonOwnershipRule: '#/components/schemas/RuleView_NonOwnershipRule'
+          OwnershipRule: '#/components/schemas/RuleView_OwnershipRule'
+    CreateRuleDto_CreateRuleRequest:
+      title: CreateRuleDto_CreateRuleRequest
+      type: object
+      required:
+      - workspaceId
+      - name
+      - conditions
+      - type
+      properties:
+        ruleId:
+          $ref: '#/components/schemas/Option_RuleId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        conditions:
+          $ref: '#/components/schemas/NonOwnershipConditionsRequest_2'
+        type:
+          type: string
+          const: CreateRuleRequest
+    CallerRef:
+      title: CallerRef
+      description: stringified caller reference in format $type/$id
+      examples:
+      - user/17a3d4563d5a67a3d456ad635
+      type: string
+    Option_String:
+      title: Option_String
+      type: string
+    RelativeDay:
+      title: RelativeDay
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeDay
+    Evaluable_RelativeDay:
+      title: Evaluable_RelativeDay
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeDay
+    DataObject:
+      title: DataObject
+      oneOf:
+      - $ref: '#/components/schemas/CustomMatchedObjectRef'
+      - $ref: '#/components/schemas/MatchedObject'
+      - $ref: '#/components/schemas/NormalDataObject'
+      - $ref: '#/components/schemas/RelatedChildObjectRef'
+      - $ref: '#/components/schemas/RelatedDataObject'
+    Option_OwnershipReference:
+      $ref: '#/components/schemas/OwnershipReference'
+    Evaluable_RelativeQuarter:
+      title: Evaluable_RelativeQuarter
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeQuarter
+    RelativeQuarter:
+      title: RelativeQuarter
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeQuarter
+    DataSource:
+      title: DataSource
+      type: string
+      enum:
+      - SF
+      - DF
+      - CP
+      - HS
+      - MK
+    StaticValueCondition:
+      title: StaticValueCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - value
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        value:
+          $ref: '#/components/schemas/StaticValue'
+        type:
+          type: string
+          const: StaticValueCondition
+    NonOwnershipConditionsRequest_EvaluableCondition:
+      title: NonOwnershipConditionsRequest_EvaluableCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - evaluable
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        evaluable:
+          $ref: '#/components/schemas/Evaluable_2'
+        type:
+          type: string
+          const: EvaluableCondition
+    Option_TeamId:
+      $ref: '#/components/schemas/TeamId'
+    OwnershipConditionsRequest_ValueCondition:
+      title: OwnershipConditionsRequest_ValueCondition
+      type: object
+      required:
+      - conditionId
+      - lhsReference
+      - operator
+      - rhsReference
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        lhsReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        rhsReference:
+          $ref: '#/components/schemas/DataReference'
+        type:
+          type: string
+          const: ValueCondition
+    Evaluable:
+      title: Evaluable
+      oneOf:
+      - $ref: '#/components/schemas/RelativeDay'
+      - $ref: '#/components/schemas/RelativeMonth'
+      - $ref: '#/components/schemas/RelativeQuarter'
+      - $ref: '#/components/schemas/RelativeWeek'
+      - $ref: '#/components/schemas/RelativeYear'
+      discriminator:
+        propertyName: type
+        mapping:
+          RelativeDay: '#/components/schemas/RelativeDay'
+          RelativeMonth: '#/components/schemas/RelativeMonth'
+          RelativeQuarter: '#/components/schemas/RelativeQuarter'
+          RelativeWeek: '#/components/schemas/RelativeWeek'
+          RelativeYear: '#/components/schemas/RelativeYear'
+    RelatedDataObject:
+      title: RelatedDataObject
+      description: 'Related object path in slash-separated string format: <relation1>/<relation2>/.../topObject. The topObject is the last segment; relations precede it. Example: "Account/Lead" means Lead with Account as a relation. Each segment is a SimpleDataObject (NormalDataObject, MatchedObject, CustomMatchedObjectRef, or RelatedChildObjectRef).'
+      type: string
+    NormalDataObject:
+      title: NormalDataObject
+      description: Standard CRM object name, e.g. "Account", "Contact", "Lead", "Opportunity", "Case". Use for direct conditions on any Salesforce/CRM object. Do NOT use MatchedAccount/MatchedContact/etc. here — those are special matching-config references.
+      type: string
+    RuleView:
+      title: RuleView
+      oneOf:
+      - $ref: '#/components/schemas/NonOwnershipRule'
+      - $ref: '#/components/schemas/OwnershipRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          NonOwnershipRule: '#/components/schemas/NonOwnershipRule'
+          OwnershipRule: '#/components/schemas/OwnershipRule'
+    Evaluable_2:
+      title: Evaluable
+      oneOf:
+      - $ref: '#/components/schemas/Evaluable_RelativeDay'
+      - $ref: '#/components/schemas/Evaluable_RelativeMonth'
+      - $ref: '#/components/schemas/Evaluable_RelativeQuarter'
+      - $ref: '#/components/schemas/Evaluable_RelativeWeek'
+      - $ref: '#/components/schemas/Evaluable_RelativeYear'
+      discriminator:
+        propertyName: type
+        mapping:
+          RelativeDay: '#/components/schemas/Evaluable_RelativeDay'
+          RelativeMonth: '#/components/schemas/Evaluable_RelativeMonth'
+          RelativeQuarter: '#/components/schemas/Evaluable_RelativeQuarter'
+          RelativeWeek: '#/components/schemas/Evaluable_RelativeWeek'
+          RelativeYear: '#/components/schemas/Evaluable_RelativeYear'
+    OwnershipConditionsRequest_ConditionGroup:
+      title: OwnershipConditionsRequest_ConditionGroup
+      type: object
+      required:
+      - id
+      - operator
+      - conditions
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/ConditionGroupId'
+        name:
+          $ref: '#/components/schemas/Option_String'
+        operator:
+          $ref: '#/components/schemas/LogicalOperator'
+        conditions:
+          $ref: '#/components/schemas/NonEmptyList_OwnershipConditionsRequest'
+        type:
+          type: string
+          const: ConditionGroup
+    RuleView_OwnershipRule:
+      title: RuleView_OwnershipRule
+      type: object
+      required:
+      - id
+      - workspaceId
+      - name
+      - conditions
+      - ruleBuilderVersion
+      - metadata
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/RuleId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        teamId:
+          $ref: '#/components/schemas/Option_TeamId'
+        name:
+          type: string
+        conditions:
+          $ref: '#/components/schemas/OwnershipConditionsRequest_2'
+        ruleBuilderVersion:
+          $ref: '#/components/schemas/RuleBuilderVersion'
+        product:
+          $ref: '#/components/schemas/Option_ChiliProduct'
+        metadata:
+          $ref: '#/components/schemas/SimpleMetadata'
+        type:
+          type: string
+          const: OwnershipRule
+    Operator:
+      title: Operator
+      type: string
+      enum:
+      - <
+      - '>'
+      - <=
+      - '>='
+      - startsWithAnyOf
+      - endsWithAnyOf
+      - isAnyOf
+      - isNotAnyOf
+      - equal
+      - notEqual
+      - contains
+      - doesNotContain
+      - containsAnyOf
+      - containsNoneOf
+      - startsWith
+      - endsWith
+    NonEmptyList_OwnershipConditionsRequest:
+      title: NonEmptyList_OwnershipConditionsRequest
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/OwnershipConditionsRequest'
+    OwnershipReference:
+      title: OwnershipReference
+      type: object
+      required:
+      - source
+      - object
+      - field
+      properties:
+        source:
+          $ref: '#/components/schemas/DataSource'
+        object:
+          $ref: '#/components/schemas/DataObject'
+        field:
+          $ref: '#/components/schemas/DataField'
+    PaginatedResult_RuleView:
+      title: PaginatedResult_RuleView
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleView'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    Evaluable_RelativeYear:
+      title: Evaluable_RelativeYear
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeYear
+    ConditionId:
+      title: ConditionId
+      type: string
+      pattern: '[^\s\\/]+'
+    NonOwnershipConditionsRequest:
+      title: NonOwnershipConditionsRequest
+      oneOf:
+      - $ref: '#/components/schemas/ConditionGroup1'
+      - $ref: '#/components/schemas/EvaluableCondition'
+      - $ref: '#/components/schemas/ObjectExistsCondition'
+      - $ref: '#/components/schemas/SingleParameterCondition'
+      - $ref: '#/components/schemas/StaticValueCondition'
+      - $ref: '#/components/schemas/ValueCondition'
+      discriminator:
+        propertyName: type
+        mapping:
+          ConditionGroup: '#/components/schemas/ConditionGroup1'
+          EvaluableCondition: '#/components/schemas/EvaluableCondition'
+          ObjectExistsCondition: '#/components/schemas/ObjectExistsCondition'
+          SingleParameterCondition: '#/components/schemas/SingleParameterCondition'
+          StaticValueCondition: '#/components/schemas/StaticValueCondition'
+          ValueCondition: '#/components/schemas/ValueCondition'
+    ConditionGroup1:
+      title: ConditionGroup
+      type: object
+      required:
+      - id
+      - operator
+      - conditions
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/ConditionGroupId'
+        name:
+          $ref: '#/components/schemas/Option_String'
+        operator:
+          $ref: '#/components/schemas/LogicalOperator'
+        conditions:
+          $ref: '#/components/schemas/NonEmptyList_NonOwnershipConditionsRequest'
+        type:
+          type: string
+          const: ConditionGroup
+    OwnershipConditionsRequest_2:
+      title: OwnershipConditionsRequest
+      oneOf:
+      - $ref: '#/components/schemas/OwnershipConditionsRequest_ConditionGroup'
+      - $ref: '#/components/schemas/OwnershipConditionsRequest_EvaluableCondition'
+      - $ref: '#/components/schemas/OwnershipConditionsRequest_ObjectExistsCondition'
+      - $ref: '#/components/schemas/OwnershipConditionsRequest_OwnershipCondition'
+      - $ref: '#/components/schemas/OwnershipConditionsRequest_SingleParameterCondition'
+      - $ref: '#/components/schemas/OwnershipConditionsRequest_StaticValueCondition'
+      - $ref: '#/components/schemas/OwnershipConditionsRequest_ValueCondition'
+      discriminator:
+        propertyName: type
+        mapping:
+          ConditionGroup: '#/components/schemas/OwnershipConditionsRequest_ConditionGroup'
+          EvaluableCondition: '#/components/schemas/OwnershipConditionsRequest_EvaluableCondition'
+          ObjectExistsCondition: '#/components/schemas/OwnershipConditionsRequest_ObjectExistsCondition'
+          OwnershipCondition: '#/components/schemas/OwnershipConditionsRequest_OwnershipCondition'
+          SingleParameterCondition: '#/components/schemas/OwnershipConditionsRequest_SingleParameterCondition'
+          StaticValueCondition: '#/components/schemas/OwnershipConditionsRequest_StaticValueCondition'
+          ValueCondition: '#/components/schemas/OwnershipConditionsRequest_ValueCondition'
+    LogicalOperator:
+      title: LogicalOperator
+      type: string
+      enum:
+      - and
+      - or
+    OwnershipRule:
+      title: OwnershipRule
+      type: object
+      required:
+      - id
+      - workspaceId
+      - name
+      - conditions
+      - ruleBuilderVersion
+      - metadata
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/RuleId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        teamId:
+          $ref: '#/components/schemas/Option_TeamId'
+        name:
+          type: string
+        conditions:
+          $ref: '#/components/schemas/OwnershipConditionsRequest'
+        ruleBuilderVersion:
+          $ref: '#/components/schemas/RuleBuilderVersion'
+        product:
+          $ref: '#/components/schemas/Option_ChiliProduct'
+        metadata:
+          $ref: '#/components/schemas/SimpleMetadata'
+        type:
+          type: string
+          const: OwnershipRule
+    NonOwnershipConditionsRequest_ConditionGroup:
+      title: NonOwnershipConditionsRequest_ConditionGroup
+      type: object
+      required:
+      - id
+      - operator
+      - conditions
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/ConditionGroupId'
+        name:
+          $ref: '#/components/schemas/Option_String'
+        operator:
+          $ref: '#/components/schemas/LogicalOperator'
+        conditions:
+          $ref: '#/components/schemas/NonEmptyList_NonOwnershipConditionsRequest'
+        type:
+          type: string
+          const: ConditionGroup
+    OwnershipConditionsRequest:
+      title: OwnershipConditionsRequest
+      oneOf:
+      - $ref: '#/components/schemas/ConditionGroup'
+      - $ref: '#/components/schemas/EvaluableCondition'
+      - $ref: '#/components/schemas/ObjectExistsCondition'
+      - $ref: '#/components/schemas/OwnershipCondition'
+      - $ref: '#/components/schemas/SingleParameterCondition'
+      - $ref: '#/components/schemas/StaticValueCondition'
+      - $ref: '#/components/schemas/ValueCondition'
+      discriminator:
+        propertyName: type
+        mapping:
+          ConditionGroup: '#/components/schemas/ConditionGroup'
+          EvaluableCondition: '#/components/schemas/EvaluableCondition'
+          ObjectExistsCondition: '#/components/schemas/ObjectExistsCondition'
+          OwnershipCondition: '#/components/schemas/OwnershipCondition'
+          SingleParameterCondition: '#/components/schemas/SingleParameterCondition'
+          StaticValueCondition: '#/components/schemas/StaticValueCondition'
+          ValueCondition: '#/components/schemas/ValueCondition'
+    OwnershipConditionsRequest_EvaluableCondition:
+      title: OwnershipConditionsRequest_EvaluableCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - evaluable
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        evaluable:
+          $ref: '#/components/schemas/Evaluable_2'
+        type:
+          type: string
+          const: EvaluableCondition
+    NonOwnershipConditionsRequest_ObjectExistsCondition:
+      title: NonOwnershipConditionsRequest_ObjectExistsCondition
+      type: object
+      required:
+      - conditionId
+      - reference
+      - exists
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        reference:
+          $ref: '#/components/schemas/DataObjectReference'
+        exists:
+          type: boolean
+        type:
+          type: string
+          const: ObjectExistsCondition
+    EvaluableCondition:
+      title: EvaluableCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - evaluable
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        evaluable:
+          $ref: '#/components/schemas/Evaluable'
+        type:
+          type: string
+          const: EvaluableCondition
+    CustomMatchedObjectRef:
+      title: CustomMatchedObjectRef
+      description: 'custom matched object ref - format: $id__$tpe
+
+
+        available types: LeadToAccountMatchingConfigType,ContactToDuplicateContactMatchingConfigType,LeadToDuplicateContactMatchingConfigType,ProspectToContactMatchingConfigType,LeadToDuplicateLeadMatchingConfigType,ContactToDuplicateLeadMatchingConfigType,ProspectToLeadMatchingConfigType,LeadToRelatedLeadMatchingConfigType,LeadToOpportunityMatchingConfigType,ContactToOpportunityMatchingConfigType,LeadToCaseMatchingConfigType,ContactToCaseMatchingConfigType,RelatedChildConfigType'
+      type: string
+    NonOwnershipConditionsRequest_StaticValueCondition:
+      title: NonOwnershipConditionsRequest_StaticValueCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - value
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        value:
+          $ref: '#/components/schemas/StaticValue'
+        type:
+          type: string
+          const: StaticValueCondition
+    ChiliProduct:
+      title: ChiliProduct
+      type: string
+      enum:
+      - Chat
+      - ChiliCal
+      - Concierge
+      - Distro
+      - Handoff
+    RelativeWeek:
+      title: RelativeWeek
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeWeek
+    ValueCondition:
+      title: ValueCondition
+      type: object
+      required:
+      - conditionId
+      - lhsReference
+      - operator
+      - rhsReference
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        lhsReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        rhsReference:
+          $ref: '#/components/schemas/DataReference'
+        type:
+          type: string
+          const: ValueCondition
+    SimpleMetadata:
+      title: SimpleMetadata
+      type: object
+      required:
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - revision
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/CallerRef'
+        updatedAt:
+          type: string
+          format: date-time
+        updatedBy:
+          $ref: '#/components/schemas/CallerRef'
+        revision:
+          type: integer
+          format: int32
+    RuleBuilderVersion:
+      title: RuleBuilderVersion
+      type: string
+      enum:
+      - ExplicitV1
+    Evaluable_RelativeWeek:
+      title: Evaluable_RelativeWeek
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeWeek
+    TeamId:
+      title: TeamId
+      examples:
+      - 2a9c3f1e-8b7d-4a5c-9e6f-1b2c3d4e5f6a
+      type: string
+      pattern: '[^\s\\/]+'
+    RelatedChildObjectRef:
+      title: RelatedChildObjectRef
+      type: string
+      pattern: '[a-zA-Z0-9_]+__rc'
+    ConditionGroupId:
+      title: ConditionGroupId
+      type: string
+      pattern: '[^\s\\/]+'
+    NonOwnershipConditionsRequest_SingleParameterCondition:
+      title: NonOwnershipConditionsRequest_SingleParameterCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/SingleOperator'
+        type:
+          type: string
+          const: SingleParameterCondition
+    CreateRuleDto_CreateOwnershipRuleRequest:
+      title: CreateRuleDto_CreateOwnershipRuleRequest
+      type: object
+      required:
+      - workspaceId
+      - name
+      - conditions
+      - type
+      properties:
+        ruleId:
+          $ref: '#/components/schemas/Option_RuleId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        teamId:
+          $ref: '#/components/schemas/Option_TeamId'
+        name:
+          type: string
+        conditions:
+          $ref: '#/components/schemas/OwnershipConditionsRequest_2'
+        type:
+          type: string
+          const: CreateOwnershipRuleRequest
+    OwnershipConditionsRequest_StaticValueCondition:
+      title: OwnershipConditionsRequest_StaticValueCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - value
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        value:
+          $ref: '#/components/schemas/StaticValue'
+        type:
+          type: string
+          const: StaticValueCondition
+    SingleOperator:
+      title: SingleOperator
+      type: string
+      enum:
+      - notEmpty
+      - empty
+    CreateRuleDto:
+      title: CreateRuleDto
+      oneOf:
+      - $ref: '#/components/schemas/CreateRuleDto_CreateOwnershipRuleRequest'
+      - $ref: '#/components/schemas/CreateRuleDto_CreateRuleRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          CreateOwnershipRuleRequest: '#/components/schemas/CreateRuleDto_CreateOwnershipRuleRequest'
+          CreateRuleRequest: '#/components/schemas/CreateRuleDto_CreateRuleRequest'
+    ObjectExistsCondition:
+      title: ObjectExistsCondition
+      type: object
+      required:
+      - conditionId
+      - reference
+      - exists
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        reference:
+          $ref: '#/components/schemas/DataObjectReference'
+        exists:
+          type: boolean
+        type:
+          type: string
+          const: ObjectExistsCondition
+    OwnershipConditionsRequest_ObjectExistsCondition:
+      title: OwnershipConditionsRequest_ObjectExistsCondition
+      type: object
+      required:
+      - conditionId
+      - reference
+      - exists
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        reference:
+          $ref: '#/components/schemas/DataObjectReference'
+        exists:
+          type: boolean
+        type:
+          type: string
+          const: ObjectExistsCondition
+    OwnershipConditionsRequest_SingleParameterCondition:
+      title: OwnershipConditionsRequest_SingleParameterCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/SingleOperator'
+        type:
+          type: string
+          const: SingleParameterCondition
+    NonOwnershipRule:
+      title: NonOwnershipRule
+      type: object
+      required:
+      - id
+      - workspaceId
+      - name
+      - conditions
+      - ruleBuilderVersion
+      - metadata
+      - type
+      properties:
+        id:
+          $ref: '#/components/schemas/RuleId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        conditions:
+          $ref: '#/components/schemas/NonOwnershipConditionsRequest'
+        ruleBuilderVersion:
+          $ref: '#/components/schemas/RuleBuilderVersion'
+        product:
+          $ref: '#/components/schemas/Option_ChiliProduct'
+        metadata:
+          $ref: '#/components/schemas/SimpleMetadata'
+        type:
+          type: string
+          const: NonOwnershipRule
+    DataObjectReference:
+      title: DataObjectReference
+      type: object
+      required:
+      - source
+      - object
+      properties:
+        source:
+          $ref: '#/components/schemas/DataSource'
+        object:
+          $ref: '#/components/schemas/DataObject'
+    Evaluable_RelativeMonth:
+      title: Evaluable_RelativeMonth
+      type: object
+      required:
+      - offset
+      - length
+      - type
+      properties:
+        offset:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+          exclusiveMinimum: 0
+        timeZone:
+          $ref: '#/components/schemas/Option_String'
+        type:
+          type: string
+          const: RelativeMonth
+    MatchedObject:
+      title: MatchedObject
+      description: Matched/related-object reference from a matching configuration (e.g. MatchedAccount = account matched via Lead-to-Account config). NOT for ordinary Salesforce objects — use NormalDataObject (plain string) for those.
+      type: string
+      enum:
+      - MatchedAccount
+      - MatchedCase
+      - MatchedOpportunity
+      - RelatedLead
+      - DuplicateLead
+      - DuplicateContact
+      - MatchedLead
+      - MatchedContact
+      - PrimaryOwner
+      - MatchedCompany
+      - MatchedDeal
+      - MatchedTicket
+    SingleParameterCondition:
+      title: SingleParameterCondition
+      type: object
+      required:
+      - conditionId
+      - dataReference
+      - operator
+      - type
+      properties:
+        conditionId:
+          $ref: '#/components/schemas/ConditionId'
+        dataReference:
+          $ref: '#/components/schemas/DataReference'
+        operator:
+          $ref: '#/components/schemas/SingleOperator'
+        type:
+          type: string
+          const: SingleParameterCondition
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      description: 'API key in Authorization header. Format: ''Authorization: Bearer <api-key>'' — the word ''Bearer'' followed by a space and the key is required. Sending the key without the Bearer prefix returns 401.'
+      name: Authorization
+      in: header
+x-refined-from:
+- chili-piper-concierge-debugger-openapi.yaml
+- chili-piper-concierge-router-builder-openapi.yaml
+- chili-piper-concierge-router-configuration-openapi.yaml
+- chili-piper-distro-router-configuration-openapi.yaml
+- chili-piper-handoff-router-configuration-openapi.yaml
+- chili-piper-routing-audit-openapi.yaml

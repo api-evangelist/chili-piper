@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper — Router Configuration Actions Handoff API",
+    "version": "1.287.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "handoff",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all handoff routers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/handoff/routers/handoff/list",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter handoff routers by workspace ID. Omit to list across all of the tenant's workspaces."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: handoff-router-list]\n\n\n\nREAD-ONLY\n\n\n\nBrowses Handoff routers to discover routerIds and see what each one routes. A Handoff router routes SDR-to-AE handoffs to teams/users via rules. Each entry carries the router's identity plus a lossy per-row summary of its routing. Pass workspaceId to restrict to one workspace (must belong to this tenant); omit it to fan out across all workspaces.\n\n→\n\n    [{id, workspaceId, name?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}"
+        },
+        {
+          "info": {
+            "name": "Get handoff router",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/handoff/routers/handoff/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: handoff-router-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches one Handoff router: its identity plus a lossy per-row summary of what its routing does. Call this before handoff-router-update to check whether the router's routing is representable (safe to replace via the API).\n\n→\n\n    {id, workspaceId, name?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], catchAll?: {outcome}}}\n    outcome (one of): {type: \"Schedule\", distributionId?, userId?, meetingTypeId?} | {type: \"Redirect\", "
+        },
+        {
+          "info": {
+            "name": "Update handoff router",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/handoff/routers/handoff/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: handoff-router-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a Handoff router and republishes it live. Only the fields you supply change; omitted fields are preserved. Use handoff-router-get first to confirm the routing is representable before replacing it.\n\n- routing (opt): when present, fully REPLACES the routing matrix (not a partial merge); when omitted, the current routing is kept. Each row's rule, when it matches, runs that row's `outcome`; the catch-all `outcome` runs when no row "
+        },
+        {
+          "info": {
+            "name": "Remove handoff router",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/handoff/routers/handoff/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: handoff-router-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nPermanently deletes a Handoff router.\n\n⚠ irreversible via API; any links or integrations pointing at this router stop working\n\nsee: handoff-router-list or handoff-router-get (confirm the id before deleting)"
+        },
+        {
+          "info": {
+            "name": "Create handoff router",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/handoff/routers/handoff",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: handoff-router-create]\n\n\n\nMUTATING\n\n\n\nCreates a Handoff router and publishes it live in one step — there is no unpublished-draft state via the API. workspaceId must be a team workspace of this tenant (400 otherwise). The routing matrix is a list of ordered rules evaluated top-down plus a mandatory catch-all fallback:\n\n- routing (req): ordered rules evaluated top-down, plus a mandatory catch-all fallback. Each row's rule, when it matches, runs that row's `outcome`; the catch-all `outc"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

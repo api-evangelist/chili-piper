@@ -1,0 +1,426 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Scheduling Links API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "schedulingLinks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Scheduling Links - personal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/list-personal/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-list-personal]\n\n\n\nREAD-ONLY\n\n\n\nLists a user's own personal scheduling links (their individual booking URLs, not team/distribution-backed ones). Use scheduling-link-list-round-robin and the other list-* tools for team links.\n\n→\n\n    [{slug, meetingTypeId, meetingTypeName, bookingUrl}]\n\nsee: user-find (resolve userId), scheduling-link-list-round-robin (team/distribution-backed links)"
+        },
+        {
+          "info": {
+            "name": "Scheduling Links - round robin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/list-round-robin",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-list-round-robin]\n\n\n\nREAD-ONLY\n\n\n\nLists round-robin scheduling links — booking URLs backed by a distribution, so each booking is assigned round-robin across the distribution's members. All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, distributionId, linkId, name, slug, meetingTypeIds, members, assignments, bookingUrl}]}\n\nsee: distribution-list (find distributionIds), workspace-list (find workspaceIds), scheduling-link-list-p"
+        },
+        {
+          "info": {
+            "name": "Scheduling Links - admin (one-on-one)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/list-admin-one-on-one",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-list-admin-one-on-one]\n\n\n\nREAD-ONLY\n\n\n\nLists admin (one-on-one) scheduling links — admin-provisioned links that each book with a single fixed host (no round-robin). All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}]}\n\nsee: workspace-list (find workspaceIds), scheduling-link-init (book via linkId)"
+        },
+        {
+          "info": {
+            "name": "Scheduling Links - group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/list-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-list-group]\n\n\n\nREAD-ONLY\n\n\n\nLists group scheduling links — meetings with a fixed set of multiple attendees, each independently required or optional. The invite goes to everyone, but offered slots are the intersection of the required attendees' availability only. Attendees can be specific users or picked round-robin at book time. All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}]"
+        },
+        {
+          "info": {
+            "name": "Scheduling Links - ownership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/list-ownership",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-list-ownership]\n\n\n\nREAD-ONLY\n\n\n\nLists ownership scheduling links — links that route each booking to the guest's CRM account owner (lead or contact owner), resolved at book time, which is why scheduling-link-init requires guestEmail. A link may add fixed or round-robin assignees and reference distributions as assignees, as a fallback when no owner matches, or both. All filters are optional; omit them all for org-wide results.\n\n- filterDistributionIds (opt): matches lin"
+        },
+        {
+          "info": {
+            "name": "Create round-robin scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/round-robin",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-create-round-robin]\n\n\n\nMUTATING\n\n\n\nCreates a round-robin scheduling link — bookings are distributed across the backing distributions' members. Each distribution is a required assignee and the first one supplies the host.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- distributionIds: one or more distributions; use distribution-list.\n\n- sharedWith (opt): sharing scope, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspac"
+        },
+        {
+          "info": {
+            "name": "Update round-robin scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/round-robin/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-update-round-robin]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches a round-robin scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing distributionIds replaces the backing distributions (the first becomes the host).\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, assignments, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-round-robin (find a linkId)"
+        },
+        {
+          "info": {
+            "name": "Remove round-robin scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/round-robin/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-delete-round-robin]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a round-robin scheduling link by id.\n\n- linkId (req): the round-robin link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-round-robin (confirm the id before deleting)"
+        },
+        {
+          "info": {
+            "name": "Create admin (one-on-one) scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/admin-one-on-one",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-create-admin-one-on-one]\n\n\n\nMUTATING\n\n\n\nCreates an admin (one-on-one) scheduling link — each booking gets a single fixed host, drawn from the sharedWith scope.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- sharedWith (opt): who can host, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\nsee: scheduling-link-list-admin-one-on-one (browse existing)"
+        },
+        {
+          "info": {
+            "name": "Update admin (one-on-one) scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/admin-one-on-one/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-update-admin-one-on-one]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches an admin (one-on-one) scheduling link. Send only the fields you want to change; omitted fields keep their current value.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-admin-one-on-one (find a linkId)"
+        },
+        {
+          "info": {
+            "name": "Remove admin (one-on-one) scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/admin-one-on-one/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-delete-admin-one-on-one]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes an admin (one-on-one) scheduling link by id.\n\n- linkId (req): the admin link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-admin-one-on-one (confirm the id before deleting)"
+        },
+        {
+          "info": {
+            "name": "Create group scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-create-group]\n\n\n\nMUTATING\n\n\n\nCreates a group scheduling link — a meeting with a fixed host plus additional members. Offered slots are the intersection of the host and required members' availability; optional members are invited but do not gate availability.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- hostUserId: the host user; use user-find.\n\n- sharedWith (opt): sharing scope, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n "
+        },
+        {
+          "info": {
+            "name": "Update group scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/group/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-update-group]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches a group scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing requiredMemberIds or optionalMemberIds replaces that member list wholesale.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: user-find (resolve user ids), scheduling-link-list-group (find a linkId)"
+        },
+        {
+          "info": {
+            "name": "Remove group scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/group/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-delete-group]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a group scheduling link by id.\n\n- linkId (req): the group link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-group (confirm the id before deleting)"
+        },
+        {
+          "info": {
+            "name": "Create ownership scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/ownership",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-create-ownership]\n\n\n\nMUTATING\n\n\n\nCreates an ownership scheduling link — routes each booking to the guest's CRM account owner, with a distribution-backed round-robin fallback when no owner matches.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- ownership: owner-routing config, {ownershipSettings, host, bookerInvitation, alwaysInvitedUsers}.\n\n- distribution: round-robin fallback config, {assignments: [{distributionId, required}], host, bookerInv"
+        },
+        {
+          "info": {
+            "name": "Update ownership scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/ownership/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-update-ownership]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches an ownership scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing ownership or distribution replaces that whole config block. As on create, distribution assignments are lean {distributionId, required} — no members field.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, ownership, distribution, pageConfig, sharedWith, bookingUrl}\n\n⚠ takes effect immediat"
+        },
+        {
+          "info": {
+            "name": "Remove ownership scheduling link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/schedulingLinks/ownership/:linkId",
+            "params": [
+              {
+                "name": "linkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: scheduling-link-delete-ownership]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes an ownership scheduling link by id.\n\n- linkId (req): the ownership link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-ownership (confirm the id before deleting)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

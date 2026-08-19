@@ -1,0 +1,4611 @@
+{
+  "item": [
+    {
+      "id": "35224bd7-a12c-46dd-9e47-133103522c4f",
+      "name": "schedulingLinks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dac37788-ca94-45b7-9781-79391f2f5269",
+          "name": "Scheduling Links - personal",
+          "request": {
+            "name": "Scheduling Links - personal",
+            "description": {
+              "content": "[operation: scheduling-link-list-personal]\n\n\n\nREAD-ONLY\n\n\n\nLists a user's own personal scheduling links (their individual booking URLs, not team/distribution-backed ones). Use scheduling-link-list-round-robin and the other list-* tools for team links.\n\n→\n\n    [{slug, meetingTypeId, meetingTypeName, bookingUrl}]\n\nsee: user-find (resolve userId), scheduling-link-list-round-robin (team/distribution-backed links)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "list-personal",
+                ":userId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-list-personal-userId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "54ab22e0-923d-4723-8785-55b078d503b1",
+              "name": "List of personal scheduling links with full details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-personal",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-personal-userId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"slug\": \"iphoc7\",\n    \"meetingTypeId\": \"2c10ed77-c27d-28d5-3ab5-3bc7c46359cc\",\n    \"meetingTypeName\": \"string\",\n    \"bookingUrl\": \"string\"\n  },\n  {\n    \"slug\": \"bwg\",\n    \"meetingTypeId\": \"41b3effa-440b-6175-3359-e6594e6d1707\",\n    \"meetingTypeName\": \"string\",\n    \"bookingUrl\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34975ae2-3054-4f65-8605-45f7230c01c3",
+              "name": "Invalid value for: path parameter userId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-personal",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-personal-userId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "49edf81c-1bf2-41c1-aa80-f616f7ee6b7b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-personal",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-personal-userId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9bf4458-3751-4b3b-9613-949751730a56",
+          "name": "Scheduling Links - round robin",
+          "request": {
+            "name": "Scheduling Links - round robin",
+            "description": {
+              "content": "[operation: scheduling-link-list-round-robin]\n\n\n\nREAD-ONLY\n\n\n\nLists round-robin scheduling links — booking URLs backed by a distribution, so each booking is assigned round-robin across the distribution's members. All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, distributionId, linkId, name, slug, meetingTypeIds, members, assignments, bookingUrl}]}\n\nsee: distribution-list (find distributionIds), workspace-list (find workspaceIds), scheduling-link-list-personal (per-user links)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "list-round-robin"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-list-round-robin-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ebe96766-1d12-453d-8384-b6280153ad53",
+              "name": "List of round robin scheduling links. Payload structure might change.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-round-robin"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-round-robin-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"workspaceId\": \"&s|)pv,e\",\n      \"linkId\": \"}j)\",\n      \"name\": \"string\",\n      \"slug\": \"ojc-codqq\",\n      \"assignments\": [\n        {\n          \"distributionId\": \"D\",\n          \"required\": false,\n          \"members\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"email\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"slug\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"email\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"slug\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"bookingUrl\": \"string\",\n      \"distributionId\": \"l^!MKxg7\",\n      \"meetingTypeIds\": [\n        \"602cecaa-ed7e-c244-ac86-7183b8130c1b\",\n        \"3e24212e-2397-0fd8-c308-ad48495d7663\"\n      ],\n      \"members\": [\n        {\n          \"id\": \"K|M*|U0\",\n          \"email\": \"iP`@y3I+&/.+S-\",\n          \"name\": \"string\",\n          \"slug\": \"sih_tw9\"\n        },\n        {\n          \"id\": \"fL<P6\",\n          \"email\": \"i@ (\",\n          \"name\": \"string\",\n          \"slug\": \"imw78\"\n        }\n      ]\n    },\n    {\n      \"workspaceId\": \"oJY\",\n      \"linkId\": \"<9\",\n      \"name\": \"string\",\n      \"slug\": \"d\",\n      \"assignments\": [\n        {\n          \"distributionId\": \"f[ZF=D61\",\n          \"required\": false,\n          \"members\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"email\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"slug\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"email\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"slug\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"bookingUrl\": \"string\",\n      \"distributionId\": \")48\",\n      \"meetingTypeIds\": [\n        \"740952c9-d065-7c0e-eec8-a8537257a000\",\n        \"91994053-5544-812b-6674-6517932abf8f\"\n      ],\n      \"members\": [\n        {\n          \"id\": \"TS@f#)&HTO>\",\n          \"email\": \"_E+kWH&_)s\\\\@I:3.$TYtdBA\",\n          \"name\": \"string\",\n          \"slug\": \"b_twt8\"\n        },\n        {\n          \"id\": \",s+X,ZPe+\",\n          \"email\": \"L;kkD+~@z6\",\n          \"name\": \"string\",\n          \"slug\": \"hlspe8ee\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb1ba4ec-6f0b-4fd2-bea3-8a9768aea3e1",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-round-robin"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-round-robin-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "56da99f3-c03b-4cf0-b426-0b1c30821288",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-round-robin"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-round-robin-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8936a997-8f5f-4f4b-85a0-150a704f0ca1",
+          "name": "Scheduling Links - admin (one-on-one)",
+          "request": {
+            "name": "Scheduling Links - admin (one-on-one)",
+            "description": {
+              "content": "[operation: scheduling-link-list-admin-one-on-one]\n\n\n\nREAD-ONLY\n\n\n\nLists admin (one-on-one) scheduling links — admin-provisioned links that each book with a single fixed host (no round-robin). All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}]}\n\nsee: workspace-list (find workspaceIds), scheduling-link-init (book via linkId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "list-admin-one-on-one"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-list-admin-one-on-one-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dfc418bc-ffe0-4d99-9a24-6f10a622c7d7",
+              "name": "List of admin (one-on-one) scheduling links.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-admin-one-on-one"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-admin-one-on-one-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"workspaceId\": \"zEVt\",\n      \"linkId\": \"[6\",\n      \"name\": \"string\",\n      \"slug\": \"aw1hljzfgf7\",\n      \"bookingUrl\": \"string\",\n      \"meetingTypeIds\": [\n        \"3888b43b-ab44-3b6c-3780-55280b67239f\",\n        \"4e3c6703-04b8-b262-523f-6953d270563d\"\n      ]\n    },\n    {\n      \"workspaceId\": \"^'EQ+W\",\n      \"linkId\": \"^<~\",\n      \"name\": \"string\",\n      \"slug\": \"47-nvtss5\",\n      \"bookingUrl\": \"string\",\n      \"meetingTypeIds\": [\n        \"a25ea108-a79d-e530-4afa-13008b6e2c37\",\n        \"aa85f083-3ec9-1d0f-2ed7-4a410e2628d3\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "371aee0e-1efe-4475-a095-14913e71ecc5",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-admin-one-on-one"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-admin-one-on-one-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "37d7727a-6aea-40d2-b431-c0c1cef4d3a4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-admin-one-on-one"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-admin-one-on-one-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e62fd2e-ded1-4607-8d98-c8d772866b24",
+          "name": "Scheduling Links - group",
+          "request": {
+            "name": "Scheduling Links - group",
+            "description": {
+              "content": "[operation: scheduling-link-list-group]\n\n\n\nREAD-ONLY\n\n\n\nLists group scheduling links — meetings with a fixed set of multiple attendees, each independently required or optional. The invite goes to everyone, but offered slots are the intersection of the required attendees' availability only. Attendees can be specific users or picked round-robin at book time. All filters are optional; omit them all for org-wide results.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}]}\n\nsee: workspace-list (find workspaceIds), scheduling-link-init (book via linkId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "list-group"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-list-group-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b717dbfb-f7e8-4658-bcfe-7d15319ec741",
+              "name": "List of group scheduling links.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-group"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-group-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"workspaceId\": \"*\",\n      \"linkId\": \"Cr{S*I\",\n      \"name\": \"string\",\n      \"slug\": \"bgi7\",\n      \"bookingUrl\": \"string\",\n      \"meetingTypeIds\": [\n        \"bb83035e-8205-27d0-594c-1ac109daca5e\",\n        \"2466a4d4-27d7-4f6d-ab2a-f0167604ce9b\"\n      ]\n    },\n    {\n      \"workspaceId\": \"]y\",\n      \"linkId\": \"S}#Nx~EU8<j\",\n      \"name\": \"string\",\n      \"slug\": \"juqzl_7mx1\",\n      \"bookingUrl\": \"string\",\n      \"meetingTypeIds\": [\n        \"074070b8-5b41-86b1-c6e8-cb7f29331290\",\n        \"d5174a15-9f7d-081f-886a-c6438b1e9e29\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61980c32-d563-4c6f-a8b0-4b3d2473d912",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-group"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-group-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ddfc44bf-4edc-4ca7-b661-d132b720163d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-group"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-group-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6b68e51-e94b-4901-bc1e-3d26024dadec",
+          "name": "Scheduling Links - ownership",
+          "request": {
+            "name": "Scheduling Links - ownership",
+            "description": {
+              "content": "[operation: scheduling-link-list-ownership]\n\n\n\nREAD-ONLY\n\n\n\nLists ownership scheduling links — links that route each booking to the guest's CRM account owner (lead or contact owner), resolved at book time, which is why scheduling-link-init requires guestEmail. A link may add fixed or round-robin assignees and reference distributions as assignees, as a fallback when no owner matches, or both. All filters are optional; omit them all for org-wide results.\n\n- filterDistributionIds (opt): matches links referencing any of these distributions (as assignee, fallback, or both); use distribution-list.\n\n→\n\n    {links: [{workspaceId, linkId, name, slug, meetingTypeIds, ownership, distribution, pageConfig, sharedWith, bookingUrl}]}\n\nsee: distribution-list (find distributionIds), workspace-list (find workspaceIds), scheduling-link-init (book via linkId, guestEmail required)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "list-ownership"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-list-ownership-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "949687ac-eadb-47cb-85a9-89b420352690",
+              "name": "List of ownership scheduling links.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-ownership"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-ownership-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"workspaceId\": \"$&F;MM:Xz\",\n      \"linkId\": \"UCJM_!QZS5\",\n      \"name\": \"string\",\n      \"slug\": \"qhes\",\n      \"ownership\": {\n        \"ownershipSettings\": {\n          \"strategies\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"host\": {\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"bookerInvitation\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"alwaysInvitedUsers\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": true\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": true\n          }\n        ]\n      },\n      \"distribution\": {\n        \"assignments\": [\n          {\n            \"distributionId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"required\": true,\n            \"members\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"host\": {\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"bookerInvitation\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"alwaysInvitedUsers\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": false\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": false\n          }\n        ]\n      },\n      \"pageConfig\": {\n        \"title\": \"string\"\n      },\n      \"sharedWith\": {\n        \"type\": \"string\",\n        \"teamIds\": [\n          \"L<BN#z{S1D\",\n          \"]y+cdX{:\"\n        ]\n      },\n      \"bookingUrl\": \"string\",\n      \"meetingTypeIds\": [\n        \"8fc7caa9-9ddc-4ae2-91a0-d5a2ddce51ca\",\n        \"5798dfec-13f3-6945-6245-39142511612f\"\n      ]\n    },\n    {\n      \"workspaceId\": \"77s\",\n      \"linkId\": \"fq\\\"go0I`\",\n      \"name\": \"string\",\n      \"slug\": \"ql6at62l\",\n      \"ownership\": {\n        \"ownershipSettings\": {\n          \"strategies\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"host\": {\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"bookerInvitation\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"alwaysInvitedUsers\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": false\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": false\n          }\n        ]\n      },\n      \"distribution\": {\n        \"assignments\": [\n          {\n            \"distributionId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"required\": false,\n            \"members\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"host\": {\n          \"distributionId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"bookerInvitation\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"alwaysInvitedUsers\": [\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": true\n          },\n          {\n            \"userId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optional\": false\n          }\n        ]\n      },\n      \"pageConfig\": {\n        \"title\": \"string\"\n      },\n      \"sharedWith\": {\n        \"type\": \"string\",\n        \"teamIds\": [\n          \"7\",\n          \"l\"\n        ]\n      },\n      \"bookingUrl\": \"string\",\n      \"meetingTypeIds\": [\n        \"5f182364-5b03-6f0d-0d23-e434ab9d4af1\",\n        \"5deeecc9-f1f1-b1f4-85a0-5a3531195c39\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8320c36a-ba4a-443b-8855-06d26379f2a3",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-ownership"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-ownership-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa49f251-fe4c-46a3-baab-64837bee22a7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "list-ownership"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-list-ownership-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterWorkspaceIds\": [\n    \"<string>\"\n  ],\n  \"filterLinkSlugs\": [\n    \"<string>\"\n  ],\n  \"filterMeetingTypeId\": [\n    \"<uuid>\"\n  ],\n  \"filterDistributionIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "375fa76d-599b-47fc-81a7-74b72f5890be",
+          "name": "Create round-robin scheduling link",
+          "request": {
+            "name": "Create round-robin scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-create-round-robin]\n\n\n\nMUTATING\n\n\n\nCreates a round-robin scheduling link — bookings are distributed across the backing distributions' members. Each distribution is a required assignee and the first one supplies the host.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- distributionIds: one or more distributions; use distribution-list.\n\n- sharedWith (opt): sharing scope, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, assignments, bookingUrl}\n\nsee: distribution-list (find distributionIds), scheduling-link-list-round-robin (browse existing)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "round-robin"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-round-robin-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d59728e0-863f-44ab-9d4a-2fbe2ce618e3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"4S!4i=m1i\",\n  \"name\": \"string\",\n  \"slug\": \"j-p9-d-8gm8\",\n  \"assignments\": [\n    {\n      \"distributionId\": \"<string>\",\n      \"required\": false,\n      \"members\": [\n        {\n          \"id\": \"QsSk\",\n          \"email\": \"oyF[oV@Fkwyk<\",\n          \"name\": \"string\",\n          \"slug\": \"qre5xu050iq\"\n        },\n        {\n          \"id\": \"3D}\",\n          \"email\": \"<gS#E@J**_KK\\\\t;Kg\",\n          \"name\": \"string\",\n          \"slug\": \"q740pg60ab\"\n        }\n      ]\n    }\n  ],\n  \"bookingUrl\": \"string\",\n  \"distributionId\": \"]gS\\\"c\",\n  \"meetingTypeIds\": [\n    \"3f64a0d2-14b3-e7d1-5513-cdd01f8fc45d\",\n    \"75b8ff78-dc81-91cb-7a04-f9bac9fc14c3\"\n  ],\n  \"members\": [\n    {\n      \"id\": \"oXb]\",\n      \"email\": \";\\\"j2'<}@5*f+S\",\n      \"name\": \"string\",\n      \"slug\": \"f21nioad\"\n    },\n    {\n      \"id\": \",G&T^?!R}\",\n      \"email\": \"5@p>'|:\",\n      \"name\": \"string\",\n      \"slug\": \"6x9fz0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3e4a2d7-e745-4e2d-9064-268e7c5812f5",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3c5b52f5-357f-4bd8-a3f1-a66287d15eeb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dee9078e-5afe-412d-8579-38a87546ccc3",
+          "name": "Update round-robin scheduling link",
+          "request": {
+            "name": "Update round-robin scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-update-round-robin]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches a round-robin scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing distributionIds replaces the backing distributions (the first becomes the host).\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, assignments, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-round-robin (find a linkId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "round-robin",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6bb2efed-c113-4171-801a-9db1c9e6bf87",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"4S!4i=m1i\",\n  \"name\": \"string\",\n  \"slug\": \"j-p9-d-8gm8\",\n  \"assignments\": [\n    {\n      \"distributionId\": \"<string>\",\n      \"required\": false,\n      \"members\": [\n        {\n          \"id\": \"QsSk\",\n          \"email\": \"oyF[oV@Fkwyk<\",\n          \"name\": \"string\",\n          \"slug\": \"qre5xu050iq\"\n        },\n        {\n          \"id\": \"3D}\",\n          \"email\": \"<gS#E@J**_KK\\\\t;Kg\",\n          \"name\": \"string\",\n          \"slug\": \"q740pg60ab\"\n        }\n      ]\n    }\n  ],\n  \"bookingUrl\": \"string\",\n  \"distributionId\": \"]gS\\\"c\",\n  \"meetingTypeIds\": [\n    \"3f64a0d2-14b3-e7d1-5513-cdd01f8fc45d\",\n    \"75b8ff78-dc81-91cb-7a04-f9bac9fc14c3\"\n  ],\n  \"members\": [\n    {\n      \"id\": \"oXb]\",\n      \"email\": \";\\\"j2'<}@5*f+S\",\n      \"name\": \"string\",\n      \"slug\": \"f21nioad\"\n    },\n    {\n      \"id\": \",G&T^?!R}\",\n      \"email\": \"5@p>'|:\",\n      \"name\": \"string\",\n      \"slug\": \"6x9fz0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85bc373a-865b-4b62-929e-35122fada5e7",
+              "name": "Invalid value for: path parameter linkId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eac22f8b-bba3-4aeb-96bd-6796643ec64c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"distributionIds\": [\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c97765e2-dd98-407d-83a4-c4e921d25f33",
+          "name": "Remove round-robin scheduling link",
+          "request": {
+            "name": "Remove round-robin scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-delete-round-robin]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a round-robin scheduling link by id.\n\n- linkId (req): the round-robin link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-round-robin (confirm the id before deleting)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "round-robin",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fd68b052-fe27-4c86-a664-26adc4959368",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1f5a887a-6459-4ba8-b28b-fbbb41ddb283",
+              "name": "Invalid value for: path parameter linkId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "feb483cd-c580-4d7c-9899-8adb0d0751f6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "round-robin",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-round-robin-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33ad0aed-5790-4af6-b518-7f80b7acc0d8",
+          "name": "Create admin (one-on-one) scheduling link",
+          "request": {
+            "name": "Create admin (one-on-one) scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-create-admin-one-on-one]\n\n\n\nMUTATING\n\n\n\nCreates an admin (one-on-one) scheduling link — each booking gets a single fixed host, drawn from the sharedWith scope.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- sharedWith (opt): who can host, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\nsee: scheduling-link-list-admin-one-on-one (browse existing)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "admin-one-on-one"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-admin-one-on-one-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99623788-fe9c-4a7f-8b03-67f782c944dd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"EV\",\n  \"name\": \"string\",\n  \"slug\": \"iat6g62dla\",\n  \"bookingUrl\": \"string\",\n  \"meetingTypeIds\": [\n    \"cc7eca9e-ac01-5f90-cebd-77731750adb4\",\n    \"a74d6f8c-f95b-c0d6-ccea-dcbec2d0d8d8\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbad7911-c294-431b-ba91-41cd424ba5fc",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25516427-a95d-4d78-90ad-371c002e86f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5297c4d6-6de6-4569-9c72-54110fafba75",
+          "name": "Update admin (one-on-one) scheduling link",
+          "request": {
+            "name": "Update admin (one-on-one) scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-update-admin-one-on-one]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches an admin (one-on-one) scheduling link. Send only the fields you want to change; omitted fields keep their current value.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-admin-one-on-one (find a linkId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "admin-one-on-one",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0926cc29-8a7e-40f5-a983-e3990b7dea4d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"EV\",\n  \"name\": \"string\",\n  \"slug\": \"iat6g62dla\",\n  \"bookingUrl\": \"string\",\n  \"meetingTypeIds\": [\n    \"cc7eca9e-ac01-5f90-cebd-77731750adb4\",\n    \"a74d6f8c-f95b-c0d6-ccea-dcbec2d0d8d8\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "389e16bd-bf44-4810-ac4f-e36b5e39a0d7",
+              "name": "Invalid value for: path parameter linkId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4c6af48-2288-4896-935d-50bc1356230a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da2fb0f7-9543-467b-9296-661fa430a08b",
+          "name": "Remove admin (one-on-one) scheduling link",
+          "request": {
+            "name": "Remove admin (one-on-one) scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-delete-admin-one-on-one]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes an admin (one-on-one) scheduling link by id.\n\n- linkId (req): the admin link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-admin-one-on-one (confirm the id before deleting)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "admin-one-on-one",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "af798da8-b69d-47e7-bafa-ccb20ab3635b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "700b430c-58aa-4d56-80e3-8004f2fe1120",
+              "name": "Invalid value for: path parameter linkId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8dc45fdf-4b82-4b95-a33d-923ce0832de2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "admin-one-on-one",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-admin-one-on-one-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b48403b2-596e-45a7-a7ad-0dacc458fc1f",
+          "name": "Create group scheduling link",
+          "request": {
+            "name": "Create group scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-create-group]\n\n\n\nMUTATING\n\n\n\nCreates a group scheduling link — a meeting with a fixed host plus additional members. Offered slots are the intersection of the host and required members' availability; optional members are invited but do not gate availability.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- hostUserId: the host user; use user-find.\n\n- sharedWith (opt): sharing scope, {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\nsee: user-find (resolve user ids), scheduling-link-list-group (browse existing)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "group"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-group-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b07da36-3d85-4990-9a58-a0165a3324c4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"4}7m9\",\n  \"name\": \"string\",\n  \"slug\": \"7whyn\",\n  \"bookingUrl\": \"string\",\n  \"meetingTypeIds\": [\n    \"6936f0f6-5638-bc8a-1dde-9e01e25a6efd\",\n    \"87a65ec7-aedb-3a40-a149-c174527310e0\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f338318b-02ec-447f-9521-9cd2b445ba2b",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "610c11d7-10c7-4c41-8a98-0f5f54f895a0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1bd99dd5-0e93-42ef-9db0-547fb1969172",
+          "name": "Update group scheduling link",
+          "request": {
+            "name": "Update group scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-update-group]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches a group scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing requiredMemberIds or optionalMemberIds replaces that member list wholesale.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: user-find (resolve user ids), scheduling-link-list-group (find a linkId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "group",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-group-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8bee52d9-5611-41b8-9036-fa49b7ec13ca",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"4}7m9\",\n  \"name\": \"string\",\n  \"slug\": \"7whyn\",\n  \"bookingUrl\": \"string\",\n  \"meetingTypeIds\": [\n    \"6936f0f6-5638-bc8a-1dde-9e01e25a6efd\",\n    \"87a65ec7-aedb-3a40-a149-c174527310e0\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01c5ee04-f10b-4c72-a330-e2f1ae4415ec",
+              "name": "Invalid value for: path parameter linkId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b19a1115-d3f4-40cf-9ab3-47667774088a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"hostUserId\": \"<string>\",\n  \"requiredMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalMemberIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37f70780-df6b-4cec-bed1-1826a8bb95ce",
+          "name": "Remove group scheduling link",
+          "request": {
+            "name": "Remove group scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-delete-group]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a group scheduling link by id.\n\n- linkId (req): the group link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-group (confirm the id before deleting)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "group",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-group-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "48a3dc41-ef29-48d2-aaac-b465288563ff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "895b2a3c-3faa-4f40-8144-a8a6cabbed41",
+              "name": "Invalid value for: path parameter linkId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6a444890-d510-43dc-a752-d4173013f9e2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "group",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-group-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c8be0e3-9b3c-40a8-ac03-36fce62e4f0a",
+          "name": "Create ownership scheduling link",
+          "request": {
+            "name": "Create ownership scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-create-ownership]\n\n\n\nMUTATING\n\n\n\nCreates an ownership scheduling link — routes each booking to the guest's CRM account owner, with a distribution-backed round-robin fallback when no owner matches.\n\n- slug: URL slug (lowercase letters, digits, hyphens, underscores).\n\n- ownership: owner-routing config, {ownershipSettings, host, bookerInvitation, alwaysInvitedUsers}.\n\n- distribution: round-robin fallback config, {assignments: [{distributionId, required}], host, bookerInvitation, alwaysInvitedUsers}.\n\n- pageConfig (opt): {title?}. sharedWith (opt): {type: \"Workspace\"} (default) or {type: \"Teams\", teamIds}.\n\n  Note: the ownership/distribution shapes mirror the scheduling-link-list-ownership response, except assignments here are lean {distributionId, required} — do not send the read-side members field (members are resolved from the distribution by the backend).\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, ownership, distribution, pageConfig, sharedWith, bookingUrl}\n\nsee: scheduling-link-list-ownership (browse existing for the exact ownership/distribution shape), distribution-list (find distributionIds)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "ownership"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-ownership-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d505c0f-d1a8-43e1-8ff7-772954556bad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"'TU\",\n  \"name\": \"string\",\n  \"slug\": \"uyen5m6t4\",\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": true,\n        \"members\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": \"_l#;b)@eo$lfu@\",\n            \"name\": \"string\",\n            \"slug\": \"_19z\"\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": \"t@4C:.<ew|^ \",\n            \"name\": \"string\",\n            \"slug\": \"p25myu9v\"\n          }\n        ]\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"bookingUrl\": \"string\",\n  \"meetingTypeIds\": [\n    \"6580f3f5-2e79-4889-ff66-bfce46a4a33e\",\n    \"26012a15-c13e-a1b1-c0c8-055cc6ec95ad\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "221eacae-8723-42cc-97cf-4b856509b404",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4c61e52d-ee4d-45ff-b13e-9c04eb5776b7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "969b9ac1-b8fc-4895-b799-152c492f3523",
+          "name": "Update ownership scheduling link",
+          "request": {
+            "name": "Update ownership scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-update-ownership]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nPatches an ownership scheduling link. Send only the fields you want to change; omitted fields keep their current value. Passing ownership or distribution replaces that whole config block. As on create, distribution assignments are lean {distributionId, required} — no members field.\n\n→\n\n    {workspaceId, linkId, name, slug, meetingTypeIds, ownership, distribution, pageConfig, sharedWith, bookingUrl}\n\n⚠ takes effect immediately\n\nsee: scheduling-link-list-ownership (find a linkId and inspect current config)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "ownership",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99eb8f3a-c8da-4a23-90aa-4abd16430c4d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaceId\": \"<string>\",\n  \"linkId\": \"'TU\",\n  \"name\": \"string\",\n  \"slug\": \"uyen5m6t4\",\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": true,\n        \"members\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": \"_l#;b)@eo$lfu@\",\n            \"name\": \"string\",\n            \"slug\": \"_19z\"\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": \"t@4C:.<ew|^ \",\n            \"name\": \"string\",\n            \"slug\": \"p25myu9v\"\n          }\n        ]\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"bookingUrl\": \"string\",\n  \"meetingTypeIds\": [\n    \"6580f3f5-2e79-4889-ff66-bfce46a4a33e\",\n    \"26012a15-c13e-a1b1-c0c8-055cc6ec95ad\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34b7f9eb-c4c7-4c23-85b8-54d31678db4f",
+              "name": "Invalid value for: path parameter linkId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b7cc347-abc2-4c01-acd7-c2433cab2651",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"meetingTypeIds\": [\n    \"<uuid>\"\n  ],\n  \"ownership\": {\n    \"ownershipSettings\": {\n      \"strategies\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"distribution\": {\n    \"assignments\": [\n      {\n        \"distributionId\": \"<string>\",\n        \"required\": \"<boolean>\"\n      }\n    ],\n    \"host\": {\n      \"distributionId\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"bookerInvitation\": {\n      \"type\": \"<string>\"\n    },\n    \"alwaysInvitedUsers\": [\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      },\n      {\n        \"userId\": \"<string>\",\n        \"optional\": \"<boolean>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"pageConfig\": {\n    \"title\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "087e1604-e826-4ccb-a452-54ea27f27bf3",
+          "name": "Remove ownership scheduling link",
+          "request": {
+            "name": "Remove ownership scheduling link",
+            "description": {
+              "content": "[operation: scheduling-link-delete-ownership]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes an ownership scheduling link by id.\n\n- linkId (req): the ownership link's id\n\n⚠ irreversible via API; the booking URL stops working immediately\n\nsee: scheduling-link-list-ownership (confirm the id before deleting)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "schedulingLinks",
+                "ownership",
+                ":linkId"
+              ],
+              "host": [
+                "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "03146e30-1f55-451f-b5c9-2fc6acb362d9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b70414f-a80b-4a29-819e-0ecd23024511",
+              "name": "Invalid value for: path parameter linkId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd73ed07-379f-4a44-a4cf-1b16568dabbe",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "schedulingLinks",
+                    "ownership",
+                    ":linkId"
+                  ],
+                  "host": [
+                    "{{v1-org-schedulingLinks-ownership-linkId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-list-personal-userId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-list-round-robin-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-list-admin-one-on-one-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-list-group-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-list-ownership-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-round-robin-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-round-robin-linkId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-admin-one-on-one-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-admin-one-on-one-linkId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-group-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-group-linkId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-ownership-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-schedulingLinks-ownership-linkId-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fcc55d24-2422-4f89-a26a-20fc89c6ea04",
+    "name": "Chili Piper Scheduling Links API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged schedulingLinks across 2 of this provider's published API definitions: chili-piper-scheduling-link-management-openapi.yaml, chili-piper-user-details-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper User API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "user",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Finds user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/user/find",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search by email or name"
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "Page number. First page has index 0."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Number of items per page. Maximum is 50"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: user-find]\n\n\n\nREAD-ONLY\n\n\n\nSearches users by free-text query matched against email and name (partial matches supported). Paginated.\n\n- query (req): partial email or name\n\n- page (opt), pageSize (opt, default 200)\n\n→ paginated list of users, each with: {id, name, email, isSuperAdmin, licenses, workspaces, salesforce (opt), hubspot (opt), slug (opt), managedWorkspaces, managedTeams}\n\nsee: user-read (full profile), user-find-by-ids (batch by ID), user-find-by-filter (advanced multi-fiel"
+        },
+        {
+          "info": {
+            "name": "Reads user information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/user/read/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: user-read]\n\n\n\nREAD-ONLY\n\n\n\nFetches full profile for a single user by userId.\n\n- userId (req): UUID\n\n→\n\n    {id, name, email, isSuperAdmin, licenses, workspaces (set of workspaceIds), salesforce: {email, id} (opt), hubspot: {email, id} (opt), slug (opt), managedWorkspaces, managedTeams}\n\n  Note: top-level field is id (not userId); workspaces (not workspaceMemberships); salesforce is an object {email, id} (not a string salesforceId)\n\nsee: user-find (look up userId by email/name), user-"
+        },
+        {
+          "info": {
+            "name": "Finds users by IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/user/find-by-id",
+            "params": [
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "Page number. First page has index 0."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Number of items per page. Maximum is 50"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: user-find-by-ids]\n\n\n\nREAD-ONLY\n\n\n\nBatch-fetches full profiles for a known set of userIds in one request — the id-list counterpart to user-read. The body is a bare JSON array of userId UUIDs (e.g. [\"uuid1\", \"uuid2\"]), not wrapped in an object.\n\n→ paginated list of users, each with: {id, name, email, isSuperAdmin, licenses, workspaces, salesforce: {email, id} (opt), hubspot: {email, id} (opt), slug (opt), managedWorkspaces, managedTeams}\n\nsee: user-find/find-by-filter (look up userIds)"
+        },
+        {
+          "info": {
+            "name": "Updates licenses for users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/user/licenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: user-update-licenses]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nBulk-updates CP product licenses for one or more users. Unlisted users are unaffected.\n\n- update (req): [{userId, licenseType}]; valid types: Distro, ChiliCalOrg, Concierge, ConciergeLive, Chat, Handoff; use user-find for userIds\n\n→\n\n    {}\n\n⚠ downgrade takes effect immediately (disables gated features); fails if org lacks sufficient seats\n\nsee: user-find/find-by-ids (resolve userIds and verify after)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

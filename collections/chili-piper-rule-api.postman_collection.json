@@ -1,0 +1,608 @@
+{
+  "item": [
+    {
+      "id": "c2374d8b-41df-42f4-8523-3f5e7c1d685a",
+      "name": "rule",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a10144d5-57bf-4936-9d75-af0f1f81f064",
+          "name": "List rules",
+          "request": {
+            "name": "List rules",
+            "description": {
+              "content": "[operation: rule-list]\n\n\n\nREAD-ONLY\n\n\n\nReturns active routing rules (ExplicitV1 builder only; legacy excluded).\n\n- page (opt): 0-indexed page number, default 0\n\n- pageSize (opt): rules per page, default 200\n\n- workspaceId (opt): filter to rules in a specific workspace\n\n- name (opt): filter rules by name\n\n→\n\n    {results: [{type, id, workspaceId, name, conditions, ruleBuilderVersion, product?, metadata: {revision, ...}, teamId?}], total, page, pageSize}\n\n⚠ always call immediately before rule-modify/rule-delete to get a fresh revision — stale revision causes conflict error\n\nsee: rule-get (fetch single rule by id), rule-modify (update rule), rule-delete (remove rule)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "rule",
+                "list"
+              ],
+              "host": [
+                "{{v1-org-rule-list-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number. First page has index 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "200",
+                  "description": "Number of items per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspaceId",
+                  "value": "<string>",
+                  "description": "Filter rules by workspace ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter rules by name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bedda69b-e045-4984-a675-06406f9edcc0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "rule",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-rule-list-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "200"
+                    },
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 1805,\n  \"page\": 1540,\n  \"pageSize\": 8813,\n  \"results\": [\n    {\n      \"id\": \"y{`Vo`]6Z?\",\n      \"workspaceId\": \"m$%cJe8\",\n      \"name\": \"string\",\n      \"conditions\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"operator\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"conditions\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"ruleBuilderVersion\": \"ExplicitV1\",\n      \"metadata\": {\n        \"createdAt\": \"2016-11-29T10:20:54.363Z\",\n        \"createdBy\": \"string\",\n        \"updatedAt\": \"1996-12-07T05:54:45.910Z\",\n        \"updatedBy\": \"string\",\n        \"revision\": 618\n      },\n      \"type\": \"string\",\n      \"product\": \"ChiliCal\"\n    },\n    {\n      \"id\": \":K&'qb;Rqa{\",\n      \"workspaceId\": \"pnLR\",\n      \"name\": \"string\",\n      \"conditions\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"operator\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"conditions\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"ruleBuilderVersion\": \"ExplicitV1\",\n      \"metadata\": {\n        \"createdAt\": \"1954-04-01T17:57:24.551Z\",\n        \"createdBy\": \"string\",\n        \"updatedAt\": \"1980-07-25T08:02:04.836Z\",\n        \"updatedBy\": \"string\",\n        \"revision\": 830\n      },\n      \"type\": \"string\",\n      \"product\": \"Handoff\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b870086-ebd3-43e7-ba7b-54986726a2e8",
+              "name": "Invalid value for: query parameter page, Invalid value for: query parameter pageSize, Invalid value for: query parameter workspaceId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "rule",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-rule-list-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "200"
+                    },
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08c02b39-4e61-498b-b704-48de4c8dc38f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "rule",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-rule-list-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "200"
+                    },
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7cc1e58-2f83-41a0-a030-e4af2caf7e18",
+          "name": "Create rule",
+          "request": {
+            "name": "Create rule",
+            "description": {
+              "content": "[operation: rule-create]\n\n\n\nMUTATING\n\n\n\nCreates a reusable routing rule so routers can reference it. It is live immediately (revision=1). Choose the dto variant matching the rule kind — ownership rules (which resolve a record owner) use CreateOwnershipRuleRequest and may carry a teamId; all others use CreateRuleRequest. Omit ruleId to auto-assign a UUID, or supply one to force it. The fastest safe path is to copy conditions (and workspaceId) from a rule-list result, since those already carry the required discriminators.\n\n- dto (req): rule definition — choose ONE variant:\n\n    Non-ownership: {type: \"CreateRuleRequest\", workspaceId, name, conditions}\n    Ownership:     {type: \"CreateOwnershipRuleRequest\", workspaceId, name, conditions, teamId?}\n\n- conditions: EVERY conditions object requires a \"type\" discriminator field. Example structure:\n\n    {type: \"ConditionGroup\", id: \"<any-string>\", operator: \"and\"|\"or\", conditions: [\n        {type: \"StaticValueCondition\", conditionId: \"<any-string>\",\n         dataReference: {source: \"SF\"|\"DF\"|\"CP\"|\"HS\"|\"MK\", object: \"<CrmObject>\", field: \"<FieldName>\"},\n         operator: \">\"|\"<\"|\">=\"|\"<=\"|\"equal\"|\"notEqual\"|\"isAnyOf\"|\"isNotAnyOf\"|\"contains\"|\"doesNotContain\"|\n                   \"containsAnyOf\"|\"containsNoneOf\"|\"startsWith\"|\"endsWith\"|\"startsWithAnyOf\"|\"endsWithAnyOf\",\n         value: <any JSON value>}\n        {type: \"SingleParameterCondition\", conditionId: \"<any-string>\",\n         dataReference: {source, object, field}, operator: \"notEmpty\"|\"empty\"}\n    ]}\n\n→\n\n    {type, id, workspaceId, name, conditions, ruleBuilderVersion, metadata: {revision: 1, ...}}\n\n⚠ live immediately with no dry-run — a misconfigured rule may misroute leads in every router that references it\n\nsee: rule-list (get workspaceId and copy conditions from an existing rule)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "rule"
+              ],
+              "host": [
+                "{{v1-org-rule-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dto\": {\n    \"workspaceId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"conditions\": {\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"operator\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"conditions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": \"<string>\",\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"type\": \"<string>\",\n    \"ruleId\": \"<string>\",\n    \"teamId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7a53a504-e05b-407e-b4ac-851af2ff5d48",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "rule"
+                  ],
+                  "host": [
+                    "{{v1-org-rule-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dto\": {\n    \"workspaceId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"conditions\": {\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"operator\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"conditions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": \"<string>\",\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"type\": \"<string>\",\n    \"ruleId\": \"<string>\",\n    \"teamId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"name\": \"string\",\n  \"conditions\": {\n    \"id\": \"ez*ND;\",\n    \"operator\": \"and\",\n    \"conditions\": [\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    ],\n    \"type\": \"string\",\n    \"name\": \"string\"\n  },\n  \"ruleBuilderVersion\": \"ExplicitV1\",\n  \"metadata\": {\n    \"createdAt\": \"2017-05-25T05:30:53.353Z\",\n    \"createdBy\": \"string\",\n    \"updatedAt\": \"1990-07-11T19:03:09.090Z\",\n    \"updatedBy\": \"string\",\n    \"revision\": 4437\n  },\n  \"type\": \"string\",\n  \"product\": \"Distro\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b227e4c-0a8b-47ff-80f3-9899892ec8c0",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "rule"
+                  ],
+                  "host": [
+                    "{{v1-org-rule-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dto\": {\n    \"workspaceId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"conditions\": {\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"operator\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"conditions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": \"<string>\",\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"type\": \"<string>\",\n    \"ruleId\": \"<string>\",\n    \"teamId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e094541e-05d1-4762-9d13-58eb5e4a910a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "rule"
+                  ],
+                  "host": [
+                    "{{v1-org-rule-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dto\": {\n    \"workspaceId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"conditions\": {\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"operator\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"conditions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": \"<string>\",\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"type\": \"<string>\",\n    \"ruleId\": \"<string>\",\n    \"teamId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-rule-list-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-rule-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b0ad5671-7dfd-4792-a170-0351b4101026",
+    "name": "Chili Piper Rule API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged rule across 6 of this provider's published API definitions: chili-piper-concierge-debugger-openapi.yaml, chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-distro-router-configuration-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml, chili-piper-routing-audit-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

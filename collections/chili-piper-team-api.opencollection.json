@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Team API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "team",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v2/org/team/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: team-create]\n\n\n\nMUTATING\n\n\n\nCreates a team inside a workspace to serve as a routing target for distributions. Optionally seed it with initial members (userIds); add more later with team-add-users.\n\n→\n\n    {id, workspaceId, name, members, metadata}\n\nsee: workspace-list (resolve workspaceId), user-find (resolve emails to member userIds), team-add-users (add more members later)"
+        },
+        {
+          "info": {
+            "name": "Add users to a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/team/users/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: team-add-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nAdds users to a team so they become routing targets for distributions scoped to it. Already-members are silently skipped.\n\n→\n\n    {id, workspaceId, name, members, metadata} — updated team record\n\nsee: team-list (find teamId and verify after), user-find (resolve emails to userIds)"
+        },
+        {
+          "info": {
+            "name": "Read all teams (PUT)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v2/org/team",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: team-list-put]\n\n\n\nREAD-ONLY\n\n\n\nReturns all teams in the org. Accepts filter params in request body to avoid query-string length limits.\n\n- body.workspaceIds (opt): filter by workspace\n\n- body.name (opt): filter by team name (substring match)\n\n- body.member (opt): filter to teams containing all specified user IDs; use user-find to resolve emails to IDs\n\n- body.page (opt), body.pageSize (opt, default 200)\n\n→\n\n    {results: [{teamId, name, members}]}\n\nsee: team-list (GET equivalent), us"
+        },
+        {
+          "info": {
+            "name": "Remove users from a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/team/users/remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: team-remove-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nRemoves users from a team. Non-members are silently skipped. Other team memberships unaffected.\n\n- teamId (req): use team-list\n\n- userIds (req): non-empty list\n\n→\n\n    {id, workspaceId, name, members, metadata} — updated team record\n\n⚠ may affect active distributions scoped to this team\n\nsee: team-list (find teamId and verify after), team-remove-users-all (remove from all teams at once)"
+        },
+        {
+          "info": {
+            "name": "Delete team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v2/org/team/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: team-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nPermanently deletes a team. Fails if the team is still referenced by active distributions (use distribution-update-v3 to reassign first).\n\n- teamId (req): use team-list\n\n→\n\n    {id, workspaceId, name, members, metadata} — the deleted team record\n\n⚠ irreversible; does not remove members from the workspace\n\nsee: team-list (find teamId), distribution-update-v3 (reassign before deleting)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

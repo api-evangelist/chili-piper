@@ -1,0 +1,1929 @@
+{
+  "item": [
+    {
+      "id": "e8d15f6c-08ca-4a44-933d-4bb732527190",
+      "name": "meeting-type",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b51a3e05-f9ed-45b3-946f-09d36539817b",
+          "name": "Create meeting type",
+          "request": {
+            "name": "Create meeting type",
+            "description": {
+              "content": "[operation: meeting-type-create]\n\n\n\nMUTATING\n\n\n\nCreates a reusable team meeting type; the backend fills in product defaults for anything you omit. Only name, duration (\"30 minutes\") and the default location are set by the create call itself — description, inviteTitle, inviteDescription, location alternatives, and the admin scheduling link that carries sharedWith are applied by FURTHER calls immediately after. `description` is internal (never shown to guests); to set the guest-facing calendar invite use inviteTitle/inviteDescription, both of which accept {CP.*} merge tags. `sharedWith` is {type: \"Workspace\"} or {type: \"Teams\", teamIds}; supplying it provisions the admin (one-on-one) scheduling link that carries the scope — omit it and sharing can only be set later by managing that link directly.\n\n  Note: creation is NOT atomic — if a follow-up call fails the meeting type exists without those fields, and re-creating duplicates it; fix with meeting-type-update instead.\n\n- location (opt): {default: <Location>, others: [<Location>]}; omit to keep the workspace default. Each <Location> is one of:\n\n    {type: \"ZoomOneTimeLink\"|\"TeamsMeetingLink\"|\"GongLink\"|\"GoToMeetingLink\"|\"RingCentralLink\"|\"WebexLink\"|\"HostsDefaultConferenceDetails\"|\"HostsDefaultPhysicalLocation\", index, host: \"Host\"|\"AssigneeIfExists\"|\"BookerIfExists\"}\n    {type: \"CalendarPlatformConference\", index}\n    {type: \"AskTheGuest\", index}\n    {type: \"DefinedInMeetingType\", index, value?}\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meetingLimit?: {limitBy: \"Email\"|\"Domain\", timeframe: \"Hourly\"|\"Daily\"|\"Weekly\"|\"Monthly\"|\"Yearly\", count}, sharedWith?: {type: \"Workspace\"}|{type: \"Teams\", teamIds}, reminders: [{id, workspaceId, channel, trigger: {kind, offset?}, name, title?, body}]}\n\nsee: meeting-type-list (find a workspaceId), meeting-type-update (edit afterwards)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meeting-types"
+              ],
+              "host": [
+                "{{v1-org-meeting-types-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3157cd40-47c7-4914-9043-8b64f3f183b4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"10437c3e-e699-7555-06d5-b9247ec36a68\",\n  \"workspaceId\": \"<string>\",\n  \"name\": \"string\",\n  \"inviteTitle\": \"string\",\n  \"inviteDescription\": \"string\",\n  \"status\": \"Inactive\",\n  \"duration\": \"string\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"string\",\n    \"after\": \"string\"\n  },\n  \"description\": \"string\",\n  \"meetingLimit\": {\n    \"limitBy\": \"Domain\",\n    \"timeframe\": \"Daily\",\n    \"count\": 1125\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"reminders\": [\n    {\n      \"id\": \"W**\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Sms\",\n      \"trigger\": {\n        \"kind\": \"BeforeMeetingNoResponse\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"id\": \".~\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Sms\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f161f301-40c0-42d1-9359-2bc231bd4b3b",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "49cb075a-05e4-4dbc-8d9f-82fdcf3b0d09",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc192629-629e-4a64-ad56-650643b6492d",
+          "name": "List meeting types",
+          "request": {
+            "name": "List meeting types",
+            "description": {
+              "content": "[operation: meeting-type-list]\n\n\n\nREAD-ONLY\n\n\n\nBrowses the tenant's reusable team meeting types — the templates that scheduling links and routers reference. Personal meeting types are excluded. Omit workspaceId to fan out across every workspace; pass it to scope to one.\n\n→\n\n    [{id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meetingLimit?: {limitBy: \"Email\"|\"Domain\", timeframe: \"Hourly\"|\"Daily\"|\"Weekly\"|\"Monthly\"|\"Yearly\", count}, sharedWith?: {type: \"Workspace\"}|{type: \"Teams\", teamIds}, reminders?: [{id, workspaceId, channel, trigger: {kind, offset?}, name, title?, body}]}]\n\n  Note: reminders are not fetched on list (the field is null) — use meeting-type-get to read a meeting type's reminders; null means \"not fetched\", never \"no reminders\".\n\n  Note: meetingLimit.timeframe is approximate — the backend's reset schedule (e.g. every-2-weeks) is summarised to the nearest timeframe; finer reset details (every-N, anchor day) are not surfaced.\n\n  Note: sharedWith (the sharing scope: whole workspace vs specific teams) is read from the meeting type's admin (one-on-one) scheduling link; it is null when no such link, or more than one, is found — null means \"indeterminate\", not \"workspace\".\n\nsee: meeting-type-get (fetch a single meeting type), meeting-type-create (add one), meeting-type-update (edit one)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meeting-types",
+                "list"
+              ],
+              "host": [
+                "{{v1-org-meeting-types-list-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspaceId",
+                  "value": "<string>",
+                  "description": "Filter meeting types by workspace ID. Omit to list across all of the tenant's workspaces."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b62cc5df-dcf4-4fce-a538-1747ce7ac7df",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-list-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"6816a4d5-f4fb-22f5-cb22-5411cc42d3ed\",\n    \"workspaceId\": \"<string>\",\n    \"name\": \"string\",\n    \"inviteTitle\": \"string\",\n    \"inviteDescription\": \"string\",\n    \"status\": \"Inactive\",\n    \"duration\": \"string\",\n    \"location\": {\n      \"default\": {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      \"others\": [\n        {\n          \"index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"buffers\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"description\": \"string\",\n    \"meetingLimit\": {\n      \"limitBy\": \"Domain\",\n      \"timeframe\": \"Hourly\",\n      \"count\": 9656\n    },\n    \"sharedWith\": {\n      \"type\": \"<string>\",\n      \"teamIds\": [\n        \"<string>\"\n      ]\n    },\n    \"reminders\": [\n      {\n        \"id\": \"-@\",\n        \"workspaceId\": \"<string>\",\n        \"channel\": \"Sms\",\n        \"trigger\": {\n          \"kind\": \"BeforeMeeting\",\n          \"offset\": \"string\"\n        },\n        \"name\": \"string\",\n        \"body\": \"string\",\n        \"title\": \"string\"\n      },\n      {\n        \"id\": \"5;b9Oy\",\n        \"workspaceId\": \"<string>\",\n        \"channel\": \"Email\",\n        \"trigger\": {\n          \"kind\": \"AfterMeeting\",\n          \"offset\": \"string\"\n        },\n        \"name\": \"string\",\n        \"body\": \"string\",\n        \"title\": \"string\"\n      }\n    ]\n  },\n  {\n    \"id\": \"38bb1a73-32e7-906f-b4b0-7a22ed1e8156\",\n    \"workspaceId\": \"<string>\",\n    \"name\": \"string\",\n    \"inviteTitle\": \"string\",\n    \"inviteDescription\": \"string\",\n    \"status\": \"Active\",\n    \"duration\": \"string\",\n    \"location\": {\n      \"default\": {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      \"others\": [\n        {\n          \"index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"buffers\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"description\": \"string\",\n    \"meetingLimit\": {\n      \"limitBy\": \"Domain\",\n      \"timeframe\": \"Monthly\",\n      \"count\": 3582\n    },\n    \"sharedWith\": {\n      \"type\": \"<string>\",\n      \"teamIds\": [\n        \"<string>\"\n      ]\n    },\n    \"reminders\": [\n      {\n        \"id\": \"b?\",\n        \"workspaceId\": \"<string>\",\n        \"channel\": \"Email\",\n        \"trigger\": {\n          \"kind\": \"MeetingBooked\",\n          \"offset\": \"string\"\n        },\n        \"name\": \"string\",\n        \"body\": \"string\",\n        \"title\": \"string\"\n      },\n      {\n        \"id\": \">Yf@Yv\",\n        \"workspaceId\": \"<string>\",\n        \"channel\": \"Sms\",\n        \"trigger\": {\n          \"kind\": \"AfterMeeting\",\n          \"offset\": \"string\"\n        },\n        \"name\": \"string\",\n        \"body\": \"string\",\n        \"title\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13858f1c-afc4-4d73-a08a-bb9b07e6a649",
+              "name": "Invalid value for: query parameter workspaceId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-list-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fcb72282-41d3-47bb-a998-ab5b0454b93a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    "list"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-list-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "871a2f68-5537-4234-9545-41d4def04156",
+          "name": "Get meeting type",
+          "request": {
+            "name": "Get meeting type",
+            "description": {
+              "content": "[operation: meeting-type-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches one team meeting type by id, including its attached reminders (unlike meeting-type-list, which leaves reminders null). Use it before editing to read current state, or once you already know the id instead of browsing the list.\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meetingLimit?: {limitBy: \"Email\"|\"Domain\", timeframe: \"Hourly\"|\"Daily\"|\"Weekly\"|\"Monthly\"|\"Yearly\", count}, sharedWith?: {type: \"Workspace\"}|{type: \"Teams\", teamIds}, reminders: [{id, workspaceId, channel, trigger: {kind, offset?}, name, title?, body}]}\n\n  Note: meetingLimit.timeframe is approximate — the backend's reset schedule (e.g. every-2-weeks) is summarised to the nearest timeframe; finer reset details (every-N, anchor day) are not surfaced.\n\n  Note: sharedWith (the sharing scope: whole workspace vs specific teams) is read from the meeting type's admin (one-on-one) scheduling link; it is null when no such link, or more than one, is found — null means \"indeterminate\", not \"workspace\".\n\n⚠ personal meeting types are not manageable here and return an error\n\nsee: meeting-type-list (browse to find an id), meeting-type-update (edit), meeting-type-delete (remove)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meeting-types",
+                ":meetingTypeId"
+              ],
+              "host": [
+                "{{v1-org-meeting-types-meetingTypeId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingTypeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6be42306-ffe1-4856-991f-987312a3167b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cbbea762-90c1-621d-61fe-101754bd6d18\",\n  \"workspaceId\": \"<string>\",\n  \"name\": \"string\",\n  \"inviteTitle\": \"string\",\n  \"inviteDescription\": \"string\",\n  \"status\": \"Inactive\",\n  \"duration\": \"string\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"string\",\n    \"after\": \"string\"\n  },\n  \"description\": \"string\",\n  \"meetingLimit\": {\n    \"limitBy\": \"Domain\",\n    \"timeframe\": \"Hourly\",\n    \"count\": 1927\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"reminders\": [\n    {\n      \"id\": \"Ai\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Email\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"id\": \"f\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Email\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c04bb424-cf1c-45be-89b5-2475e61eccd1",
+              "name": "Invalid value for: path parameter meetingTypeId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b9c21e7-4d52-4815-84ef-8bc325c71270",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "377ce4ed-b188-496a-9772-abe6cf34ee9f",
+          "name": "Update meeting type",
+          "request": {
+            "name": "Update meeting type",
+            "description": {
+              "content": "[operation: meeting-type-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a team meeting type. Every field is optional — send only what you want to change; omitted fields keep their current value. `description` is internal; change the guest-facing invite via inviteTitle/inviteDescription ({CP.*} merge tags). `location` is a full replacement of the conferencing config, not a merge. `meetingLimit` caps bookings per limitBy per timeframe. Prefer reading current state with meeting-type-get first.\n\n- status (opt): \"Active\" or \"Inactive\"\n\n- location (opt): replaces the full config — {default: <Location>, others: [<Location>]}; omit to leave unchanged. Each <Location> is one of:\n\n    {type: \"ZoomOneTimeLink\"|\"TeamsMeetingLink\"|\"GongLink\"|\"GoToMeetingLink\"|\"RingCentralLink\"|\"WebexLink\"|\"HostsDefaultConferenceDetails\"|\"HostsDefaultPhysicalLocation\", index, host: \"Host\"|\"AssigneeIfExists\"|\"BookerIfExists\"}\n    {type: \"CalendarPlatformConference\", index}\n    {type: \"AskTheGuest\", index}\n    {type: \"DefinedInMeetingType\", index, value?}\n\n- meetingLimit (opt): {limitBy: \"Email\"|\"Domain\", timeframe: \"Hourly\"|\"Daily\"|\"Weekly\"|\"Monthly\"|\"Yearly\", count}\n\n- sharedWith (opt): new scope — {type: \"Workspace\"} or {type: \"Teams\", teamIds}; applied to the admin (one-on-one) scheduling link, which must exist as exactly one (409 if none — set sharedWith at create time first — or more than one).\n\n  Note: sharedWith is applied AFTER the other changes commit — a 409 here means those are already persisted (re-run without sharedWith, then fix the admin link directly).\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meetingLimit?: {limitBy: \"Email\"|\"Domain\", timeframe: \"Hourly\"|\"Daily\"|\"Weekly\"|\"Monthly\"|\"Yearly\", count}, sharedWith?: {type: \"Workspace\"}|{type: \"Teams\", teamIds}, reminders: [{id, workspaceId, channel, trigger: {kind, offset?}, name, title?, body}]}\n\n⚠ takes effect immediately\n\nsee: meeting-type-get (fetch current state before editing)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meeting-types",
+                ":meetingTypeId"
+              ],
+              "host": [
+                "{{v1-org-meeting-types-meetingTypeId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingTypeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"status\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"<string>\",\n    \"after\": \"<string>\"\n  },\n  \"meetingLimit\": {\n    \"limitBy\": \"<string>\",\n    \"timeframe\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fb247502-60c7-42c8-86dd-d359dc2e3666",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"status\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"<string>\",\n    \"after\": \"<string>\"\n  },\n  \"meetingLimit\": {\n    \"limitBy\": \"<string>\",\n    \"timeframe\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"87c41c56-e5af-8763-0181-23aa8e853d60\",\n  \"workspaceId\": \"<string>\",\n  \"name\": \"string\",\n  \"inviteTitle\": \"string\",\n  \"inviteDescription\": \"string\",\n  \"status\": \"<string>\",\n  \"duration\": \"string\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"<string>\",\n    \"after\": \"<string>\"\n  },\n  \"description\": \"string\",\n  \"meetingLimit\": {\n    \"limitBy\": \"<string>\",\n    \"timeframe\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"reminders\": [\n    {\n      \"id\": \"A\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Email\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"id\": \"TS9RI:g\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Sms\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cbb7a2e-d7aa-46fb-b305-a832ee656b65",
+              "name": "Invalid value for: path parameter meetingTypeId, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"status\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"<string>\",\n    \"after\": \"<string>\"\n  },\n  \"meetingLimit\": {\n    \"limitBy\": \"<string>\",\n    \"timeframe\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "abfbd8bc-dcd5-4890-86e4-5c763378bc72",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"inviteTitle\": \"<string>\",\n  \"inviteDescription\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"status\": \"<string>\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"<string>\",\n    \"after\": \"<string>\"\n  },\n  \"meetingLimit\": {\n    \"limitBy\": \"<string>\",\n    \"timeframe\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf2accae-5377-465f-8f50-0a8ece1d65ea",
+          "name": "Remove meeting type",
+          "request": {
+            "name": "Remove meeting type",
+            "description": {
+              "content": "[operation: meeting-type-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a team meeting type by id.\n\n⚠ irreversible via API; any scheduling links or routers referencing this meeting type stop working\n\nsee: meeting-type-list or meeting-type-get (confirm the id before deleting)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meeting-types",
+                ":meetingTypeId"
+              ],
+              "host": [
+                "{{v1-org-meeting-types-meetingTypeId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingTypeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83b32b59-83fb-4e05-b132-d4c8aeea8c15",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d2730564-0aa1-474c-af7e-1979dcc25c07",
+              "name": "Invalid value for: path parameter meetingTypeId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e1b34a8-f29a-4c45-ade0-437db623a796",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afb09e73-3080-4abc-9748-a1e6dc99d0ac",
+          "name": "Attach reminder to meeting type",
+          "request": {
+            "name": "Attach reminder to meeting type",
+            "description": {
+              "content": "[operation: meeting-type-attach-reminder]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nLinks an existing reminder to a team meeting type so it starts sending it, and returns the updated meeting type. The reminder must live in the same workspace (create one with meeting-type-reminder-create). Idempotent: re-attaching an already-attached reminder is a no-op.\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meetingLimit?: {limitBy: \"Email\"|\"Domain\", timeframe: \"Hourly\"|\"Daily\"|\"Weekly\"|\"Monthly\"|\"Yearly\", count}, sharedWith?: {type: \"Workspace\"}|{type: \"Teams\", teamIds}, reminders: [{id, workspaceId, channel, trigger: {kind, offset?}, name, title?, body}]}\n\n⚠ takes effect immediately\n\nsee: meeting-type-reminder-create (make a reminder first), meeting-type-get (confirm the association), meeting-type-detach-reminder (remove it)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meeting-types",
+                ":meetingTypeId",
+                "reminders",
+                ":reminderId"
+              ],
+              "host": [
+                "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingTypeId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reminderId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7961a651-521c-40f6-82a7-b3ed314f5180",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId",
+                    "reminders",
+                    ":reminderId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reminderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"87c41c56-e5af-8763-0181-23aa8e853d60\",\n  \"workspaceId\": \"<string>\",\n  \"name\": \"string\",\n  \"inviteTitle\": \"string\",\n  \"inviteDescription\": \"string\",\n  \"status\": \"<string>\",\n  \"duration\": \"string\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"<string>\",\n    \"after\": \"<string>\"\n  },\n  \"description\": \"string\",\n  \"meetingLimit\": {\n    \"limitBy\": \"<string>\",\n    \"timeframe\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"reminders\": [\n    {\n      \"id\": \"A\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Email\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"id\": \"TS9RI:g\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Sms\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1ce9378-f006-43d5-9f48-d4b6d93d4bfe",
+              "name": "Invalid value for: path parameter meetingTypeId, Invalid value for: path parameter reminderId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId",
+                    "reminders",
+                    ":reminderId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reminderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8eac82fc-1728-43f4-83d9-1e16ba664ac3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId",
+                    "reminders",
+                    ":reminderId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reminderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b58b7221-0584-4dc4-be8a-8d04c504ba2a",
+          "name": "Detach reminder from meeting type",
+          "request": {
+            "name": "Detach reminder from meeting type",
+            "description": {
+              "content": "[operation: meeting-type-detach-reminder]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nUnlinks a reminder from a team meeting type (it stops sending it), and returns the updated meeting type. The reminder itself is NOT deleted — it stays available to re-attach or to use elsewhere; delete it entirely with meeting-type-reminder-delete. Idempotent: detaching a reminder that is not attached is a no-op.\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meetingLimit?: {limitBy: \"Email\"|\"Domain\", timeframe: \"Hourly\"|\"Daily\"|\"Weekly\"|\"Monthly\"|\"Yearly\", count}, sharedWith?: {type: \"Workspace\"}|{type: \"Teams\", teamIds}, reminders: [{id, workspaceId, channel, trigger: {kind, offset?}, name, title?, body}]}\n\n⚠ takes effect immediately\n\nsee: meeting-type-get (confirm), meeting-type-attach-reminder (re-attach), meeting-type-reminder-delete (delete the reminder entirely)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "meeting-types",
+                ":meetingTypeId",
+                "reminders",
+                ":reminderId"
+              ],
+              "host": [
+                "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingTypeId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reminderId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "da18be6e-aec5-4873-a857-ea17ec773436",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId",
+                    "reminders",
+                    ":reminderId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reminderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"87c41c56-e5af-8763-0181-23aa8e853d60\",\n  \"workspaceId\": \"<string>\",\n  \"name\": \"string\",\n  \"inviteTitle\": \"string\",\n  \"inviteDescription\": \"string\",\n  \"status\": \"<string>\",\n  \"duration\": \"string\",\n  \"location\": {\n    \"default\": {\n      \"index\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    \"others\": [\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"buffers\": {\n    \"before\": \"<string>\",\n    \"after\": \"<string>\"\n  },\n  \"description\": \"string\",\n  \"meetingLimit\": {\n    \"limitBy\": \"<string>\",\n    \"timeframe\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"sharedWith\": {\n    \"type\": \"<string>\",\n    \"teamIds\": [\n      \"<string>\"\n    ]\n  },\n  \"reminders\": [\n    {\n      \"id\": \"A\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Email\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"id\": \"TS9RI:g\",\n      \"workspaceId\": \"<string>\",\n      \"channel\": \"Sms\",\n      \"trigger\": {\n        \"kind\": \"MeetingBooked\",\n        \"offset\": \"string\"\n      },\n      \"name\": \"string\",\n      \"body\": \"string\",\n      \"title\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc65f555-9eb8-4a5f-ac09-09b21bd19a87",
+              "name": "Invalid value for: path parameter meetingTypeId, Invalid value for: path parameter reminderId",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId",
+                    "reminders",
+                    ":reminderId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reminderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0dd63b92-6e5b-427c-bbc2-a2c9b36cc930",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "meeting-types",
+                    ":meetingTypeId",
+                    "reminders",
+                    ":reminderId"
+                  ],
+                  "host": [
+                    "{{v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingTypeId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reminderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-meeting-types-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-meeting-types-list-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-meeting-types-meetingTypeId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "v1-org-meeting-types-meetingTypeId-reminders-reminderId-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "739515c6-4886-4155-87d8-c27b536c7001",
+    "name": "Chili Piper Meeting Type API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged meeting-type across 5 of this provider's published API definitions: chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml, chili-piper-meeting-type-management-openapi.yaml, chili-piper-scheduling-link-management-openapi.yaml. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

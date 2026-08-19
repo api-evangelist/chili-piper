@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper — Inspector Actions Availability API",
+    "version": "1.230.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "availability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available meeting time slots for any attendee configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/availability/slots",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: availability-slots]\n\n\n\nREAD-ONLY\n\n\n\nUnified availability endpoint — returns slots for any attendee mix (round-robin, manual, team-assigned, additional).\n\n- expectedHost (req): {type: \"User\", userId} or {type: \"AssigneeFromDistribution\", distributionId}\n\n- attendees (req): non-empty list; each item requires a `type` discriminator and a `required` field (boolean: true = slot hidden if attendee unavailable):\n\n    {type: \"ManuallyAssigned\", userId, required: true|false}\n    {type: \"Distr"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

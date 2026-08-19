@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Concierge API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "concierge",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all concierge routers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/concierge/routers/concierge/list",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: concierge-list-routers]\n\n\n\nREAD-ONLY\n\n\n\nReturns all Concierge routers in the org. A router evaluates inbound lead data and routes to teams/users via rules.\n\n- workspaceId (opt): restrict to one workspace\n\n→\n\n    {routers: [{router: {id (routerId), name, slug, formMapping, settings, routing, meta}, dataFields: [...], workspaceId}]}\n\n  Note: routerId is at routers[N].router.id; slug is at routers[N].router.slug\n\nsee: concierge-logs (audit decisions, needs routerId+workspaceId), concier"
+        },
+        {
+          "info": {
+            "name": "Reads Concierge Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/concierge/logs",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the workspace"
+              },
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "query",
+                "description": "Concierge Router Id"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "time of start such as 2025-01-08T13:46:18.681Z (ISO8601 format)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "time of end such as 2025-01-14T13:46:18.681Z (ISO8601 format)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: concierge-logs]\n\n\n\nREAD-ONLY\n\n\n\nFetches aggregated Concierge routing decision logs for a router in a time window (parallelism=4). Max window: 30 days.\n\n- workspaceId (req): query param; use workspace-list or concierge-list-routers\n\n- routerId (req): query param; use concierge-list-routers (routers[N].router.id)\n\n- start, end (req): query params; ISO-8601; max 30-day span\n\n→ array of log entries, each with fields: id, status, trigger, assignments, triggeredAt, crmUrl, guestEmail, acti"
+        },
+        {
+          "info": {
+            "name": "Create concierge router",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/concierge/routers/concierge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: concierge-router-create]\n\n\n\nMUTATING\n\n\n\nCreates a Concierge router and publishes it live in one step — there is no unpublished-draft state via the API. workspaceId must be a team workspace of this tenant (400 otherwise). The URL slug is derived from name on publish (there is no separate slug field). Triggers are a PRODUCT of optional kinds — set any combination of form (the Chili webform), inAppButton, and routerLink; supplying NONE auto-generates a minimal email-only Chili webform. "
+        },
+        {
+          "info": {
+            "name": "Get concierge router",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/concierge/routers/concierge/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: concierge-router-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches one Concierge router: its identity, a lossy per-row summary of its routing, and its full-config dimensions (guest form, branding/cover, localizations). Call this before concierge-router-update to check routing.representable and form.representable — they tell you whether an update would be accepted or rejected as unrepresentable.\n\n→\n\n    {id, workspaceId, name?, slug?, routing: {known, representable, rows: [{ruleId?, ruleType?, outcome}], "
+        },
+        {
+          "info": {
+            "name": "Update concierge router",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/concierge/routers/concierge/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: concierge-router-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a Concierge router and republishes it live. Only the fields you supply change; omitted fields (and config dimensions Edge doesn't model, e.g. third-party webforms, router-link enrichment waterfalls, and CRM-upsert settings) are preserved. Supplying name re-derives the URL slug. Each dimension you send is a full replace, except branding which merges per sub-field (see below). Triggers are a product of optional kinds: form (Chi"
+        },
+        {
+          "info": {
+            "name": "Remove concierge router",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/concierge/routers/concierge/:routerId",
+            "params": [
+              {
+                "name": "routerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: concierge-router-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a Concierge router by id.\n\n- routerId (req): the router's id (path)\n\n⚠ irreversible via API; any embeds or links pointing at this router stop working\n\nsee: concierge-list-routers or concierge-router-get (confirm the id before deleting)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

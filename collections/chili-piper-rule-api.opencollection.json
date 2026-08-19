@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Rule API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "rule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/rule/list",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number. First page has index 0."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter rules by workspace ID."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter rules by name."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: rule-list]\n\n\n\nREAD-ONLY\n\n\n\nReturns active routing rules (ExplicitV1 builder only; legacy excluded).\n\n- page (opt): 0-indexed page number, default 0\n\n- pageSize (opt): rules per page, default 200\n\n- workspaceId (opt): filter to rules in a specific workspace\n\n- name (opt): filter rules by name\n\n→\n\n    {results: [{type, id, workspaceId, name, conditions, ruleBuilderVersion, product?, metadata: {revision, ...}, teamId?}], total, page, pageSize}\n\n⚠ always call immediately before rule-modi"
+        },
+        {
+          "info": {
+            "name": "Create rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/rule",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: rule-create]\n\n\n\nMUTATING\n\n\n\nCreates a reusable routing rule so routers can reference it. It is live immediately (revision=1). Choose the dto variant matching the rule kind — ownership rules (which resolve a record owner) use CreateOwnershipRuleRequest and may carry a teamId; all others use CreateRuleRequest. Omit ruleId to auto-assign a UUID, or supply one to force it. The fastest safe path is to copy conditions (and workspaceId) from a rule-list result, since those already carry the"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

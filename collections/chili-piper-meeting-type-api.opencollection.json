@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper Meeting Type API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "meeting-type",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create meeting type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-create]\n\n\n\nMUTATING\n\n\n\nCreates a reusable team meeting type; the backend fills in product defaults for anything you omit. Only name, duration (\"30 minutes\") and the default location are set by the create call itself — description, inviteTitle, inviteDescription, location alternatives, and the admin scheduling link that carries sharedWith are applied by FURTHER calls immediately after. `description` is internal (never shown to guests); to set the guest-facing calendar inv"
+        },
+        {
+          "info": {
+            "name": "List meeting types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-types/list",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter meeting types by workspace ID. Omit to list across all of the tenant's workspaces."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-list]\n\n\n\nREAD-ONLY\n\n\n\nBrowses the tenant's reusable team meeting types — the templates that scheduling links and routers reference. Personal meeting types are excluded. Omit workspaceId to fan out across every workspace; pass it to scope to one.\n\n→\n\n    [{id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meetingLimit?"
+        },
+        {
+          "info": {
+            "name": "Get meeting type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-types/:meetingTypeId",
+            "params": [
+              {
+                "name": "meetingTypeId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches one team meeting type by id, including its attached reminders (unlike meeting-type-list, which leaves reminders null). Use it before editing to read current state, or once you already know the id instead of browsing the list.\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{type, index, host?, value?}]}, buffers: {before?, after?}, meeti"
+        },
+        {
+          "info": {
+            "name": "Update meeting type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-types/:meetingTypeId",
+            "params": [
+              {
+                "name": "meetingTypeId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a team meeting type. Every field is optional — send only what you want to change; omitted fields keep their current value. `description` is internal; change the guest-facing invite via inviteTitle/inviteDescription ({CP.*} merge tags). `location` is a full replacement of the conferencing config, not a merge. `meetingLimit` caps bookings per limitBy per timeframe. Prefer reading current state with meeting-type-get first.\n\n- status"
+        },
+        {
+          "info": {
+            "name": "Remove meeting type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-types/:meetingTypeId",
+            "params": [
+              {
+                "name": "meetingTypeId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a team meeting type by id.\n\n⚠ irreversible via API; any scheduling links or routers referencing this meeting type stop working\n\nsee: meeting-type-list or meeting-type-get (confirm the id before deleting)"
+        },
+        {
+          "info": {
+            "name": "Attach reminder to meeting type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-types/:meetingTypeId/reminders/:reminderId",
+            "params": [
+              {
+                "name": "meetingTypeId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "reminderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-attach-reminder]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nLinks an existing reminder to a team meeting type so it starts sending it, and returns the updated meeting type. The reminder must live in the same workspace (create one with meeting-type-reminder-create). Idempotent: re-attaching an already-attached reminder is a no-op.\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default: {type, index, host?, value?}, others: [{ty"
+        },
+        {
+          "info": {
+            "name": "Detach reminder from meeting type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-types/:meetingTypeId/reminders/:reminderId",
+            "params": [
+              {
+                "name": "meetingTypeId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "reminderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-detach-reminder]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nUnlinks a reminder from a team meeting type (it stops sending it), and returns the updated meeting type. The reminder itself is NOT deleted — it stays available to re-attach or to use elsewhere; delete it entirely with meeting-type-reminder-delete. Idempotent: detaching a reminder that is not attached is a no-op.\n\n→\n\n    {id, workspaceId, name, description?, inviteTitle, inviteDescription, status, duration, location: {default:"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

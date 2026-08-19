@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chili Piper — Meeting Type Management Actions Meeting Type Reminder API",
+    "version": "1.287.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "meeting-type-reminder",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List meeting type reminders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-type-reminders/list",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter reminders by workspace ID. Omit to list across all of the tenant's workspaces."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-reminder-list]\n\n\n\nREAD-ONLY\n\n\n\nBrowses the tenant's reminders — workspace-scoped Email/Sms notifications that meeting types attach to fire before, after, or on booking. Omit workspaceId to fan out across every workspace; pass it to scope to one.\n\n→\n\n    [{id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind: \"BeforeMeeting\"|\"BeforeMeetingNoResponse\"|\"MeetingBooked\"|\"AfterMeeting\", offset?}, name, title?, body}]\n\n  Note: reminders are lean here — advanced send-restrict"
+        },
+        {
+          "info": {
+            "name": "Create meeting type reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-type-reminders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-reminder-create]\n\n\n\nMUTATING\n\n\n\nCreates a reminder in a workspace; attach it to a meeting type afterwards with meeting-type-attach-reminder. The backend fills in defaults for advanced send behaviours. `trigger` is {kind, offset?}: offset (e.g. \"1 hour\") is required for the timed kinds \"BeforeMeeting\"/\"BeforeMeetingNoResponse\"/\"AfterMeeting\" and must be omitted for \"MeetingBooked\". `title` is the email subject (Email only; ignored for Sms).\n\n→\n\n    {id, workspaceId, chann"
+        },
+        {
+          "info": {
+            "name": "Update meeting type reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-type-reminders/:reminderId",
+            "params": [
+              {
+                "name": "reminderId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "The workspace the reminder belongs to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-reminder-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a reminder in place — attached meeting types pick up the change automatically. Send only the fields you want to change; the channel is fixed and cannot switch between Email and Sms. `trigger` is {kind, offset?} (offset required for the timed kinds, omitted for \"MeetingBooked\").\n\n→\n\n    {id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind, offset?}, name, title?, body}\n\n  Note: advanced send-restrictions and email/sms"
+        },
+        {
+          "info": {
+            "name": "Remove meeting type reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://fire.chilipiper.com/api/fire-edge/v1/org/meeting-type-reminders/:reminderId",
+            "params": [
+              {
+                "name": "reminderId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "The workspace the reminder belongs to."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "[operation: meeting-type-reminder-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a reminder entirely. To stop one meeting type sending it while keeping the reminder, use meeting-type-detach-reminder instead.\n\n→\n\n    {}\n\n  Note: an unknown reminder id (or one in another workspace) returns a typed 404, not a silent success — the id is verified in the workspace before deletion.\n\n⚠ irreversible via API; any meeting types referencing this reminder stop sending it\n\nsee: meeting-type-reminder-list (confi"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

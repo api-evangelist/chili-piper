@@ -1,0 +1,471 @@
+{
+  "item": [
+    {
+      "id": "b1581cee-ff5a-4a0f-b398-481973966c71",
+      "name": "chat",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe15c4f5-75b7-41a4-8ea9-88dac124ef81",
+          "name": "Reads Chat Conversation Logs",
+          "request": {
+            "name": "Reads Chat Conversation Logs",
+            "description": {
+              "content": "[operation: chat-logs]\n\n\n\nREAD-ONLY\n\n\n\nReads a workspace's Chat AI conversation logs over a time window — the read-only audit trail of who chatted, how they were routed, and what got booked. Each entry carries the full bot/guest transcript, the routing outcome, and any meetings booked. Use it to inspect or debug live chat routing after the fact. The start/end window (ISO-8601) spans at most 30 days. Pass playbookId (repeatable) to restrict to specific chat playbooks. Narrow to a specific guest or rule with guestEmail (case-insensitive exact match), guestId (exact match), ruleId (exact match on any routing rule executed in the session; stable across rule renames), and/or ruleName (exact match on any routing rule executed in the session). Pages start at 0; pageSize defaults to 10, max 50.\n\n→\n\n    {results: [{guestId, sessionId, playbookId, guestEmail, startedAt, endedAt, ended, targetedUrl, respondedUrl, routingOutcome, ruleId, ruleName, conversationAssigneeId, routedAt, repJoined, chatAiStarted, meetingBooked, meetings: [{assigneeId, origin, scheduledAt}], messages: [{role, content, timestamp}]}], total, page, pageSize}\n\n  Note: routingOutcome is one of Routed | NotRouted | Abandoned; role is one of Bot | Guest; meetings[N].origin is one of Journey | Inbox | NoMeeting\n\nsee: workspace-list (find workspaceId)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                "chat",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspaceId",
+                  "value": "<string>",
+                  "description": "(Required) Id of the workspace"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) time of start such as 2025-01-08T13:46:18.681Z (ISO8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) time of end such as 2025-01-14T13:46:18.681Z (ISO8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "playbookId",
+                  "value": "<uuid>",
+                  "description": "Optional chat playbook id(s) to restrict the logs to; repeatable. When omitted, all playbooks in the workspace are considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "playbookId",
+                  "value": "<uuid>",
+                  "description": "Optional chat playbook id(s) to restrict the logs to; repeatable. When omitted, all playbooks in the workspace are considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "guestEmail",
+                  "value": "<string>",
+                  "description": "Optional guest email to filter logs by (case-insensitive exact match). When omitted, all guests are considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "guestId",
+                  "value": "<uuid>",
+                  "description": "Optional guest id to filter logs by (exact match). When omitted, all guests are considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "ruleId",
+                  "value": "<string>",
+                  "description": "Optional routing-rule id to filter logs by (exact match on any rule executed in the session). Stable across rule renames. When omitted, all rules are considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "ruleName",
+                  "value": "<string>",
+                  "description": "Optional routing-rule name to filter logs by (exact match on any rule executed in the session). When omitted, all rules are considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number. First page has index 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of items per page. Maximum is 50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b70556e2-bec7-4d17-9cf7-26862c2321f0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "chat",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "playbookId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "playbookId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "guestEmail",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guestId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "ruleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ruleName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "X-Robots-Tag",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Pragma",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "(Required) ",
+                  "key": "Expires",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 4819,\n  \"page\": 4653,\n  \"pageSize\": 4200,\n  \"results\": [\n    {\n      \"guestId\": \"e2d166e8-558b-c15a-dce2-77aa38d555a8\",\n      \"sessionId\": 5334,\n      \"playbookId\": \"a9d69de5-5d84-8021-fcb1-89b236731187\",\n      \"startedAt\": \"1964-06-30T12:41:05.110Z\",\n      \"ended\": true,\n      \"targetedUrl\": \"string\",\n      \"routingOutcome\": \"Routed\",\n      \"repJoined\": false,\n      \"chatAiStarted\": true,\n      \"meetingBooked\": false,\n      \"guestEmail\": \"i|}71CWz(@$@-g6\",\n      \"endedAt\": \"2002-11-25T05:08:21.523Z\",\n      \"respondedUrl\": \"string\",\n      \"ruleId\": \"+mEPZ6msWY\",\n      \"ruleName\": \"string\",\n      \"conversationAssigneeId\": \"O'UPoVp|?\",\n      \"routedAt\": \"1991-05-30T10:16:15.449Z\",\n      \"meetings\": [\n        {\n          \"assigneeId\": \"%wM,Q}L\",\n          \"origin\": \"string\",\n          \"scheduledAt\": \"1987-09-15T18:59:26.948Z\"\n        },\n        {\n          \"assigneeId\": \":UGKD\",\n          \"origin\": \"string\",\n          \"scheduledAt\": \"1962-02-12T15:51:29.217Z\"\n        }\n      ],\n      \"messages\": [\n        {\n          \"role\": \"Guest\",\n          \"content\": \"string\",\n          \"timestamp\": \"1959-04-13T12:19:18.581Z\"\n        },\n        {\n          \"role\": \"Bot\",\n          \"content\": \"string\",\n          \"timestamp\": \"1995-08-12T06:19:02.973Z\"\n        }\n      ]\n    },\n    {\n      \"guestId\": \"5c8b3b0d-6ddb-dbd2-ceaa-46df32cbc053\",\n      \"sessionId\": 6580,\n      \"playbookId\": \"37279020-a66b-b342-0ad1-f7cce3461544\",\n      \"startedAt\": \"1968-05-02T15:50:40.682Z\",\n      \"ended\": true,\n      \"targetedUrl\": \"string\",\n      \"routingOutcome\": \"NotRouted\",\n      \"repJoined\": true,\n      \"chatAiStarted\": true,\n      \"meetingBooked\": true,\n      \"guestEmail\": \";D0irc]v35@83e {Z%U\",\n      \"endedAt\": \"2023-10-19T00:09:44.516Z\",\n      \"respondedUrl\": \"string\",\n      \"ruleId\": \"pqIq'y\",\n      \"ruleName\": \"string\",\n      \"conversationAssigneeId\": \"#u@]]z0FkAK\",\n      \"routedAt\": \"1983-01-29T03:25:52.038Z\",\n      \"meetings\": [\n        {\n          \"assigneeId\": \"oD5*}Vh$`UY\",\n          \"origin\": \"string\",\n          \"scheduledAt\": \"2016-02-12T17:56:14.880Z\"\n        },\n        {\n          \"assigneeId\": \"vXQ*To\",\n          \"origin\": \"string\",\n          \"scheduledAt\": \"1976-06-08T14:55:06.498Z\"\n        }\n      ],\n      \"messages\": [\n        {\n          \"role\": \"Guest\",\n          \"content\": \"string\",\n          \"timestamp\": \"1997-07-31T06:30:02.228Z\"\n        },\n        {\n          \"role\": \"Bot\",\n          \"content\": \"string\",\n          \"timestamp\": \"1977-05-22T06:31:12.632Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46c3ba73-fe17-4469-b461-6d5ae6642ff5",
+              "name": "Invalid value for: query parameter workspaceId, Invalid value for: query parameter start, Invalid value for: query parameter end, Invalid value for: query parameter guestEmail, Invalid value for: query parameter guestId, Invalid value for: query parameter ruleId, Invalid value for: query parameter page, Invalid value for: query parameter pageSize",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "chat",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "playbookId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "playbookId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "guestEmail",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guestId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "ruleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ruleName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d7e1ebf9-9447-4737-b24b-5fadf8b48eed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    "chat",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "playbookId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "playbookId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "guestEmail",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guestId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "ruleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ruleName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\",\n  \"arguments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fire.chilipiper.com/api/fire-edge",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b1fa9437-4ed5-402c-a986-c8b06c7be9fb",
+    "name": "Chili Piper — Conversation Inspector Actions Chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "GPT Actions for the chat-conversation-inspector GPT — a subset of the Chili Piper Edge API. Authenticate with a Bearer API key (Admin Center → API Keys).",
+      "type": "text/plain"
+    }
+  }
+}
