@@ -56,6 +56,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Availability
+  tags_raw:
   - availability
   properties:
   - type: OpenAPI
@@ -75,6 +77,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Chat
+  tags_raw:
   - chat
   properties:
   - type: OpenAPI
@@ -94,6 +98,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Concierge
+  tags_raw:
   - concierge
   properties:
   - type: OpenAPI
@@ -113,6 +119,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Distribution
+  tags_raw:
   - distribution
   properties:
   - type: OpenAPI
@@ -151,6 +159,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Hand-off
+  tags_raw:
   - handoff
   properties:
   - type: OpenAPI
@@ -209,6 +219,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Meetings
+  tags_raw:
   - meetings
   properties:
   - type: OpenAPI
@@ -247,6 +259,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Scheduling Links
+  tags_raw:
   - schedulingLinks
   properties:
   - type: OpenAPI
@@ -266,6 +280,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Team
+  tags_raw:
   - team
   properties:
   - type: OpenAPI
@@ -285,6 +301,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Tenant
+  tags_raw:
   - tenant
   properties:
   - type: OpenAPI
@@ -304,6 +322,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
@@ -323,6 +343,8 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
+  - Workspace
+  tags_raw:
   - workspace
   properties:
   - type: OpenAPI
