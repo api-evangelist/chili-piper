@@ -171,7 +171,7 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
-  - handoff
+  - Hand-off
   tags_raw:
   - handoff
   properties:
@@ -270,7 +270,8 @@ apis:
   description: The schedulingLinks API from Chili Piper — 13 operation(s) for schedulinglinks.
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
-  tags: []
+  tags:
+  - Scheduling Links
   tags_raw:
   - schedulingLinks
   properties:
@@ -312,7 +313,7 @@ apis:
   humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   baseURL: https://fire.chilipiper.com/api/fire-edge
   tags:
-  - tenant
+  - Tenant
   tags_raw:
   - tenant
   properties:
