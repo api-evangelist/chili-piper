@@ -1,0 +1,57 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Chili Piper",
+    "identifier": "did:web:www.chilipiper.com"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:chilipiper.com:mcp:chili-piper",
+      "displayName": "Chili Piper MCP Server",
+      "description": "MCP server for managing inbound routing, scheduling, meetings, availability, handoff booking, and distributions in a Chili Piper account (authenticated).",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.chilipiper.com/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "book a meeting with the right sales rep for this lead",
+        "why did this lead get routed to that account executive",
+        "show available demo slots for the mid-market team",
+        "analyze no-show rates for last month's meetings"
+      ]
+    },
+    {
+      "identifier": "urn:air:chilipiper.com:docs:llms-txt",
+      "displayName": "Chili Piper site map for AI assistants (llms.txt)",
+      "description": "Curated markdown roadmap of chilipiper.com: products, solutions, pricing, integrations, and editorial highlights.",
+      "type": "text/markdown",
+      "url": "https://www.chilipiper.com/llms.txt",
+      "representativeQueries": [
+        "what does Chili Piper do",
+        "what products does Chili Piper offer for inbound lead conversion",
+        "how much does Chili Piper cost"
+      ]
+    },
+    {
+      "identifier": "urn:air:chilipiper.com:skills:agent-skills-index",
+      "displayName": "Chili Piper Agent Skills index",
+      "description": "Prebuilt AI skills (SKILL.md recipes) for operating Chili Piper via its MCP server: routing audits, no-show analysis, router configuration, user management, and more.",
+      "type": "application/json",
+      "url": "https://www.chilipiper.com/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "find a prebuilt skill to debug Chili Piper routing",
+        "how do I analyze meeting no-shows with Chili Piper",
+        "configure a concierge router from a spec"
+      ]
+    },
+    {
+      "identifier": "urn:air:chilipiper.com:api:api-catalog",
+      "displayName": "Chili Piper API catalog",
+      "description": "RFC 9727 linkset of Chili Piper's agent-facing APIs and their documentation.",
+      "type": "application/linkset+json",
+      "url": "https://www.chilipiper.com/.well-known/api-catalog",
+      "representativeQueries": [
+        "what APIs does Chili Piper expose for agents",
+        "where is the Chili Piper MCP endpoint documented"
+      ]
+    }
+  ]
+}
