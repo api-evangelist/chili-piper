@@ -180,27 +180,6 @@ apis:
       https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
   - type: Authentication
     url: authentication/chili-piper-authentication.yml
-- aid: chili-piper:chili-piper-handoff-api
-  name: Chili Piper Handoff API
-  description: The handoff API from Chili Piper — 3 operation(s) for handoff.
-  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  baseURL: https://fire.chilipiper.com/api/fire-edge
-  tags:
-  - Hand-off
-  tags_raw:
-  - handoff
-  properties:
-  - type: OpenAPI
-    url: openapi/chili-piper-handoff-api-openapi.yml
-  - type: Documentation
-    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  - type: APIReference
-    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  - type: GettingStarted
-    url: >-
-      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
-  - type: Authentication
-    url: authentication/chili-piper-authentication.yml
 - aid: chili-piper:chili-piper-meeting-type-api
   name: Chili Piper Meeting Type API
   description: The meeting-type API from Chili Piper — 4 operation(s) for meeting-type.
@@ -271,27 +250,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/chili-piper-rule-api-openapi.yml
-  - type: Documentation
-    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  - type: APIReference
-    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  - type: GettingStarted
-    url: >-
-      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
-  - type: Authentication
-    url: authentication/chili-piper-authentication.yml
-- aid: chili-piper:chili-piper-schedulinglinks-api
-  name: Chili Piper Scheduling Links API
-  description: The schedulingLinks API from Chili Piper — 13 operation(s) for schedulinglinks.
-  humanURL: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
-  baseURL: https://fire.chilipiper.com/api/fire-edge
-  tags:
-  - Scheduling Links
-  tags_raw:
-  - schedulingLinks
-  properties:
-  - type: OpenAPI
-    url: openapi/chili-piper-schedulinglinks-api-openapi.yml
   - type: Documentation
     url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   - type: APIReference
@@ -376,6 +334,46 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/chili-piper-workspace-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-hand-off-api
+  name: Chili Piper Hand off API
+  description: The Hand off API from Chili Piper — 3 operation(s) for hand off.
+  humanURL: >-
+    https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+  baseURL: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+  tags:
+  - Hand off
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-hand-off-api-openapi.yml
+  - type: Documentation
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: APIReference
+    url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
+  - type: GettingStarted
+    url: >-
+      https://help.chilipiper.com/hc/en-us/articles/30935152032275-Using-Concierge-via-the-Edge-API
+  - type: Authentication
+    url: authentication/chili-piper-authentication.yml
+- aid: chili-piper:chili-piper-scheduling-links-api
+  name: Chili Piper Scheduling Links API
+  description: The Scheduling Links API from Chili Piper — 13 operation(s) for scheduling links.
+  humanURL: >-
+    https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
+  baseURL: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+  tags:
+  - Scheduling Links
+  properties:
+  - type: OpenAPI
+    url: openapi/chili-piper-scheduling-links-api-openapi.yml
   - type: Documentation
     url: https://help.chilipiper.com/hc/en-us/articles/35576029581971-Edge-API-References
   - type: APIReference
