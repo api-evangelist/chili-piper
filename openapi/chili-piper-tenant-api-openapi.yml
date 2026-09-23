@@ -9,14 +9,32 @@ servers:
 security:
 - apiKeyAuth: []
 tags:
-- name: tenant
+- name: Tenant
 paths:
   /v1/org/tenant/get:
     get:
       tags:
-      - tenant
+      - Tenant
       summary: Get tenant info
-      description: "[operation: tenant-get]\n\n\n\nREAD-ONLY\n\n\n\nFetches top-level config and metadata for the authenticated org — the tenant is inferred from the API key, so there are no inputs. Use it to learn the org's subdomain and cluster, which other calls fold into URLs and identifiers.\n\n→\n\n    {tenantData: {tenantId, cluster, subdomain}, tenantType: \"Personal\"|\"Organization\", email (Personal only), domains: [...] (Organization only)}\n\n  Note: tenantId is at tenantData.tenantId (not top-level); subdomain is at tenantData.subdomain\n\nsee: meeting-activity/crm-activity (use tenantData.subdomain for URL construction)"
+      description: '[operation: tenant-get]
+
+
+        READ-ONLY
+
+
+        Fetches top-level config and metadata for the authenticated org — the tenant is inferred from the API key, so there are no inputs. Use it to learn the org''s subdomain and cluster, which other calls fold into URLs and identifiers.
+
+
+        →
+
+
+        {tenantData: {tenantId, cluster, subdomain}, tenantType: "Personal"|"Organization", email (Personal only), domains: [...] (Organization only)}
+
+
+        Note: tenantId is at tenantData.tenantId (not top-level); subdomain is at tenantData.subdomain
+
+
+        see: meeting-activity/crm-activity (use tenantData.subdomain for URL construction)'
       operationId: tenantGet
       responses:
         '200':
@@ -69,6 +87,47 @@ paths:
       - tenant.read
 components:
   schemas:
+    TenantData:
+      title: TenantData
+      type: object
+      required:
+      - tenantId
+      - cluster
+      - subdomain
+      properties:
+        tenantId:
+          $ref: '#/components/schemas/TenantId'
+        cluster:
+          type: string
+        subdomain:
+          type: string
+    Email:
+      title: Email
+      examples:
+      - john.doe@acme.com
+      type: string
+      pattern: .+@.+
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    TenantInfo:
+      title: TenantInfo
+      oneOf:
+      - $ref: '#/components/schemas/TenantInfo_Organization'
+      - $ref: '#/components/schemas/TenantInfo_Personal'
+      discriminator:
+        propertyName: type
+        mapping:
+          Organization: '#/components/schemas/TenantInfo_Organization'
+          Personal: '#/components/schemas/TenantInfo_Personal'
+    TenantId:
+      title: TenantId
+      examples:
+      - acme-corp.app3
+      type: string
+      pattern: '[^\s\\/]+'
     TenantInfo_Organization:
       title: TenantInfo_Organization
       type: object
@@ -86,35 +145,6 @@ components:
         type:
           type: string
           const: Organization
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    TenantInfo:
-      title: TenantInfo
-      oneOf:
-      - $ref: '#/components/schemas/TenantInfo_Organization'
-      - $ref: '#/components/schemas/TenantInfo_Personal'
-      discriminator:
-        propertyName: type
-        mapping:
-          Organization: '#/components/schemas/TenantInfo_Organization'
-          Personal: '#/components/schemas/TenantInfo_Personal'
-    TenantData:
-      title: TenantData
-      type: object
-      required:
-      - tenantId
-      - cluster
-      - subdomain
-      properties:
-        tenantId:
-          $ref: '#/components/schemas/TenantId'
-        cluster:
-          type: string
-        subdomain:
-          type: string
     TenantInfo_Personal:
       title: TenantInfo_Personal
       type: object
@@ -130,18 +160,6 @@ components:
         type:
           type: string
           const: Personal
-    Email:
-      title: Email
-      examples:
-      - john.doe@acme.com
-      type: string
-      pattern: .+@.+
-    TenantId:
-      title: TenantId
-      examples:
-      - acme-corp.app3
-      type: string
-      pattern: '[^\s\\/]+'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

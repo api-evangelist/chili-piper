@@ -9,17 +9,29 @@ servers:
 security:
 - apiKeyAuth: []
 tags:
-- name: team
+- name: Team
 paths:
   /v2/org/team/create:
-    servers:
-    - url: https://fire.chilipiper.com/api/fire-edge
-      description: Production
     post:
       tags:
-      - team
+      - Team
       summary: Create team
-      description: "[operation: team-create]\n\n\n\nMUTATING\n\n\n\nCreates a team inside a workspace to serve as a routing target for distributions. Optionally seed it with initial members (userIds); add more later with team-add-users.\n\n→\n\n    {id, workspaceId, name, members, metadata}\n\nsee: workspace-list (resolve workspaceId), user-find (resolve emails to member userIds), team-add-users (add more members later)"
+      description: '[operation: team-create]
+
+
+        MUTATING
+
+
+        Creates a team inside a workspace to serve as a routing target for distributions. Optionally seed it with initial members (userIds); add more later with team-add-users.
+
+
+        →
+
+
+        {id, workspaceId, name, members, metadata}
+
+
+        see: workspace-list (resolve workspaceId), user-find (resolve emails to member userIds), team-add-users (add more members later)'
       operationId: teamCreate
       requestBody:
         content:
@@ -82,15 +94,30 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - team.create
-  /v1/org/team/users/add:
     servers:
     - url: https://fire.chilipiper.com/api/fire-edge
       description: Production
+  /v1/org/team/users/add:
     post:
       tags:
-      - team
+      - Team
       summary: Add users to a team
-      description: "[operation: team-add-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nAdds users to a team so they become routing targets for distributions scoped to it. Already-members are silently skipped.\n\n→\n\n    {id, workspaceId, name, members, metadata} — updated team record\n\nsee: team-list (find teamId and verify after), user-find (resolve emails to userIds)"
+      description: '[operation: team-add-users]
+
+
+        MUTATING — IDEMPOTENT
+
+
+        Adds users to a team so they become routing targets for distributions scoped to it. Already-members are silently skipped.
+
+
+        →
+
+
+        {id, workspaceId, name, members, metadata} — updated team record
+
+
+        see: team-list (find teamId and verify after), user-find (resolve emails to userIds)'
       operationId: teamAddUsers
       requestBody:
         content:
@@ -153,15 +180,42 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - team.modify
-  /v2/org/team:
     servers:
     - url: https://fire.chilipiper.com/api/fire-edge
       description: Production
+  /v2/org/team:
     put:
       tags:
-      - team
+      - Team
       summary: Read all teams (PUT)
-      description: "[operation: team-list-put]\n\n\n\nREAD-ONLY\n\n\n\nReturns all teams in the org. Accepts filter params in request body to avoid query-string length limits.\n\n- body.workspaceIds (opt): filter by workspace\n\n- body.name (opt): filter by team name (substring match)\n\n- body.member (opt): filter to teams containing all specified user IDs; use user-find to resolve emails to IDs\n\n- body.page (opt), body.pageSize (opt, default 200)\n\n→\n\n    {results: [{teamId, name, members}]}\n\nsee: team-list (GET equivalent), user-find (resolve email → userId for member filter)"
+      description: '[operation: team-list-put]
+
+
+        READ-ONLY
+
+
+        Returns all teams in the org. Accepts filter params in request body to avoid query-string length limits.
+
+
+        - body.workspaceIds (opt): filter by workspace
+
+
+        - body.name (opt): filter by team name (substring match)
+
+
+        - body.member (opt): filter to teams containing all specified user IDs; use user-find to resolve emails to IDs
+
+
+        - body.page (opt), body.pageSize (opt, default 200)
+
+
+        →
+
+
+        {results: [{teamId, name, members}]}
+
+
+        see: team-list (GET equivalent), user-find (resolve email → userId for member filter)'
       operationId: teamListPut
       requestBody:
         content:
@@ -224,15 +278,39 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - team.read
-  /v1/org/team/users/remove:
     servers:
     - url: https://fire.chilipiper.com/api/fire-edge
       description: Production
+  /v1/org/team/users/remove:
     post:
       tags:
-      - team
+      - Team
       summary: Remove users from a team
-      description: "[operation: team-remove-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nRemoves users from a team. Non-members are silently skipped. Other team memberships unaffected.\n\n- teamId (req): use team-list\n\n- userIds (req): non-empty list\n\n→\n\n    {id, workspaceId, name, members, metadata} — updated team record\n\n⚠ may affect active distributions scoped to this team\n\nsee: team-list (find teamId and verify after), team-remove-users-all (remove from all teams at once)"
+      description: '[operation: team-remove-users]
+
+
+        MUTATING — IDEMPOTENT
+
+
+        Removes users from a team. Non-members are silently skipped. Other team memberships unaffected.
+
+
+        - teamId (req): use team-list
+
+
+        - userIds (req): non-empty list
+
+
+        →
+
+
+        {id, workspaceId, name, members, metadata} — updated team record
+
+
+        ⚠ may affect active distributions scoped to this team
+
+
+        see: team-list (find teamId and verify after), team-remove-users-all (remove from all teams at once)'
       operationId: teamRemoveUsers
       requestBody:
         content:
@@ -295,15 +373,36 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - team.modify
-  /v2/org/team/{teamId}:
     servers:
     - url: https://fire.chilipiper.com/api/fire-edge
       description: Production
+  /v2/org/team/{teamId}:
     delete:
       tags:
-      - team
+      - Team
       summary: Delete team
-      description: "[operation: team-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nPermanently deletes a team. Fails if the team is still referenced by active distributions (use distribution-update-v3 to reassign first).\n\n- teamId (req): use team-list\n\n→\n\n    {id, workspaceId, name, members, metadata} — the deleted team record\n\n⚠ irreversible; does not remove members from the workspace\n\nsee: team-list (find teamId), distribution-update-v3 (reassign before deleting)"
+      description: '[operation: team-delete]
+
+
+        MUTATING — DESTRUCTIVE
+
+
+        Permanently deletes a team. Fails if the team is still referenced by active distributions (use distribution-update-v3 to reassign first).
+
+
+        - teamId (req): use team-list
+
+
+        →
+
+
+        {id, workspaceId, name, members, metadata} — the deleted team record
+
+
+        ⚠ irreversible; does not remove members from the workspace
+
+
+        see: team-list (find teamId), distribution-update-v3 (reassign before deleting)'
       operationId: teamDelete
       parameters:
       - name: teamId
@@ -367,22 +466,11 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - team.remove
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
 components:
   schemas:
-    RemoveUserFromTeamRequest:
-      title: RemoveUserFromTeamRequest
-      type: object
-      required:
-      - teamId
-      - userIds
-      properties:
-        teamId:
-          $ref: '#/components/schemas/TeamId'
-        userIds:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/UserId'
     AddUsersToTeamRequest:
       title: AddUsersToTeamRequest
       type: object
@@ -397,6 +485,89 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/UserId'
+    CreateTeamRequest:
+      title: CreateTeamRequest
+      type: object
+      required:
+      - workspaceId
+      - name
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        members:
+          type: array
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
+    TeamId:
+      title: TeamId
+      examples:
+      - 2a9c3f1e-8b7d-4a5c-9e6f-1b2c3d4e5f6a
+      type: string
+      pattern: '[^\s\\/]+'
+    Team:
+      title: Team
+      type: object
+      required:
+      - id
+      - workspaceId
+      - name
+      - metadata
+      properties:
+        id:
+          $ref: '#/components/schemas/TeamId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        members:
+          type: array
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        metadata: {}
+    PaginatedResult_Team:
+      title: PaginatedResult_Team
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
     FindAllRequest:
       title: FindAllRequest
       type: object
@@ -423,89 +594,20 @@ components:
           items:
             type: string
             pattern: '[^\s\\/]+'
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    PaginatedResult_Team:
-      title: PaginatedResult_Team
+    RemoveUserFromTeamRequest:
+      title: RemoveUserFromTeamRequest
       type: object
       required:
-      - total
-      - page
-      - pageSize
+      - teamId
+      - userIds
       properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
-    Team:
-      title: Team
-      type: object
-      required:
-      - id
-      - workspaceId
-      - name
-      - metadata
-      properties:
-        id:
+        teamId:
           $ref: '#/components/schemas/TeamId'
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
-          type: string
-        members:
+        userIds:
           type: array
+          minItems: 1
           items:
-            type: string
-            pattern: '[^\s\\/]+'
-        metadata: {}
-    WorkspaceId:
-      title: WorkspaceId
-      examples:
-      - b7263a5d-89cb-4f50-a532-ea4aff74688e
-      type: string
-      pattern: '[^\s\\/]+'
-    CreateTeamRequest:
-      title: CreateTeamRequest
-      type: object
-      required:
-      - workspaceId
-      - name
-      properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
-          type: string
-        members:
-          type: array
-          items:
-            type: string
-            pattern: '[^\s\\/]+'
-    TeamId:
-      title: TeamId
-      examples:
-      - 2a9c3f1e-8b7d-4a5c-9e6f-1b2c3d4e5f6a
-      type: string
-      pattern: '[^\s\\/]+'
-    UserId:
-      title: UserId
-      examples:
-      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
-      type: string
-      pattern: '[^\s\\/]+'
+            $ref: '#/components/schemas/UserId'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

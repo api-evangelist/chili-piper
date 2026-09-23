@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Chili Piper — Meeting Type Management Actions Meeting Type Reminder API
+  title: Chili Piper — Meeting Type Management Actions Meeting Type…
   version: 1.287.2
   description: GPT Actions for the meeting-type-management GPT — a subset of the Chili Piper Edge API. Authenticate with a Bearer API key (Admin Center → API Keys).
 servers:
@@ -16,7 +16,25 @@ paths:
       tags:
       - meeting-type-reminder
       summary: List meeting type reminders
-      description: "[operation: meeting-type-reminder-list]\n\n\n\nREAD-ONLY\n\n\n\nBrowses the tenant's reminders — workspace-scoped Email/Sms notifications that meeting types attach to fire before, after, or on booking. Omit workspaceId to fan out across every workspace; pass it to scope to one.\n\n→\n\n    [{id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind: \"BeforeMeeting\"|\"BeforeMeetingNoResponse\"|\"MeetingBooked\"|\"AfterMeeting\", offset?}, name, title?, body}]\n\n  Note: reminders are lean here — advanced send-restrictions and email/sms behaviours are managed by the backend and not exposed.\n\nsee: meeting-type-reminder-create (add one), meeting-type-reminder-update (edit one), meeting-type-reminder-delete (remove one)"
+      description: '[operation: meeting-type-reminder-list]
+
+
+        READ-ONLY
+
+
+        Browses the tenant''s reminders — workspace-scoped Email/Sms notifications that meeting types attach to fire before, after, or on booking. Omit workspaceId to fan out across every workspace; pass it to scope to one.
+
+
+        →
+
+
+        [{id, workspaceId, channel: "Email"|"Sms", trigger: {kind: "BeforeMeeting"|"BeforeMeetingNoResponse"|"MeetingBooked"|"AfterMeeting", offset?}, name, title?, body}]
+
+
+        Note: reminders are lean here — advanced send-restrictions and email/sms behaviours are managed by the backend and not exposed.
+
+
+        see: meeting-type-reminder-create (add one), meeting-type-reminder-update (edit one), meeting-type-reminder-delete (remove one)'
       operationId: meetingTypeReminderList
       parameters:
       - name: workspaceId
@@ -88,7 +106,25 @@ paths:
       tags:
       - meeting-type-reminder
       summary: Create meeting type reminder
-      description: "[operation: meeting-type-reminder-create]\n\n\n\nMUTATING\n\n\n\nCreates a reminder in a workspace; attach it to a meeting type afterwards with meeting-type-attach-reminder. The backend fills in defaults for advanced send behaviours. `trigger` is {kind, offset?}: offset (e.g. \"1 hour\") is required for the timed kinds \"BeforeMeeting\"/\"BeforeMeetingNoResponse\"/\"AfterMeeting\" and must be omitted for \"MeetingBooked\". `title` is the email subject (Email only; ignored for Sms).\n\n→\n\n    {id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind, offset?}, name, title?, body}\n\n  Note: reminders are lean — advanced send-restrictions and email/sms behaviours are backend-defaulted and not settable here.\n\nsee: meeting-type-reminder-list (find a workspaceId), meeting-type-reminder-update (edit afterwards)"
+      description: '[operation: meeting-type-reminder-create]
+
+
+        MUTATING
+
+
+        Creates a reminder in a workspace; attach it to a meeting type afterwards with meeting-type-attach-reminder. The backend fills in defaults for advanced send behaviours. `trigger` is {kind, offset?}: offset (e.g. "1 hour") is required for the timed kinds "BeforeMeeting"/"BeforeMeetingNoResponse"/"AfterMeeting" and must be omitted for "MeetingBooked". `title` is the email subject (Email only; ignored for Sms).
+
+
+        →
+
+
+        {id, workspaceId, channel: "Email"|"Sms", trigger: {kind, offset?}, name, title?, body}
+
+
+        Note: reminders are lean — advanced send-restrictions and email/sms behaviours are backend-defaulted and not settable here.
+
+
+        see: meeting-type-reminder-list (find a workspaceId), meeting-type-reminder-update (edit afterwards)'
       operationId: meetingTypeReminderCreate
       requestBody:
         content:
@@ -156,7 +192,28 @@ paths:
       tags:
       - meeting-type-reminder
       summary: Update meeting type reminder
-      description: "[operation: meeting-type-reminder-update]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nEdits a reminder in place — attached meeting types pick up the change automatically. Send only the fields you want to change; the channel is fixed and cannot switch between Email and Sms. `trigger` is {kind, offset?} (offset required for the timed kinds, omitted for \"MeetingBooked\").\n\n→\n\n    {id, workspaceId, channel: \"Email\"|\"Sms\", trigger: {kind, offset?}, name, title?, body}\n\n  Note: advanced send-restrictions and email/sms behaviours are preserved unchanged.\n\n⚠ takes effect immediately\n\nsee: meeting-type-reminder-list (find the reminderId and workspaceId before editing)"
+      description: '[operation: meeting-type-reminder-update]
+
+
+        MUTATING — IDEMPOTENT
+
+
+        Edits a reminder in place — attached meeting types pick up the change automatically. Send only the fields you want to change; the channel is fixed and cannot switch between Email and Sms. `trigger` is {kind, offset?} (offset required for the timed kinds, omitted for "MeetingBooked").
+
+
+        →
+
+
+        {id, workspaceId, channel: "Email"|"Sms", trigger: {kind, offset?}, name, title?, body}
+
+
+        Note: advanced send-restrictions and email/sms behaviours are preserved unchanged.
+
+
+        ⚠ takes effect immediately
+
+
+        see: meeting-type-reminder-list (find the reminderId and workspaceId before editing)'
       operationId: meetingTypeReminderUpdate
       parameters:
       - name: reminderId
@@ -237,7 +294,28 @@ paths:
       tags:
       - meeting-type-reminder
       summary: Remove meeting type reminder
-      description: "[operation: meeting-type-reminder-delete]\n\n\n\nMUTATING — DESTRUCTIVE\n\n\n\nDeletes a reminder entirely. To stop one meeting type sending it while keeping the reminder, use meeting-type-detach-reminder instead.\n\n→\n\n    {}\n\n  Note: an unknown reminder id (or one in another workspace) returns a typed 404, not a silent success — the id is verified in the workspace before deletion.\n\n⚠ irreversible via API; any meeting types referencing this reminder stop sending it\n\nsee: meeting-type-reminder-list (confirm the reminderId and workspaceId before deleting)"
+      description: '[operation: meeting-type-reminder-delete]
+
+
+        MUTATING — DESTRUCTIVE
+
+
+        Deletes a reminder entirely. To stop one meeting type sending it while keeping the reminder, use meeting-type-detach-reminder instead.
+
+
+        →
+
+
+        {}
+
+
+        Note: an unknown reminder id (or one in another workspace) returns a typed 404, not a silent success — the id is verified in the workspace before deletion.
+
+
+        ⚠ irreversible via API; any meeting types referencing this reminder stop sending it
+
+
+        see: meeting-type-reminder-list (confirm the reminderId and workspaceId before deleting)'
       operationId: meetingTypeReminderDelete
       parameters:
       - name: reminderId
@@ -306,17 +384,17 @@ paths:
       - meeting-type.remove
 components:
   schemas:
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     ReminderChannel:
       title: ReminderChannel
       type: string
       enum:
       - Email
       - Sms
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
     ReminderTrigger:
       title: ReminderTrigger
       type: object
@@ -353,28 +431,6 @@ components:
       - BeforeMeetingNoResponse
       - MeetingBooked
       - AfterMeeting
-    ReminderCreate:
-      title: ReminderCreate
-      type: object
-      required:
-      - workspaceId
-      - channel
-      - trigger
-      - name
-      - body
-      properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        channel:
-          $ref: '#/components/schemas/ReminderChannel'
-        trigger:
-          $ref: '#/components/schemas/ReminderTrigger'
-        name:
-          type: string
-        title:
-          type: string
-        body:
-          type: string
     Reminder:
       title: Reminder
       type: object
@@ -389,6 +445,28 @@ components:
         id:
           type: string
           pattern: '[^\s\\/]+'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        channel:
+          $ref: '#/components/schemas/ReminderChannel'
+        trigger:
+          $ref: '#/components/schemas/ReminderTrigger'
+        name:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+    ReminderCreate:
+      title: ReminderCreate
+      type: object
+      required:
+      - workspaceId
+      - channel
+      - trigger
+      - name
+      - body
+      properties:
         workspaceId:
           $ref: '#/components/schemas/WorkspaceId'
         channel:

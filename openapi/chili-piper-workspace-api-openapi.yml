@@ -2,24 +2,36 @@ openapi: 3.2.0
 info:
   title: Chili Piper Workspace API
   version: '1.0'
-  description: 'Operations tagged workspace across 18 of this provider''s published API definitions: chili-piper-chat-conversation-inspector-openapi.yaml, chili-piper-concierge-debugger-openapi.yaml, chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-distribution-analysis-openapi.yaml, chili-piper-distro-debugger-openapi.yaml, chili-piper-distro-router-configuration-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml, chili-piper-meeting-inspector-openapi.yaml, chili-piper-meeting-type-management-openapi.yaml, chili-piper-no-show-analyzer-openapi.yaml, chili-piper-org-meeting-openapi.yaml, chili-piper-routing-audit-openapi.yaml, chili-piper-scheduling-link-management-openapi.yaml, chili-piper-user-copy-openapi.yaml, chili-piper-user-details-openapi.yaml, chili-piper-user-meetings-openapi.yaml, chili-piper-user-offboarding-openapi.yaml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged workspace across 16 of this provider''s published API definitions: chili-piper-chat-conversation-inspector-openapi.yaml, chili-piper-concierge-debugger-openapi.yaml, chili-piper-concierge-router-builder-openapi.yaml, chili-piper-concierge-router-configuration-openapi.yaml, chili-piper-distribution-analysis-openapi.yaml, chili-piper-distro-debugger-openapi.yaml, chili-piper-distro-router-configuration-openapi.yaml, chili-piper-handoff-router-configuration-openapi.yaml…'
 servers:
 - url: https://fire.chilipiper.com/api/fire-edge
   description: Production
 security:
 - apiKeyAuth: []
 tags:
-- name: workspace
+- name: Workspace
 paths:
   /v1/org/workspace:
-    servers:
-    - url: https://fire.chilipiper.com/api/fire-edge
-      description: Production
     get:
       tags:
-      - workspace
+      - Workspace
       summary: Read all workspaces
-      description: "[operation: workspace-list]\n\n\n\nREAD-ONLY\n\n\n\nLists the workspaces that partition the org and yields the workspaceId most other calls need to scope their work. Hierarchy: Tenant → Workspaces → Teams → Users. Paginated (default pageSize 200).\n\n→\n\n    [{workspaceId, name, settings}]\n\nsee: workspace-list-users (members), workspace-add/remove-users (manage membership), meeting-list/export (filter by workspaceId), concierge-logs (filter by workspaceId)"
+      description: '[operation: workspace-list]
+
+
+        READ-ONLY
+
+
+        Lists the workspaces that partition the org and yields the workspaceId most other calls need to scope their work. Hierarchy: Tenant → Workspaces → Teams → Users. Paginated (default pageSize 200).
+
+
+        →
+
+
+        [{workspaceId, name, settings}]
+
+
+        see: workspace-list-users (members), workspace-add/remove-users (manage membership), meeting-list/export (filter by workspaceId), concierge-logs (filter by workspaceId)'
       operationId: workspaceList
       parameters:
       - name: page
@@ -97,15 +109,36 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - workspace.read
-  /v1/org/workspace/users:
     servers:
     - url: https://fire.chilipiper.com/api/fire-edge
       description: Production
+  /v1/org/workspace/users:
     get:
       tags:
-      - workspace
+      - Workspace
       summary: Read all users (or in a workspace)
-      description: "[operation: workspace-list-users]\n\n\n\nREAD-ONLY\n\n\n\nReturns users in a workspace, or all org users if no workspaceId given.\n\n- workspaceId (opt): use workspace-list; omit for org-wide listing\n\n- page (opt), pageSize (opt, default 200)\n\n→\n\n    {results: [{userId, email, name, roles, licenses, workspaceMemberships}]}\n\nsee: workspace-add/remove-users (manage membership), user-find-by-filter (advanced multi-field filtering)"
+      description: '[operation: workspace-list-users]
+
+
+        READ-ONLY
+
+
+        Returns users in a workspace, or all org users if no workspaceId given.
+
+
+        - workspaceId (opt): use workspace-list; omit for org-wide listing
+
+
+        - page (opt), pageSize (opt, default 200)
+
+
+        →
+
+
+        {results: [{userId, email, name, roles, licenses, workspaceMemberships}]}
+
+
+        see: workspace-add/remove-users (manage membership), user-find-by-filter (advanced multi-field filtering)'
       operationId: workspaceListUsers
       parameters:
       - name: workspaceId
@@ -189,15 +222,36 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - workspace.read
-  /v1/org/workspace/users/add:
     servers:
     - url: https://fire.chilipiper.com/api/fire-edge
       description: Production
+  /v1/org/workspace/users/add:
     post:
       tags:
-      - workspace
+      - Workspace
       summary: Add users to a workspace
-      description: "[operation: workspace-add-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nAdds users to a workspace. Already-members are silently skipped.\n\n- workspaceId (req): use workspace-list\n\n- userIds (req): non-empty list; use user-find\n\n→\n\n    {}\n\nsee: workspace-list (find workspaceId), user-find (resolve userIds), workspace-list-users (verify after)"
+      description: '[operation: workspace-add-users]
+
+
+        MUTATING — IDEMPOTENT
+
+
+        Adds users to a workspace. Already-members are silently skipped.
+
+
+        - workspaceId (req): use workspace-list
+
+
+        - userIds (req): non-empty list; use user-find
+
+
+        →
+
+
+        {}
+
+
+        see: workspace-list (find workspaceId), user-find (resolve userIds), workspace-list-users (verify after)'
       operationId: workspaceAddUsers
       requestBody:
         content:
@@ -256,15 +310,39 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - workspace.modify
-  /v1/org/workspace/users/remove:
     servers:
     - url: https://fire.chilipiper.com/api/fire-edge
       description: Production
+  /v1/org/workspace/users/remove:
     post:
       tags:
-      - workspace
+      - Workspace
       summary: Remove users from a workspace
-      description: "[operation: workspace-remove-users]\n\n\n\nMUTATING — IDEMPOTENT\n\n\n\nRemoves users from a workspace. Other workspace memberships unaffected. Team memberships NOT affected.\n\n- workspaceId (req): use workspace-list\n\n- userIds (req): non-empty list\n\n→\n\n    {}\n\n⚠ may affect active distributions and routing rules within the workspace\n\nsee: workspace-list (find workspaceId), workspace-list-users (verify after), workspace-remove-users-all (all workspaces at once), team-remove-users (for team offboarding)"
+      description: '[operation: workspace-remove-users]
+
+
+        MUTATING — IDEMPOTENT
+
+
+        Removes users from a workspace. Other workspace memberships unaffected. Team memberships NOT affected.
+
+
+        - workspaceId (req): use workspace-list
+
+
+        - userIds (req): non-empty list
+
+
+        →
+
+
+        {}
+
+
+        ⚠ may affect active distributions and routing rules within the workspace
+
+
+        see: workspace-list (find workspaceId), workspace-list-users (verify after), workspace-remove-users-all (all workspaces at once), team-remove-users (for team offboarding)'
       operationId: workspaceRemoveUsers
       requestBody:
         content:
@@ -323,13 +401,164 @@ paths:
       - apiKeyAuth: []
       X-Chili-Required-Permissions:
       - workspace.modify
+    servers:
+    - url: https://fire.chilipiper.com/api/fire-edge
+      description: Production
 components:
   schemas:
+    CallerRef:
+      title: CallerRef
+      description: stringified caller reference in format $type/$id
+      examples:
+      - user/17a3d4563d5a67a3d456ad635
+      type: string
     Map_String:
       title: Map_String
       type: object
       additionalProperties:
         type: string
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    SimpleMetadata:
+      title: SimpleMetadata
+      type: object
+      required:
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - revision
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/CallerRef'
+        updatedAt:
+          type: string
+          format: date-time
+        updatedBy:
+          $ref: '#/components/schemas/CallerRef'
+        revision:
+          type: integer
+          format: int32
+    PaginatedResult_Workspace:
+      title: PaginatedResult_Workspace
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    Workspace:
+      title: Workspace
+      type: object
+      required:
+      - id
+      - name
+      - metadata
+      properties:
+        id:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        emoji:
+          type: string
+        logo:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/SimpleMetadata'
+    Workspace_2:
+      title: Workspace
+      type: object
+      required:
+      - id
+      - name
+      - metadata
+      properties:
+        id:
+          $ref: '#/components/schemas/WorkspaceId'
+          description: Unique identifier of the workspace.
+        name:
+          description: Human-readable workspace name.
+          type: string
+        emoji:
+          description: Optional emoji shown as the workspace's icon.
+          type: string
+        logo:
+          description: Optional URL of the workspace's logo image.
+          type: string
+        metadata:
+          $ref: '#/components/schemas/SimpleMetadata'
+    PaginatedResult_User:
+      title: PaginatedResult_User
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    UserLicenses:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
+    Email:
+      title: Email
+      examples:
+      - john.doe@acme.com
+      type: string
+      pattern: .+@.+
     User:
       title: User
       type: object
@@ -379,73 +608,6 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
-    UserLicenses:
-      title: UserLicenses
-      type: object
-      required:
-      - chiliCalOrg
-      - handoff
-      properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
-    SimpleMetadata:
-      title: SimpleMetadata
-      type: object
-      required:
-      - createdAt
-      - createdBy
-      - updatedAt
-      - updatedBy
-      - revision
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-        createdBy:
-          $ref: '#/components/schemas/CallerRef'
-        updatedAt:
-          type: string
-          format: date-time
-        updatedBy:
-          $ref: '#/components/schemas/CallerRef'
-        revision:
-          type: integer
-          format: int32
-    PaginatedResult_User:
-      title: PaginatedResult_User
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
     Tier:
       title: Tier
       type: string
@@ -453,32 +615,6 @@ components:
       - RoutingAndScheduling
       - Experiences
       - ChiliDataPlatform
-    SalesforceUser:
-      title: SalesforceUser
-      type: object
-      required:
-      - email
-      - id
-      properties:
-        email:
-          $ref: '#/components/schemas/Email'
-        id:
-          type: string
-          pattern: '[^\s\\/]+'
-    RemoveUserFromWorkspaceRequest:
-      title: RemoveUserFromWorkspaceRequest
-      type: object
-      required:
-      - workspaceId
-      - userIds
-      properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        userIds:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/UserId'
     AddUsersToWorkspaceRequest:
       title: AddUsersToWorkspaceRequest
       type: object
@@ -493,65 +629,24 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/UserId'
-    CallerRef:
-      title: CallerRef
-      description: stringified caller reference in format $type/$id
+    SalesforceUser:
+      title: SalesforceUser
+      type: object
+      required:
+      - email
+      - id
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: string
+          pattern: '[^\s\\/]+'
+    UserId:
+      title: UserId
       examples:
-      - user/17a3d4563d5a67a3d456ad635
-      type: string
-    Email:
-      title: Email
-      examples:
-      - john.doe@acme.com
-      type: string
-      pattern: .+@.+
-    WorkspaceId:
-      title: WorkspaceId
-      examples:
-      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
       type: string
       pattern: '[^\s\\/]+'
-    PaginatedResult_Workspace:
-      title: PaginatedResult_Workspace
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
-    Workspace:
-      title: Workspace
-      type: object
-      required:
-      - id
-      - name
-      - metadata
-      properties:
-        id:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
-          type: string
-        emoji:
-          type: string
-        logo:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/SimpleMetadata'
     HubspotUser:
       title: HubspotUser
       type: object
@@ -564,12 +659,43 @@ components:
         id:
           type: integer
           format: int64
-    UserId:
-      title: UserId
-      examples:
-      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
-      type: string
-      pattern: '[^\s\\/]+'
+    UserLicenses_2:
+      title: UserLicenses
+      type: object
+      required:
+      - distro
+      - chiliCalOrg
+      - concierge
+      - conciergeLive
+      - chat
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+    RemoveUserFromWorkspaceRequest:
+      title: RemoveUserFromWorkspaceRequest
+      type: object
+      required:
+      - workspaceId
+      - userIds
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        userIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UserId'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
@@ -588,10 +714,8 @@ x-refined-from:
 - chili-piper-meeting-inspector-openapi.yaml
 - chili-piper-meeting-type-management-openapi.yaml
 - chili-piper-no-show-analyzer-openapi.yaml
-- chili-piper-org-meeting-openapi.yaml
 - chili-piper-routing-audit-openapi.yaml
 - chili-piper-scheduling-link-management-openapi.yaml
 - chili-piper-user-copy-openapi.yaml
 - chili-piper-user-details-openapi.yaml
-- chili-piper-user-meetings-openapi.yaml
 - chili-piper-user-offboarding-openapi.yaml

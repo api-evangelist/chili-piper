@@ -9,14 +9,32 @@ servers:
 security:
 - apiKeyAuth: []
 tags:
-- name: chat
+- name: Chat
 paths:
   /v1/org/chat/logs:
     get:
       tags:
-      - chat
+      - Chat
       summary: Reads Chat Conversation Logs
-      description: "[operation: chat-logs]\n\n\n\nREAD-ONLY\n\n\n\nReads a workspace's Chat AI conversation logs over a time window — the read-only audit trail of who chatted, how they were routed, and what got booked. Each entry carries the full bot/guest transcript, the routing outcome, and any meetings booked. Use it to inspect or debug live chat routing after the fact. The start/end window (ISO-8601) spans at most 30 days. Pass playbookId (repeatable) to restrict to specific chat playbooks. Narrow to a specific guest or rule with guestEmail (case-insensitive exact match), guestId (exact match), ruleId (exact match on any routing rule executed in the session; stable across rule renames), and/or ruleName (exact match on any routing rule executed in the session). Pages start at 0; pageSize defaults to 10, max 50.\n\n→\n\n    {results: [{guestId, sessionId, playbookId, guestEmail, startedAt, endedAt, ended, targetedUrl, respondedUrl, routingOutcome, ruleId, ruleName, conversationAssigneeId, routedAt, repJoined, chatAiStarted, meetingBooked, meetings: [{assigneeId, origin, scheduledAt}], messages: [{role, content, timestamp}]}], total, page, pageSize}\n\n  Note: routingOutcome is one of Routed | NotRouted | Abandoned; role is one of Bot | Guest; meetings[N].origin is one of Journey | Inbox | NoMeeting\n\nsee: workspace-list (find workspaceId)"
+      description: '[operation: chat-logs]
+
+
+        READ-ONLY
+
+
+        Reads a workspace''s Chat AI conversation logs over a time window — the read-only audit trail of who chatted, how they were routed, and what got booked. Each entry carries the full bot/guest transcript, the routing outcome, and any meetings booked. Use it to inspect or debug live chat routing after the fact. The start/end window (ISO-8601) spans at most 30 days. Pass playbookId (repeatable) to restrict to specific chat playbooks. Narrow to a specific guest or rule with guestEmail (case-insensitive exact match), guestId (exact match), ruleId (exact match on any routing rule executed in the session; stable across rule renames), and/or ruleName (exact match on any routing rule executed in the session). Pages start at 0; pageSize defaults to 10, max 50.
+
+
+        →
+
+
+        {results: [{guestId, sessionId, playbookId, guestEmail, startedAt, endedAt, ended, targetedUrl, respondedUrl, routingOutcome, ruleId, ruleName, conversationAssigneeId, routedAt, repJoined, chatAiStarted, meetingBooked, meetings: [{assigneeId, origin, scheduledAt}], messages: [{role, content, timestamp}]}], total, page, pageSize}
+
+
+        Note: routingOutcome is one of Routed | NotRouted | Abandoned; role is one of Bot | Guest; meetings[N].origin is one of Journey | Inbox | NoMeeting
+
+
+        see: workspace-list (find workspaceId)'
       operationId: chatLogs
       parameters:
       - name: workspaceId
@@ -153,6 +171,55 @@ paths:
       - logs.read
 components:
   schemas:
+    ChatMessageRole:
+      title: ChatMessageRole
+      type: string
+      enum:
+      - Bot
+      - Guest
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    PaginatedResult_ChatConversationLog:
+      title: PaginatedResult_ChatConversationLog
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatConversationLog'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    ChatConversationMeeting:
+      title: ChatConversationMeeting
+      type: object
+      required:
+      - assigneeId
+      - origin
+      - scheduledAt
+      properties:
+        assigneeId:
+          $ref: '#/components/schemas/UserId'
+        origin:
+          type: string
+        scheduledAt:
+          type: string
+          format: date-time
     ChatConversationLog:
       title: ChatConversationLog
       type: object
@@ -219,18 +286,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChatConversationMessage'
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    ChatRoutingOutcome:
-      title: ChatRoutingOutcome
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
       type: string
-      enum:
-      - Routed
-      - NotRouted
-      - Abandoned
+      pattern: '[^\s\\/]+'
     ChatConversationMessage:
       title: ChatConversationMessage
       type: object
@@ -246,56 +307,13 @@ components:
         timestamp:
           type: string
           format: date-time
-    ChatConversationMeeting:
-      title: ChatConversationMeeting
-      type: object
-      required:
-      - assigneeId
-      - origin
-      - scheduledAt
-      properties:
-        assigneeId:
-          $ref: '#/components/schemas/UserId'
-        origin:
-          type: string
-        scheduledAt:
-          type: string
-          format: date-time
-    PaginatedResult_ChatConversationLog:
-      title: PaginatedResult_ChatConversationLog
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChatConversationLog'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
-    ChatMessageRole:
-      title: ChatMessageRole
+    ChatRoutingOutcome:
+      title: ChatRoutingOutcome
       type: string
       enum:
-      - Bot
-      - Guest
-    UserId:
-      title: UserId
-      examples:
-      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
-      type: string
-      pattern: '[^\s\\/]+'
+      - Routed
+      - NotRouted
+      - Abandoned
   securitySchemes:
     apiKeyAuth:
       type: apiKey
