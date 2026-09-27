@@ -171,17 +171,6 @@ paths:
       - logs.read
 components:
   schemas:
-    ChatMessageRole:
-      title: ChatMessageRole
-      type: string
-      enum:
-      - Bot
-      - Guest
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
     PaginatedResult_ChatConversationLog:
       title: PaginatedResult_ChatConversationLog
       type: object
@@ -205,21 +194,12 @@ components:
           type: integer
           format: int64
           exclusiveMinimum: 0
-    ChatConversationMeeting:
-      title: ChatConversationMeeting
-      type: object
-      required:
-      - assigneeId
-      - origin
-      - scheduledAt
-      properties:
-        assigneeId:
-          $ref: '#/components/schemas/UserId'
-        origin:
-          type: string
-        scheduledAt:
-          type: string
-          format: date-time
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
     ChatConversationLog:
       title: ChatConversationLog
       type: object
@@ -286,12 +266,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChatConversationMessage'
-    UserId:
-      title: UserId
-      examples:
-      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
-      type: string
-      pattern: '[^\s\\/]+'
     ChatConversationMessage:
       title: ChatConversationMessage
       type: object
@@ -307,6 +281,11 @@ components:
         timestamp:
           type: string
           format: date-time
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     ChatRoutingOutcome:
       title: ChatRoutingOutcome
       type: string
@@ -314,6 +293,27 @@ components:
       - Routed
       - NotRouted
       - Abandoned
+    ChatConversationMeeting:
+      title: ChatConversationMeeting
+      type: object
+      required:
+      - assigneeId
+      - origin
+      - scheduledAt
+      properties:
+        assigneeId:
+          $ref: '#/components/schemas/UserId'
+        origin:
+          type: string
+        scheduledAt:
+          type: string
+          format: date-time
+    ChatMessageRole:
+      title: ChatMessageRole
+      type: string
+      enum:
+      - Bot
+      - Guest
   securitySchemes:
     apiKeyAuth:
       type: apiKey

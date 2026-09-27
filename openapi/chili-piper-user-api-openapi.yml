@@ -411,58 +411,35 @@ paths:
       description: Production
 components:
   schemas:
-    PaginatedResult_User:
-      title: PaginatedResult_User
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    SalesforceUser:
+      title: SalesforceUser
       type: object
       required:
-      - total
-      - page
-      - pageSize
+      - email
+      - id
       properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
-    UserLicenses:
-      title: UserLicenses
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: string
+          pattern: '[^\s\\/]+'
+    HubspotUser:
+      title: HubspotUser
       type: object
       required:
-      - distro
-      - chiliCalOrg
-      - concierge
-      - conciergeLive
-      - chat
-      - handoff
+      - email
+      - id
       properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-    Email:
-      title: Email
-      examples:
-      - john.doe@acme.com
-      type: string
-      pattern: .+@.+
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: integer
+          format: int64
     User:
       title: User
       type: object
@@ -512,41 +489,71 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    SalesforceUser:
-      title: SalesforceUser
-      type: object
-      required:
-      - email
-      - id
-      properties:
-        email:
-          $ref: '#/components/schemas/Email'
-        id:
-          type: string
-          pattern: '[^\s\\/]+'
+    Email:
+      title: Email
+      examples:
+      - john.doe@acme.com
+      type: string
+      pattern: .+@.+
     UserId:
       title: UserId
       examples:
       - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
       type: string
       pattern: '[^\s\\/]+'
-    HubspotUser:
-      title: HubspotUser
+    UserLicenses:
+      title: UserLicenses
       type: object
       required:
-      - email
-      - id
+      - distro
+      - chiliCalOrg
+      - concierge
+      - conciergeLive
+      - chat
+      - handoff
       properties:
-        email:
-          $ref: '#/components/schemas/Email'
-        id:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+    PaginatedResult_User:
+      title: PaginatedResult_User
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        total:
           type: integer
           format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    Tier:
+      title: Tier
+      type: string
+      enum:
+      - RoutingAndScheduling
+      - Experiences
+      - ChiliDataPlatform
     User1:
       title: User
       type: object
@@ -596,6 +603,27 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
+    UserLicenses_2:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
     PaginatedResult_User_2:
       title: PaginatedResult_User
       type: object
@@ -619,34 +647,6 @@ components:
           type: integer
           format: int64
           exclusiveMinimum: 0
-    UserLicenses_2:
-      title: UserLicenses
-      type: object
-      required:
-      - chiliCalOrg
-      - handoff
-      properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
-    Tier:
-      title: Tier
-      type: string
-      enum:
-      - RoutingAndScheduling
-      - Experiences
-      - ChiliDataPlatform
     User1_2:
       title: User
       type: object
@@ -696,6 +696,27 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
+    UserLicenses_3:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
     PaginatedResult_User_3:
       title: PaginatedResult_User
       type: object
@@ -719,27 +740,6 @@ components:
           type: integer
           format: int64
           exclusiveMinimum: 0
-    UserLicenses_3:
-      title: UserLicenses
-      type: object
-      required:
-      - chiliCalOrg
-      - handoff
-      properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
     User1_3:
       title: User
       type: object
@@ -789,6 +789,27 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
+    UserLicenses_4:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
     PaginatedResult_User_4:
       title: PaginatedResult_User
       type: object
@@ -812,27 +833,34 @@ components:
           type: integer
           format: int64
           exclusiveMinimum: 0
-    UserLicenses_4:
-      title: UserLicenses
+    SalesforceUser_2:
+      title: SalesforceUser
       type: object
       required:
-      - chiliCalOrg
-      - handoff
+      - email
+      - id
       properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
+        email:
+          $ref: '#/components/schemas/Email'
+          description: Email of the linked Salesforce user.
+        id:
+          description: Identifier of the linked Salesforce user.
+          type: string
+          pattern: '[^\s\\/]+'
+    HubspotUser_2:
+      title: HubspotUser
+      type: object
+      required:
+      - email
+      - id
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+          description: Email of the linked HubSpot user.
+        id:
+          description: Identifier of the linked HubSpot user.
+          type: integer
+          format: int64
     User1_4:
       title: User
       type: object
@@ -889,29 +917,6 @@ components:
           description: The user's personal workspace, when they have one.
           type: string
           pattern: '[^\s\\/]+'
-    PaginatedResult_User_5:
-      title: PaginatedResult_User
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/User1_4'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
     UserLicenses_5:
       title: UserLicenses
       type: object
@@ -939,34 +944,29 @@ components:
           type: boolean
         tier:
           $ref: '#/components/schemas/Tier'
-    SalesforceUser_2:
-      title: SalesforceUser
+    PaginatedResult_User_5:
+      title: PaginatedResult_User
       type: object
       required:
-      - email
-      - id
+      - total
+      - page
+      - pageSize
       properties:
-        email:
-          $ref: '#/components/schemas/Email'
-          description: Email of the linked Salesforce user.
-        id:
-          description: Identifier of the linked Salesforce user.
-          type: string
-          pattern: '[^\s\\/]+'
-    HubspotUser_2:
-      title: HubspotUser
-      type: object
-      required:
-      - email
-      - id
-      properties:
-        email:
-          $ref: '#/components/schemas/Email'
-          description: Email of the linked HubSpot user.
-        id:
-          description: Identifier of the linked HubSpot user.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User1_4'
+        total:
           type: integer
           format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
     User1_5:
       title: User
       type: object
@@ -1016,6 +1016,27 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
+    UserLicenses_6:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
     PaginatedResult_User_6:
       title: PaginatedResult_User
       type: object
@@ -1039,27 +1060,6 @@ components:
           type: integer
           format: int64
           exclusiveMinimum: 0
-    UserLicenses_6:
-      title: UserLicenses
-      type: object
-      required:
-      - chiliCalOrg
-      - handoff
-      properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
     User1_6:
       title: User
       type: object
@@ -1109,6 +1109,27 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
+    UserLicenses_7:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
     PaginatedResult_User_7:
       title: PaginatedResult_User
       type: object
@@ -1132,56 +1153,15 @@ components:
           type: integer
           format: int64
           exclusiveMinimum: 0
-    UserLicenses_7:
-      title: UserLicenses
+    Other:
+      title: Other
       type: object
       required:
-      - chiliCalOrg
-      - handoff
+      - type
       properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
-    UpdateLicensesRequest:
-      title: UpdateLicensesRequest
-      type: object
-      required:
-      - update
-      properties:
-        update:
-          $ref: '#/components/schemas/Map_Refined_String_Refinement_V'
-    UserLicenses_8:
-      title: UserLicenses
-      type: object
-      required:
-      - chiliCalOrg
-      - handoff
-      properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
+        type:
+          type: string
+          const: Other
     NoTimezone:
       title: NoTimezone
       type: object
@@ -1205,15 +1185,14 @@ components:
         type:
           type: string
           const: ExternalCalendarIntegrationFailure
-    Other:
-      title: Other
+    UpdateLicensesRequest:
+      title: UpdateLicensesRequest
       type: object
       required:
-      - type
+      - update
       properties:
-        type:
-          type: string
-          const: Other
+        update:
+          $ref: '#/components/schemas/Map_Refined_String_Refinement_V'
     AvailabilityFailure:
       title: AvailabilityFailure
       oneOf:
@@ -1226,6 +1205,27 @@ components:
           ExternalCalendarIntegrationFailure: '#/components/schemas/ExternalCalendarIntegrationFailure'
           NoTimezone: '#/components/schemas/NoTimezone'
           Other: '#/components/schemas/Other'
+    UserLicenses_8:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -126,146 +126,6 @@ paths:
       - availability.read
 components:
   schemas:
-    AvailabilityExpectedHost:
-      title: AvailabilityExpectedHost
-      oneOf:
-      - $ref: '#/components/schemas/AvailabilityExpectedHost_AssigneeFromDistribution'
-      - $ref: '#/components/schemas/AvailabilityExpectedHost_User'
-      discriminator:
-        propertyName: type
-        mapping:
-          AssigneeFromDistribution: com.chilipiper.edge.api.endpoint.model.EdgeAvailabilityExpectedHost.AssigneeFromDistribution
-          User: com.chilipiper.edge.api.endpoint.model.EdgeAvailabilityExpectedHost.User
-    MeetingStartTimes:
-      title: MeetingStartTimes
-      type: object
-      required:
-      - meetingTypeRef
-      - failures
-      properties:
-        meetingTypeRef:
-          $ref: '#/components/schemas/MeetingTypeRef'
-        startTimes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MeetingStartTime'
-        failures:
-          $ref: '#/components/schemas/Map_Refined_String_Refinement_V'
-    RequestAttendee_AdditionalAttendee:
-      title: RequestAttendee_AdditionalAttendee
-      type: object
-      required:
-      - userId
-      - required
-      - type
-      properties:
-        userId:
-          $ref: '#/components/schemas/UserId'
-        required:
-          type: boolean
-        type:
-          type: string
-    RequestAttendee_ManuallyAssigned:
-      title: RequestAttendee_ManuallyAssigned
-      type: object
-      required:
-      - userId
-      - required
-      - type
-      properties:
-        userId:
-          $ref: '#/components/schemas/UserId'
-        required:
-          type: boolean
-        type:
-          type: string
-    RequestedAttendee_FlexibleRoundRobinAssignee:
-      title: RequestedAttendee_FlexibleRoundRobinAssignee
-      type: object
-      required:
-      - distributionId
-      - userIds
-      - required
-      - type
-      properties:
-        distributionId:
-          $ref: '#/components/schemas/DistributionId'
-        userIds:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/UserId'
-        required:
-          type: boolean
-        type:
-          type: string
-    Map_Refined_String_Refinement_V:
-      title: Map_Refined_String_Refinement_V
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/AvailabilityFailure'
-    TimeInterval:
-      title: TimeInterval
-      type: object
-      required:
-      - startsAt
-      - duration
-      properties:
-        startsAt:
-          type: string
-          format: date-time
-        duration:
-          description: Duration of the time interval. Accepts Scala FiniteDuration format (e.g. '7 days', '1 hour', '30 minutes') or ISO 8601 duration format (e.g. 'P7D', 'PT168H', 'PT1H30M').
-          type: string
-    ExternalCalendarIntegrationFailure:
-      title: ExternalCalendarIntegrationFailure
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: ExternalCalendarIntegrationFailure
-    MeetingTypeRef:
-      title: MeetingTypeRef
-      type: object
-      required:
-      - id
-      - timestamp
-      properties:
-        id:
-          $ref: '#/components/schemas/MeetingTypeId'
-        timestamp:
-          type: string
-          format: date-time
-    MeetingTypeId:
-      title: MeetingTypeId
-      examples:
-      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
-      type: string
-      format: uuid
-    AvailabilityExpectedHost_User:
-      title: AvailabilityExpectedHost_User
-      type: object
-      required:
-      - userId
-      - type
-      properties:
-        userId:
-          $ref: '#/components/schemas/UserId'
-        type:
-          type: string
-    AvailabilityExpectedHost_AssigneeFromDistribution:
-      title: AvailabilityExpectedHost_AssigneeFromDistribution
-      type: object
-      required:
-      - distributionId
-      - type
-      properties:
-        distributionId:
-          $ref: '#/components/schemas/DistributionId'
-        type:
-          type: string
     MeetingStartTimesRequest:
       title: MeetingStartTimesRequest
       type: object
@@ -288,46 +148,24 @@ components:
           $ref: '#/components/schemas/MeetingTypeOverrides'
         interval:
           $ref: '#/components/schemas/TimeInterval'
-    RequestAttendee:
-      title: RequestAttendee
+    RequestedAttendee:
+      title: RequestedAttendee
       oneOf:
-      - $ref: '#/components/schemas/RequestAttendee_AdditionalAttendee'
-      - $ref: '#/components/schemas/RequestAttendee_AssignedViaTeam'
-      - $ref: '#/components/schemas/RequestAttendee_DistributionAssignee'
-      - $ref: '#/components/schemas/RequestAttendee_ManuallyAssigned'
+      - $ref: '#/components/schemas/RequestedAttendee_AdditionalAttendee'
+      - $ref: '#/components/schemas/RequestedAttendee_AssignedViaTeam'
+      - $ref: '#/components/schemas/RequestedAttendee_FlexibleRoundRobinAssignee'
+      - $ref: '#/components/schemas/RequestedAttendee_ManuallyAssigned'
+      - $ref: '#/components/schemas/RequestedAttendee_StrictRoundRobinAssignee'
       discriminator:
         propertyName: type
         mapping:
-          AdditionalAttendee: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.AdditionalAttendee
-          AssignedViaTeam: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.AssignedViaTeam
-          DistributionAssignee: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.DistributionAssignee
-          ManuallyAssigned: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.ManuallyAssigned
-    MeetingTypeOverrides:
-      title: MeetingTypeOverrides
-      type: object
-      properties:
-        meetingDurationOverride:
-          type: string
-        beforeBufferDurationOverride:
-          type: string
-        afterBufferDurationOverride:
-          type: string
-        availabilityIncrementOverride:
-          type: string
-    UserId:
-      title: UserId
-      examples:
-      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
-      type: string
-      pattern: '[^\s\\/]+'
-    TeamId:
-      title: TeamId
-      examples:
-      - 2a9c3f1e-8b7d-4a5c-9e6f-1b2c3d4e5f6a
-      type: string
-      pattern: '[^\s\\/]+'
-    RequestAttendee_AssignedViaTeam:
-      title: RequestAttendee_AssignedViaTeam
+          AdditionalAttendee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.AdditionalAttendee
+          AssignedViaTeam: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.AssignedViaTeam
+          FlexibleRoundRobinAssignee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.FlexibleRoundRobinAssignee
+          ManuallyAssigned: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.ManuallyAssigned
+          StrictRoundRobinAssignee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.StrictRoundRobinAssignee
+    RequestedAttendee_AssignedViaTeam:
+      title: RequestedAttendee_AssignedViaTeam
       type: object
       required:
       - userId
@@ -343,34 +181,8 @@ components:
           type: boolean
         type:
           type: string
-    RequestedAttendee_StrictRoundRobinAssignee:
-      title: RequestedAttendee_StrictRoundRobinAssignee
-      type: object
-      required:
-      - distributionId
-      - userId
-      - required
-      - type
-      properties:
-        distributionId:
-          $ref: '#/components/schemas/DistributionId'
-        userId:
-          $ref: '#/components/schemas/UserId'
-        required:
-          type: boolean
-        type:
-          type: string
-    NoTimezone:
-      title: NoTimezone
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: NoTimezone
-    RequestedAttendee_AssignedViaTeam:
-      title: RequestedAttendee_AssignedViaTeam
+    RequestAttendee_AssignedViaTeam:
+      title: RequestAttendee_AssignedViaTeam
       type: object
       required:
       - userId
@@ -407,11 +219,111 @@ components:
           type: boolean
         type:
           type: string
-    Map_String:
-      title: Map_String
+    RequestAttendee_ManuallyAssigned:
+      title: RequestAttendee_ManuallyAssigned
+      type: object
+      required:
+      - userId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    AvailabilityExpectedHost_AssigneeFromDistribution:
+      title: AvailabilityExpectedHost_AssigneeFromDistribution
+      type: object
+      required:
+      - distributionId
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        type:
+          type: string
+    NoTimezone:
+      title: NoTimezone
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: NoTimezone
+    AvailabilityExpectedHost_User:
+      title: AvailabilityExpectedHost_User
+      type: object
+      required:
+      - userId
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        type:
+          type: string
+    RequestedAttendee_AdditionalAttendee:
+      title: RequestedAttendee_AdditionalAttendee
+      type: object
+      required:
+      - userId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    TeamId:
+      title: TeamId
+      examples:
+      - 2a9c3f1e-8b7d-4a5c-9e6f-1b2c3d4e5f6a
+      type: string
+      pattern: '[^\s\\/]+'
+    Map_Refined_String_Refinement_V:
+      title: Map_Refined_String_Refinement_V
       type: object
       additionalProperties:
-        type: string
+        $ref: '#/components/schemas/AvailabilityFailure'
+    RequestAttendee_AdditionalAttendee:
+      title: RequestAttendee_AdditionalAttendee
+      type: object
+      required:
+      - userId
+      - required
+      - type
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    MeetingTypeId:
+      title: MeetingTypeId
+      examples:
+      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
+      type: string
+      format: uuid
+    MeetingStartTimes:
+      title: MeetingStartTimes
+      type: object
+      required:
+      - meetingTypeRef
+      - failures
+      properties:
+        meetingTypeRef:
+          $ref: '#/components/schemas/MeetingTypeRef'
+        startTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeetingStartTime'
+        failures:
+          $ref: '#/components/schemas/Map_Refined_String_Refinement_V'
     Other:
       title: Other
       type: object
@@ -436,28 +348,15 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/RequestedAttendee'
-    RequestedAttendee:
-      title: RequestedAttendee
-      oneOf:
-      - $ref: '#/components/schemas/RequestedAttendee_AdditionalAttendee'
-      - $ref: '#/components/schemas/RequestedAttendee_AssignedViaTeam'
-      - $ref: '#/components/schemas/RequestedAttendee_FlexibleRoundRobinAssignee'
-      - $ref: '#/components/schemas/RequestedAttendee_ManuallyAssigned'
-      - $ref: '#/components/schemas/RequestedAttendee_StrictRoundRobinAssignee'
-      discriminator:
-        propertyName: type
-        mapping:
-          AdditionalAttendee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.AdditionalAttendee
-          AssignedViaTeam: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.AssignedViaTeam
-          FlexibleRoundRobinAssignee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.FlexibleRoundRobinAssignee
-          ManuallyAssigned: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.ManuallyAssigned
-          StrictRoundRobinAssignee: com.chilipiper.edge.api.model.availability.EdgeRequestedAttendee.StrictRoundRobinAssignee
-    DistributionId:
-      title: DistributionId
-      examples:
-      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
-      type: string
-      pattern: '[^\s\\/]+'
+    ExternalCalendarIntegrationFailure:
+      title: ExternalCalendarIntegrationFailure
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: ExternalCalendarIntegrationFailure
     AvailabilityFailure:
       title: AvailabilityFailure
       oneOf:
@@ -470,20 +369,109 @@ components:
           ExternalCalendarIntegrationFailure: '#/components/schemas/ExternalCalendarIntegrationFailure'
           NoTimezone: '#/components/schemas/NoTimezone'
           Other: '#/components/schemas/Other'
-    RequestedAttendee_AdditionalAttendee:
-      title: RequestedAttendee_AdditionalAttendee
+    AvailabilityExpectedHost:
+      title: AvailabilityExpectedHost
+      oneOf:
+      - $ref: '#/components/schemas/AvailabilityExpectedHost_AssigneeFromDistribution'
+      - $ref: '#/components/schemas/AvailabilityExpectedHost_User'
+      discriminator:
+        propertyName: type
+        mapping:
+          AssigneeFromDistribution: com.chilipiper.edge.api.endpoint.model.EdgeAvailabilityExpectedHost.AssigneeFromDistribution
+          User: com.chilipiper.edge.api.endpoint.model.EdgeAvailabilityExpectedHost.User
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
+    RequestedAttendee_StrictRoundRobinAssignee:
+      title: RequestedAttendee_StrictRoundRobinAssignee
       type: object
       required:
+      - distributionId
       - userId
       - required
       - type
       properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
         userId:
           $ref: '#/components/schemas/UserId'
         required:
           type: boolean
         type:
           type: string
+    TimeInterval:
+      title: TimeInterval
+      type: object
+      required:
+      - startsAt
+      - duration
+      properties:
+        startsAt:
+          type: string
+          format: date-time
+        duration:
+          description: Duration of the time interval. Accepts Scala FiniteDuration format (e.g. '7 days', '1 hour', '30 minutes') or ISO 8601 duration format (e.g. 'P7D', 'PT168H', 'PT1H30M').
+          type: string
+    RequestAttendee:
+      title: RequestAttendee
+      oneOf:
+      - $ref: '#/components/schemas/RequestAttendee_AdditionalAttendee'
+      - $ref: '#/components/schemas/RequestAttendee_AssignedViaTeam'
+      - $ref: '#/components/schemas/RequestAttendee_DistributionAssignee'
+      - $ref: '#/components/schemas/RequestAttendee_ManuallyAssigned'
+      discriminator:
+        propertyName: type
+        mapping:
+          AdditionalAttendee: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.AdditionalAttendee
+          AssignedViaTeam: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.AssignedViaTeam
+          DistributionAssignee: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.DistributionAssignee
+          ManuallyAssigned: com.chilipiper.edge.api.endpoint.model.EdgeRequestAttendee.ManuallyAssigned
+    MeetingTypeOverrides:
+      title: MeetingTypeOverrides
+      type: object
+      properties:
+        meetingDurationOverride:
+          type: string
+        beforeBufferDurationOverride:
+          type: string
+        afterBufferDurationOverride:
+          type: string
+        availabilityIncrementOverride:
+          type: string
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    RequestedAttendee_FlexibleRoundRobinAssignee:
+      title: RequestedAttendee_FlexibleRoundRobinAssignee
+      type: object
+      required:
+      - distributionId
+      - userIds
+      - required
+      - type
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        userIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UserId'
+        required:
+          type: boolean
+        type:
+          type: string
+    DistributionId:
+      title: DistributionId
+      examples:
+      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
+      type: string
+      pattern: '[^\s\\/]+'
     RequestedAttendee_ManuallyAssigned:
       title: RequestedAttendee_ManuallyAssigned
       type: object
@@ -498,6 +486,18 @@ components:
           type: boolean
         type:
           type: string
+    MeetingTypeRef:
+      title: MeetingTypeRef
+      type: object
+      required:
+      - id
+      - timestamp
+      properties:
+        id:
+          $ref: '#/components/schemas/MeetingTypeId'
+        timestamp:
+          type: string
+          format: date-time
   securitySchemes:
     apiKeyAuth:
       type: apiKey

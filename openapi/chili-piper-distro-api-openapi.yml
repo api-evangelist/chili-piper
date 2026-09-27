@@ -906,133 +906,79 @@ components:
           type: array
           items:
             type: string
-    DistroLogConditionEvaluation:
-      title: DistroLogConditionEvaluation
+    DistroLogEnrichmentField:
+      title: DistroLogEnrichmentField
       type: object
       required:
-      - index
-      - kind
-      - matched
+      - field
+      - overwriteEnabled
+      - overwriteExisting
       properties:
-        index:
-          type: integer
-          format: int32
-        conditionId:
-          type: string
-        kind:
-          $ref: '#/components/schemas/DistroLogConditionKind'
         field:
           type: string
-        recordId:
+        provider:
           type: string
-        resolvedValue: {}
-        operator:
-          type: string
-        expectedValue: {}
-        expectedField:
-          type: string
-        matched:
+        existingValue: {}
+        enrichedValue: {}
+        overwriteEnabled:
           type: boolean
-        owners:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroLogEvaluatedOwner'
-        error:
-          type: string
-    DistroLogStatus:
-      title: DistroLogStatus
+        overwriteExisting:
+          type: boolean
+    DistributionMethod:
+      title: DistributionMethod
       type: string
       enum:
-      - NotTriggered
-      - NotMatchedEntryRule
-      - DelayInProgress
-      - WorkingHours
-      - SlaInProgress
-      - NotRouted
-      - Finished
-      - SlaFinished
-      - Error
-    DistroLogRuleEvaluation:
-      title: DistroLogRuleEvaluation
-      type: object
-      required:
-      - matched
-      properties:
-        ruleId:
-          type: string
-          pattern: '[^\s\\/]+'
-        ruleName:
-          type: string
-        matched:
-          type: boolean
-        logic:
-          type: string
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroLogConditionEvaluation'
-    DistroLog:
-      title: DistroLog
+      - FromOwnershipArs
+      - RoundRobinEvaluationSuccess
+      - EvaluatedFromRoundRobinArs
+      - FallbackTeam
+      - FallbackUser
+      - DuplicateMatchOwner
+      - NoDistribution
+      - NoUserAvailable
+      - ClientError
+    DistroRouterSummary:
+      title: DistroRouterSummary
       type: object
       required:
       - id
+      - name
       - workspaceId
-      - routerId
-      - status
-      - createdAt
-      - updatedAt
       properties:
         id:
+          $ref: '#/components/schemas/RouterId'
+        name:
           type: string
         workspaceId:
           $ref: '#/components/schemas/WorkspaceId'
-        routerId:
-          $ref: '#/components/schemas/RouterId'
-        status:
-          $ref: '#/components/schemas/DistroLogStatus'
-        assignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroLogAssignment'
-        trigger:
-          $ref: '#/components/schemas/DistroLogTrigger'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    DistroLogMatcherEvaluation:
-      title: DistroLogMatcherEvaluation
+    DistroLogError:
+      title: DistroLogError
       type: object
       required:
-      - kind
-      - matched
+      - errorType
+      - message
+      - errorCode
       properties:
-        routeId:
+        errorType:
           type: string
-        kind:
-          $ref: '#/components/schemas/DistroLogMatcherKind'
-        objectType:
+        message:
           type: string
-        exists:
-          type: boolean
-        matchToAccountOwner:
-          type: boolean
-        matched:
-          type: boolean
-        recordId:
+        errorCode:
           type: string
-    DistroLogConditionKind:
-      title: DistroLogConditionKind
-      type: string
-      enum:
-      - Comparison
-      - FieldComparison
-      - Ownership
-      - FuzzyOwnership
-      - Existence
-      - AlwaysTrue
+    DistroLogAssignment:
+      title: DistroLogAssignment
+      type: object
+      required:
+      - userId
+      - method
+      properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
+        distributionId:
+          type: string
+          pattern: '[^\s\\/]+'
+        method:
+          $ref: '#/components/schemas/DistributionMethod'
     DistroLogEventDetail:
       title: DistroLogEventDetail
       type: object
@@ -1076,63 +1022,193 @@ components:
         updatedAt:
           type: string
           format: date-time
-    DistroRouterSummary:
-      title: DistroRouterSummary
-      type: object
-      required:
-      - id
-      - name
-      - workspaceId
-      properties:
-        id:
-          $ref: '#/components/schemas/RouterId'
-        name:
-          type: string
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-    DistroLogMatcherKind:
-      title: DistroLogMatcherKind
+    DistroLogTriggerEventType:
+      title: DistroLogTriggerEventType
       type: string
       enum:
-      - Relation
-      - DuplicateMatch
-      - CustomMatchedObject
-    DistroLogEvaluatedOwner:
-      title: DistroLogEvaluatedOwner
-      type: object
-      properties:
-        userId:
-          type: string
-          pattern: '[^\s\\/]+'
-        email:
-          type: string
-          pattern: .+@.+
-    DistroLogAssignment:
-      title: DistroLogAssignment
+      - Created
+      - Updated
+      - Signaled
+    PaginatedResult_DistroLogEntry:
+      title: PaginatedResult_DistroLogEntry
       type: object
       required:
-      - userId
-      - method
+      - total
+      - page
+      - pageSize
       properties:
-        userId:
-          $ref: '#/components/schemas/UserId'
-        distributionId:
-          type: string
-          pattern: '[^\s\\/]+'
-        method:
-          $ref: '#/components/schemas/DistributionMethod'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroLogEntry'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
     WorkspaceId:
       title: WorkspaceId
       examples:
       - b7263a5d-89cb-4f50-a532-ea4aff74688e
       type: string
       pattern: '[^\s\\/]+'
+    DistroLogTrigger:
+      title: DistroLogTrigger
+      type: object
+      required:
+      - entityId
+      - entityType
+      - eventType
+      properties:
+        entityId:
+          type: string
+        entityType:
+          type: string
+        eventType:
+          $ref: '#/components/schemas/DistroLogTriggerEventType'
+    DistroLogStatus:
+      title: DistroLogStatus
+      type: string
+      enum:
+      - NotTriggered
+      - NotMatchedEntryRule
+      - DelayInProgress
+      - WorkingHours
+      - SlaInProgress
+      - NotRouted
+      - Finished
+      - SlaFinished
+      - Error
+    DistroLogConditionKind:
+      title: DistroLogConditionKind
+      type: string
+      enum:
+      - Comparison
+      - FieldComparison
+      - Ownership
+      - FuzzyOwnership
+      - Existence
+      - AlwaysTrue
+    DistroLogMatcherEvaluation:
+      title: DistroLogMatcherEvaluation
+      type: object
+      required:
+      - kind
+      - matched
+      properties:
+        routeId:
+          type: string
+        kind:
+          $ref: '#/components/schemas/DistroLogMatcherKind'
+        objectType:
+          type: string
+        exists:
+          type: boolean
+        matchToAccountOwner:
+          type: boolean
+        matched:
+          type: boolean
+        recordId:
+          type: string
+    RouterId:
+      title: RouterId
+      examples:
+      - c5d6e7f8-a9b0-4c1d-ae2f-3a4b5c6d7e8f
+      type: string
+      pattern: '[^\s\\/]+'
+    DistroLogDuplicateMatch:
+      title: DistroLogDuplicateMatch
+      type: object
+      required:
+      - ownerId
+      properties:
+        routeId:
+          type: string
+        objectType:
+          type: string
+        objectId:
+          type: string
+        ownerId:
+          $ref: '#/components/schemas/UserId'
+        ownerEmail:
+          type: string
+          pattern: .+@.+
+    DistroLogConditionEvaluation:
+      title: DistroLogConditionEvaluation
+      type: object
+      required:
+      - index
+      - kind
+      - matched
+      properties:
+        index:
+          type: integer
+          format: int32
+        conditionId:
+          type: string
+        kind:
+          $ref: '#/components/schemas/DistroLogConditionKind'
+        field:
+          type: string
+        recordId:
+          type: string
+        resolvedValue: {}
+        operator:
+          type: string
+        expectedValue: {}
+        expectedField:
+          type: string
+        matched:
+          type: boolean
+        owners:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroLogEvaluatedOwner'
+        error:
+          type: string
     UserId:
       title: UserId
       examples:
       - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
       type: string
       pattern: '[^\s\\/]+'
+    DistroLog:
+      title: DistroLog
+      type: object
+      required:
+      - id
+      - workspaceId
+      - routerId
+      - status
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: string
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        routerId:
+          $ref: '#/components/schemas/RouterId'
+        status:
+          $ref: '#/components/schemas/DistroLogStatus'
+        assignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroLogAssignment'
+        trigger:
+          $ref: '#/components/schemas/DistroLogTrigger'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     DistroLogDetail:
       title: DistroLogDetail
       type: object
@@ -1145,13 +1221,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DistroLogEventDetail'
-    DistroLogTriggerEventType:
-      title: DistroLogTriggerEventType
-      type: string
-      enum:
-      - Created
-      - Updated
-      - Signaled
+    DistroLogEvaluatedOwner:
+      title: DistroLogEvaluatedOwner
+      type: object
+      properties:
+        userId:
+          type: string
+          pattern: '[^\s\\/]+'
+        email:
+          type: string
+          pattern: .+@.+
+    DistroLogRuleEvaluation:
+      title: DistroLogRuleEvaluation
+      type: object
+      required:
+      - matched
+      properties:
+        ruleId:
+          type: string
+          pattern: '[^\s\\/]+'
+        ruleName:
+          type: string
+        matched:
+          type: boolean
+        logic:
+          type: string
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroLogConditionEvaluation'
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     DistroLogsFilter:
       title: DistroLogsFilter
       type: object
@@ -1177,98 +1280,6 @@ components:
         to:
           type: string
           format: date-time
-    DistroLogTrigger:
-      title: DistroLogTrigger
-      type: object
-      required:
-      - entityId
-      - entityType
-      - eventType
-      properties:
-        entityId:
-          type: string
-        entityType:
-          type: string
-        eventType:
-          $ref: '#/components/schemas/DistroLogTriggerEventType'
-    DistroLogDuplicateMatch:
-      title: DistroLogDuplicateMatch
-      type: object
-      required:
-      - ownerId
-      properties:
-        routeId:
-          type: string
-        objectType:
-          type: string
-        objectId:
-          type: string
-        ownerId:
-          $ref: '#/components/schemas/UserId'
-        ownerEmail:
-          type: string
-          pattern: .+@.+
-    PaginatedResult_DistroLogEntry:
-      title: PaginatedResult_DistroLogEntry
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroLogEntry'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    RouterId:
-      title: RouterId
-      examples:
-      - c5d6e7f8-a9b0-4c1d-ae2f-3a4b5c6d7e8f
-      type: string
-      pattern: '[^\s\\/]+'
-    DistributionMethod:
-      title: DistributionMethod
-      type: string
-      enum:
-      - FromOwnershipArs
-      - RoundRobinEvaluationSuccess
-      - EvaluatedFromRoundRobinArs
-      - FallbackTeam
-      - FallbackUser
-      - DuplicateMatchOwner
-      - NoDistribution
-      - NoUserAvailable
-      - ClientError
-    DistroLogError:
-      title: DistroLogError
-      type: object
-      required:
-      - errorType
-      - message
-      - errorCode
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorCode:
-          type: string
     DistroLogRouteEvaluation:
       title: DistroLogRouteEvaluation
       type: object
@@ -1289,6 +1300,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DistroLogDuplicateMatch'
+    DistroLogMatcherKind:
+      title: DistroLogMatcherKind
+      type: string
+      enum:
+      - Relation
+      - DuplicateMatch
+      - CustomMatchedObject
     DistroLogEntry:
       title: DistroLogEntry
       type: object
@@ -1300,45 +1318,58 @@ components:
           $ref: '#/components/schemas/DistroLog'
         router:
           $ref: '#/components/schemas/DistroRouterSummary'
-    DistroLogEnrichmentField:
-      title: DistroLogEnrichmentField
+    DistroOwnershipMatch:
+      title: DistroOwnershipMatch
+      oneOf:
+      - $ref: '#/components/schemas/DistroOwnershipMatch_Email'
+      - $ref: '#/components/schemas/DistroOwnershipMatch_Id'
+      discriminator:
+        propertyName: type
+        mapping:
+          Email: '#/components/schemas/DistroOwnershipMatch_Email'
+          Id: '#/components/schemas/DistroOwnershipMatch_Id'
+    DistroFieldUpdateExpression:
+      title: DistroFieldUpdateExpression
+      oneOf:
+      - $ref: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdate'
+      - $ref: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateAnd'
+      - $ref: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateOr'
+      discriminator:
+        propertyName: type
+        mapping:
+          FieldUpdate: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdate'
+          FieldUpdateAnd: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateAnd'
+          FieldUpdateOr: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateOr'
+    DistroRouterView:
+      title: DistroRouterView
       type: object
       required:
-      - field
-      - overwriteEnabled
-      - overwriteExisting
+      - id
+      - workspaceId
+      - status
+      - routing
       properties:
-        field:
+        id:
+          $ref: '#/components/schemas/RouterId'
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
           type: string
-        provider:
+        description:
           type: string
-        existingValue: {}
-        enrichedValue: {}
-        overwriteEnabled:
-          type: boolean
-        overwriteExisting:
-          type: boolean
-    DistroRoutingOutcome_Unrepresentable:
-      title: DistroRoutingOutcome_Unrepresentable
+        status:
+          $ref: '#/components/schemas/DistroRouterStatus'
+        routing:
+          $ref: '#/components/schemas/DistroRoutingSummary'
+    DistroSimpleObjectType_Opportunity:
+      title: DistroSimpleObjectType_Opportunity
       type: object
       required:
-      - kind
       - type
       properties:
-        kind:
-          type: string
         type:
           type: string
-          const: Unrepresentable
-    DistroSimpleObjectType_AccountTeamMember:
-      title: DistroSimpleObjectType_AccountTeamMember
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: AccountTeamMember
+          const: Opportunity
     DistroRoutingSummary:
       title: DistroRoutingSummary
       type: object
@@ -1360,53 +1391,48 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DistroRoutingStep'
-    DistroRoutingStep_Unrepresentable:
-      title: DistroRoutingStep_Unrepresentable
-      type: object
-      required:
-      - kind
-      - type
-      properties:
-        kind:
-          type: string
-        type:
-          type: string
-          const: Unrepresentable
-    DistroRoutingOutcome_Route:
-      title: DistroRoutingOutcome_Route
+    DistroTriggerEventType_Signal:
+      title: DistroTriggerEventType_Signal
       type: object
       required:
       - type
       properties:
-        distributionId:
-          type: string
-          pattern: '[^\s\\/]+'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroAction'
         type:
           type: string
-          const: Route
-    DistroRouting:
-      title: DistroRouting
+          const: Signal
+    DistroRouterStatus_Active:
+      title: DistroRouterStatus_Active
       type: object
       required:
-      - trigger
-      - catchAll
+      - type
       properties:
-        trigger:
-          $ref: '#/components/schemas/DistroRoutingTrigger'
-        routes:
+        type:
+          type: string
+          const: Active
+    DistroSpamSalesforceWrite_Enabled:
+      title: DistroSpamSalesforceWrite_Enabled
+      type: object
+      required:
+      - type
+      properties:
+        scoreField:
+          type: string
+        otherFields:
           type: array
           items:
-            $ref: '#/components/schemas/DistroRouteRow'
-        catchAll:
-          $ref: '#/components/schemas/DistroCatchAll'
-        routingSteps:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroRoutingStep'
+            $ref: '#/components/schemas/DistroSpamFieldUpdate'
+        type:
+          type: string
+          const: Enabled
+    DistroRelativeDateUnit_Quarter:
+      title: DistroRelativeDateUnit_Quarter
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Quarter
     DistroSimpleObjectType_Lead:
       title: DistroSimpleObjectType_Lead
       type: object
@@ -1416,15 +1442,52 @@ components:
         type:
           type: string
           const: Lead
-    DistroSimpleObjectType_Contact:
-      title: DistroSimpleObjectType_Contact
+    DistroRoutersListResponse:
+      title: DistroRoutersListResponse
+      type: object
+      properties:
+        routers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroRouter'
+    DistroRouterCreate:
+      title: DistroRouterCreate
       type: object
       required:
+      - workspaceId
+      - name
+      - routing
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        routing:
+          $ref: '#/components/schemas/DistroRouting'
+    ResourceSchedulerId:
+      title: ResourceSchedulerId
+      examples:
+      - d4e5f6a7-b8c9-4d0e-a1f2-3b4c5d6e7f8a
+      type: string
+      format: uuid
+    DistributionId:
+      title: DistributionId
+      examples:
+      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
+      type: string
+      pattern: '[^\s\\/]+'
+    DistroTriggerEventType_Scheduled:
+      title: DistroTriggerEventType_Scheduled
+      type: object
+      required:
+      - schedulerId
       - type
       properties:
+        schedulerId:
+          $ref: '#/components/schemas/ResourceSchedulerId'
         type:
           type: string
-          const: Contact
+          const: Scheduled
     DistroAction_UpdateFieldDynamic:
       title: DistroAction_UpdateFieldDynamic
       type: object
@@ -1442,65 +1505,60 @@ components:
         type:
           type: string
           const: UpdateFieldDynamic
-    DistroAction_SendEmailReminderToAssignee:
-      title: DistroAction_SendEmailReminderToAssignee
+    DistroRouteRow:
+      title: DistroRouteRow
+      type: object
+      required:
+      - distributionId
+      properties:
+        ruleId:
+          type: string
+          pattern: '[^\s\\/]+'
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroAction'
+    DistroSimpleObjectType_Case:
+      title: DistroSimpleObjectType_Case
       type: object
       required:
       - type
       properties:
         type:
           type: string
-          const: SendEmailReminderToAssignee
-    DistroRoutersListResponse:
-      title: DistroRoutersListResponse
-      type: object
-      properties:
-        routers:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroRouter'
-    DistroSpamSalesforceWrite:
-      title: DistroSpamSalesforceWrite
-      oneOf:
-      - $ref: '#/components/schemas/DistroSpamSalesforceWrite_Enabled'
-      - $ref: '#/components/schemas/DistroSpamSalesforceWrite_Off'
-      discriminator:
-        propertyName: type
-        mapping:
-          Enabled: '#/components/schemas/DistroSpamSalesforceWrite_Enabled'
-          'Off': '#/components/schemas/DistroSpamSalesforceWrite_Off'
-    DistroEnrichmentFieldMapping:
-      title: DistroEnrichmentFieldMapping
+          const: Case
+    DistroTriggerEventType_UpdateField:
+      title: DistroTriggerEventType_UpdateField
       type: object
       required:
-      - variableId
-      - field
-      - waterfallId
-      - overwriteExisting
+      - expression
+      - type
       properties:
-        variableId:
+        expression:
+          $ref: '#/components/schemas/DistroFieldUpdateExpression'
+        type:
           type: string
-        field:
+          const: UpdateField
+    DistroAction_ReassignRecord:
+      title: DistroAction_ReassignRecord
+      type: object
+      required:
+      - type
+      properties:
+        type:
           type: string
-        waterfallId:
+          const: ReassignRecord
+    DistroSpamSalesforceWrite_Off:
+      title: DistroSpamSalesforceWrite_Off
+      type: object
+      required:
+      - type
+      properties:
+        type:
           type: string
-        overwriteExisting:
-          type: boolean
-        relation:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/DistroSimpleObjectType'
-    DistroRoutingOutcome:
-      title: DistroRoutingOutcome
-      oneOf:
-      - $ref: '#/components/schemas/DistroRoutingOutcome_Route'
-      - $ref: '#/components/schemas/DistroRoutingOutcome_Unrepresentable'
-      discriminator:
-        propertyName: type
-        mapping:
-          Route: '#/components/schemas/DistroRoutingOutcome_Route'
-          Unrepresentable: '#/components/schemas/DistroRoutingOutcome_Unrepresentable'
+          const: 'Off'
     DistroTriggerEventType_NewRecordOrUpdateField:
       title: DistroTriggerEventType_NewRecordOrUpdateField
       type: object
@@ -1513,82 +1571,6 @@ components:
         type:
           type: string
           const: NewRecordOrUpdateField
-    DistroRoutingTrigger:
-      title: DistroRoutingTrigger
-      type: object
-      required:
-      - objectType
-      - eventTypes
-      properties:
-        objectType:
-          $ref: '#/components/schemas/DistroSimpleObjectType'
-        eventTypes:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/DistroTriggerEventType'
-        evaluation:
-          type: string
-          pattern: '[^\s\\/]+'
-        delay:
-          $ref: '#/components/schemas/DistroTriggerDelay'
-    DistroFieldUpdateExpression_FieldUpdate:
-      title: DistroFieldUpdateExpression_FieldUpdate
-      type: object
-      required:
-      - fieldName
-      - type
-      properties:
-        fieldName:
-          type: string
-        type:
-          type: string
-          const: FieldUpdate
-    DistroSimpleObjectType_Account:
-      title: DistroSimpleObjectType_Account
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Account
-    DistroOwnershipMatch_Id:
-      title: DistroOwnershipMatch_Id
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Id
-    DistroRelativeDateUnit_Month:
-      title: DistroRelativeDateUnit_Month
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Month
-    DistroOwnershipMatch_Email:
-      title: DistroOwnershipMatch_Email
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Email
-    DistroTriggerEventType_NewRecord:
-      title: DistroTriggerEventType_NewRecord
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: NewRecord
     DistroDynamicFieldValue_RelativeDate:
       title: DistroDynamicFieldValue_RelativeDate
       type: object
@@ -1607,369 +1589,6 @@ components:
         type:
           type: string
           const: RelativeDate
-    DistroTriggerEventType_Signal:
-      title: DistroTriggerEventType_Signal
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Signal
-    DistroSpamFieldUpdate:
-      title: DistroSpamFieldUpdate
-      type: object
-      required:
-      - objectType
-      - field
-      properties:
-        objectType:
-          $ref: '#/components/schemas/DistroSimpleObjectType'
-        field:
-          type: string
-        value: {}
-    DistroSimpleObjectType_DuplicateLead:
-      title: DistroSimpleObjectType_DuplicateLead
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: DuplicateLead
-    DistroRouterCreate:
-      title: DistroRouterCreate
-      type: object
-      required:
-      - workspaceId
-      - name
-      - routing
-      properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
-          type: string
-        routing:
-          $ref: '#/components/schemas/DistroRouting'
-    DistroRouterStatus_Inactive:
-      title: DistroRouterStatus_Inactive
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Inactive
-    ResourceSchedulerId:
-      title: ResourceSchedulerId
-      examples:
-      - d4e5f6a7-b8c9-4d0e-a1f2-3b4c5d6e7f8a
-      type: string
-      format: uuid
-    DistroSimpleObjectType_Opportunity:
-      title: DistroSimpleObjectType_Opportunity
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Opportunity
-    DistroOwnershipMatch:
-      title: DistroOwnershipMatch
-      oneOf:
-      - $ref: '#/components/schemas/DistroOwnershipMatch_Email'
-      - $ref: '#/components/schemas/DistroOwnershipMatch_Id'
-      discriminator:
-        propertyName: type
-        mapping:
-          Email: '#/components/schemas/DistroOwnershipMatch_Email'
-          Id: '#/components/schemas/DistroOwnershipMatch_Id'
-    DistroRelativeDateUnit_Day:
-      title: DistroRelativeDateUnit_Day
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Day
-    DistroRoutingStep_SpamCheck:
-      title: DistroRoutingStep_SpamCheck
-      type: object
-      required:
-      - salesforceWrite
-      - type
-      properties:
-        id:
-          type: string
-        salesforceWrite:
-          $ref: '#/components/schemas/DistroSpamSalesforceWrite'
-        type:
-          type: string
-          const: SpamCheck
-    DistroTriggerEventType_Scheduled:
-      title: DistroTriggerEventType_Scheduled
-      type: object
-      required:
-      - schedulerId
-      - type
-      properties:
-        schedulerId:
-          $ref: '#/components/schemas/ResourceSchedulerId'
-        type:
-          type: string
-          const: Scheduled
-    DistroRoutingRowSummary:
-      title: DistroRoutingRowSummary
-      type: object
-      required:
-      - outcome
-      properties:
-        ruleId:
-          type: string
-          pattern: '[^\s\\/]+'
-        outcome:
-          $ref: '#/components/schemas/DistroRoutingOutcome'
-    DistroCatchAll:
-      title: DistroCatchAll
-      type: object
-      required:
-      - distributionId
-      properties:
-        distributionId:
-          $ref: '#/components/schemas/DistributionId'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroAction'
-    DistroAction_ReassignRecord:
-      title: DistroAction_ReassignRecord
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: ReassignRecord
-    DistroTriggerDelay_BeforeRecordEval:
-      title: DistroTriggerDelay_BeforeRecordEval
-      type: object
-      required:
-      - duration
-      - type
-      properties:
-        duration:
-          type: string
-        type:
-          type: string
-          const: BeforeRecordEval
-    DistroRoutingStep_Enrichment:
-      title: DistroRoutingStep_Enrichment
-      type: object
-      required:
-      - type
-      properties:
-        id:
-          type: string
-        fieldMappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroEnrichmentFieldMapping'
-        type:
-          type: string
-          const: Enrichment
-    DistroRelativeDateUnit_Quarter:
-      title: DistroRelativeDateUnit_Quarter
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Quarter
-    DistroRelativeDateUnit_Week:
-      title: DistroRelativeDateUnit_Week
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Week
-    DistroRouterStatus_Activating:
-      title: DistroRouterStatus_Activating
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Activating
-    DistroRouterStatus:
-      title: DistroRouterStatus
-      oneOf:
-      - $ref: '#/components/schemas/DistroRouterStatus_Activating'
-      - $ref: '#/components/schemas/DistroRouterStatus_Active'
-      - $ref: '#/components/schemas/DistroRouterStatus_Deactivating'
-      - $ref: '#/components/schemas/DistroRouterStatus_Error'
-      - $ref: '#/components/schemas/DistroRouterStatus_Inactive'
-      discriminator:
-        propertyName: type
-        mapping:
-          Activating: '#/components/schemas/DistroRouterStatus_Activating'
-          Active: '#/components/schemas/DistroRouterStatus_Active'
-          Deactivating: '#/components/schemas/DistroRouterStatus_Deactivating'
-          Error: '#/components/schemas/DistroRouterStatus_Error'
-          Inactive: '#/components/schemas/DistroRouterStatus_Inactive'
-    DistroSpamSalesforceWrite_Enabled:
-      title: DistroSpamSalesforceWrite_Enabled
-      type: object
-      required:
-      - type
-      properties:
-        scoreField:
-          type: string
-        otherFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroSpamFieldUpdate'
-        type:
-          type: string
-          const: Enabled
-    DistroDynamicFieldValue:
-      title: DistroDynamicFieldValue
-      oneOf:
-      - $ref: '#/components/schemas/DistroDynamicFieldValue_RelativeDate'
-      - $ref: '#/components/schemas/DistroDynamicFieldValue_TemplateText'
-      - $ref: '#/components/schemas/DistroDynamicFieldValue_VariableField'
-      discriminator:
-        propertyName: type
-        mapping:
-          RelativeDate: '#/components/schemas/DistroDynamicFieldValue_RelativeDate'
-          TemplateText: '#/components/schemas/DistroDynamicFieldValue_TemplateText'
-          VariableField: '#/components/schemas/DistroDynamicFieldValue_VariableField'
-    DistroRouteRow:
-      title: DistroRouteRow
-      type: object
-      required:
-      - distributionId
-      properties:
-        ruleId:
-          type: string
-          pattern: '[^\s\\/]+'
-        distributionId:
-          $ref: '#/components/schemas/DistributionId'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistroAction'
-    DistroTrigger:
-      title: DistroTrigger
-      type: object
-      required:
-      - objectType
-      - eventTypes
-      properties:
-        objectType:
-          $ref: '#/components/schemas/DistroSimpleObjectType'
-        eventTypes:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/DistroTriggerEventType'
-        evaluation:
-          type: string
-          pattern: '[^\s\\/]+'
-        delay:
-          $ref: '#/components/schemas/DistroTriggerDelay'
-    DistroTriggerDelay:
-      title: DistroTriggerDelay
-      oneOf:
-      - $ref: '#/components/schemas/DistroTriggerDelay_AfterRecordEval'
-      - $ref: '#/components/schemas/DistroTriggerDelay_BeforeRecordEval'
-      discriminator:
-        propertyName: type
-        mapping:
-          AfterRecordEval: '#/components/schemas/DistroTriggerDelay_AfterRecordEval'
-          BeforeRecordEval: '#/components/schemas/DistroTriggerDelay_BeforeRecordEval'
-    DistroRouterStatus_Deactivating:
-      title: DistroRouterStatus_Deactivating
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Deactivating
-    DistroTriggerEventType_UpdateField:
-      title: DistroTriggerEventType_UpdateField
-      type: object
-      required:
-      - expression
-      - type
-      properties:
-        expression:
-          $ref: '#/components/schemas/DistroFieldUpdateExpression'
-        type:
-          type: string
-          const: UpdateField
-    DistroSimpleObjectType_CustomObject:
-      title: DistroSimpleObjectType_CustomObject
-      type: object
-      required:
-      - value
-      - type
-      properties:
-        value:
-          type: string
-          pattern: '[^\s\\/]+'
-        type:
-          type: string
-          const: CustomObject
-    DistroSimpleObjectType_OpportunityTeamMember:
-      title: DistroSimpleObjectType_OpportunityTeamMember
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: OpportunityTeamMember
-    DistroTriggerEventType:
-      title: DistroTriggerEventType
-      oneOf:
-      - $ref: '#/components/schemas/DistroTriggerEventType_NewRecord'
-      - $ref: '#/components/schemas/DistroTriggerEventType_NewRecordOrUpdateField'
-      - $ref: '#/components/schemas/DistroTriggerEventType_Scheduled'
-      - $ref: '#/components/schemas/DistroTriggerEventType_Signal'
-      - $ref: '#/components/schemas/DistroTriggerEventType_UpdateField'
-      discriminator:
-        propertyName: type
-        mapping:
-          NewRecord: '#/components/schemas/DistroTriggerEventType_NewRecord'
-          NewRecordOrUpdateField: '#/components/schemas/DistroTriggerEventType_NewRecordOrUpdateField'
-          Scheduled: '#/components/schemas/DistroTriggerEventType_Scheduled'
-          Signal: '#/components/schemas/DistroTriggerEventType_Signal'
-          UpdateField: '#/components/schemas/DistroTriggerEventType_UpdateField'
-    DistroRelativeDateUnit_Year:
-      title: DistroRelativeDateUnit_Year
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Year
-    DistroSimpleObjectType_Task:
-      title: DistroSimpleObjectType_Task
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Task
     DistroRouter:
       title: DistroRouter
       type: object
@@ -1987,127 +1606,68 @@ components:
           $ref: '#/components/schemas/DistroRouterStatus'
         trigger:
           $ref: '#/components/schemas/DistroTrigger'
-    DistroRouterStatus_Active:
-      title: DistroRouterStatus_Active
+    DistroRoutingStep_Enrichment:
+      title: DistroRoutingStep_Enrichment
       type: object
       required:
       - type
       properties:
-        type:
+        id:
           type: string
-          const: Active
-    DistroFieldUpdateExpression_FieldUpdateOr:
-      title: DistroFieldUpdateExpression_FieldUpdateOr
-      type: object
-      required:
-      - expressions
-      - type
-      properties:
-        expressions:
+        fieldMappings:
           type: array
-          minItems: 1
           items:
-            $ref: '#/components/schemas/DistroFieldUpdateExpression'
+            $ref: '#/components/schemas/DistroEnrichmentFieldMapping'
         type:
           type: string
-          const: FieldUpdateOr
-    DistroFieldUpdateExpression:
-      title: DistroFieldUpdateExpression
+          const: Enrichment
+    DistroRelativeDateUnit_Day:
+      title: DistroRelativeDateUnit_Day
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Day
+    DistroFieldUpdateExpression_FieldUpdate:
+      title: DistroFieldUpdateExpression_FieldUpdate
+      type: object
+      required:
+      - fieldName
+      - type
+      properties:
+        fieldName:
+          type: string
+        type:
+          type: string
+          const: FieldUpdate
+    DistroRouterStatus:
+      title: DistroRouterStatus
       oneOf:
-      - $ref: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdate'
-      - $ref: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateAnd'
-      - $ref: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateOr'
+      - $ref: '#/components/schemas/DistroRouterStatus_Activating'
+      - $ref: '#/components/schemas/DistroRouterStatus_Active'
+      - $ref: '#/components/schemas/DistroRouterStatus_Deactivating'
+      - $ref: '#/components/schemas/DistroRouterStatus_Error'
+      - $ref: '#/components/schemas/DistroRouterStatus_Inactive'
       discriminator:
         propertyName: type
         mapping:
-          FieldUpdate: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdate'
-          FieldUpdateAnd: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateAnd'
-          FieldUpdateOr: '#/components/schemas/DistroFieldUpdateExpression_FieldUpdateOr'
-    DistroAction_UpdateField:
-      title: DistroAction_UpdateField
-      type: object
-      required:
-      - field
-      - type
-      properties:
-        field:
-          type: string
-        value: {}
-        objectType:
-          $ref: '#/components/schemas/DistroSimpleObjectType'
-        type:
-          type: string
-          const: UpdateField
-    DistroAction:
-      title: DistroAction
+          Activating: '#/components/schemas/DistroRouterStatus_Activating'
+          Active: '#/components/schemas/DistroRouterStatus_Active'
+          Deactivating: '#/components/schemas/DistroRouterStatus_Deactivating'
+          Error: '#/components/schemas/DistroRouterStatus_Error'
+          Inactive: '#/components/schemas/DistroRouterStatus_Inactive'
+    DistroSpamSalesforceWrite:
+      title: DistroSpamSalesforceWrite
       oneOf:
-      - $ref: '#/components/schemas/DistroAction_ReassignRecord'
-      - $ref: '#/components/schemas/DistroAction_SendEmailReminderToAssignee'
-      - $ref: '#/components/schemas/DistroAction_SendSlackToAssignee'
-      - $ref: '#/components/schemas/DistroAction_UpdateField'
-      - $ref: '#/components/schemas/DistroAction_UpdateFieldDynamic'
-      - $ref: '#/components/schemas/DistroAction_UpdateOwnership'
+      - $ref: '#/components/schemas/DistroSpamSalesforceWrite_Enabled'
+      - $ref: '#/components/schemas/DistroSpamSalesforceWrite_Off'
       discriminator:
         propertyName: type
         mapping:
-          ReassignRecord: '#/components/schemas/DistroAction_ReassignRecord'
-          SendEmailReminderToAssignee: '#/components/schemas/DistroAction_SendEmailReminderToAssignee'
-          SendSlackToAssignee: '#/components/schemas/DistroAction_SendSlackToAssignee'
-          UpdateField: '#/components/schemas/DistroAction_UpdateField'
-          UpdateFieldDynamic: '#/components/schemas/DistroAction_UpdateFieldDynamic'
-          UpdateOwnership: '#/components/schemas/DistroAction_UpdateOwnership'
-    DistroSimpleObjectType_Case:
-      title: DistroSimpleObjectType_Case
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Case
-    DistroAction_SendSlackToAssignee:
-      title: DistroAction_SendSlackToAssignee
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: SendSlackToAssignee
-    DistroSpamSalesforceWrite_Off:
-      title: DistroSpamSalesforceWrite_Off
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: 'Off'
-    DistroFieldUpdateExpression_FieldUpdateAnd:
-      title: DistroFieldUpdateExpression_FieldUpdateAnd
-      type: object
-      required:
-      - expressions
-      - type
-      properties:
-        expressions:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/DistroFieldUpdateExpression'
-        type:
-          type: string
-          const: FieldUpdateAnd
-    DistroRouterUpdate:
-      title: DistroRouterUpdate
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        routing:
-          $ref: '#/components/schemas/DistroRouting'
+          Enabled: '#/components/schemas/DistroSpamSalesforceWrite_Enabled'
+          'Off': '#/components/schemas/DistroSpamSalesforceWrite_Off'
     DistroAction_UpdateOwnership:
       title: DistroAction_UpdateOwnership
       type: object
@@ -2129,6 +1689,42 @@ components:
         type:
           type: string
           const: UpdateOwnership
+    DistroRoutingStep_SpamCheck:
+      title: DistroRoutingStep_SpamCheck
+      type: object
+      required:
+      - salesforceWrite
+      - type
+      properties:
+        id:
+          type: string
+        salesforceWrite:
+          $ref: '#/components/schemas/DistroSpamSalesforceWrite'
+        type:
+          type: string
+          const: SpamCheck
+    DistroSimpleObjectType_CustomObject:
+      title: DistroSimpleObjectType_CustomObject
+      type: object
+      required:
+      - value
+      - type
+      properties:
+        value:
+          type: string
+          pattern: '[^\s\\/]+'
+        type:
+          type: string
+          const: CustomObject
+    DistroSimpleObjectType_AccountTeamMember:
+      title: DistroSimpleObjectType_AccountTeamMember
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: AccountTeamMember
     DistroSimpleObjectType:
       title: DistroSimpleObjectType
       oneOf:
@@ -2157,27 +1753,78 @@ components:
           Opportunity: '#/components/schemas/DistroSimpleObjectType_Opportunity'
           OpportunityTeamMember: '#/components/schemas/DistroSimpleObjectType_OpportunityTeamMember'
           Task: '#/components/schemas/DistroSimpleObjectType_Task'
-    DistroDynamicFieldValue_TemplateText:
-      title: DistroDynamicFieldValue_TemplateText
+    DistroTriggerDelay_BeforeRecordEval:
+      title: DistroTriggerDelay_BeforeRecordEval
       type: object
       required:
-      - text
+      - duration
       - type
       properties:
-        text:
+        duration:
           type: string
         type:
           type: string
-          const: TemplateText
-    DistroSimpleObjectType_DuplicateContact:
-      title: DistroSimpleObjectType_DuplicateContact
+          const: BeforeRecordEval
+    DistroRouterUpdate:
+      title: DistroRouterUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        routing:
+          $ref: '#/components/schemas/DistroRouting'
+    DistroAction_UpdateField:
+      title: DistroAction_UpdateField
+      type: object
+      required:
+      - field
+      - type
+      properties:
+        field:
+          type: string
+        value: {}
+        objectType:
+          $ref: '#/components/schemas/DistroSimpleObjectType'
+        type:
+          type: string
+          const: UpdateField
+    DistroRoutingOutcome_Route:
+      title: DistroRoutingOutcome_Route
       type: object
       required:
       - type
       properties:
+        distributionId:
+          type: string
+          pattern: '[^\s\\/]+'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroAction'
         type:
           type: string
-          const: DuplicateContact
+          const: Route
+    DistroRoutingTrigger:
+      title: DistroRoutingTrigger
+      type: object
+      required:
+      - objectType
+      - eventTypes
+      properties:
+        objectType:
+          $ref: '#/components/schemas/DistroSimpleObjectType'
+        eventTypes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistroTriggerEventType'
+        evaluation:
+          type: string
+          pattern: '[^\s\\/]+'
+        delay:
+          $ref: '#/components/schemas/DistroTriggerDelay'
     DistroRelativeDateUnit:
       title: DistroRelativeDateUnit
       oneOf:
@@ -2194,6 +1841,301 @@ components:
           Quarter: '#/components/schemas/DistroRelativeDateUnit_Quarter'
           Week: '#/components/schemas/DistroRelativeDateUnit_Week'
           Year: '#/components/schemas/DistroRelativeDateUnit_Year'
+    DistroAction_SendSlackToAssignee:
+      title: DistroAction_SendSlackToAssignee
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: SendSlackToAssignee
+    DistroRoutingOutcome_Unrepresentable:
+      title: DistroRoutingOutcome_Unrepresentable
+      type: object
+      required:
+      - kind
+      - type
+      properties:
+        kind:
+          type: string
+        type:
+          type: string
+          const: Unrepresentable
+    DistroOwnershipMatch_Email:
+      title: DistroOwnershipMatch_Email
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Email
+    DistroSimpleObjectType_Task:
+      title: DistroSimpleObjectType_Task
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Task
+    DistroRelativeDateUnit_Month:
+      title: DistroRelativeDateUnit_Month
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Month
+    DistroDynamicFieldValue:
+      title: DistroDynamicFieldValue
+      oneOf:
+      - $ref: '#/components/schemas/DistroDynamicFieldValue_RelativeDate'
+      - $ref: '#/components/schemas/DistroDynamicFieldValue_TemplateText'
+      - $ref: '#/components/schemas/DistroDynamicFieldValue_VariableField'
+      discriminator:
+        propertyName: type
+        mapping:
+          RelativeDate: '#/components/schemas/DistroDynamicFieldValue_RelativeDate'
+          TemplateText: '#/components/schemas/DistroDynamicFieldValue_TemplateText'
+          VariableField: '#/components/schemas/DistroDynamicFieldValue_VariableField'
+    DistroRouterStatus_Error:
+      title: DistroRouterStatus_Error
+      type: object
+      required:
+      - message
+      - type
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+          const: Error
+    DistroRoutingOutcome:
+      title: DistroRoutingOutcome
+      oneOf:
+      - $ref: '#/components/schemas/DistroRoutingOutcome_Route'
+      - $ref: '#/components/schemas/DistroRoutingOutcome_Unrepresentable'
+      discriminator:
+        propertyName: type
+        mapping:
+          Route: '#/components/schemas/DistroRoutingOutcome_Route'
+          Unrepresentable: '#/components/schemas/DistroRoutingOutcome_Unrepresentable'
+    DistroDynamicFieldValue_TemplateText:
+      title: DistroDynamicFieldValue_TemplateText
+      type: object
+      required:
+      - text
+      - type
+      properties:
+        text:
+          type: string
+        type:
+          type: string
+          const: TemplateText
+    DistroSpamFieldUpdate:
+      title: DistroSpamFieldUpdate
+      type: object
+      required:
+      - objectType
+      - field
+      properties:
+        objectType:
+          $ref: '#/components/schemas/DistroSimpleObjectType'
+        field:
+          type: string
+        value: {}
+    DistroRoutingStep:
+      title: DistroRoutingStep
+      oneOf:
+      - $ref: '#/components/schemas/DistroRoutingStep_Enrichment'
+      - $ref: '#/components/schemas/DistroRoutingStep_SpamCheck'
+      - $ref: '#/components/schemas/DistroRoutingStep_Unrepresentable'
+      discriminator:
+        propertyName: type
+        mapping:
+          Enrichment: '#/components/schemas/DistroRoutingStep_Enrichment'
+          SpamCheck: '#/components/schemas/DistroRoutingStep_SpamCheck'
+          Unrepresentable: '#/components/schemas/DistroRoutingStep_Unrepresentable'
+    DistroAction:
+      title: DistroAction
+      oneOf:
+      - $ref: '#/components/schemas/DistroAction_ReassignRecord'
+      - $ref: '#/components/schemas/DistroAction_SendEmailReminderToAssignee'
+      - $ref: '#/components/schemas/DistroAction_SendSlackToAssignee'
+      - $ref: '#/components/schemas/DistroAction_UpdateField'
+      - $ref: '#/components/schemas/DistroAction_UpdateFieldDynamic'
+      - $ref: '#/components/schemas/DistroAction_UpdateOwnership'
+      discriminator:
+        propertyName: type
+        mapping:
+          ReassignRecord: '#/components/schemas/DistroAction_ReassignRecord'
+          SendEmailReminderToAssignee: '#/components/schemas/DistroAction_SendEmailReminderToAssignee'
+          SendSlackToAssignee: '#/components/schemas/DistroAction_SendSlackToAssignee'
+          UpdateField: '#/components/schemas/DistroAction_UpdateField'
+          UpdateFieldDynamic: '#/components/schemas/DistroAction_UpdateFieldDynamic'
+          UpdateOwnership: '#/components/schemas/DistroAction_UpdateOwnership'
+    DistroTriggerDelay:
+      title: DistroTriggerDelay
+      oneOf:
+      - $ref: '#/components/schemas/DistroTriggerDelay_AfterRecordEval'
+      - $ref: '#/components/schemas/DistroTriggerDelay_BeforeRecordEval'
+      discriminator:
+        propertyName: type
+        mapping:
+          AfterRecordEval: '#/components/schemas/DistroTriggerDelay_AfterRecordEval'
+          BeforeRecordEval: '#/components/schemas/DistroTriggerDelay_BeforeRecordEval'
+    DistroAction_SendEmailReminderToAssignee:
+      title: DistroAction_SendEmailReminderToAssignee
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: SendEmailReminderToAssignee
+    DistroFieldUpdateExpression_FieldUpdateAnd:
+      title: DistroFieldUpdateExpression_FieldUpdateAnd
+      type: object
+      required:
+      - expressions
+      - type
+      properties:
+        expressions:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistroFieldUpdateExpression'
+        type:
+          type: string
+          const: FieldUpdateAnd
+    DistroSimpleObjectType_DuplicateLead:
+      title: DistroSimpleObjectType_DuplicateLead
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: DuplicateLead
+    DistroTriggerEventType:
+      title: DistroTriggerEventType
+      oneOf:
+      - $ref: '#/components/schemas/DistroTriggerEventType_NewRecord'
+      - $ref: '#/components/schemas/DistroTriggerEventType_NewRecordOrUpdateField'
+      - $ref: '#/components/schemas/DistroTriggerEventType_Scheduled'
+      - $ref: '#/components/schemas/DistroTriggerEventType_Signal'
+      - $ref: '#/components/schemas/DistroTriggerEventType_UpdateField'
+      discriminator:
+        propertyName: type
+        mapping:
+          NewRecord: '#/components/schemas/DistroTriggerEventType_NewRecord'
+          NewRecordOrUpdateField: '#/components/schemas/DistroTriggerEventType_NewRecordOrUpdateField'
+          Scheduled: '#/components/schemas/DistroTriggerEventType_Scheduled'
+          Signal: '#/components/schemas/DistroTriggerEventType_Signal'
+          UpdateField: '#/components/schemas/DistroTriggerEventType_UpdateField'
+    DistroOwnershipMatch_Id:
+      title: DistroOwnershipMatch_Id
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Id
+    DistroRelativeDateUnit_Week:
+      title: DistroRelativeDateUnit_Week
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Week
+    DistroEnrichmentFieldMapping:
+      title: DistroEnrichmentFieldMapping
+      type: object
+      required:
+      - variableId
+      - field
+      - waterfallId
+      - overwriteExisting
+      properties:
+        variableId:
+          type: string
+        field:
+          type: string
+        waterfallId:
+          type: string
+        overwriteExisting:
+          type: boolean
+        relation:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistroSimpleObjectType'
+    DistroRouterStatus_Inactive:
+      title: DistroRouterStatus_Inactive
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Inactive
+    DistroTriggerDelay_AfterRecordEval:
+      title: DistroTriggerDelay_AfterRecordEval
+      type: object
+      required:
+      - duration
+      - type
+      properties:
+        duration:
+          type: string
+        type:
+          type: string
+          const: AfterRecordEval
+    DistroSimpleObjectType_Contact:
+      title: DistroSimpleObjectType_Contact
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Contact
+    DistroRoutingStep_Unrepresentable:
+      title: DistroRoutingStep_Unrepresentable
+      type: object
+      required:
+      - kind
+      - type
+      properties:
+        kind:
+          type: string
+        type:
+          type: string
+          const: Unrepresentable
+    DistroTriggerEventType_NewRecord:
+      title: DistroTriggerEventType_NewRecord
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: NewRecord
+    DistroSimpleObjectType_Account:
+      title: DistroSimpleObjectType_Account
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Account
     DistroDynamicFieldValue_VariableField:
       title: DistroDynamicFieldValue_VariableField
       type: object
@@ -2214,69 +2156,127 @@ components:
         type:
           type: string
           const: VariableField
-    DistroRoutingStep:
-      title: DistroRoutingStep
-      oneOf:
-      - $ref: '#/components/schemas/DistroRoutingStep_Enrichment'
-      - $ref: '#/components/schemas/DistroRoutingStep_SpamCheck'
-      - $ref: '#/components/schemas/DistroRoutingStep_Unrepresentable'
-      discriminator:
-        propertyName: type
-        mapping:
-          Enrichment: '#/components/schemas/DistroRoutingStep_Enrichment'
-          SpamCheck: '#/components/schemas/DistroRoutingStep_SpamCheck'
-          Unrepresentable: '#/components/schemas/DistroRoutingStep_Unrepresentable'
-    DistributionId:
-      title: DistributionId
-      examples:
-      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
-      type: string
-      pattern: '[^\s\\/]+'
-    DistroRouterView:
-      title: DistroRouterView
+    DistroSimpleObjectType_OpportunityTeamMember:
+      title: DistroSimpleObjectType_OpportunityTeamMember
       type: object
       required:
-      - id
-      - workspaceId
-      - status
-      - routing
-      properties:
-        id:
-          $ref: '#/components/schemas/RouterId'
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
-          type: string
-        description:
-          type: string
-        status:
-          $ref: '#/components/schemas/DistroRouterStatus'
-        routing:
-          $ref: '#/components/schemas/DistroRoutingSummary'
-    DistroRouterStatus_Error:
-      title: DistroRouterStatus_Error
-      type: object
-      required:
-      - message
       - type
       properties:
-        message:
-          type: string
         type:
           type: string
-          const: Error
-    DistroTriggerDelay_AfterRecordEval:
-      title: DistroTriggerDelay_AfterRecordEval
+          const: OpportunityTeamMember
+    DistroRelativeDateUnit_Year:
+      title: DistroRelativeDateUnit_Year
       type: object
       required:
-      - duration
       - type
       properties:
-        duration:
-          type: string
         type:
           type: string
-          const: AfterRecordEval
+          const: Year
+    DistroCatchAll:
+      title: DistroCatchAll
+      type: object
+      required:
+      - distributionId
+      properties:
+        distributionId:
+          $ref: '#/components/schemas/DistributionId'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroAction'
+    DistroRouterStatus_Deactivating:
+      title: DistroRouterStatus_Deactivating
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Deactivating
+    DistroRouterStatus_Activating:
+      title: DistroRouterStatus_Activating
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Activating
+    DistroTrigger:
+      title: DistroTrigger
+      type: object
+      required:
+      - objectType
+      - eventTypes
+      properties:
+        objectType:
+          $ref: '#/components/schemas/DistroSimpleObjectType'
+        eventTypes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistroTriggerEventType'
+        evaluation:
+          type: string
+          pattern: '[^\s\\/]+'
+        delay:
+          $ref: '#/components/schemas/DistroTriggerDelay'
+    DistroRoutingRowSummary:
+      title: DistroRoutingRowSummary
+      type: object
+      required:
+      - outcome
+      properties:
+        ruleId:
+          type: string
+          pattern: '[^\s\\/]+'
+        outcome:
+          $ref: '#/components/schemas/DistroRoutingOutcome'
+    DistroFieldUpdateExpression_FieldUpdateOr:
+      title: DistroFieldUpdateExpression_FieldUpdateOr
+      type: object
+      required:
+      - expressions
+      - type
+      properties:
+        expressions:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistroFieldUpdateExpression'
+        type:
+          type: string
+          const: FieldUpdateOr
+    DistroRouting:
+      title: DistroRouting
+      type: object
+      required:
+      - trigger
+      - catchAll
+      properties:
+        trigger:
+          $ref: '#/components/schemas/DistroRoutingTrigger'
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroRouteRow'
+        catchAll:
+          $ref: '#/components/schemas/DistroCatchAll'
+        routingSteps:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistroRoutingStep'
+    DistroSimpleObjectType_DuplicateContact:
+      title: DistroSimpleObjectType_DuplicateContact
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: DuplicateContact
   securitySchemes:
     apiKeyAuth:
       type: apiKey

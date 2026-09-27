@@ -406,23 +406,6 @@ paths:
       description: Production
 components:
   schemas:
-    CallerRef:
-      title: CallerRef
-      description: stringified caller reference in format $type/$id
-      examples:
-      - user/17a3d4563d5a67a3d456ad635
-      type: string
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    WorkspaceId:
-      title: WorkspaceId
-      examples:
-      - b7263a5d-89cb-4f50-a532-ea4aff74688e
-      type: string
-      pattern: '[^\s\\/]+'
     SimpleMetadata:
       title: SimpleMetadata
       type: object
@@ -446,6 +429,35 @@ components:
         revision:
           type: integer
           format: int32
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    Workspace:
+      title: Workspace
+      type: object
+      required:
+      - id
+      - name
+      - metadata
+      properties:
+        id:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        emoji:
+          type: string
+        logo:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/SimpleMetadata'
+    CallerRef:
+      title: CallerRef
+      description: stringified caller reference in format $type/$id
+      examples:
+      - user/17a3d4563d5a67a3d456ad635
+      type: string
     PaginatedResult_Workspace:
       title: PaginatedResult_Workspace
       type: object
@@ -469,24 +481,12 @@ components:
           type: integer
           format: int64
           exclusiveMinimum: 0
-    Workspace:
-      title: Workspace
-      type: object
-      required:
-      - id
-      - name
-      - metadata
-      properties:
-        id:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
-          type: string
-        emoji:
-          type: string
-        logo:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/SimpleMetadata'
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
     Workspace_2:
       title: Workspace
       type: object
@@ -509,56 +509,51 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/SimpleMetadata'
-    PaginatedResult_User:
-      title: PaginatedResult_User
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
-    UserLicenses:
-      title: UserLicenses
-      type: object
-      required:
-      - chiliCalOrg
-      - handoff
-      properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
-    Email:
-      title: Email
-      examples:
-      - john.doe@acme.com
+    Tier:
+      title: Tier
       type: string
-      pattern: .+@.+
+      enum:
+      - RoutingAndScheduling
+      - Experiences
+      - ChiliDataPlatform
+    AddUsersToWorkspaceRequest:
+      title: AddUsersToWorkspaceRequest
+      type: object
+      required:
+      - workspaceId
+      - userIds
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        userIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UserId'
+    SalesforceUser:
+      title: SalesforceUser
+      type: object
+      required:
+      - email
+      - id
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: string
+          pattern: '[^\s\\/]+'
+    HubspotUser:
+      title: HubspotUser
+      type: object
+      required:
+      - email
+      - id
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: integer
+          format: int64
     User:
       title: User
       type: object
@@ -608,15 +603,64 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
-    Tier:
-      title: Tier
+    Email:
+      title: Email
+      examples:
+      - john.doe@acme.com
       type: string
-      enum:
-      - RoutingAndScheduling
-      - Experiences
-      - ChiliDataPlatform
-    AddUsersToWorkspaceRequest:
-      title: AddUsersToWorkspaceRequest
+      pattern: .+@.+
+    UserId:
+      title: UserId
+      examples:
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
+      type: string
+      pattern: '[^\s\\/]+'
+    UserLicenses:
+      title: UserLicenses
+      type: object
+      required:
+      - chiliCalOrg
+      - handoff
+      properties:
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
+    PaginatedResult_User:
+      title: PaginatedResult_User
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    RemoveUserFromWorkspaceRequest:
+      title: RemoveUserFromWorkspaceRequest
       type: object
       required:
       - workspaceId
@@ -629,36 +673,6 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/UserId'
-    SalesforceUser:
-      title: SalesforceUser
-      type: object
-      required:
-      - email
-      - id
-      properties:
-        email:
-          $ref: '#/components/schemas/Email'
-        id:
-          type: string
-          pattern: '[^\s\\/]+'
-    UserId:
-      title: UserId
-      examples:
-      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
-      type: string
-      pattern: '[^\s\\/]+'
-    HubspotUser:
-      title: HubspotUser
-      type: object
-      required:
-      - email
-      - id
-      properties:
-        email:
-          $ref: '#/components/schemas/Email'
-        id:
-          type: integer
-          format: int64
     UserLicenses_2:
       title: UserLicenses
       type: object
@@ -682,20 +696,6 @@ components:
           type: boolean
         handoff:
           type: boolean
-    RemoveUserFromWorkspaceRequest:
-      title: RemoveUserFromWorkspaceRequest
-      type: object
-      required:
-      - workspaceId
-      - userIds
-      properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        userIds:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/UserId'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
