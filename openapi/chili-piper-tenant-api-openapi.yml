@@ -87,27 +87,11 @@ paths:
       - tenant.read
 components:
   schemas:
-    TenantId:
-      title: TenantId
-      examples:
-      - acme-corp.app3
-      type: string
-      pattern: '[^\s\\/]+'
-    TenantInfo_Personal:
-      title: TenantInfo_Personal
+    Map_String:
+      title: Map_String
       type: object
-      required:
-      - tenantData
-      - email
-      - type
-      properties:
-        tenantData:
-          $ref: '#/components/schemas/TenantData'
-        email:
-          $ref: '#/components/schemas/Email'
-        type:
-          type: string
-          const: Personal
+      additionalProperties:
+        type: string
     TenantData:
       title: TenantData
       type: object
@@ -122,6 +106,16 @@ components:
           type: string
         subdomain:
           type: string
+    TenantInfo:
+      title: TenantInfo
+      oneOf:
+      - $ref: '#/components/schemas/TenantInfo_Organization'
+      - $ref: '#/components/schemas/TenantInfo_Personal'
+      discriminator:
+        propertyName: type
+        mapping:
+          Organization: '#/components/schemas/TenantInfo_Organization'
+          Personal: '#/components/schemas/TenantInfo_Personal'
     TenantInfo_Organization:
       title: TenantInfo_Organization
       type: object
@@ -139,27 +133,33 @@ components:
         type:
           type: string
           const: Organization
-    TenantInfo:
-      title: TenantInfo
-      oneOf:
-      - $ref: '#/components/schemas/TenantInfo_Organization'
-      - $ref: '#/components/schemas/TenantInfo_Personal'
-      discriminator:
-        propertyName: type
-        mapping:
-          Organization: '#/components/schemas/TenantInfo_Organization'
-          Personal: '#/components/schemas/TenantInfo_Personal'
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
     Email:
       title: Email
       examples:
       - john.doe@acme.com
       type: string
       pattern: .+@.+
+    TenantInfo_Personal:
+      title: TenantInfo_Personal
+      type: object
+      required:
+      - tenantData
+      - email
+      - type
+      properties:
+        tenantData:
+          $ref: '#/components/schemas/TenantData'
+        email:
+          $ref: '#/components/schemas/Email'
+        type:
+          type: string
+          const: Personal
+    TenantId:
+      title: TenantId
+      examples:
+      - acme-corp.app3
+      type: string
+      pattern: '[^\s\\/]+'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

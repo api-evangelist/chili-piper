@@ -500,18 +500,56 @@ paths:
       - handoff.create
 components:
   schemas:
-    RouterRouting:
-      title: RouterRouting
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    RoutingOutcome:
+      title: RoutingOutcome
+      oneOf:
+      - $ref: '#/components/schemas/RoutingOutcome_ContactOptions'
+      - $ref: '#/components/schemas/RoutingOutcome_CrmAction'
+      - $ref: '#/components/schemas/RoutingOutcome_Other'
+      - $ref: '#/components/schemas/RoutingOutcome_OwnerAssign'
+      - $ref: '#/components/schemas/RoutingOutcome_Redirect'
+      - $ref: '#/components/schemas/RoutingOutcome_Schedule'
+      discriminator:
+        propertyName: type
+        mapping:
+          ContactOptions: '#/components/schemas/RoutingOutcome_ContactOptions'
+          CrmAction: '#/components/schemas/RoutingOutcome_CrmAction'
+          Other: '#/components/schemas/RoutingOutcome_Other'
+          OwnerAssign: '#/components/schemas/RoutingOutcome_OwnerAssign'
+          Redirect: '#/components/schemas/RoutingOutcome_Redirect'
+          Schedule: '#/components/schemas/RoutingOutcome_Schedule'
+    RoutingOutcome_Schedule:
+      title: RoutingOutcome_Schedule
       type: object
       required:
-      - catchAll
+      - type
       properties:
-        routes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RouteRow'
-        catchAll:
-          $ref: '#/components/schemas/RouteOutcome'
+        distributionId:
+          type: string
+          pattern: '[^\s\\/]+'
+        userId:
+          type: string
+          pattern: '[^\s\\/]+'
+        meetingTypeId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          const: Schedule
+    RoutingOutcome_CrmAction:
+      title: RoutingOutcome_CrmAction
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: CrmAction
     HandoffRouterUpdate:
       title: HandoffRouterUpdate
       type: object
@@ -520,46 +558,56 @@ components:
           type: string
         routing:
           $ref: '#/components/schemas/RouterRouting'
-    TimeoutRedirect:
-      title: TimeoutRedirect
-      oneOf:
-      - $ref: '#/components/schemas/TimeoutRedirect_Landing'
-      - $ref: '#/components/schemas/TimeoutRedirect_Url'
-      discriminator:
-        propertyName: type
-        mapping:
-          Landing: '#/components/schemas/TimeoutRedirect_Landing'
-          Url: '#/components/schemas/TimeoutRedirect_Url'
-    RoutingOutcome_Redirect:
-      title: RoutingOutcome_Redirect
+    RouterRoutingSummary:
+      title: RouterRoutingSummary
+      type: object
+      required:
+      - known
+      - representable
+      properties:
+        known:
+          type: boolean
+        representable:
+          type: boolean
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutingRowSummary'
+        catchAll:
+          $ref: '#/components/schemas/RoutingCatchAllSummary'
+    RoutingOutcome_Other:
+      title: RoutingOutcome_Other
+      type: object
+      required:
+      - kind
+      - type
+      properties:
+        kind:
+          type: string
+        type:
+          type: string
+          const: Other
+    TimeoutRedirect_Landing:
+      title: TimeoutRedirect_Landing
       type: object
       required:
       - type
       properties:
-        url:
-          examples:
-          - https://example.com
-          type: string
         type:
           type: string
-          const: Redirect
+          const: Landing
     HandoffRouterId:
       title: HandoffRouterId
       examples:
       - e1f2a3b4-c5d6-4e7f-b8a9-0b1c2d3e4f5a
       type: string
       pattern: '[^\s\\/]+'
-    RouteRow:
-      title: RouteRow
-      type: object
-      required:
-      - outcome
-      properties:
-        ruleId:
-          type: string
-          pattern: '[^\s\\/]+'
-        outcome:
-          $ref: '#/components/schemas/RouteOutcome'
+    DistributionId:
+      title: DistributionId
+      examples:
+      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
+      type: string
+      pattern: '[^\s\\/]+'
     RouteAssignment_User:
       title: RouteAssignment_User
       type: object
@@ -585,144 +633,6 @@ components:
           type: string
         outcome:
           $ref: '#/components/schemas/RoutingOutcome'
-    RouteAssignment:
-      title: RouteAssignment
-      oneOf:
-      - $ref: '#/components/schemas/RouteAssignment_Distribution'
-      - $ref: '#/components/schemas/RouteAssignment_User'
-      discriminator:
-        propertyName: type
-        mapping:
-          Distribution: '#/components/schemas/RouteAssignment_Distribution'
-          User: '#/components/schemas/RouteAssignment_User'
-    RouteTimeout:
-      title: RouteTimeout
-      type: object
-      required:
-      - minutes
-      - onTimeout
-      properties:
-        minutes:
-          type: integer
-          format: int32
-        onTimeout:
-          $ref: '#/components/schemas/TimeoutRedirect'
-    RouteOutcome:
-      title: RouteOutcome
-      oneOf:
-      - $ref: '#/components/schemas/RouteOutcome_Redirect'
-      - $ref: '#/components/schemas/RouteOutcome_Schedule'
-      discriminator:
-        propertyName: type
-        mapping:
-          Redirect: '#/components/schemas/RouteOutcome_Redirect'
-          Schedule: '#/components/schemas/RouteOutcome_Schedule'
-    RoutingOutcome_OwnerAssign:
-      title: RoutingOutcome_OwnerAssign
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: OwnerAssign
-    RoutingOutcome_Schedule:
-      title: RoutingOutcome_Schedule
-      type: object
-      required:
-      - type
-      properties:
-        distributionId:
-          type: string
-          pattern: '[^\s\\/]+'
-        userId:
-          type: string
-          pattern: '[^\s\\/]+'
-        meetingTypeId:
-          type: string
-          format: uuid
-        type:
-          type: string
-          const: Schedule
-    RoutingCatchAllSummary:
-      title: RoutingCatchAllSummary
-      type: object
-      required:
-      - outcome
-      properties:
-        outcome:
-          $ref: '#/components/schemas/RoutingOutcome'
-    RoutingOutcome_Other:
-      title: RoutingOutcome_Other
-      type: object
-      required:
-      - kind
-      - type
-      properties:
-        kind:
-          type: string
-        type:
-          type: string
-          const: Other
-    TimeoutRedirect_Url:
-      title: TimeoutRedirect_Url
-      type: object
-      required:
-      - url
-      - type
-      properties:
-        url:
-          examples:
-          - https://example.com
-          type: string
-        type:
-          type: string
-          const: Url
-    WorkspaceId:
-      title: WorkspaceId
-      examples:
-      - b7263a5d-89cb-4f50-a532-ea4aff74688e
-      type: string
-      pattern: '[^\s\\/]+'
-    RoutingOutcome_CrmAction:
-      title: RoutingOutcome_CrmAction
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: CrmAction
-    CrmAction_ConvertLead:
-      title: CrmAction_ConvertLead
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: ConvertLead
-    MeetingTypeId:
-      title: MeetingTypeId
-      examples:
-      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
-      type: string
-      format: uuid
-    TimeoutRedirect_Landing:
-      title: TimeoutRedirect_Landing
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Landing
-    UserId:
-      title: UserId
-      examples:
-      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
-      type: string
-      pattern: '[^\s\\/]+'
     RouteOutcome_Schedule:
       title: RouteOutcome_Schedule
       type: object
@@ -744,8 +654,62 @@ components:
         type:
           type: string
           const: Schedule
-    RouteOutcome_Redirect:
-      title: RouteOutcome_Redirect
+    RoutingCatchAllSummary:
+      title: RoutingCatchAllSummary
+      type: object
+      required:
+      - outcome
+      properties:
+        outcome:
+          $ref: '#/components/schemas/RoutingOutcome'
+    CrmAction_Notify:
+      title: CrmAction_Notify
+      type: object
+      required:
+      - type
+      properties:
+        slackChannel:
+          type: string
+        type:
+          type: string
+          const: Notify
+    RouterRouting:
+      title: RouterRouting
+      type: object
+      required:
+      - catchAll
+      properties:
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RouteRow'
+        catchAll:
+          $ref: '#/components/schemas/RouteOutcome'
+    RouteRow:
+      title: RouteRow
+      type: object
+      required:
+      - outcome
+      properties:
+        ruleId:
+          type: string
+          pattern: '[^\s\\/]+'
+        outcome:
+          $ref: '#/components/schemas/RouteOutcome'
+    RouteTimeout:
+      title: RouteTimeout
+      type: object
+      required:
+      - minutes
+      - onTimeout
+      properties:
+        minutes:
+          type: integer
+          format: int32
+        onTimeout:
+          $ref: '#/components/schemas/TimeoutRedirect'
+    TimeoutRedirect_Url:
+      title: TimeoutRedirect_Url
       type: object
       required:
       - url
@@ -757,7 +721,30 @@ components:
           type: string
         type:
           type: string
-          const: Redirect
+          const: Url
+    HandoffRouterCreate:
+      title: HandoffRouterCreate
+      type: object
+      required:
+      - workspaceId
+      - name
+      - routing
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        routing:
+          $ref: '#/components/schemas/RouterRouting'
+    RoutingOutcome_OwnerAssign:
+      title: RoutingOutcome_OwnerAssign
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: OwnerAssign
     RouteAssignment_Distribution:
       title: RouteAssignment_Distribution
       type: object
@@ -770,17 +757,60 @@ components:
         type:
           type: string
           const: Distribution
-    CrmAction_Notify:
-      title: CrmAction_Notify
+    CrmAction_ConvertLead:
+      title: CrmAction_ConvertLead
       type: object
       required:
       - type
       properties:
-        slackChannel:
-          type: string
         type:
           type: string
-          const: Notify
+          const: ConvertLead
+    RouteAssignment:
+      title: RouteAssignment
+      oneOf:
+      - $ref: '#/components/schemas/RouteAssignment_Distribution'
+      - $ref: '#/components/schemas/RouteAssignment_User'
+      discriminator:
+        propertyName: type
+        mapping:
+          Distribution: '#/components/schemas/RouteAssignment_Distribution'
+          User: '#/components/schemas/RouteAssignment_User'
+    RoutingOutcome_ContactOptions:
+      title: RoutingOutcome_ContactOptions
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: ContactOptions
+    MeetingTypeId:
+      title: MeetingTypeId
+      examples:
+      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
+      type: string
+      format: uuid
+    TimeoutRedirect:
+      title: TimeoutRedirect
+      oneOf:
+      - $ref: '#/components/schemas/TimeoutRedirect_Landing'
+      - $ref: '#/components/schemas/TimeoutRedirect_Url'
+      discriminator:
+        propertyName: type
+        mapping:
+          Landing: '#/components/schemas/TimeoutRedirect_Landing'
+          Url: '#/components/schemas/TimeoutRedirect_Url'
+    CrmAction:
+      title: CrmAction
+      oneOf:
+      - $ref: '#/components/schemas/CrmAction_ConvertLead'
+      - $ref: '#/components/schemas/CrmAction_Notify'
+      discriminator:
+        propertyName: type
+        mapping:
+          ConvertLead: '#/components/schemas/CrmAction_ConvertLead'
+          Notify: '#/components/schemas/CrmAction_Notify'
     HandoffRouter:
       title: HandoffRouter
       type: object
@@ -797,85 +827,55 @@ components:
           type: string
         routing:
           $ref: '#/components/schemas/RouterRoutingSummary'
-    RoutingOutcome_ContactOptions:
-      title: RoutingOutcome_ContactOptions
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    RoutingOutcome_Redirect:
+      title: RoutingOutcome_Redirect
       type: object
       required:
       - type
       properties:
+        url:
+          examples:
+          - https://example.com
+          type: string
         type:
           type: string
-          const: ContactOptions
-    RouterRoutingSummary:
-      title: RouterRoutingSummary
-      type: object
-      required:
-      - known
-      - representable
-      properties:
-        known:
-          type: boolean
-        representable:
-          type: boolean
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoutingRowSummary'
-        catchAll:
-          $ref: '#/components/schemas/RoutingCatchAllSummary'
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    DistributionId:
-      title: DistributionId
+          const: Redirect
+    UserId:
+      title: UserId
       examples:
-      - 7f8a1b2c-3d4e-4f5a-8b9c-0d1e2f3a4b5c
+      - 64ee0722-c7c6-4b48-bc89-356c99f1d25d
       type: string
       pattern: '[^\s\\/]+'
-    RoutingOutcome:
-      title: RoutingOutcome
-      oneOf:
-      - $ref: '#/components/schemas/RoutingOutcome_ContactOptions'
-      - $ref: '#/components/schemas/RoutingOutcome_CrmAction'
-      - $ref: '#/components/schemas/RoutingOutcome_Other'
-      - $ref: '#/components/schemas/RoutingOutcome_OwnerAssign'
-      - $ref: '#/components/schemas/RoutingOutcome_Redirect'
-      - $ref: '#/components/schemas/RoutingOutcome_Schedule'
-      discriminator:
-        propertyName: type
-        mapping:
-          ContactOptions: '#/components/schemas/RoutingOutcome_ContactOptions'
-          CrmAction: '#/components/schemas/RoutingOutcome_CrmAction'
-          Other: '#/components/schemas/RoutingOutcome_Other'
-          OwnerAssign: '#/components/schemas/RoutingOutcome_OwnerAssign'
-          Redirect: '#/components/schemas/RoutingOutcome_Redirect'
-          Schedule: '#/components/schemas/RoutingOutcome_Schedule'
-    HandoffRouterCreate:
-      title: HandoffRouterCreate
+    RouteOutcome_Redirect:
+      title: RouteOutcome_Redirect
       type: object
       required:
-      - workspaceId
-      - name
-      - routing
+      - url
+      - type
       properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
+        url:
+          examples:
+          - https://example.com
           type: string
-        routing:
-          $ref: '#/components/schemas/RouterRouting'
-    CrmAction:
-      title: CrmAction
+        type:
+          type: string
+          const: Redirect
+    RouteOutcome:
+      title: RouteOutcome
       oneOf:
-      - $ref: '#/components/schemas/CrmAction_ConvertLead'
-      - $ref: '#/components/schemas/CrmAction_Notify'
+      - $ref: '#/components/schemas/RouteOutcome_Redirect'
+      - $ref: '#/components/schemas/RouteOutcome_Schedule'
       discriminator:
         propertyName: type
         mapping:
-          ConvertLead: '#/components/schemas/CrmAction_ConvertLead'
-          Notify: '#/components/schemas/CrmAction_Notify'
+          Redirect: '#/components/schemas/RouteOutcome_Redirect'
+          Schedule: '#/components/schemas/RouteOutcome_Schedule'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

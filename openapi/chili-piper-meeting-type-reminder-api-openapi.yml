@@ -384,14 +384,17 @@ paths:
       - meeting-type.remove
 components:
   schemas:
-    ReminderTriggerKind:
-      title: ReminderTriggerKind
+    ReminderChannel:
+      title: ReminderChannel
       type: string
       enum:
-      - BeforeMeeting
-      - BeforeMeetingNoResponse
-      - MeetingBooked
-      - AfterMeeting
+      - Email
+      - Sms
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     Reminder:
       title: Reminder
       type: object
@@ -418,11 +421,6 @@ components:
           type: string
         body:
           type: string
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
     ReminderUpdate:
       title: ReminderUpdate
       type: object
@@ -435,6 +433,30 @@ components:
           type: string
         body:
           type: string
+    ReminderTrigger:
+      title: ReminderTrigger
+      type: object
+      required:
+      - kind
+      properties:
+        kind:
+          $ref: '#/components/schemas/ReminderTriggerKind'
+        offset:
+          type: string
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    ReminderTriggerKind:
+      title: ReminderTriggerKind
+      type: string
+      enum:
+      - BeforeMeeting
+      - BeforeMeetingNoResponse
+      - MeetingBooked
+      - AfterMeeting
     ReminderCreate:
       title: ReminderCreate
       type: object
@@ -457,28 +479,6 @@ components:
           type: string
         body:
           type: string
-    ReminderTrigger:
-      title: ReminderTrigger
-      type: object
-      required:
-      - kind
-      properties:
-        kind:
-          $ref: '#/components/schemas/ReminderTriggerKind'
-        offset:
-          type: string
-    WorkspaceId:
-      title: WorkspaceId
-      examples:
-      - b7263a5d-89cb-4f50-a532-ea4aff74688e
-      type: string
-      pattern: '[^\s\\/]+'
-    ReminderChannel:
-      title: ReminderChannel
-      type: string
-      enum:
-      - Email
-      - Sms
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -419,39 +419,17 @@ paths:
       description: Production
 components:
   schemas:
-    HttpQueryResponse_A:
-      title: HttpQueryResponse_A
-      type: object
-      required:
-      - data
-      - hasMore
-      - hasMoreItems
-      properties:
-        data: {}
-        hasMore:
-          $ref: '#/components/schemas/HasMore'
-        hasMoreItems:
-          description: Whether more results exist beyond this page; drives pagination.
-          type: boolean
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    MeetingStatus:
-      title: MeetingStatus
-      type: string
-      enum:
-      - Active
-      - Canceled
-      - NoShow
-      - Completed
     HasMore:
       title: HasMore
       type: string
       enum:
       - 'Yes'
       - 'No'
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     QueryMeetingsRequest:
       title: QueryMeetingsRequest
       type: object
@@ -515,16 +493,28 @@ components:
           items:
             type: string
             format: uuid
-    HttpQueryResponse_A_2:
+    MeetingStatus:
+      title: MeetingStatus
+      type: string
+      enum:
+      - Active
+      - Canceled
+      - NoShow
+      - Completed
+    HttpQueryResponse_A:
       title: HttpQueryResponse_A
       type: object
       required:
       - data
       - hasMore
+      - hasMoreItems
       properties:
         data: {}
         hasMore:
           $ref: '#/components/schemas/HasMore'
+        hasMoreItems:
+          description: Whether more results exist beyond this page; drives pagination.
+          type: boolean
     QueryMeetingsRequest_2:
       title: QueryMeetingsRequest
       type: object
@@ -557,7 +547,7 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/MeetingStatus'
-    HttpQueryResponse_A_3:
+    HttpQueryResponse_A_2:
       title: HttpQueryResponse_A
       type: object
       required:
@@ -599,6 +589,16 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/MeetingStatus'
+    HttpQueryResponse_A_3:
+      title: HttpQueryResponse_A
+      type: object
+      required:
+      - data
+      - hasMore
+      properties:
+        data: {}
+        hasMore:
+          $ref: '#/components/schemas/HasMore'
     ExportMeetingsRequest:
       title: ExportMeetingsRequest
       type: object
@@ -647,15 +647,6 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/MeetingStatus'
-    Success1:
-      title: Success
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Success
     Failure1:
       title: Failure
       type: object
@@ -665,6 +656,15 @@ components:
         type:
           type: string
           const: Failure
+    Success1:
+      title: Success
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Success
     MeetingsEndpointsResponse:
       title: MeetingsEndpointsResponse
       oneOf:
