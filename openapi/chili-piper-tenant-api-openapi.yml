@@ -87,35 +87,32 @@ paths:
       - tenant.read
 components:
   schemas:
+    TenantInfo_Personal:
+      title: TenantInfo_Personal
+      type: object
+      required:
+      - tenantData
+      - email
+      - type
+      properties:
+        tenantData:
+          $ref: '#/components/schemas/TenantData'
+        email:
+          $ref: '#/components/schemas/Email'
+        type:
+          type: string
+          const: Personal
     Map_String:
       title: Map_String
       type: object
       additionalProperties:
         type: string
-    TenantData:
-      title: TenantData
-      type: object
-      required:
-      - tenantId
-      - cluster
-      - subdomain
-      properties:
-        tenantId:
-          $ref: '#/components/schemas/TenantId'
-        cluster:
-          type: string
-        subdomain:
-          type: string
-    TenantInfo:
-      title: TenantInfo
-      oneOf:
-      - $ref: '#/components/schemas/TenantInfo_Organization'
-      - $ref: '#/components/schemas/TenantInfo_Personal'
-      discriminator:
-        propertyName: type
-        mapping:
-          Organization: '#/components/schemas/TenantInfo_Organization'
-          Personal: '#/components/schemas/TenantInfo_Personal'
+    Email:
+      title: Email
+      examples:
+      - john.doe@acme.com
+      type: string
+      pattern: .+@.+
     TenantInfo_Organization:
       title: TenantInfo_Organization
       type: object
@@ -133,33 +130,36 @@ components:
         type:
           type: string
           const: Organization
-    Email:
-      title: Email
-      examples:
-      - john.doe@acme.com
-      type: string
-      pattern: .+@.+
-    TenantInfo_Personal:
-      title: TenantInfo_Personal
-      type: object
-      required:
-      - tenantData
-      - email
-      - type
-      properties:
-        tenantData:
-          $ref: '#/components/schemas/TenantData'
-        email:
-          $ref: '#/components/schemas/Email'
-        type:
-          type: string
-          const: Personal
     TenantId:
       title: TenantId
       examples:
       - acme-corp.app3
       type: string
       pattern: '[^\s\\/]+'
+    TenantInfo:
+      title: TenantInfo
+      oneOf:
+      - $ref: '#/components/schemas/TenantInfo_Organization'
+      - $ref: '#/components/schemas/TenantInfo_Personal'
+      discriminator:
+        propertyName: type
+        mapping:
+          Organization: '#/components/schemas/TenantInfo_Organization'
+          Personal: '#/components/schemas/TenantInfo_Personal'
+    TenantData:
+      title: TenantData
+      type: object
+      required:
+      - tenantId
+      - cluster
+      - subdomain
+      properties:
+        tenantId:
+          $ref: '#/components/schemas/TenantId'
+        cluster:
+          type: string
+        subdomain:
+          type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -171,26 +171,13 @@ paths:
       - logs.read
 components:
   schemas:
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    ChatConversationMessage:
-      title: ChatConversationMessage
-      type: object
-      required:
-      - role
-      - content
-      - timestamp
-      properties:
-        role:
-          $ref: '#/components/schemas/ChatMessageRole'
-        content:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
+    ChatRoutingOutcome:
+      title: ChatRoutingOutcome
+      type: string
+      enum:
+      - Routed
+      - NotRouted
+      - Abandoned
     ChatConversationLog:
       title: ChatConversationLog
       type: object
@@ -257,13 +244,49 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChatConversationMessage'
-    ChatRoutingOutcome:
-      title: ChatRoutingOutcome
-      type: string
-      enum:
-      - Routed
-      - NotRouted
-      - Abandoned
+    ChatConversationMessage:
+      title: ChatConversationMessage
+      type: object
+      required:
+      - role
+      - content
+      - timestamp
+      properties:
+        role:
+          $ref: '#/components/schemas/ChatMessageRole'
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    PaginatedResult_ChatConversationLog:
+      title: PaginatedResult_ChatConversationLog
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatConversationLog'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     ChatConversationMeeting:
       title: ChatConversationMeeting
       type: object
@@ -291,29 +314,6 @@ components:
       enum:
       - Bot
       - Guest
-    PaginatedResult_ChatConversationLog:
-      title: PaginatedResult_ChatConversationLog
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChatConversationLog'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
   securitySchemes:
     apiKeyAuth:
       type: apiKey

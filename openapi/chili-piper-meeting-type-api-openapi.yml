@@ -689,6 +689,163 @@ paths:
       description: Production
 components:
   schemas:
+    MeetingTypeId:
+      title: MeetingTypeId
+      examples:
+      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
+      type: string
+      format: uuid
+    MeetingLocation_HostsDefaultPhysicalLocation:
+      title: MeetingLocation_HostsDefaultPhysicalLocation
+      type: object
+      required:
+      - index
+      - host
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        host:
+          $ref: '#/components/schemas/MeetingLocationHost'
+        type:
+          type: string
+          const: HostsDefaultPhysicalLocation
+    MeetingBuffers:
+      title: MeetingBuffers
+      type: object
+      properties:
+        before:
+          type: string
+        after:
+          type: string
+    MeetingBookingLimitTimeframe:
+      title: MeetingBookingLimitTimeframe
+      type: string
+      enum:
+      - Hourly
+      - Daily
+      - Weekly
+      - Monthly
+      - Yearly
+    SharedWith_Workspace:
+      title: SharedWith_Workspace
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Workspace
+    MeetingBookingLimitBy:
+      title: MeetingBookingLimitBy
+      type: string
+      enum:
+      - Email
+      - Domain
+    MeetingLocation_CalendarPlatformConference:
+      title: MeetingLocation_CalendarPlatformConference
+      type: object
+      required:
+      - index
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        type:
+          type: string
+          const: CalendarPlatformConference
+    MeetingLocation_GongLink:
+      title: MeetingLocation_GongLink
+      type: object
+      required:
+      - index
+      - host
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        host:
+          $ref: '#/components/schemas/MeetingLocationHost'
+        type:
+          type: string
+          const: GongLink
+    MeetingLocation_ZoomOneTimeLink:
+      title: MeetingLocation_ZoomOneTimeLink
+      type: object
+      required:
+      - index
+      - host
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        host:
+          $ref: '#/components/schemas/MeetingLocationHost'
+        type:
+          type: string
+          const: ZoomOneTimeLink
+    SharedWith_Teams:
+      title: SharedWith_Teams
+      type: object
+      required:
+      - type
+      properties:
+        teamIds:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '[^\s\\/]+'
+        type:
+          type: string
+          const: Teams
+    MeetingLocation_DefinedInMeetingType:
+      title: MeetingLocation_DefinedInMeetingType
+      type: object
+      required:
+      - index
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        value:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: DefinedInMeetingType
+    ReminderTrigger:
+      title: ReminderTrigger
+      type: object
+      required:
+      - kind
+      properties:
+        kind:
+          $ref: '#/components/schemas/ReminderTriggerKind'
+        offset:
+          type: string
+    MeetingLocations:
+      title: MeetingLocations
+      type: object
+      required:
+      - default
+      properties:
+        default:
+          $ref: '#/components/schemas/MeetingLocation'
+        others:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeetingLocation'
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     Reminder:
       title: Reminder
       type: object
@@ -715,51 +872,8 @@ components:
           type: string
         body:
           type: string
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    MeetingTypeStatus:
-      title: MeetingTypeStatus
-      type: string
-      enum:
-      - Active
-      - Inactive
-    MeetingLocation_TeamsMeetingLink:
-      title: MeetingLocation_TeamsMeetingLink
-      type: object
-      required:
-      - index
-      - host
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        host:
-          $ref: '#/components/schemas/MeetingLocationHost'
-        type:
-          type: string
-          const: TeamsMeetingLink
-    MeetingBookingLimitBy:
-      title: MeetingBookingLimitBy
-      type: string
-      enum:
-      - Email
-      - Domain
-    SharedWith:
-      title: SharedWith
-      oneOf:
-      - $ref: '#/components/schemas/SharedWith_Teams'
-      - $ref: '#/components/schemas/SharedWith_Workspace'
-      discriminator:
-        propertyName: type
-        mapping:
-          Teams: '#/components/schemas/SharedWith_Teams'
-          Workspace: '#/components/schemas/SharedWith_Workspace'
-    MeetingLocation_DefinedInMeetingType:
-      title: MeetingLocation_DefinedInMeetingType
+    MeetingLocation_AskTheGuest:
+      title: MeetingLocation_AskTheGuest
       type: object
       required:
       - index
@@ -768,21 +882,9 @@ components:
         index:
           type: integer
           format: int32
-        value:
-          type: string
-          minLength: 1
         type:
           type: string
-          const: DefinedInMeetingType
-    MeetingBookingLimitTimeframe:
-      title: MeetingBookingLimitTimeframe
-      type: string
-      enum:
-      - Hourly
-      - Daily
-      - Weekly
-      - Monthly
-      - Yearly
+          const: AskTheGuest
     MeetingLocation_RingCentralLink:
       title: MeetingLocation_RingCentralLink
       type: object
@@ -799,30 +901,128 @@ components:
         type:
           type: string
           const: RingCentralLink
-    MeetingTypeCreate:
-      title: MeetingTypeCreate
+    MeetingLocation_HostsDefaultConferenceDetails:
+      title: MeetingLocation_HostsDefaultConferenceDetails
       type: object
       required:
-      - workspaceId
-      - name
-      - duration
+      - index
+      - host
+      - type
       properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        name:
+        index:
+          type: integer
+          format: int32
+        host:
+          $ref: '#/components/schemas/MeetingLocationHost'
+        type:
           type: string
-        duration:
+          const: HostsDefaultConferenceDetails
+    MeetingLocation_GoToMeetingLink:
+      title: MeetingLocation_GoToMeetingLink
+      type: object
+      required:
+      - index
+      - host
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        host:
+          $ref: '#/components/schemas/MeetingLocationHost'
+        type:
           type: string
-        description:
+          const: GoToMeetingLink
+    MeetingLocation_WebexLink:
+      title: MeetingLocation_WebexLink
+      type: object
+      required:
+      - index
+      - host
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        host:
+          $ref: '#/components/schemas/MeetingLocationHost'
+        type:
           type: string
-        inviteTitle:
+          const: WebexLink
+    SharedWith:
+      title: SharedWith
+      oneOf:
+      - $ref: '#/components/schemas/SharedWith_Teams'
+      - $ref: '#/components/schemas/SharedWith_Workspace'
+      discriminator:
+        propertyName: type
+        mapping:
+          Teams: '#/components/schemas/SharedWith_Teams'
+          Workspace: '#/components/schemas/SharedWith_Workspace'
+    MeetingTypeStatus:
+      title: MeetingTypeStatus
+      type: string
+      enum:
+      - Active
+      - Inactive
+    ReminderTriggerKind:
+      title: ReminderTriggerKind
+      type: string
+      enum:
+      - BeforeMeeting
+      - BeforeMeetingNoResponse
+      - MeetingBooked
+      - AfterMeeting
+    ReminderChannel:
+      title: ReminderChannel
+      type: string
+      enum:
+      - Email
+      - Sms
+    MeetingBookingLimit:
+      title: MeetingBookingLimit
+      type: object
+      required:
+      - limitBy
+      - timeframe
+      - count
+      properties:
+        limitBy:
+          $ref: '#/components/schemas/MeetingBookingLimitBy'
+        timeframe:
+          $ref: '#/components/schemas/MeetingBookingLimitTimeframe'
+        count:
+          type: integer
+          format: int32
+    MeetingLocation_TeamsMeetingLink:
+      title: MeetingLocation_TeamsMeetingLink
+      type: object
+      required:
+      - index
+      - host
+      - type
+      properties:
+        index:
+          type: integer
+          format: int32
+        host:
+          $ref: '#/components/schemas/MeetingLocationHost'
+        type:
           type: string
-        inviteDescription:
-          type: string
-        location:
-          $ref: '#/components/schemas/MeetingLocations'
-        sharedWith:
-          $ref: '#/components/schemas/SharedWith'
+          const: TeamsMeetingLink
+    WorkspaceId:
+      title: WorkspaceId
+      examples:
+      - b7263a5d-89cb-4f50-a532-ea4aff74688e
+      type: string
+      pattern: '[^\s\\/]+'
+    MeetingLocationHost:
+      title: MeetingLocationHost
+      type: string
+      enum:
+      - Host
+      - AssigneeIfExists
+      - BookerIfExists
     MeetingLocation:
       title: MeetingLocation
       oneOf:
@@ -851,215 +1051,6 @@ components:
           TeamsMeetingLink: '#/components/schemas/MeetingLocation_TeamsMeetingLink'
           WebexLink: '#/components/schemas/MeetingLocation_WebexLink'
           ZoomOneTimeLink: '#/components/schemas/MeetingLocation_ZoomOneTimeLink'
-    ReminderChannel:
-      title: ReminderChannel
-      type: string
-      enum:
-      - Email
-      - Sms
-    SharedWith_Teams:
-      title: SharedWith_Teams
-      type: object
-      required:
-      - type
-      properties:
-        teamIds:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            pattern: '[^\s\\/]+'
-        type:
-          type: string
-          const: Teams
-    MeetingLocation_AskTheGuest:
-      title: MeetingLocation_AskTheGuest
-      type: object
-      required:
-      - index
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        type:
-          type: string
-          const: AskTheGuest
-    MeetingLocation_GoToMeetingLink:
-      title: MeetingLocation_GoToMeetingLink
-      type: object
-      required:
-      - index
-      - host
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        host:
-          $ref: '#/components/schemas/MeetingLocationHost'
-        type:
-          type: string
-          const: GoToMeetingLink
-    MeetingLocations:
-      title: MeetingLocations
-      type: object
-      required:
-      - default
-      properties:
-        default:
-          $ref: '#/components/schemas/MeetingLocation'
-        others:
-          type: array
-          items:
-            $ref: '#/components/schemas/MeetingLocation'
-    MeetingLocation_GongLink:
-      title: MeetingLocation_GongLink
-      type: object
-      required:
-      - index
-      - host
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        host:
-          $ref: '#/components/schemas/MeetingLocationHost'
-        type:
-          type: string
-          const: GongLink
-    MeetingLocation_HostsDefaultConferenceDetails:
-      title: MeetingLocation_HostsDefaultConferenceDetails
-      type: object
-      required:
-      - index
-      - host
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        host:
-          $ref: '#/components/schemas/MeetingLocationHost'
-        type:
-          type: string
-          const: HostsDefaultConferenceDetails
-    MeetingLocation_HostsDefaultPhysicalLocation:
-      title: MeetingLocation_HostsDefaultPhysicalLocation
-      type: object
-      required:
-      - index
-      - host
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        host:
-          $ref: '#/components/schemas/MeetingLocationHost'
-        type:
-          type: string
-          const: HostsDefaultPhysicalLocation
-    MeetingLocation_ZoomOneTimeLink:
-      title: MeetingLocation_ZoomOneTimeLink
-      type: object
-      required:
-      - index
-      - host
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        host:
-          $ref: '#/components/schemas/MeetingLocationHost'
-        type:
-          type: string
-          const: ZoomOneTimeLink
-    SharedWith_Workspace:
-      title: SharedWith_Workspace
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Workspace
-    MeetingLocation_WebexLink:
-      title: MeetingLocation_WebexLink
-      type: object
-      required:
-      - index
-      - host
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        host:
-          $ref: '#/components/schemas/MeetingLocationHost'
-        type:
-          type: string
-          const: WebexLink
-    MeetingTypeId:
-      title: MeetingTypeId
-      examples:
-      - 4a8f2b3c-7d1e-4f9b-8a2c-3d5e6f789012
-      type: string
-      format: uuid
-    ReminderTrigger:
-      title: ReminderTrigger
-      type: object
-      required:
-      - kind
-      properties:
-        kind:
-          $ref: '#/components/schemas/ReminderTriggerKind'
-        offset:
-          type: string
-    MeetingLocationHost:
-      title: MeetingLocationHost
-      type: string
-      enum:
-      - Host
-      - AssigneeIfExists
-      - BookerIfExists
-    MeetingLocation_CalendarPlatformConference:
-      title: MeetingLocation_CalendarPlatformConference
-      type: object
-      required:
-      - index
-      - type
-      properties:
-        index:
-          type: integer
-          format: int32
-        type:
-          type: string
-          const: CalendarPlatformConference
-    WorkspaceId:
-      title: WorkspaceId
-      examples:
-      - b7263a5d-89cb-4f50-a532-ea4aff74688e
-      type: string
-      pattern: '[^\s\\/]+'
-    MeetingBuffers:
-      title: MeetingBuffers
-      type: object
-      properties:
-        before:
-          type: string
-        after:
-          type: string
-    ReminderTriggerKind:
-      title: ReminderTriggerKind
-      type: string
-      enum:
-      - BeforeMeeting
-      - BeforeMeetingNoResponse
-      - MeetingBooked
-      - AfterMeeting
     MeetingType:
       title: MeetingType
       type: object
@@ -1102,21 +1093,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Reminder'
-    MeetingBookingLimit:
-      title: MeetingBookingLimit
+    MeetingTypeCreate:
+      title: MeetingTypeCreate
       type: object
       required:
-      - limitBy
-      - timeframe
-      - count
+      - workspaceId
+      - name
+      - duration
       properties:
-        limitBy:
-          $ref: '#/components/schemas/MeetingBookingLimitBy'
-        timeframe:
-          $ref: '#/components/schemas/MeetingBookingLimitTimeframe'
-        count:
-          type: integer
-          format: int32
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        name:
+          type: string
+        duration:
+          type: string
+        description:
+          type: string
+        inviteTitle:
+          type: string
+        inviteDescription:
+          type: string
+        location:
+          $ref: '#/components/schemas/MeetingLocations'
+        sharedWith:
+          $ref: '#/components/schemas/SharedWith'
     MeetingTypeUpdate:
       title: MeetingTypeUpdate
       type: object

@@ -384,17 +384,20 @@ paths:
       - meeting-type.remove
 components:
   schemas:
+    ReminderTriggerKind:
+      title: ReminderTriggerKind
+      type: string
+      enum:
+      - BeforeMeeting
+      - BeforeMeetingNoResponse
+      - MeetingBooked
+      - AfterMeeting
     ReminderChannel:
       title: ReminderChannel
       type: string
       enum:
       - Email
       - Sms
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
     Reminder:
       title: Reminder
       type: object
@@ -421,42 +424,17 @@ components:
           type: string
         body:
           type: string
-    ReminderUpdate:
-      title: ReminderUpdate
+    Map_String:
+      title: Map_String
       type: object
-      properties:
-        name:
-          type: string
-        trigger:
-          $ref: '#/components/schemas/ReminderTrigger'
-        title:
-          type: string
-        body:
-          type: string
-    ReminderTrigger:
-      title: ReminderTrigger
-      type: object
-      required:
-      - kind
-      properties:
-        kind:
-          $ref: '#/components/schemas/ReminderTriggerKind'
-        offset:
-          type: string
+      additionalProperties:
+        type: string
     WorkspaceId:
       title: WorkspaceId
       examples:
       - b7263a5d-89cb-4f50-a532-ea4aff74688e
       type: string
       pattern: '[^\s\\/]+'
-    ReminderTriggerKind:
-      title: ReminderTriggerKind
-      type: string
-      enum:
-      - BeforeMeeting
-      - BeforeMeetingNoResponse
-      - MeetingBooked
-      - AfterMeeting
     ReminderCreate:
       title: ReminderCreate
       type: object
@@ -475,6 +453,28 @@ components:
           $ref: '#/components/schemas/ReminderTrigger'
         name:
           type: string
+        title:
+          type: string
+        body:
+          type: string
+    ReminderTrigger:
+      title: ReminderTrigger
+      type: object
+      required:
+      - kind
+      properties:
+        kind:
+          $ref: '#/components/schemas/ReminderTriggerKind'
+        offset:
+          type: string
+    ReminderUpdate:
+      title: ReminderUpdate
+      type: object
+      properties:
+        name:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/ReminderTrigger'
         title:
           type: string
         body:

@@ -406,34 +406,6 @@ paths:
       description: Production
 components:
   schemas:
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
-    PaginatedResult_Workspace:
-      title: PaginatedResult_Workspace
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
     Workspace:
       title: Workspace
       type: object
@@ -452,6 +424,11 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/SimpleMetadata'
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
     WorkspaceId:
       title: WorkspaceId
       examples:
@@ -487,6 +464,29 @@ components:
         revision:
           type: integer
           format: int32
+    PaginatedResult_Workspace:
+      title: PaginatedResult_Workspace
+      type: object
+      required:
+      - total
+      - page
+      - pageSize
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+        total:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
     Workspace_2:
       title: Workspace
       type: object
@@ -509,39 +509,56 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/SimpleMetadata'
-    UserLicenses:
-      title: UserLicenses
+    PaginatedResult_User:
+      title: PaginatedResult_User
       type: object
       required:
-      - chiliCalOrg
-      - handoff
+      - total
+      - page
+      - pageSize
       properties:
-        distro:
-          type: boolean
-        chiliCalOrg:
-          type: boolean
-        concierge:
-          type: boolean
-        conciergeLive:
-          type: boolean
-        chat:
-          type: boolean
-        handoff:
-          type: boolean
-        tier:
-          $ref: '#/components/schemas/Tier'
-    HubspotUser:
-      title: HubspotUser
-      type: object
-      required:
-      - email
-      - id
-      properties:
-        email:
-          $ref: '#/components/schemas/Email'
-        id:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        total:
           type: integer
           format: int64
+        page:
+          type: integer
+          format: int64
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int64
+          exclusiveMinimum: 0
+    AddUsersToWorkspaceRequest:
+      title: AddUsersToWorkspaceRequest
+      type: object
+      required:
+      - workspaceId
+      - userIds
+      properties:
+        workspaceId:
+          $ref: '#/components/schemas/WorkspaceId'
+        userIds:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UserId'
+    Tier:
+      title: Tier
+      type: string
+      enum:
+      - RoutingAndScheduling
+      - Experiences
+      - ChiliDataPlatform
+    Email:
+      title: Email
+      examples:
+      - john.doe@acme.com
+      type: string
+      pattern: .+@.+
     User:
       title: User
       type: object
@@ -591,56 +608,27 @@ components:
         personalWorkspaceId:
           type: string
           pattern: '[^\s\\/]+'
-    Tier:
-      title: Tier
-      type: string
-      enum:
-      - RoutingAndScheduling
-      - Experiences
-      - ChiliDataPlatform
-    AddUsersToWorkspaceRequest:
-      title: AddUsersToWorkspaceRequest
+    UserLicenses:
+      title: UserLicenses
       type: object
       required:
-      - workspaceId
-      - userIds
+      - chiliCalOrg
+      - handoff
       properties:
-        workspaceId:
-          $ref: '#/components/schemas/WorkspaceId'
-        userIds:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/UserId'
-    Email:
-      title: Email
-      examples:
-      - john.doe@acme.com
-      type: string
-      pattern: .+@.+
-    PaginatedResult_User:
-      title: PaginatedResult_User
-      type: object
-      required:
-      - total
-      - page
-      - pageSize
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        total:
-          type: integer
-          format: int64
-        page:
-          type: integer
-          format: int64
-          minimum: 0
-        pageSize:
-          type: integer
-          format: int64
-          exclusiveMinimum: 0
+        distro:
+          type: boolean
+        chiliCalOrg:
+          type: boolean
+        concierge:
+          type: boolean
+        conciergeLive:
+          type: boolean
+        chat:
+          type: boolean
+        handoff:
+          type: boolean
+        tier:
+          $ref: '#/components/schemas/Tier'
     UserId:
       title: UserId
       examples:
@@ -659,6 +647,18 @@ components:
         id:
           type: string
           pattern: '[^\s\\/]+'
+    HubspotUser:
+      title: HubspotUser
+      type: object
+      required:
+      - email
+      - id
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        id:
+          type: integer
+          format: int64
     RemoveUserFromWorkspaceRequest:
       title: RemoveUserFromWorkspaceRequest
       type: object

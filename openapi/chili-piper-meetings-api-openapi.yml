@@ -419,17 +419,6 @@ paths:
       description: Production
 components:
   schemas:
-    HasMore:
-      title: HasMore
-      type: string
-      enum:
-      - 'Yes'
-      - 'No'
-    Map_String:
-      title: Map_String
-      type: object
-      additionalProperties:
-        type: string
     QueryMeetingsRequest:
       title: QueryMeetingsRequest
       type: object
@@ -501,6 +490,17 @@ components:
       - Canceled
       - NoShow
       - Completed
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    HasMore:
+      title: HasMore
+      type: string
+      enum:
+      - 'Yes'
+      - 'No'
     HttpQueryResponse_A:
       title: HttpQueryResponse_A
       type: object
@@ -647,15 +647,6 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/MeetingStatus'
-    Failure1:
-      title: Failure
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: Failure
     Success1:
       title: Success
       type: object
@@ -665,6 +656,15 @@ components:
         type:
           type: string
           const: Success
+    Failure1:
+      title: Failure
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: Failure
     MeetingsEndpointsResponse:
       title: MeetingsEndpointsResponse
       oneOf:
