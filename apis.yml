@@ -350,6 +350,8 @@ apis:
     https://help.chilipiper.com/hc/en-us/articles/50430350863635-How-do-I-connect-Chili-Piper-via-MCP
   baseURL: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
   tags:
+  - Hand-off
+  tags_raw:
   - Hand off
   properties:
   - type: OpenAPI
@@ -384,6 +386,9 @@ apis:
   - type: Authentication
     url: authentication/chili-piper-authentication.yml
 common:
+- type: CapabilityMap
+  url: capabilities/chili-piper-capability-edges.yml
+  name: Chili Piper Business Capability Map
 - type: AgenticAccess
   url: agentic-access/chili-piper-agentic-access.yml
 - type: Overlay
