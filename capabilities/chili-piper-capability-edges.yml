@@ -1,0 +1,35 @@
+slug: chili-piper
+provider: Chili Piper
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: concierge
+  spec_file: chili-piper-concierge-api-openapi.yml
+  capability_id: BC-410.50
+  capability_id_l1: BC-410
+  capability_name: Sales Operations Management
+  confidence: 0.7
+  evidence: POST /v1/org/concierge/routers/concierge  Create concierge router; schemas CrmUpdateLeadField,
+    CrmUpdateContactOwnership, SchedulingSettings1, Opportunity
+  reason: Concierge routers qualify inbound form submissions, update CRM lead ownership and book meetings
+    with reps — inbound lead routing and sales process tooling under Sales Operations Management.
+- tag: distro
+  spec_file: chili-piper-distro-api-openapi.yml
+  capability_id: BC-410.50
+  capability_id_l1: BC-410
+  capability_name: Sales Operations Management
+  confidence: 0.7
+  evidence: POST /v1/org/distro/routers  distroRouterCreate; schemas DistributionMethod, DistroLogAssignment,
+    DistroLogEnrichmentField
+  reason: Distro routers assign and enrich inbound leads to sales reps with audit logs of assignment decisions
+    — lead routing / sales operations tooling.
