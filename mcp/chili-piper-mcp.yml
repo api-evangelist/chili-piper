@@ -252,3 +252,16 @@ deployment:
   probe: gated
   checked: '2026-08-12'
   source: catalog MCP census
+rfc9728:
+  endpoint: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+  metadata_url: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+    authorization_servers:
+    - https://fire.chilipiper.com/api/fire-edge/v1/org/mcp
+    bearer_methods_supported:
+    - header
