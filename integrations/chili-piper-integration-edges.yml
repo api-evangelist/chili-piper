@@ -1,0 +1,419 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/chili-piper/integrations
+checked:
+- https://composio.dev/toolkits/chili-piper
+- https://monid.ai/tools/chili-piper
+- https://n8n.io/integrations/chili-piper/
+- https://zapier.com/apps/chili-piper/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: chili-piper
+  url: https://zapier.com/apps/chili-piper/integrations
+  external_url: https://www.chilipiper.com/
+  partner_tier: SILVER
+  triggers:
+  - key: meeting_created
+    label: Meeting Created
+  - key: meeting_deleted
+    label: Meeting Deleted
+  - key: meeting_updated
+    label: Meeting Updated
+  actions: []
+  searches: []
+edges:
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Clearbit
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/clearbit
+  direction: third-party
+  category: Contact Management
+  partner_url: https://clearbit.com/zapier?utm_source=zapier&utm_medium=referral&utm_campaign=partner
+- partner_name: Slack
+  partner: slack
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/slack
+  direction: third-party
+  category: Team Chat
+  partner_url: https://slack.com/
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: Twilio
+  partner: twilio
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/twilio
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://www.twilio.com/
+- partner_name: Marketo
+  partner: marketo
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/marketo
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://marketo.com/
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: Kartra
+  partner: kartra
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/kartra
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://home.kartra.com/
+- partner_name: Mailshake
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/mailshake
+  direction: third-party
+  category: Drip Emails
+  partner_url: https://mailshake.com/
+- partner_name: Dreamdata
+  partner: dreamdata
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/dreamdata
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://dreamdata.io/
+- partner_name: Gratavid
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/gratavid
+  direction: third-party
+  category: Video & Audio
+  partner_url: https://gratavid.com/
+- partner_name: Glip
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/glip
+  direction: third-party
+  category: Team Chat
+  partner_url: https://glip.com/
+- partner_name: Zendesk
+  partner: zendesk
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/zendesk
+  direction: third-party
+  category: Customer Support
+  partner_url: https://www.zendesk.com/
+- partner_name: Salesforce
+  partner: salesforce
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/salesforce
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.salesforce.com/
+- partner_name: Accelo
+  partner: accelo
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/accelo
+  direction: third-party
+  category: Productivity
+  partner_url: http://www.accelo.com/
+- partner_name: PostgreSQL
+  partner: postgresql
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/postgresql
+  direction: third-party
+  category: Databases
+  partner_url: http://www.postgresql.org/
+- partner_name: Reply
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/reply
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://reply.io/
+- partner_name: Jotform
+  partner: jotform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/jotform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://www.jotform.com/
+- partner_name: Pardot
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/pardot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.pardot.com/
+- partner_name: trumpet
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/trumpet
+  direction: third-party
+  category: Sales & CRM
+  partner_url: https://www.sendtrumpet.com/
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: Giftbit
+  partner: giftbit
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/giftbit
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.giftbit.com/
+- partner_name: Webflow
+  partner: webflow
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/webflow
+  direction: third-party
+  category: Website Builders
+  partner_url: https://webflow.com/
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/zoom
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://www.zoom.us/
+- partner_name: Brevo
+  partner: brevo
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/brevo
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://www.sendinblue.com/?utm_medium=plugin&utm_source=zapier
+- partner_name: Google Drive
+  partner: google-drive
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/google-drive
+  direction: third-party
+  category: File Management & Storage
+  partner_url: https://www.google.com/drive/
+- partner_name: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/microsoft-outlook
+  direction: third-party
+  category: Calendar
+  partner_url: https://outlook.live.com/
+- partner_name: ClickUp
+  partner: clickup
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/clickup
+  direction: third-party
+  category: Project Management
+  partner_url: https://clickup.com/zapier
+- partner_name: Anthropic (Claude)
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/anthropic-claude
+  direction: third-party
+  category: AI Models
+  partner_url: https://www.anthropic.com/
+- partner_name: LinkedIn
+  partner: linkedin
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/linkedin
+  direction: third-party
+  category: Microsoft
+  partner_url: http://www.linkedin.com/
+templates:
+- title: Post Slack channel messages for new Chili Piper meetings.
+  url: https://zapier.com/apps/chili-piper/integrations/slack/1210706/post-slack-channel-messages-for-new-chili-piper-meetings
+  apps:
+  - chili-piper
+  - slack
+- title: Notify Slack private channels when Chili Piper meetings are rescheduled
+  url: https://zapier.com/apps/chili-piper/integrations/slack/1391751/notify-slack-private-channels-when-chili-piper-meetings-are-rescheduled
+  apps:
+  - chili-piper
+  - slack
+- title: Increment Growth Hound counter when a new meeting is created in Chili Piper
+  url: https://zapier.com/apps/chili-piper/integrations/growth-hound/218420/increment-growth-hound-counter-when-a-new-meeting-is-created-in-chili-piper
+  apps:
+  - chili-piper
+  - growth-hound
+- title: Send rewards via Xoxoday Plum for new Chili Piper meetings
+  url: https://zapier.com/apps/chili-piper/integrations/xoxoday-plum/402681/send-rewards-via-xoxoday-plum-for-new-chili-piper-meetings
+  apps:
+  - chili-piper
+  - xoxoday-plum
+- title: Update persons in Reply and push to campaigns with new meetings in Chili Piper
+  url: https://zapier.com/apps/chili-piper/integrations/reply/555816/update-persons-in-reply-and-push-to-campaigns-with-new-meetings-in-chili-piper
+  apps:
+  - chili-piper
+  - reply
+- title: Generate contacts in Reply and push to campaigns with newly-rescheduled Chili Piper meetings
+  url: https://zapier.com/apps/chili-piper/integrations/reply/555821/generate-contacts-in-reply-and-push-to-campaigns-with-newly-rescheduled-chili-piper-meetings
+  apps:
+  - chili-piper
+  - reply
+- title: Remove contacts from campaigns in Reply with new meetings in Chili Piper
+  url: https://zapier.com/apps/chili-piper/integrations/reply/555824/remove-contacts-from-campaigns-in-reply-with-new-meetings-in-chili-piper
+  apps:
+  - chili-piper
+  - reply
+- title: Remove contacts from rescheduled meetings in Chili Piper from campaigns in Reply
+  url: https://zapier.com/apps/chili-piper/integrations/reply/555826/remove-contacts-from-rescheduled-meetings-in-chili-piper-from-campaigns-in-reply
+  apps:
+  - chili-piper
+  - reply
+- title: Send Reachdesk eGifts for new Chili Piper meetings
+  url: https://zapier.com/apps/chili-piper/integrations/reachdesk/570337/send-reachdesk-egifts-for-new-chili-piper-meetings
+  apps:
+  - chili-piper
+  - reachdesk
+- title: Mark prospects in Woodpecker as REPLIED for new Chili Piper meetings
+  url: https://zapier.com/apps/chili-piper/integrations/woodpecker/619710/mark-prospects-in-woodpecker-as-replied-for-new-chili-piper-meetings
+  apps:
+  - chili-piper
+  - woodpecker
+- title: Plant trees in Digital Humani for new meetings in Chili Piper
+  url: https://zapier.com/apps/chili-piper/integrations/digital-humani/997479/plant-trees-in-digital-humani-for-new-meetings-in-chili-piper
+  apps:
+  - chili-piper
+  - digital-humani
+- title: Log new Chili Piper meetings in Google Sheets
+  url: https://zapier.com/apps/chili-piper/integrations/google-sheets/1087384/log-new-chili-piper-meetings-in-google-sheets
+  apps:
+  - chili-piper
+  - google-sheets
+template_total: 54
