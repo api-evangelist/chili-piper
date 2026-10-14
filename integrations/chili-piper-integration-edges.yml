@@ -6,6 +6,7 @@ checked:
 - https://composio.dev/toolkits/chili-piper
 - https://monid.ai/tools/chili-piper
 - https://n8n.io/integrations/chili-piper/
+- https://registry.modelcontextprotocol.io/v0/servers
 - https://zapier.com/apps/chili-piper/integrations
 summary: null
 marketplace_apps:
@@ -355,6 +356,37 @@ edges:
   direction: third-party
   category: Microsoft
   partner_url: http://www.linkedin.com/
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.chilipiper
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: com.chilipiper/mcp
+    register_id: com.chilipiper/mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-14'
+  mcp_registry:
+    servers:
+    - com.chilipiper/mcp
+    hosted_remote: 1
+    local_package: 0
+    transports:
+      streamable-http: 1
+    auth_declared: 0
+    catalog_declared: true
+    namespace_domains:
+    - chilipiper.com
+  matched_by:
+  - namespace-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
 templates:
 - title: Post Slack channel messages for new Chili Piper meetings.
   url: https://zapier.com/apps/chili-piper/integrations/slack/1210706/post-slack-channel-messages-for-new-chili-piper-meetings
