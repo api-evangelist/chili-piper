@@ -15,6 +15,7 @@
   evidence: https://zapier.com/apps/chili-piper/integrations/slack/1210706/post-slack-channel-messages-for-new-chili-piper-meetings
   template: https://zapier.com/apps/chili-piper/integrations/slack/1210706/post-slack-channel-messages-for-new-chili-piper-meetings
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: chili-piper-notify-slack-private-channels-when-chili-piper-meetings-are-rescheduled
@@ -29,6 +30,7 @@
   evidence: https://zapier.com/apps/chili-piper/integrations/slack/1391751/notify-slack-private-channels-when-chili-piper-meetings-are-rescheduled
   template: https://zapier.com/apps/chili-piper/integrations/slack/1391751/notify-slack-private-channels-when-chili-piper-meetings-are-rescheduled
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: chili-piper-update-persons-in-reply-and-push-to-campaigns-with-new-meetings-in-chili-piper
@@ -42,6 +44,7 @@
   evidence: https://zapier.com/apps/chili-piper/integrations/reply/555816/update-persons-in-reply-and-push-to-campaigns-with-new-meetings-in-chili-piper
   template: https://zapier.com/apps/chili-piper/integrations/reply/555816/update-persons-in-reply-and-push-to-campaigns-with-new-meetings-in-chili-piper
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: chili-piper-generate-contacts-in-reply-and-push-to-campaigns-with-newly-rescheduled-chili-
@@ -55,6 +58,7 @@
   evidence: https://zapier.com/apps/chili-piper/integrations/reply/555821/generate-contacts-in-reply-and-push-to-campaigns-with-newly-rescheduled-chili-piper-meetings
   template: https://zapier.com/apps/chili-piper/integrations/reply/555821/generate-contacts-in-reply-and-push-to-campaigns-with-newly-rescheduled-chili-piper-meetings
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: chili-piper-remove-contacts-from-campaigns-in-reply-with-new-meetings-in-chili-piper
@@ -68,6 +72,7 @@
   evidence: https://zapier.com/apps/chili-piper/integrations/reply/555824/remove-contacts-from-campaigns-in-reply-with-new-meetings-in-chili-piper
   template: https://zapier.com/apps/chili-piper/integrations/reply/555824/remove-contacts-from-campaigns-in-reply-with-new-meetings-in-chili-piper
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: chili-piper-remove-contacts-from-rescheduled-meetings-in-chili-piper-from-campaigns-in-rep
@@ -81,355 +86,8 @@
   evidence: https://zapier.com/apps/chili-piper/integrations/reply/555826/remove-contacts-from-rescheduled-meetings-in-chili-piper-from-campaigns-in-reply
   template: https://zapier.com/apps/chili-piper/integrations/reply/555826/remove-contacts-from-rescheduled-meetings-in-chili-piper-from-campaigns-in-reply
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-hubspot
-  label: HubSpot
-  partner: hubspot
-  partner_name: HubSpot
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/hubspot
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-clearbit
-  label: Clearbit
-  partner_name: Clearbit
-  category: Contact Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/clearbit
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-mailchimp
-  label: Mailchimp
-  partner: mailchimp
-  partner_name: Mailchimp
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/mailchimp
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-twilio
-  label: Twilio
-  partner: twilio
-  partner_name: Twilio
-  category: Phone & SMS
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/twilio
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-marketo
-  label: Marketo
-  partner: marketo
-  partner_name: Marketo
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/marketo
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-google-calendar
-  label: Google Calendar
-  partner: google-calendar
-  partner_name: Google Calendar
-  category: Calendar
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/google-calendar
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-kartra
-  label: Kartra
-  partner: kartra
-  partner_name: Kartra
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/kartra
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-mailshake
-  label: Mailshake
-  partner_name: Mailshake
-  category: Drip Emails
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/mailshake
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-dreamdata
-  label: Dreamdata
-  partner: dreamdata
-  partner_name: Dreamdata
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/dreamdata
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-gratavid
-  label: Gratavid
-  partner_name: Gratavid
-  category: Video & Audio
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/gratavid
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-glip
-  label: Glip
-  partner_name: Glip
-  category: Team Chat
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/glip
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-zendesk
-  label: Zendesk
-  partner: zendesk
-  partner_name: Zendesk
-  category: Customer Support
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/zendesk
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-salesforce
-  label: Salesforce
-  partner: salesforce
-  partner_name: Salesforce
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/salesforce
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-accelo
-  label: Accelo
-  partner: accelo
-  partner_name: Accelo
-  category: Productivity
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/accelo
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-postgresql
-  label: PostgreSQL
-  partner: postgresql
-  partner_name: PostgreSQL
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/postgresql
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-jotform
-  label: Jotform
-  partner: jotform
-  partner_name: Jotform
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/jotform
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-pardot
-  label: Pardot
-  partner_name: Pardot
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/pardot
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-trumpet
-  label: trumpet
-  partner_name: trumpet
-  category: Sales & CRM
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/trumpet
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-typeform
-  label: Typeform
-  partner: typeform
-  partner_name: Typeform
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/typeform
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-giftbit
-  label: Giftbit
-  partner: giftbit
-  partner_name: Giftbit
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/giftbit
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-webflow
-  label: Webflow
-  partner: webflow
-  partner_name: Webflow
-  category: Website Builders
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/webflow
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-zoom
-  label: Zoom
-  partner: zoom
-  partner_name: Zoom
-  category: Video Conferencing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/zoom
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-brevo
-  label: Brevo
-  partner: brevo
-  partner_name: Brevo
-  category: Email Newsletters
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/brevo
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-google-drive
-  label: Google Drive
-  partner: google-drive
-  partner_name: Google Drive
-  category: File Management & Storage
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/google-drive
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-microsoft-outlook
-  label: Microsoft Outlook
-  partner: microsoft-outlook
-  partner_name: Microsoft Outlook
-  category: Calendar
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/microsoft-outlook
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-clickup
-  label: ClickUp
-  partner: clickup
-  partner_name: ClickUp
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/clickup
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-anthropic-claude
-  label: Anthropic (Claude)
-  partner_name: Anthropic (Claude)
-  category: AI Models
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/anthropic-claude
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: chili-piper-linkedin
-  label: LinkedIn
-  partner: linkedin
-  partner_name: LinkedIn
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/chili-piper/integrations/linkedin
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: chili-piper-mcp-registry
-  label: MCP Registry
-  partner: mcp
-  partner_name: MCP Registry
-  type: register
-  channel: standard-directory
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.chilipiper
-  source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: com.chilipiper/mcp
-    register_id: com.chilipiper/mcp
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
-  status: not-a-workflow
   arazzo: null
 - slug: chili-piper-zapier
   label: Zapier
@@ -508,4 +166,382 @@
     detected_by: sweep-official-sdks.py
     detected: '2026-10-18'
   status: not-a-workflow
+  arazzo: null
+- slug: chili-piper-mcp-registry
+  label: MCP Registry
+  partner: mcp
+  partner_name: MCP Registry
+  type: register
+  channel: standard-directory
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.chilipiper
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: com.chilipiper/mcp
+    register_id: com.chilipiper/mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: chili-piper-hubspot
+  label: HubSpot
+  partner: hubspot
+  partner_name: HubSpot
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/hubspot
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-clearbit
+  label: Clearbit
+  partner: clearbit
+  partner_name: Clearbit
+  category: Contact Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/clearbit
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-mailchimp
+  label: Mailchimp
+  partner: mailchimp
+  partner_name: Mailchimp
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/mailchimp
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-twilio
+  label: Twilio
+  partner: twilio
+  partner_name: Twilio
+  category: Phone & SMS
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/twilio
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-marketo
+  label: Marketo
+  partner: marketo
+  partner_name: Marketo
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/marketo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-google-calendar
+  label: Google Calendar
+  partner: google-calendar
+  partner_name: Google Calendar
+  category: Calendar
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/google-calendar
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-kartra
+  label: Kartra
+  partner: kartra
+  partner_name: Kartra
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/kartra
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-mailshake
+  label: Mailshake
+  partner_name: Mailshake
+  category: Drip Emails
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/mailshake
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-dreamdata
+  label: Dreamdata
+  partner: dreamdata
+  partner_name: Dreamdata
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/dreamdata
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-gratavid
+  label: Gratavid
+  partner_name: Gratavid
+  category: Video & Audio
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/gratavid
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-glip
+  label: Glip
+  partner_name: Glip
+  category: Team Chat
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/glip
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-salesforce
+  label: Salesforce
+  partner: salesforce
+  partner_name: Salesforce
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/salesforce
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-zendesk
+  label: Zendesk
+  partner: zendesk
+  partner_name: Zendesk
+  category: Customer Support
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/zendesk
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-accelo
+  label: Accelo
+  partner: accelo
+  partner_name: Accelo
+  category: Productivity
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/accelo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-postgresql
+  label: PostgreSQL
+  partner: postgresql
+  partner_name: PostgreSQL
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/postgresql
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-jotform
+  label: Jotform
+  partner: jotform
+  partner_name: Jotform
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/jotform
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-pardot
+  label: Pardot
+  partner_name: Pardot
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/pardot
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-trumpet
+  label: trumpet
+  partner_name: trumpet
+  category: Sales & CRM
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/trumpet
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: chili-piper-typeform
+  label: Typeform
+  partner: typeform
+  partner_name: Typeform
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/typeform
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-giftbit
+  label: Giftbit
+  partner: giftbit
+  partner_name: Giftbit
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/giftbit
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-webflow
+  label: Webflow
+  partner: webflow
+  partner_name: Webflow
+  category: Website Builders
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/webflow
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-zoom
+  label: Zoom
+  partner: zoom
+  partner_name: Zoom
+  category: Video Conferencing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/zoom
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-brevo
+  label: Brevo
+  partner: brevo
+  partner_name: Brevo
+  category: Email Newsletters
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/brevo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-google-drive
+  label: Google Drive
+  partner: google-drive
+  partner_name: Google Drive
+  category: File Management & Storage
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/google-drive
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-microsoft-outlook
+  label: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_name: Microsoft Outlook
+  category: Calendar
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/microsoft-outlook
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-clickup
+  label: ClickUp
+  partner: clickup
+  partner_name: ClickUp
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/clickup
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-anthropic-claude
+  label: Anthropic (Claude)
+  partner: anthropic
+  partner_name: Anthropic (Claude)
+  category: AI Models
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/anthropic-claude
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: chili-piper-linkedin
+  label: LinkedIn
+  partner: linkedin-ads
+  partner_name: LinkedIn
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/chili-piper/integrations/linkedin
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
   arazzo: null
