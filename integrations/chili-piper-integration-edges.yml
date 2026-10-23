@@ -24,6 +24,7 @@ checked:
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
 - hubspot/integrations/hubspot-integration-edges.yml
+- intercom/integrations/intercom-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -563,6 +564,23 @@ edges:
   detected: '2026-10-21'
   detected_by: mirror-platform-listings.py
   category: SCHEDULING
+- partner_name: Intercom (own)
+  partner: intercom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.intercom.com/app-store/?app_package_code=chili-piper-aj5s
+  mirror_of: intercom/integrations/intercom-integration-edges.yml
+  apps:
+  - Chili Piper
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Scheduling tools
 templates:
 - title: Post Slack channel messages for new Chili Piper meetings.
   url: https://zapier.com/apps/chili-piper/integrations/slack/1210706/post-slack-channel-messages-for-new-chili-piper-meetings
